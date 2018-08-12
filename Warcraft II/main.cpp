@@ -3,7 +3,7 @@
 int main()
 {
 	sf::RenderWindow window;
-	window.create(sf::VideoMode(800, 600), "SFML");
+	window.create(sf::VideoMode(800, 600), "Warcraft II");
 
 	while (window.isOpen())
 	{
