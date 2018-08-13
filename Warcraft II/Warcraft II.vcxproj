@@ -126,12 +126,14 @@
     <ClCompile Include="includes\Menu.cpp" />
     <ClCompile Include="includes\RW\Environment.cpp" />
     <ClCompile Include="includes\RW\Loading.cpp" />
+    <ClCompile Include="includes\RW\Settings.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\Menu.h" />
     <ClInclude Include="includes\RW\Environment.h" />
     <ClInclude Include="includes\RW\Loading.h" />
+    <ClInclude Include="includes\RW\Settings.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="environment.json" />

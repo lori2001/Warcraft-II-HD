@@ -2,7 +2,7 @@
 #include <iostream>
 #include "SFML\Graphics.hpp"
 #include "SFML\Audio.hpp"
-//#include "Settings.h"
+#include "Settings.h"
 
 namespace RW
 {
@@ -97,6 +97,6 @@ namespace RW
 
 		static void setMusicVolume(const unsigned short &in);
 		static void setSFXVolume(const unsigned short &in);
-		static void loadFiles(sf::RenderWindow & window);//, RW::Settings & settings);
+		static void loadFiles(sf::RenderWindow & window, RW::Settings & settings);
 	};
 }

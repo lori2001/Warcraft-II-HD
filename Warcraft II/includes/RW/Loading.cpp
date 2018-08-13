@@ -83,17 +83,17 @@ namespace RW
 	{
 		pressbutton.setVolume(in);
 	}
-	void Loading::loadFiles(sf::RenderWindow & window)//, RW::Settings & settings)
+	void Loading::loadFiles(sf::RenderWindow & window, RW::Settings & settings)
 	{
 		if (!loadingscreenT.loadFromFile("assets/images/loadingscreen.jpg"))
 			std::cout << "error: could not load loadingscreen.jpg" << std::endl;
 
 		loadingscreenS.setTexture(loadingscreenT);
-		//loadingscreenS.setScale(sf::Vector2f(float(settings.get1920Scale().x), float(settings.get1920Scale().y)));
+		loadingscreenS.setScale(sf::Vector2f(float(settings.get1920Scale().x), float(settings.get1920Scale().y)));
 
 		progressbar.setFillColor(sf::Color::Green);
-		//progressbar.setScale(settings.get1000Scale());
-		//progressbar.setPosition(sf::Vector2f(float(100 * settings.get1000Scale().x), float(settings.getRes().y - 50 * settings.get1000Scale().y)));
+		progressbar.setScale(settings.get1000Scale());
+		progressbar.setPosition(sf::Vector2f(float(100 * settings.get1000Scale().x), float(settings.getRes().y - 50 * settings.get1000Scale().y)));
 		progressbar.setSize(sf::Vector2f(50, 25));
 
 		window.clear();
@@ -113,8 +113,8 @@ namespace RW
 			std::cout << "error: could not load pressbutton.wav" << std::endl;
 		pressbutton.setBuffer(pressbuttonSB);
 
-		//setMusicVolume(10 * settings.getMusic());
-		//setSFXVolume(10 * settings.getSoundFX());
+		setMusicVolume(10 * settings.getMusic());
+		setSFXVolume(10 * settings.getSoundFX());
 
 		progressbar.setSize(sf::Vector2f(100, 25));
 		window.clear();

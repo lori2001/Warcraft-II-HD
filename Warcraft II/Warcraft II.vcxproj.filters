@@ -31,7 +31,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="includes\RW\Loading.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\RW</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\RW\Settings.cpp">
+      <Filter>Source Files\RW</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -42,7 +45,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\RW\Loading.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\RW</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\RW\Settings.h">
+      <Filter>Header Files\RW</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

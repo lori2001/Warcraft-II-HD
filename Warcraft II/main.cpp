@@ -2,17 +2,25 @@
 #include "includes/RW/Environment.h"
 #include "includes/Menu.h"
 #include "includes/RW/Loading.h"
+#include "includes/RW/Settings.h"
 
 int main()
 {
+	RW::Settings settings;
+	//load settings
+	settings.read();
+
 	sf::RenderWindow window;
-	window.create(sf::VideoMode(800, 600), "Warcraft II", sf::Style::Titlebar | sf::Style::Close);
+	//create a window with appropiate settings
+	settings.setWindow(window);
 
 	RW::Environment env;
+	//load version number
 	env.read();
 
 	RW::Loading loading;
-	loading.loadFiles(window);
+	//load textures and sounds
+	loading.loadFiles(window, settings);
 
 	//display version
 	std::cout << "Version: " << env.getVersion() << std::endl;
@@ -41,6 +49,9 @@ int main()
 
 		window.display();
 	}
+
+	//save settings on exit
+	settings.save();
 
 	return 0;
 }

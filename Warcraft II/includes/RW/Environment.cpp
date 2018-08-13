@@ -18,7 +18,7 @@ namespace RW
 		if(!out)
 			std::cout << "Failed to save environment.json The system may malfunction!" << std::endl;
 
-		out << jsonfile << std::endl;
+		out << jsonfile.dump(4) << std::endl;
 		out << "//This file contains the current version of the program" << std::endl;
 		out << "//DO NOT change unless you have a really good reason";
 	}
