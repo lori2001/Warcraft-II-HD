@@ -1,0 +1,10 @@
+{
+	"playerName" : "I am the BO$$",
+	"resolution" : {
+		"width" : 800
+		"height" : 600
+	},
+	"fullscreen" : false,
+	"soundfx" : 1,
+	"music" : 3
+}
