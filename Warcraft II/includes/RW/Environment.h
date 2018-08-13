@@ -14,13 +14,15 @@ namespace RW
 		void save();
 	public:
 		void read();
+
+		//get version number as a string: "major.minor.build"
 		std::string getVersion() const {
 			return  std::to_string(jsonfile["version"]["major"].get<int>()) + "." +
 					std::to_string(jsonfile["version"]["minor"].get<int>()) + "." +
 					std::to_string(jsonfile["version"]["build"].get<int>());
 		}
 
-		// Write -1 to not modify one specific parameter
+		//Write -1 to not modify one specific parameter
 		void setVersion(int major, int minor, int build);
 	};
 }

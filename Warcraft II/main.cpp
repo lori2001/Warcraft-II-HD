@@ -1,5 +1,6 @@
 #include "SFML\Graphics.hpp"
 #include "includes/RW/Environment.h"
+#include "includes/Menu.h"
 
 int main()
 {
@@ -7,11 +8,13 @@ int main()
 	window.create(sf::VideoMode(800, 600), "Warcraft II");
 
 	RW::Environment env;
-
 	env.read();
 
-	//display
+	//display version
 	std::cout << "Version: " << env.getVersion() << std::endl;
+
+	Menu menu;
+	menu.Setup(window);
 
 	while (window.isOpen())
 	{
@@ -20,6 +23,7 @@ int main()
 		while (window.pollEvent(event))
 		{
 			//insert input handling in here
+			menu.handleInput(window,event);
 
 			if (event.type == sf::Event::Closed)
 				window.close();
@@ -28,6 +32,8 @@ int main()
 		window.clear();
 
 		//insert drawing commands in here
+		menu.Update(window);
+		menu.Compose(window);
 
 		window.display();
 	}
