@@ -6,7 +6,7 @@
 int main()
 {
 	sf::RenderWindow window;
-	window.create(sf::VideoMode(800, 600), "Warcraft II");
+	window.create(sf::VideoMode(800, 600), "Warcraft II", sf::Style::Titlebar | sf::Style::Close);
 
 	RW::Environment env;
 	env.read();
