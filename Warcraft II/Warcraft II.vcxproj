@@ -125,11 +125,13 @@
   <ItemGroup>
     <ClCompile Include="includes\Menu.cpp" />
     <ClCompile Include="includes\RW\Environment.cpp" />
+    <ClCompile Include="includes\RW\Loading.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\Menu.h" />
     <ClInclude Include="includes\RW\Environment.h" />
+    <ClInclude Include="includes\RW\Loading.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

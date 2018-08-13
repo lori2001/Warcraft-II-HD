@@ -1,6 +1,7 @@
 #include "SFML\Graphics.hpp"
 #include "includes/RW/Environment.h"
 #include "includes/Menu.h"
+#include "includes/RW/Loading.h"
 
 int main()
 {
@@ -9,6 +10,9 @@ int main()
 
 	RW::Environment env;
 	env.read();
+
+	RW::Loading loading;
+	loading.loadFiles(window);
 
 	//display version
 	std::cout << "Version: " << env.getVersion() << std::endl;

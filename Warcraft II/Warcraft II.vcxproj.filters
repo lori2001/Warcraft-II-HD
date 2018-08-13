@@ -30,12 +30,18 @@
     <ClCompile Include="includes\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="includes\RW\Loading.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\RW\Environment.h">
       <Filter>Header Files\RW</Filter>
     </ClInclude>
     <ClInclude Include="includes\Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\RW\Loading.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
