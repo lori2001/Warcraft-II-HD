@@ -57,6 +57,9 @@
     <ClCompile Include="includes\UI\Cursor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="includes\Screens\Options.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\RW\Environment.h">
@@ -79,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="includes\UI\Cursor.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\Screens\Options.h">
+      <Filter>Header Files\Screens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

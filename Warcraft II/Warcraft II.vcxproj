@@ -131,6 +131,7 @@
     <ClCompile Include="includes\UI\Button.cpp" />
     <ClCompile Include="includes\UI\Cursor.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="includes\Screens\Options.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\Menu.h" />
@@ -140,6 +141,7 @@
     <ClInclude Include="includes\Screens\MainMenu.h" />
     <ClInclude Include="includes\UI\Button.h" />
     <ClInclude Include="includes\UI\Cursor.h" />
+    <ClInclude Include="includes\Screens\Options.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="environment.json" />

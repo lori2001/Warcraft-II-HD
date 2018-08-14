@@ -2,6 +2,7 @@
 #include "SFML\Graphics.hpp"
 #include "RW/Loading.h"
 #include "Screens/MainMenu.h"
+#include "Screens/Options.h"
 
 class Menu
 {
@@ -9,9 +10,9 @@ private:
 	sf::Vector2f mouse; //holds position of the mouse
 
 	Screens::MainMenu mainmenu;
+	Screens::Options options;
 
 	RW::Loading loading;
-
 public:
 	Menu()
 	{

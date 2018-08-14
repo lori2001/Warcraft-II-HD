@@ -4,12 +4,29 @@
 void Menu::Setup(sf::RenderWindow & window)
 {
 	mainmenu.setTransform();
+	options.setTransform();
 }
 
 void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 {
 	mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window)); //gets mouse position relative to window
 
+	if (options.isActive)
+	{
+		options.handleInput(event, mouse);
+
+		if (options.B0getActive())
+		{
+			options.B0setActive(false);
+			options.isActive = false;
+			mainmenu.isActive = true;
+		}
+		else if (options.B1getActive())
+		{
+			options.B1setActive(false);
+			//options.isActive = false;
+		}
+	}
 	if (mainmenu.isActive)
 	{
 		mainmenu.handleInput(event, mouse);
@@ -28,6 +45,7 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 		{
 			mainmenu.B2setActive(false);
 			mainmenu.isActive = false;
+			options.isActive = true;
 		}
 		else if (mainmenu.B3getActive())
 		{
@@ -44,6 +62,8 @@ void Menu::Update(sf::RenderWindow & window)
 
 void Menu::Compose(sf::RenderWindow & window)
 {
-	if (mainmenu.isActive)
+	if (options.isActive)
+		window.draw(options);
+	if(mainmenu.isActive)
 		window.draw(mainmenu);
 }
