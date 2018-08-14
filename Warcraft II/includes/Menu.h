@@ -1,14 +1,14 @@
 #pragma once
 #include "SFML\Graphics.hpp"
 #include "RW/Loading.h"
-#include "UI/Button.h"
+#include "Screens/MainMenu.h"
 
 class Menu
 {
 private:
 	sf::Vector2f mouse; //holds position of the mouse
 
-	UI::Button menuworks{ "Works!", sf::Vector2f(224,28) };
+	Screens::MainMenu mainmenu;
 
 	RW::Loading loading;
 
