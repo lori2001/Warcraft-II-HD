@@ -31,9 +31,7 @@ namespace Screens
 		bool isActive = false;
 
 		void setTransform();
-
 		void handleInput(const sf::Event & event, const sf::Vector2f & mouse);
-
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 		//setters
