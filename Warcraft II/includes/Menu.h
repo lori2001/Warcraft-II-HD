@@ -13,6 +13,11 @@ private:
 	RW::Loading loading;
 
 public:
+	Menu()
+	{
+		//this is where the game puts you first
+		mainmenu.isActive = true;
+	}
 	bool isActive = true;
 
 	void Setup(sf::RenderWindow &window);
