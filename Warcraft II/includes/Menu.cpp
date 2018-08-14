@@ -57,7 +57,10 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 
 void Menu::Update(sf::RenderWindow & window)
 {
-
+	if (options.isActive)
+	{
+		options.animateGears();
+	}
 }
 
 void Menu::Compose(sf::RenderWindow & window)

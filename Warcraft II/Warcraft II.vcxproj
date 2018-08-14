@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="includes\Others\Gears.cpp" />
     <ClCompile Include="includes\Menu.cpp" />
     <ClCompile Include="includes\RW\Environment.cpp" />
     <ClCompile Include="includes\RW\Loading.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="includes\Screens\Options.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\Others\Gears.h" />
     <ClInclude Include="includes\Menu.h" />
     <ClInclude Include="includes\RW\Environment.h" />
     <ClInclude Include="includes\RW\Loading.h" />

@@ -31,6 +31,12 @@
     <Filter Include="Header Files\UI">
       <UniqueIdentifier>{b8895dbd-f6de-4459-88f8-360d03356d63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Others">
+      <UniqueIdentifier>{fe28e5da-1e86-4f7d-88ff-bf900f26786f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Others">
+      <UniqueIdentifier>{c36f84a6-a376-48c6-8dc5-ad7cfae868b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -54,11 +60,14 @@
     <ClCompile Include="includes\UI\Button.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="includes\UI\Cursor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="includes\Screens\Options.cpp">
       <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\Others\Gears.cpp">
+      <Filter>Source Files\Others</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\UI\Cursor.cpp">
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,11 +89,14 @@
     <ClInclude Include="includes\UI\Button.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="includes\UI\Cursor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\Screens\Options.h">
       <Filter>Header Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\Others\Gears.h">
+      <Filter>Header Files\Others</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\UI\Cursor.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

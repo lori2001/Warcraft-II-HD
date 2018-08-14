@@ -2,6 +2,7 @@
 #include "SFML\Graphics.hpp"
 #include "../RW/Settings.h"
 #include "../RW/Loading.h"
+#include "../Others/Gears.h"
 #include "../UI/Button.h"
 
 namespace Screens
@@ -10,6 +11,7 @@ namespace Screens
 	{
 	private:
 		sf::Sprite backgroundS;
+		Gears gears;
 
 		RW::Loading loading;
 		RW::Settings settings;
@@ -27,6 +29,8 @@ namespace Screens
 		}
 
 		bool isActive = false;
+
+		void animateGears() { gears.animate(); }
 
 		void setTransform();
 		void handleInput(const sf::Event & event, const sf::Vector2f & mouse);
