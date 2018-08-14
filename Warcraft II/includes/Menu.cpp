@@ -27,7 +27,7 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 			//options.isActive = false;
 		}
 	}
-	if (mainmenu.isActive)
+	else if (mainmenu.isActive)
 	{
 		mainmenu.handleInput(event, mouse);
 
@@ -65,6 +65,11 @@ void Menu::Update(sf::RenderWindow & window)
 
 void Menu::Compose(sf::RenderWindow & window)
 {
+	//Playing sounds
+	if (loading.menusong.getStatus() != sf::Music::Status::Playing)
+		loading.menusong.play();
+
+	//Drawing
 	if (options.isActive)
 		window.draw(options);
 	if(mainmenu.isActive)
