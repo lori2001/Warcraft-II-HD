@@ -15,8 +15,6 @@ namespace RW
 
 	void Settings::create()
 	{
-		std::ofstream out("settings.json");
-
 		//get the maximum resolution the monitor supports
 		sf::VideoMode maxres = sf::VideoMode::getDesktopMode();
 
@@ -29,7 +27,7 @@ namespace RW
 		jsonfile["music"] = 5;
 
 		//print out
-		out << jsonfile.dump(4);
+		save();
 	}
 	void Settings::setWindow(sf::RenderWindow & window)
 	{
