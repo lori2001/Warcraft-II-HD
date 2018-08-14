@@ -127,6 +127,7 @@
     <ClCompile Include="includes\RW\Environment.cpp" />
     <ClCompile Include="includes\RW\Loading.cpp" />
     <ClCompile Include="includes\RW\Settings.cpp" />
+    <ClCompile Include="includes\UI\Button.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +135,7 @@
     <ClInclude Include="includes\RW\Environment.h" />
     <ClInclude Include="includes\RW\Loading.h" />
     <ClInclude Include="includes\RW\Settings.h" />
+    <ClInclude Include="includes\UI\Button.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="environment.json" />

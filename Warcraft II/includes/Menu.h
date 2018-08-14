@@ -1,10 +1,16 @@
 #pragma once
 #include "SFML\Graphics.hpp"
+#include "RW/Loading.h"
+#include "UI/Button.h"
 
 class Menu
 {
 private:
-	sf::RectangleShape menuworks{sf::Vector2f(100,100)};
+	sf::Vector2f mouse; //holds position of the mouse
+
+	UI::Button menuworks{ "Works!", sf::Vector2f(224,28) };
+
+	RW::Loading loading;
 
 public:
 	bool isActive = true;

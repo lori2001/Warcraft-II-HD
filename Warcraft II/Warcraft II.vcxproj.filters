@@ -36,6 +36,9 @@
     <ClCompile Include="includes\RW\Settings.cpp">
       <Filter>Source Files\RW</Filter>
     </ClCompile>
+    <ClCompile Include="includes\UI\Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\RW\Environment.h">
@@ -49,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="includes\RW\Settings.h">
       <Filter>Header Files\RW</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\UI\Button.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
