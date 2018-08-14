@@ -13,6 +13,8 @@ private:
 	Screens::Options options;
 
 	RW::Loading loading;
+
+	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
 public:
 	Menu()
 	{

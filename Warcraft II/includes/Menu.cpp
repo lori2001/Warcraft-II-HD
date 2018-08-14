@@ -59,6 +59,7 @@ void Menu::Update(sf::RenderWindow & window)
 {
 	if (options.isActive)
 	{
+		options.setText(modes);
 		options.animateGears();
 	}
 }

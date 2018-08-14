@@ -131,6 +131,7 @@
     <ClCompile Include="includes\Screens\MainMenu.cpp" />
     <ClCompile Include="includes\UI\Button.cpp" />
     <ClCompile Include="includes\UI\Cursor.cpp" />
+    <ClCompile Include="includes\UI\Dropdown.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="includes\Screens\Options.cpp" />
   </ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="includes\UI\Button.h" />
     <ClInclude Include="includes\UI\Cursor.h" />
     <ClInclude Include="includes\Screens\Options.h" />
+    <ClInclude Include="includes\UI\Dropdown.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="environment.json" />
