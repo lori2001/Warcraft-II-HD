@@ -10,11 +10,25 @@ void Menu::Setup(sf::RenderWindow & window)
 	mainmenu.setTransform();
 	options.setTransform();
 	options.setText(modes);
+
+	test.setTexture(loading.popupT);
+	test.setScale(settings.get1920Scale());
+	test.setPosition(sf::Vector2f(float(settings.getRes().x / 2), float(settings.getRes().y / 2)));
+	test.setDescription(0, "Please press OK to keep the resolution,\nCancel to revert it.");
+	test.setDescription(1, "Reverting in:");
+	test.setDescriptionPos(1, sf::Vector2f(0.5f, 0.68f));
+	test.setCountdownpos(sf::Vector2f(0.65f,0.68f));
+	test.isActive = true;
 }
 
 void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 {
 	mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window)); //gets mouse position relative to window
+
+	if (test.isActive)
+	{
+		test.handleInput(event, mouse);
+	}
 
 	if (options.isActive)
 	{
@@ -132,6 +146,14 @@ void Menu::Update(sf::RenderWindow & window)
 	{
 		options.animateGears();
 	}
+
+	test.animateCountdown();
+
+	if (test.countdownOver == true)
+	{
+		std::cout << "countdown is over";
+		test.countdownOver = false;
+	}
 }
 
 void Menu::Compose(sf::RenderWindow & window)
@@ -141,8 +163,14 @@ void Menu::Compose(sf::RenderWindow & window)
 		loading.menusong.play();
 
 	//Drawing
+	//if (test.isActive)
+	//{
+	//}
+
 	if (options.isActive)
 		window.draw(options);
-	if(mainmenu.isActive)
+	else if(mainmenu.isActive)
 		window.draw(mainmenu);
+
+	window.draw(test);
 }

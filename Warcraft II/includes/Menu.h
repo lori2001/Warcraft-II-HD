@@ -4,6 +4,7 @@
 #include "RW/Loading.h"
 #include "Screens/MainMenu.h"
 #include "Screens/Options.h"
+#include "Screens/Popup.h"
 
 class Menu
 {
@@ -12,6 +13,7 @@ private:
 
 	Screens::MainMenu mainmenu;
 	Screens::Options options;
+	Screens::Popup test{2};
 
 	RW::Settings settings;
 	RW::Loading loading;
