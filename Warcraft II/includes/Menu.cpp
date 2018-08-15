@@ -3,6 +3,10 @@
 
 void Menu::Setup(sf::RenderWindow & window)
 {
+	// set options slider levels to levels in settings.json
+	options.S0setLevel(settings.getMusic());
+	options.S1setLevel(settings.getSoundFX());
+
 	mainmenu.setTransform();
 	options.setTransform();
 	options.setText(modes);
@@ -49,6 +53,22 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 			}
 			//sets button back to inactive
 			options.B1setActive(false);
+		}
+		else if (options.S0getActive()) // if the level has changed
+		{
+			settings.setMusic(options.S0getLevel()); //set the settings value to level 
+			loading.setMusicVolume(10 * settings.getMusic()); //set musics value to the new settings value
+			options.setText(modes); //update text visually
+
+			options.S0setActive(false);
+		}
+		else if (options.S1getActive()) // if the level has changed
+		{
+			settings.setSoundFX(options.S1getLevel()); //set the settings value to level 
+			loading.setSFXVolume(10 * settings.getSoundFX()); //set soundfxs value to the new settings value
+			options.setText(modes); //update text visually
+
+			options.S1setActive(false);
 		}
 		for (short int i = 1; i < 8; i++)
 		{
