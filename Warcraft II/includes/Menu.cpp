@@ -19,7 +19,7 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 		if (options.B0getActive()) // if "back" is pressed
 		{
 			//resets changes made but not applied
-			settings.setNewRes(settings.getOldRes());
+			settings.setRes(settings.getOldRes());
 			settings.setFullscreen(settings.getOldFullscreen());
 
 			//applies it on-screen
@@ -35,10 +35,11 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 		else if (options.B1getActive())
 		{
 			// if either the res or the fullscreen has changed
-			if (settings.getOldFullscreen() != settings.getFullscreen() || settings.getRes() != settings.getNewRes())
+			if (settings.getOldFullscreen() != settings.getFullscreen() || settings.getOldRes() != settings.getRes())
 			{
-				//set the new resolution
-				settings.setRes(settings.getNewRes());
+				//make new and old values equal
+				settings.setOldRes(settings.getRes());
+				settings.setOldFullscreen(settings.getFullscreen());
 
 				//apply new resolution to window
 				settings.setWindow(window);
@@ -70,7 +71,7 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 				options.D0setActive(i, false);
 				sf::VideoMode mode = modes[i - 1];
 
-				settings.setNewRes(sf::Vector2i(mode.width, mode.height));
+				settings.setRes(sf::Vector2i(mode.width, mode.height));
 
 				//the text has changed, it has to be set
 				options.setText(modes);

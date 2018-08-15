@@ -5,12 +5,10 @@ namespace RW
 {
 	io::json Settings::jsonfile;
 
-	sf::Vector2i Settings::oldres;
-	sf::Vector2i Settings::newres;
-
 	sf::Vector2i Settings::res1920 = { 1920,1080 };
 	sf::Vector2i Settings::res1000 = { 1000,600 };
 
+	sf::Vector2i Settings::oldres;
 	bool Settings::oldfullscreen = false;
 
 	void Settings::create()
@@ -48,8 +46,8 @@ namespace RW
 		else
 			in >> jsonfile; //read json file
 
-		//set old- and new- values thus avoiding conflicts
-		newres = oldres = sf::Vector2i(jsonfile["resolution"]["width"].get<int>(), jsonfile["resolution"]["height"].get<int>());
+		//update old-values thus avoiding conflicts
+		oldres = sf::Vector2i(jsonfile["resolution"]["width"].get<int>(), jsonfile["resolution"]["height"].get<int>());
 		oldfullscreen = jsonfile["fullscreen"].get<bool>();
 
 		//check if music is in range

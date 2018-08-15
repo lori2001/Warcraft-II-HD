@@ -5,7 +5,7 @@ namespace Screens
 	void Options::setText(const std::vector<sf::VideoMode>& modes)
 	{
 		resolution.setMaintext("Resolution");
-		resolution.setDroptext(0, std::to_string(settings.getNewRes().x) + "x" + std::to_string(settings.getNewRes().y));
+		resolution.setDroptext(0, std::to_string(settings.getRes().x) + "x" + std::to_string(settings.getRes().y));
 
 		for (unsigned i = 1; i < resolution.getElementnr(); i++)
 		{
