@@ -5,6 +5,7 @@ void Menu::Setup(sf::RenderWindow & window)
 {
 	mainmenu.setTransform();
 	options.setTransform();
+	options.setText(modes);
 }
 
 void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
@@ -15,39 +16,88 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 	{
 		options.handleInput(event, mouse);
 
-		if (options.B0getActive())
+		if (options.B0getActive()) // if "back" is pressed
 		{
+			//resets changes made but not applied
+			settings.setNewRes(settings.getOldRes());
+			settings.setFullscreen(settings.getOldFullscreen());
+
+			//applies it on-screen
+			options.setText(modes);
+
+			//makes button inactive
 			options.B0setActive(false);
+
+			//goes back to mainmenu
 			options.isActive = false;
 			mainmenu.isActive = true;
 		}
 		else if (options.B1getActive())
 		{
+			// if either the res or the fullscreen has changed
+			if (settings.getOldFullscreen() != settings.getFullscreen() || settings.getRes() != settings.getNewRes())
+			{
+				//set the new resolution
+				settings.setRes(settings.getNewRes());
+
+				//apply new resolution to window
+				settings.setWindow(window);
+
+				//reset proper scales
+				this->Setup(window);
+			}
+			//sets button back to inactive
 			options.B1setActive(false);
-			//options.isActive = false;
+		}
+		for (short int i = 1; i < 8; i++)
+		{
+			if (i < 3 && options.D1getActive(i))
+			{
+				settings.setOldFullscreen(settings.getFullscreen());
+				options.D1setActive(i, false);
+
+				if (i == 1)
+					settings.setFullscreen(true);
+				else if (i == 2)
+					settings.setFullscreen(false);
+
+				//the text has changed, it has to be set
+				options.setText(modes);
+			}
+			if (i < 8 && options.D0getActive(i))
+			{
+				settings.setOldRes(settings.getRes());
+				options.D0setActive(i, false);
+				sf::VideoMode mode = modes[i - 1];
+
+				settings.setNewRes(sf::Vector2i(mode.width, mode.height));
+
+				//the text has changed, it has to be set
+				options.setText(modes);
+			}
 		}
 	}
 	else if (mainmenu.isActive)
 	{
 		mainmenu.handleInput(event, mouse);
 
-		if (mainmenu.B0getActive())
+		if (mainmenu.B0getActive()) //singleplayer
 		{
 			mainmenu.B0setActive(false);
-			mainmenu.isActive = false;
+			//mainmenu.isActive = false;
 		}
-		else if (mainmenu.B1getActive())
+		else if (mainmenu.B1getActive()) //multiplayer
 		{
 			mainmenu.B1setActive(false);
-			mainmenu.isActive = false;
+			//mainmenu.isActive = false;
 		}
-		else if (mainmenu.B2getActive())
+		else if (mainmenu.B2getActive()) //options
 		{
 			mainmenu.B2setActive(false);
 			mainmenu.isActive = false;
 			options.isActive = true;
 		}
-		else if (mainmenu.B3getActive())
+		else if (mainmenu.B3getActive()) //exit game
 		{
 			mainmenu.B3setActive(false);
 			window.close();
@@ -59,7 +109,6 @@ void Menu::Update(sf::RenderWindow & window)
 {
 	if (options.isActive)
 	{
-		options.setText(modes);
 		options.animateGears();
 	}
 }

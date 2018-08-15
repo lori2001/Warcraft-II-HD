@@ -60,16 +60,25 @@ namespace UI
 	{
 		maintext->setString(text);
 
+		/*makes sure the text is in the right position*/
 		this->maintext->setOrigin(this->maintext->getLocalBounds().left + this->maintext->getLocalBounds().width / 2.0f,
 			this->maintext->getLocalBounds().top + this->maintext->getLocalBounds().height / 2.0f);
+		
+		maintext->setPosition(sf::Vector2f(sprite->getPosition().x, sprite->getPosition().y - size->y * sprite->getScale().y));
+		/*********************************************/
 	}
 
 	void Dropdown::setDroptext(const unsigned short & i, const std::string & text)
 	{
 		droptext[i].setString(text);
 
+		/*makes sure the text is in the right position*/
 		this->droptext[i].setOrigin(this->droptext[i].getLocalBounds().left + this->droptext[i].getLocalBounds().width / 2.0f,
 			this->droptext[i].getLocalBounds().top + this->droptext[i].getLocalBounds().height / 2.0f);
+
+		for (int i = 0; i < *elementnr; i++)
+			droptext[i].setPosition(sf::Vector2f(sprite->getPosition().x, sprite->getPosition().y + size->y * i * sprite->getScale().y));
+		/*********************************************/
 	}
 
 	void Dropdown::setDropColor(const unsigned short & i, const sf::Color & color)

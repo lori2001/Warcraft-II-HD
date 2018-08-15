@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML\Graphics.hpp"
+#include "RW/Settings.h"
 #include "RW/Loading.h"
 #include "Screens/MainMenu.h"
 #include "Screens/Options.h"
@@ -12,6 +13,7 @@ private:
 	Screens::MainMenu mainmenu;
 	Screens::Options options;
 
+	RW::Settings settings;
 	RW::Loading loading;
 
 	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
