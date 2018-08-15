@@ -72,6 +72,9 @@
     <ClCompile Include="includes\UI\Dropdown.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="includes\UI\Slider.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\RW\Environment.h">
@@ -102,6 +105,9 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="includes\UI\Dropdown.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\UI\Slider.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>

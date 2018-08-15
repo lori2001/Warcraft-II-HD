@@ -75,28 +75,27 @@ namespace UI
 			delete maintext;
 			delete[] droptext;
 		}
+		void setSelected(const sf::Vector2f & mouse);
+		void handleInput(const sf::Event &event, sf::Sound & pressbutton);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+		//setters
 		void setTexture(const sf::Texture & texture, const sf::Font & font);
 		void setPosition(const sf::Vector2f &position);
 		void setSelectColor(const sf::Color &color);
 		void setElementnr(const unsigned short &elementnr);
 		void setScale(const sf::Vector2f &scale);
-
 		void setMaintext(const std::string & text);
 		void setDroptext(const unsigned short &i, const std::string & text);
 		void setDropColor(const unsigned short &i, const sf::Color &color);
-
-		void setSelected(const sf::Vector2f & mouse);
 		void setActive(const unsigned short &i, const bool & active);
 		void setInactive(const bool & inactive);
 
+		//getter
 		bool getInactive() const { return *isInactive; }
 		bool getActive(const unsigned short &i) const { return isActive[i]; }
 		bool getDroppeddown() const { return *isDroppeddown; }
 		unsigned short getElementnr() const { return *elementnr; }
 		sf::Vector2f getSize() const { return *size; }
-
-		void handleInput(const sf::Event &event, sf::Sound & pressbutton);
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	};
 }

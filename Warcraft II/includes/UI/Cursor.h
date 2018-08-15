@@ -24,8 +24,9 @@ namespace UI
 			vertices[2].texCoords = sf::Vector2f(size, size);
 			vertices[3].texCoords = sf::Vector2f(0, size);
 		}
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
 		void setTexture(sf::Texture & cursorT);
 		void setPosition(const sf::Vector2f & mouse);
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	};
 }

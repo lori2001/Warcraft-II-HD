@@ -5,6 +5,7 @@
 #include "../Others/Gears.h"
 #include "../UI/Button.h"
 #include "../UI/Dropdown.h"
+#include "../UI/Slider.h"
 
 namespace Screens
 {
@@ -22,6 +23,9 @@ namespace Screens
 
 		UI::Dropdown resolution{ 8 };
 		UI::Dropdown fullscreen{ 3 };
+
+		UI::Slider music;
+		UI::Slider soundfx;
 	public:
 		Options()
 		{
@@ -30,6 +34,8 @@ namespace Screens
 			apply.setTexture(loading.buttonT, loading.warcraftF);
 			resolution.setTexture(loading.dropdownT, loading.warcraftF);
 			fullscreen.setTexture(loading.dropdownT, loading.warcraftF);
+			music.setTexture(loading.sliderT, loading.sliderbuttonT, loading.warcraftF);
+			soundfx.setTexture(loading.sliderT, loading.sliderbuttonT, loading.warcraftF);
 		}
 
 		bool isActive = false;
@@ -42,12 +48,20 @@ namespace Screens
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		
 		//setters
+		void S0setLevel(const unsigned short &level) { music.setLevel(level); }
+		void S0setActive(const bool &active) { music.setActive(active); }
+		void S1setLevel(const unsigned short &level) { soundfx.setLevel(level); }
+		void S1setActive(const bool &active) { soundfx.setActive(active); }
 		void B0setActive(const bool &active) { back.setActive(active); }
 		void B1setActive(const bool &active) { apply.setActive(active); }
 		void D0setActive(const unsigned short &i, const bool &active) { resolution.setActive(i, active); }
 		void D1setActive(const unsigned short &i, const bool &active) { fullscreen.setActive(i, active); }
 
 		//getters
+		const unsigned short S0getLevel() { return music.getLevel(); }
+		const bool S0getActive() { return music.getActive(); }
+		const unsigned short S1getLevel() { return soundfx.getLevel(); }
+		const bool S1getActive() { return soundfx.getActive(); }
 		const bool B0getActive() { return back.getActive(); }
 		const bool B1getActive() { return apply.getActive(); }
 		const bool D0getActive(const unsigned short &i) { return resolution.getActive(i); }

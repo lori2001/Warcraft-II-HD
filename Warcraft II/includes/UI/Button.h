@@ -41,7 +41,11 @@ namespace UI
 			delete isSelected;
 			delete isActive;
 		}
-
+		void setSelected(const sf::Vector2f & mouse);
+		void handleInput(const sf::Event &event, sf::Sound & pressbutton);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		
+		//setters
 		void setTexture(const sf::Texture & texture, const sf::Font &font);
 		void setTexture(const sf::Texture & texture);
 		void setPosition(const sf::Vector2f &position);
@@ -50,16 +54,12 @@ namespace UI
 		//void setSize(const sf::Vector2f &size);
 		void setScale(const sf::Vector2f &scale);
 		void setString(const std::string & text);
-
-		void setSelected(const sf::Vector2f & mouse);
 		void setActive(const bool & active);
 
+		//getters
 		bool getActive() const { return *isActive; }
 		sf::Vector2f getScale() const { return  sprite->getScale(); }
 		sf::Vector2f getPosition() const { return sprite->getPosition(); }
 		sf::Vector2f getBSize() const { return *size; }
-
-		void handleInput(const sf::Event &event, sf::Sound & pressbutton);
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	};
 }
