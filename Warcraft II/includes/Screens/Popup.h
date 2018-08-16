@@ -35,6 +35,7 @@ namespace Screens
 			this->descriptionsnr = descriptionsnr;
 
 			//default fonts and textures
+			popupS.setTexture(&loading.popupT);
 			cancel.setTexture(loading.buttonT, loading.warcraftF);
 			ok.setTexture(loading.buttonT, loading.warcraftF);
 			countdown.setFont(loading.normalF);
@@ -63,7 +64,6 @@ namespace Screens
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 		//setters
-		void setTexture(const sf::Texture &popupT);
 		void setPosition(const sf::Vector2f &position);
 		void setScale(const sf::Vector2f &scale);
 		void setDescription(const int &i, const std::string &text);
@@ -73,8 +73,9 @@ namespace Screens
 		void setCountdownpos(const sf::Vector2f &relativepos);
 		void B0setActive(const bool &active) { cancel.setActive(active); }
 		void B1setActive(const bool &active) { ok.setActive(active); }
-		void setResetTimer(const float &resettimer) { this->resettimer = resettimer; }
 		void setResetLimit(const float &resetlimit) { this->resetlimit = resetlimit; }
+		void restartTimining() { resetclock.restart();
+								 resettimer = 0; };
 
 		//getters
 		bool B0getActive() const { return cancel.getActive(); }

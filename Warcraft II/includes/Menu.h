@@ -13,7 +13,7 @@ private:
 
 	Screens::MainMenu mainmenu;
 	Screens::Options options;
-	Screens::Popup test{2};
+	Screens::Popup reswarning{2};
 
 	RW::Settings settings;
 	RW::Loading loading;

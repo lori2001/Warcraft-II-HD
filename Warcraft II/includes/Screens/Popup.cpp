@@ -41,10 +41,6 @@ namespace Screens
 
 		target.draw(countdown, states);
 	}
-	void Popup::setTexture(const sf::Texture & popupT)
-	{
-		popupS.setTexture(&popupT);
-	}
 	void Popup::setPosition(const sf::Vector2f & position)
 	{
 		//converts (for example) 1920x1080 - scale to 1000x600 | this was used in previous versions in a direct way
