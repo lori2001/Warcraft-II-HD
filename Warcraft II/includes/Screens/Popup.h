@@ -56,6 +56,7 @@ namespace Screens
 		{
 			delete[] descriptions;
 		}
+
 		bool isActive = false;
 		bool countdownOver = false;
 

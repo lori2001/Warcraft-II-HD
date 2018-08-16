@@ -3,6 +3,7 @@
 #include "RW/Settings.h"
 #include "RW/Loading.h"
 #include "Screens/MainMenu.h"
+#include "Screens/Multiplayer.h"
 #include "Screens/Options.h"
 #include "Screens/Popup.h"
 
@@ -11,6 +12,7 @@ class Menu
 private:
 	sf::Vector2f mouse; //holds position of the mouse
 
+	Screens::Multiplayer multiplayer;
 	Screens::MainMenu mainmenu;
 	Screens::Options options;
 	Screens::Popup reswarning{2};

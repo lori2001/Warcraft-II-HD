@@ -129,6 +129,7 @@
     <ClCompile Include="includes\RW\Loading.cpp" />
     <ClCompile Include="includes\RW\Settings.cpp" />
     <ClCompile Include="includes\Screens\MainMenu.cpp" />
+    <ClCompile Include="includes\Screens\Multiplayer.cpp" />
     <ClCompile Include="includes\Screens\Popup.cpp" />
     <ClCompile Include="includes\UI\Button.cpp" />
     <ClCompile Include="includes\UI\Cursor.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="includes\RW\Loading.h" />
     <ClInclude Include="includes\RW\Settings.h" />
     <ClInclude Include="includes\Screens\MainMenu.h" />
+    <ClInclude Include="includes\Screens\Multiplayer.h" />
     <ClInclude Include="includes\Screens\Popup.h" />
     <ClInclude Include="includes\UI\Button.h" />
     <ClInclude Include="includes\UI\Cursor.h" />

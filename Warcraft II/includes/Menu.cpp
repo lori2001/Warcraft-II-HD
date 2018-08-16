@@ -8,6 +8,7 @@ void Menu::Setup(sf::RenderWindow & window)
 	options.S1setLevel(settings.getSoundFX());
 
 	mainmenu.setTransform();
+	multiplayer.setTransform();
 	options.setTransform();
 	options.setText(modes);
 
@@ -58,6 +59,17 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 			//resets this bool so it can be used in later instances
 			reswarning.countdownOver = false;
 			reswarning.B1setActive(false);
+		}
+	}
+	else if(multiplayer.isActive)
+	{
+		multiplayer.handleInput(event, mouse);
+
+		if (multiplayer.B0getActive())
+		{
+			multiplayer.B0setActive(false);
+			multiplayer.isActive = false;
+			mainmenu.isActive = true;
 		}
 	}
 	else if (options.isActive)
@@ -155,7 +167,8 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 		else if (mainmenu.B1getActive()) //multiplayer
 		{
 			mainmenu.B1setActive(false);
-			//mainmenu.isActive = false;
+			mainmenu.isActive = false;
+			multiplayer.isActive = true;
 		}
 		else if (mainmenu.B2getActive()) //options
 		{
@@ -195,6 +208,8 @@ void Menu::Compose(sf::RenderWindow & window)
 		window.draw(options);
 		window.draw(reswarning);
 	}
+	else if(multiplayer.isActive)
+		window.draw(multiplayer);
 	else if (options.isActive)
 		window.draw(options);
 	else if(mainmenu.isActive)
