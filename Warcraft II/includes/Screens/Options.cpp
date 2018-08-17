@@ -44,7 +44,7 @@ namespace Screens
 		gears.setTopPosition(sf::Vector2f(float(settings.getRes().x) / 16, float(settings.getRes().y) / 14));
 		gears.setBotPosition(sf::Vector2f(float(settings.getRes().x - settings.getRes().x / 16), float(settings.getRes().y - settings.getRes().y / 14)));
 		back.setPosition(sf::Vector2f(float(settings.getRes().x / 4), float(settings.getRes().y / 1.25f)));
-		apply.setPosition(sf::Vector2f(float(settings.getRes().x / 4 + apply.getBSize().x * 1.25f * settings.get1000Scale().x), float(settings.getRes().y / 1.25f)));
+		apply.setPosition(sf::Vector2f(float(settings.getRes().x / 4 + apply.getSize().x * 1.25f * settings.get1000Scale().x), float(settings.getRes().y / 1.25f)));
 		resolution.setPosition(sf::Vector2f(float(settings.getRes().x / 2), float(settings.getRes().y / 2)));
 		fullscreen.setPosition(sf::Vector2f(float(settings.getRes().x / 3.5f), float(settings.getRes().y / 2)));
 		music.setPosition(sf::Vector2f(float(settings.getRes().x / 2.5f), float(settings.getRes().y / 2.7f)));

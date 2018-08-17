@@ -60,6 +60,6 @@ namespace UI
 		bool getActive() const { return *isActive; }
 		sf::Vector2f getScale() const { return  sprite->getScale(); }
 		sf::Vector2f getPosition() const { return sprite->getPosition(); }
-		sf::Vector2f getBSize() const { return *size; }
+		sf::Vector2f getSize() const { return *size; }
 	};
 }

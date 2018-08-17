@@ -15,13 +15,17 @@ namespace UI
 			sprite->setOutlineThickness(0);
 	}
 	void TextHolder::handleInput(const sf::Event & event, sf::Sound & pressbutton)
-	{
+	{//TODO: if resolution changes text goes out of bound
 		if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed && *isSelected)
 		{ // if pressed and selected
 			if (pressbutton.getStatus() != sf::Music::Status::Playing && !*isActive) // play sound
 				pressbutton.play();
 
 			text->setString(""); //resets text
+
+			//sets to center after wiping text
+			cursor->setPosition(sf::Vector2f(text->getPosition().x + text->getLocalBounds().width / 2 + 2 * sprite->getScale().x, text->getPosition().y));
+
 			*isActive = true; //makes active so writing may occur
 		}
 		else if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)

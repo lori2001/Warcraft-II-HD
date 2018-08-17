@@ -8,6 +8,8 @@ void Menu::Setup(sf::RenderWindow & window)
 	options.S1setLevel(settings.getSoundFX());
 
 	mainmenu.setTransform();
+	singleplayer.setTransform();
+	singleplayer.setText();
 	multiplayer.setTransform();
 	options.setTransform();
 	options.setText(modes);
@@ -61,7 +63,18 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 			reswarning.B1setActive(false);
 		}
 	}
-	else if(multiplayer.isActive)
+	else if (singleplayer.isActive)
+	{
+		singleplayer.handleInput(event, mouse);
+
+		if (singleplayer.B0getActive())
+		{
+			singleplayer.B0setActive(false);
+			singleplayer.isActive = false;
+			mainmenu.isActive = true;
+		}
+	}
+	else if (multiplayer.isActive)
 	{
 		multiplayer.handleInput(event, mouse);
 
@@ -92,7 +105,7 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 			options.isActive = false;
 			mainmenu.isActive = true;
 		}
-		else if (options.B1getActive())
+		else if (options.B1getActive()) //if "apply" is pressed
 		{
 			// if either the res or the fullscreen has changed
 			if (settings.getOldFullscreen() != settings.getFullscreen() || settings.getOldRes() != settings.getRes())
@@ -131,27 +144,21 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 		{
 			if (i < 3 && options.D1getActive(i))
 			{
-				settings.setOldFullscreen(settings.getFullscreen());
+				//settings.setOldFullscreen(settings.getFullscreen()); //- dont know why this was used originally
 				options.D1setActive(i, false);
 
 				if (i == 1)
 					settings.setFullscreen(true);
 				else if (i == 2)
 					settings.setFullscreen(false);
-
-				//the text has changed, it has to be set
-				options.setText(modes);
 			}
-			if (i < 8 && options.D0getActive(i))
+			else if (i < 8 && options.D0getActive(i))
 			{
-				settings.setOldRes(settings.getRes());
+				//settings.setOldRes(settings.getRes()); //- dont know why this was used originally
 				options.D0setActive(i, false);
 				sf::VideoMode mode = modes[i - 1];
 
 				settings.setRes(sf::Vector2i(mode.width, mode.height));
-
-				//the text has changed, it has to be set
-				options.setText(modes);
 			}
 		}
 	}
@@ -162,7 +169,8 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 		if (mainmenu.B0getActive()) //singleplayer
 		{
 			mainmenu.B0setActive(false);
-			//mainmenu.isActive = false;
+			mainmenu.isActive = false;
+			singleplayer.isActive = true;
 		}
 		else if (mainmenu.B1getActive()) //multiplayer
 		{
@@ -208,10 +216,12 @@ void Menu::Compose(sf::RenderWindow & window)
 		window.draw(options);
 		window.draw(reswarning);
 	}
-	else if(multiplayer.isActive)
+	else if (singleplayer.isActive)
+		window.draw(singleplayer);
+	else if (multiplayer.isActive)
 		window.draw(multiplayer);
 	else if (options.isActive)
 		window.draw(options);
-	else if(mainmenu.isActive)
+	else if (mainmenu.isActive)
 		window.draw(mainmenu);
 }

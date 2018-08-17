@@ -47,6 +47,10 @@ namespace UI
 			selectedsprite->setOutlineColor(sf::Color::Yellow);
 			selectedsprite->setOutlineThickness(-2);
 		}
+		Dropdown(const unsigned short &elementnr, const std::string &text) : Dropdown(elementnr)
+		{
+			setMaintext(text);
+		}
 		Dropdown(const unsigned short &elementnr, const sf::Vector2f &size) : Dropdown(elementnr)
 		{
 			*this->size = size;

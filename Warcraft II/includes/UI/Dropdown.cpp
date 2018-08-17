@@ -50,6 +50,9 @@ namespace UI
 							pressbutton.play();
 
 						isActive[i] = true;
+
+						setDroptext(0, droptext[i].getString());
+						break;
 					}
 					else
 						isActive[i] = false;

@@ -87,6 +87,9 @@
     <ClCompile Include="includes\UI\TextHolder.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="includes\Screens\Singleplayer.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\RW\Environment.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="includes\UI\TextHolder.h">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\Screens\Singleplayer.h">
+      <Filter>Header Files\Screens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

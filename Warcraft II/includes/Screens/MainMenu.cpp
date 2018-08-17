@@ -10,10 +10,10 @@ namespace Screens
 		options.setScale(settings.get1000Scale());
 		exit.setScale(settings.get1000Scale());
 
-		singleplayer.setPosition(sf::Vector2f(float(settings.getRes().x / 2), float(settings.getRes().y / 2 - 1.5f * singleplayer.getBSize().y * settings.get1000Scale().y)));
+		singleplayer.setPosition(sf::Vector2f(float(settings.getRes().x / 2), float(settings.getRes().y / 2 - 1.5f * singleplayer.getSize().y * settings.get1000Scale().y)));
 		multiplayer.setPosition(sf::Vector2f(settings.getRes() / 2));
-		options.setPosition(sf::Vector2f(float(settings.getRes().x / 2), float(settings.getRes().y / 2 + 1.5f * options.getBSize().y * settings.get1000Scale().y)));
-		exit.setPosition(sf::Vector2f(float(settings.getRes().x / 2), float(settings.getRes().y / 2 + 3 * exit.getBSize().y * settings.get1000Scale().y)));
+		options.setPosition(sf::Vector2f(float(settings.getRes().x / 2), float(settings.getRes().y / 2 + 1.5f * options.getSize().y * settings.get1000Scale().y)));
+		exit.setPosition(sf::Vector2f(float(settings.getRes().x / 2), float(settings.getRes().y / 2 + 3 * exit.getSize().y * settings.get1000Scale().y)));
 	}
 	void MainMenu::handleInput(const sf::Event & event, const sf::Vector2f & mouse)
 	{
