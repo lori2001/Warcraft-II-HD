@@ -9,11 +9,11 @@ namespace UI
 	private:
 		const sf::Vector2f *boxsize; // outlines size
 		const sf::Vector2f *rsize = new const sf::Vector2f{ 25,28 }; // rectangles size (this is general bc its needed when settings texture coords for circle)
-		sf::RectangleShape * rect; // rectangle object
-		sf::RectangleShape * rectOutline; //outline
+		sf::RectangleShape *rect; // rectangle object
+		sf::RectangleShape *rectOutline; //outline
 
 		const float *csize; // circles size
-		sf::CircleShape * circle; //circle object
+		sf::CircleShape *circle; //circle object
 
 		sf::Text *text = new sf::Text; // a text to be next to the button
 

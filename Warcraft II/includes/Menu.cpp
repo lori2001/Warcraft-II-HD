@@ -19,11 +19,19 @@ void Menu::Setup(sf::RenderWindow & window)
 	reswarning.setDescriptionPos(1, sf::Vector2f(0.5f, 0.68f));
 	reswarning.setCountdownPos(sf::Vector2f(0.65f,0.68f));
 
+	test.setTexture(loading.textholderT, loading.normalF);
+	test.setScale(settings.get1000Scale());
+	test.setPosition(sf::Vector2f(200,120));
+	test.setMaintext("test");
+	test.setString("bo$$");
 }
 
 void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 {
 	mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window)); //gets mouse position relative to window
+
+	test.setSelected(mouse);
+	test.handleInput(event, loading.pressbutton);
 
 	if (reswarning.isActive)
 	{
@@ -215,4 +223,6 @@ void Menu::Compose(sf::RenderWindow & window)
 		window.draw(options);
 	else if(mainmenu.isActive)
 		window.draw(mainmenu);
+
+	window.draw(test);
 }

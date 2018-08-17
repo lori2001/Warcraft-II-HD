@@ -84,6 +84,9 @@
     <ClCompile Include="includes\UI\Switch.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="includes\UI\TextHolder.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\RW\Environment.h">
@@ -126,6 +129,9 @@
       <Filter>Header Files\Screens</Filter>
     </ClInclude>
     <ClInclude Include="includes\UI\Switch.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\UI\TextHolder.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>

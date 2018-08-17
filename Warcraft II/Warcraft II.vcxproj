@@ -136,6 +136,7 @@
     <ClCompile Include="includes\UI\Dropdown.cpp" />
     <ClCompile Include="includes\UI\Slider.cpp" />
     <ClCompile Include="includes\UI\Switch.cpp" />
+    <ClCompile Include="includes\UI\TextHolder.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="includes\Screens\Options.cpp" />
   </ItemGroup>
@@ -154,6 +155,7 @@
     <ClInclude Include="includes\UI\Dropdown.h" />
     <ClInclude Include="includes\UI\Slider.h" />
     <ClInclude Include="includes\UI\Switch.h" />
+    <ClInclude Include="includes\UI\TextHolder.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="environment.json" />

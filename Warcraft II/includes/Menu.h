@@ -7,6 +7,8 @@
 #include "Screens/Options.h"
 #include "Screens/Popup.h"
 
+#include "UI/TextHolder.h" 
+
 class Menu
 {
 private:
@@ -19,6 +21,10 @@ private:
 
 	RW::Settings settings;
 	RW::Loading loading;
+
+
+	UI::TextHolder test;
+
 
 	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
 public:
