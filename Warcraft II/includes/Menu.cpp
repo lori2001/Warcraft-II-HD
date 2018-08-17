@@ -19,18 +19,10 @@ void Menu::Setup(sf::RenderWindow & window)
 	reswarning.setDescriptionPos(1, sf::Vector2f(0.5f, 0.68f));
 	reswarning.setCountdownPos(sf::Vector2f(0.65f,0.68f));
 
-	//just for test
-	test.setTexture(loading.switchT, loading.normalF);
-	test.setScale(settings.get1000Scale());
-	test.setPosition(sf::Vector2f(150, 20));
 }
 
 void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 {
-	//test
-	test.setSelected(mouse);
-	test.handleInput(event, loading.pressbutton);
-	
 	mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window)); //gets mouse position relative to window
 
 	if (reswarning.isActive)
@@ -223,6 +215,4 @@ void Menu::Compose(sf::RenderWindow & window)
 		window.draw(options);
 	else if(mainmenu.isActive)
 		window.draw(mainmenu);
-
-	window.draw(test);
 }

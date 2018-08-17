@@ -82,7 +82,7 @@
       <Filter>Source Files\Screens</Filter>
     </ClCompile>
     <ClCompile Include="includes\UI\Switch.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,7 +126,7 @@
       <Filter>Header Files\Screens</Filter>
     </ClInclude>
     <ClInclude Include="includes\UI\Switch.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
