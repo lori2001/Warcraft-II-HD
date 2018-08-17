@@ -95,7 +95,7 @@ namespace Screens
 		descriptions[i].setPosition((popupS.getPosition().x - (popupS.getSize().x * popupS.getScale().x) / 2) + size.x * popupS.getScale().x * relativepos.x,
 									(popupS.getPosition().y - (popupS.getSize().y * popupS.getScale().y) / 2) + size.y * popupS.getScale().y * relativepos.y);
 	}
-	void Popup::setCountdownpos(const sf::Vector2f & relativepos)
+	void Popup::setCountdownPos(const sf::Vector2f & relativepos)
 	{
 		//makes sure values are in the expected area.
 		assert(0 <= relativepos.x && relativepos.x <= 1);

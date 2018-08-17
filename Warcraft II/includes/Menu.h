@@ -7,6 +7,9 @@
 #include "Screens/Options.h"
 #include "Screens/Popup.h"
 
+//only for testing
+#include "UI/Switch.h" 
+
 class Menu
 {
 private:
@@ -19,6 +22,9 @@ private:
 
 	RW::Settings settings;
 	RW::Loading loading;
+
+	//for testing
+	UI::Switch test{ "This is a test" };
 
 	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
 public:

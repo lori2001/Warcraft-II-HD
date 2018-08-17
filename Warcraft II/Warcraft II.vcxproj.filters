@@ -81,6 +81,9 @@
     <ClCompile Include="includes\Screens\Multiplayer.cpp">
       <Filter>Source Files\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="includes\UI\Switch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\RW\Environment.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="includes\Screens\Multiplayer.h">
       <Filter>Header Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\UI\Switch.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

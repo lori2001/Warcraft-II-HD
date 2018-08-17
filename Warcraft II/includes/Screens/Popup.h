@@ -71,7 +71,7 @@ namespace Screens
 		void setDescriptionPos(const int &i, const sf::Vector2f &relativepos);
 		/*gets values between 1 and 0. THROWS ERRORS if not used properly
 		ex. 0,0 means top-left corner of popup window, and 1,1 means bottom-right*/
-		void setCountdownpos(const sf::Vector2f &relativepos);
+		void setCountdownPos(const sf::Vector2f &relativepos);
 		void B0setActive(const bool &active) { cancel.setActive(active); }
 		void B1setActive(const bool &active) { ok.setActive(active); }
 		void setResetLimit(const float &resetlimit) { this->resetlimit = resetlimit; }
