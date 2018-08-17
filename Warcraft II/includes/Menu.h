@@ -24,7 +24,7 @@ private:
 	RW::Loading loading;
 
 	//for testing
-	UI::Switch test{ "This is a test" };
+	UI::Switch test{ 1, "This is a test" };
 
 	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
 public:

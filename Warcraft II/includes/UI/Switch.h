@@ -8,7 +8,7 @@ namespace UI
 	{
 	private:
 		const sf::Vector2f *boxsize; // outlines size
-		const sf::Vector2f *rsize; // rectangles size
+		const sf::Vector2f *rsize = new const sf::Vector2f{ 25,28 }; // rectangles size (this is general bc its needed when settings texture coords for circle)
 		sf::RectangleShape * rect; // rectangle object
 		sf::RectangleShape * rectOutline; //outline
 
@@ -29,7 +29,6 @@ namespace UI
 			{
 				//sets scales to objects to be made
 				boxsize = new const sf::Vector2f{ 21,21 };
-				rsize = new const sf::Vector2f{ 25,28 };
 
 				//creates the proper objects
 				rect = new sf::RectangleShape{ *rsize };
@@ -70,7 +69,6 @@ namespace UI
 			if (*type == 0)
 			{
 				delete boxsize;
-				delete rsize;
 				delete rect;
 				delete rectOutline;
 			}
@@ -81,6 +79,7 @@ namespace UI
 			}
 
 			//deletes general objects
+			delete rsize;
 			delete text;
 			delete isPressed;
 			delete isSelected;
