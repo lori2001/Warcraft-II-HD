@@ -8,9 +8,9 @@ namespace Screens
 		playerrace.setDroptext(0, "Random");
 		playerrace.setDroptext(1, "Random");
 		playerrace.setDroptext(2, "Orcs[");
-		playerrace.setDropColor(2, sf::Color::Red);
+		playerrace.setDroptextColor(2, sf::Color::Red);
 		playerrace.setDroptext(3, "Humans]");
-		playerrace.setDropColor(3, sf::Color::Blue);
+		playerrace.setDroptextColor(3, sf::Color::Blue);
 
 		//set player's teams dropdown texts
 		playerteam.setDroptext(0, "Team " + std::to_string(1));
@@ -37,9 +37,9 @@ namespace Screens
 			airace[i].setDroptext(0, "Random");
 			airace[i].setDroptext(1, "Random");
 			airace[i].setDroptext(2, "Orcs[");
-			airace[i].setDropColor(2, sf::Color::Red);
+			airace[i].setDroptextColor(2, sf::Color::Red);
 			airace[i].setDroptext(3, "Humans]");
-			airace[i].setDropColor(3, sf::Color::Blue);
+			airace[i].setDroptextColor(3, sf::Color::Blue);
 
 			aiteam[i].setMaintext("");
 			aiteam[i].setDroptext(0, "Team " + std::to_string(1));
@@ -47,6 +47,25 @@ namespace Screens
 				aiteam[i].setDroptext(j, "Team " + std::to_string(j));
 
 			aicolor[i].setMaintext("");
+		}
+	}
+	void Singleplayer::setColors()
+	{
+		playercolor.setDropColor(0, colors[0]);
+
+		for (short i = 0; i < 12; i++)
+		{
+			playercolor.setDropColor(i+1 , colors[i]);
+		}
+
+		for (short i = 0; i < 11; i++)
+		{
+			aicolor[i].setDropColor(0, colors[0]);
+
+			for (short j = 0; j < 12; j++)
+			{
+				aicolor[i].setDropColor(j + 1, colors[j]);
+			}
 		}
 	}
 	void Singleplayer::setColorsInactive(const bool &inactive)
@@ -180,48 +199,12 @@ namespace Screens
 		target.draw(play, states);
 		target.draw(relativecolors, states);
 
-		sf::RectangleShape printcolor;
-		sf::RectangleShape printaicolor[11];
-		//TODO: make printcolors faster and simpler
-
-		printcolor.setSize(sf::Vector2f(122, 18));
-		printcolor.setOrigin(sf::Vector2f(printcolor.getSize().x / 2, printcolor.getSize().y / 2));
-
-		for (int i = 0; i < 11; i++)
-		{
-			printaicolor[i].setSize(sf::Vector2f(122, 18));
-			printaicolor[i].setOrigin(sf::Vector2f(printaicolor[i].getSize().x / 2, printaicolor[i].getSize().y / 2));
-		}
-
-		for (unsigned short i = 0; i < 11; i++)
-		{
-			printaicolor[i].setPosition(sf::Vector2f(float((name.getSize().x + 5 + aicolor[i].getSize().x * 1.9f) * settings.get1000Scale().x), float(5.8f * name.getSize().y * settings.get1000Scale().y + i * aicolor[i].getSize().y * settings.get1000Scale().y)));
-			printaicolor[i].setScale(sf::Vector2f(0.85f * (settings.get1000Scale().x - (0.25f* settings.get1000Scale().x)), 0.85f * settings.get1000Scale().y));
-		}
-		printcolor.setPosition(sf::Vector2f(float((name.getSize().x + 74 + playerteam.getSize().x * 2.4f) * settings.get1000Scale().x), float(3 * name.getSize().y * settings.get1000Scale().y)));
-		printcolor.setScale(sf::Vector2f(settings.get1000Scale().x - (0.25f* settings.get1000Scale().x), settings.get1000Scale().y));
-
 		for (int i = 11 - 1; i >= 0; i--) //draws things backwards so first things come on top
 		{
 			target.draw(aidifficulty[i], states);
 			target.draw(airace[i], states);
 			target.draw(aiteam[i], states);
 			target.draw(aicolor[i], states);
-
-			printaicolor[i].setFillColor(colors[5 - 1]);
-			target.draw(printaicolor[i], states);
-
-			if (aicolor[i].getDroppeddown())
-			{
-				printaicolor[i].setSize(sf::Vector2f(139, 18));
-				for (int j = 1; j <= 12; j++)
-				{
-					printaicolor[i].setPosition(printaicolor[i].getPosition().x, printaicolor[i].getPosition().y + (printaicolor[i].getSize().y + 4)*printaicolor[i].getScale().y);
-					printaicolor[i].setFillColor(colors[j - 1]);
-					target.draw(printaicolor[i], states);
-				}
-				printaicolor[i].setSize(sf::Vector2f(122, 18));
-			}
 		}
 
 		target.draw(ais, states);
@@ -231,23 +214,6 @@ namespace Screens
 		target.draw(playercolor, states);
 
 		target.draw(name, states);
-
-		printcolor.setFillColor(colors[2 - 1]);
-		target.draw(printcolor, states);
-
-		if (playercolor.getDroppeddown())
-		{
-			printcolor.setSize(sf::Vector2f(139, 18));
-			for (int i = 1; i <= 12; i++)
-			{
-				printcolor.setPosition(printcolor.getPosition().x, printcolor.getPosition().y + (printcolor.getSize().y + 4)*printcolor.getScale().y);
-				printcolor.setFillColor(colors[i - 1]);
-				target.draw(printcolor, states);
-			}
-			printcolor.setSize(sf::Vector2f(122, 18));
-
-		}
-
 		target.draw(player, states);
 	}
 }

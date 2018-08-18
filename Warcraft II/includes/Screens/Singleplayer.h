@@ -86,6 +86,7 @@ namespace Screens
 		bool isActive = false;
 
 		void setText();
+		void setColors();
 		void setColorsInactive(const bool &inactive);
 
 		void setTransform();

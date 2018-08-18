@@ -52,6 +52,7 @@ namespace UI
 						isActive[i] = true;
 
 						setDroptext(0, droptext[i].getString());
+						setDropColor(0, dropcolor[i].getFillColor());
 						break;
 					}
 					else
@@ -81,18 +82,24 @@ namespace UI
 
 		target.draw(*sprite, states);
 		target.draw(*maintext, states);
+		target.draw(dropcolor[0], states);
 		target.draw(droptext[0], states);
 
-		if (*isDroppeddown)
+		if (*isDroppeddown) // if dropped down
 		{
-			for (int i = 1; i < *elementnr; i++)
+			for (int i = 1; i < *elementnr; i++) // for every element
 			{
-				if (elementselected[i])
+				target.draw(dropcolor[i], states); // draw corresponding color (if there is one)
+
+				if (dropcolor[i].getFillColor() != sf::Color::Transparent)
+					selectedsprite->setFillColor(sf::Color::Transparent);
+
+				if (elementselected[i]) // if an element is selected draw selection on it
 				{
 					selectedsprite->setPosition(sf::Vector2f(sprite->getPosition().x, sprite->getPosition().y + size->y*i *  sprite->getScale().y));
 					target.draw(*selectedsprite, states);
 				}
-				target.draw(droptext[i], states);
+				target.draw(droptext[i], states); //draw corresponding text
 			}
 		}
 	}
@@ -125,6 +132,7 @@ namespace UI
 		for (int i = 0; i < *elementnr; i++)
 		{
 			droptext[i].setPosition(sf::Vector2f(position.x, position.y + size->y * i * sprite->getScale().y));
+			dropcolor[i].setPosition(sf::Vector2f(position.x, position.y + size->y * i * sprite->getScale().y));
 		}
 	}
 	void Dropdown::setSelectColor(const sf::Color & color)
@@ -146,6 +154,8 @@ namespace UI
 
 			this->droptext[i].setOrigin(this->droptext[i].getLocalBounds().left + this->droptext[i].getLocalBounds().width / 2.0f,
 				this->droptext[i].getLocalBounds().top + this->droptext[i].getLocalBounds().height / 2.0f);
+
+			dropcolor[i].setScale(scale);
 		}
 	}
 	void Dropdown::setMaintext(const std::string & text)
@@ -171,9 +181,13 @@ namespace UI
 			droptext[i].setPosition(sf::Vector2f(sprite->getPosition().x, sprite->getPosition().y + size->y * i * sprite->getScale().y));
 		/*********************************************/
 	}
-	void Dropdown::setDropColor(const unsigned short & i, const sf::Color & color)
+	void Dropdown::setDroptextColor(const unsigned short & i, const sf::Color & color)
 	{
 		droptext[i].setFillColor(color);
+	}
+	void Dropdown::setDropColor(const unsigned short & i, const sf::Color & color)
+	{
+		dropcolor[i].setFillColor(color);
 	}
 	void Dropdown::setElementnr(const unsigned short & elementnr)
 	{

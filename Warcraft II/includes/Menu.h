@@ -7,11 +7,17 @@
 #include "Screens/Multiplayer.h"
 #include "Screens/Options.h"
 #include "Screens/Popup.h"
+#include "Others/Players.h"
 
 class Menu
 {
 private:
 	sf::Vector2f mouse; //holds position of the mouse
+
+	RW::Settings settings;
+	RW::Loading loading;
+
+	Players players;
 
 	Screens::MainMenu mainmenu;
 	Screens::Singleplayer singleplayer;
@@ -20,10 +26,7 @@ private:
 
 	Screens::Popup reswarning{2};
 
-	RW::Settings settings;
-	RW::Loading loading;
-
-	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
+	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes(); //holds all the possible resolutions for current screen
 public:
 	Menu()
 	{

@@ -11,7 +11,7 @@ namespace UI
 		sf::Vector2f *size = new sf::Vector2f{ 144,22 }; // the size of a closed dropdown
 
 		sf::RectangleShape *sprite = new sf::RectangleShape{ *size };
-		sf::RectangleShape *selectedsprite = new sf::RectangleShape{ *size };
+		sf::RectangleShape *selectedsprite = new sf::RectangleShape{ *size }; //holds the outline for selected dropdown parts
 
 		bool *isPressed = new bool{ false }; // if true do the the pressed animation and play the sound(once)
 		bool *isSelected = new bool{ false }; // if true show outline
@@ -24,21 +24,31 @@ namespace UI
 
 		sf::Text * maintext; // text above dropdown
 		sf::Text * droptext; // text in dropdown
+		sf::RectangleShape * dropcolor; // used only if you want colors instead of texts
 	public:
 		Dropdown(const unsigned short &elementnr)
 		{
 			*this->elementnr = elementnr;
-			//assert(0 < elementnr && elementnr <= 13);
 
 			maintext = new sf::Text;
 			droptext = new sf::Text[elementnr];
+			dropcolor = new sf::RectangleShape[elementnr];
 
 			elementselected = new bool[elementnr] { false };
 			isActive = new bool[elementnr] { false };
 
 			maintext->setFillColor(sf::Color::Yellow);
+
 			for (unsigned short i = 0; i < elementnr; i++)
-				droptext[i].setFillColor(sf::Color::Yellow);
+			{
+				droptext[i].setFillColor(sf::Color::Yellow); // set text color
+
+				dropcolor[i].setSize(sf::Vector2f(size->x * 0.9652f, size->y * 0.8181f)); // a bit smaller than the whole dropdown
+				dropcolor[i].setOrigin(sf::Vector2f(float((size->x * 0.9652f) / 2), float((size->y * 0.8181f) / 2)));
+				dropcolor[i].setFillColor(sf::Color::Transparent); // invisible by default
+			}
+			dropcolor[0].setSize(sf::Vector2f(size->x * 0.8472f, size->y * 0.8181f)); // the first color does not cover the arrow part
+			dropcolor[0].setOrigin(sf::Vector2f(float((size->x * 0.8472f) / 2 + (size->x * 0.9652f - size->x * 0.8472f) / 2), float((size->y * 0.8181f) / 2)));
 
 			sprite->setOrigin(sf::Vector2f(float(size->x / 2), float(size->y / 2)));
 			sprite->setOutlineColor(sf::Color::Yellow);
@@ -63,6 +73,15 @@ namespace UI
 			selectedsprite->setOrigin(sf::Vector2f(float(size.x / 2), float(size.y / 2)));
 			selectedsprite->setOutlineColor(sf::Color::Yellow);
 			selectedsprite->setOutlineThickness(-2);
+
+			for (unsigned short i = 0; i < elementnr; i++)
+			{
+				dropcolor[i].setSize(sf::Vector2f(size.x * 0.9652f, size.y * 0.8181f)); // a bit smaller than the whole dropdown
+				dropcolor[i].setOrigin(sf::Vector2f(float((size.x * 0.9652f) / 2), float((size.y * 0.8181f) / 2)));
+				dropcolor[i].setFillColor(sf::Color::Transparent);
+			}
+			dropcolor[0].setSize(sf::Vector2f(size.x * 0.8472f, size.y * 0.8181f)); // the first color does not cover the arrow part
+			dropcolor[0].setOrigin(sf::Vector2f(float((size.x * 0.8472f) / 2), float((size.y * 0.8181f) / 2)));
 		}
 		~Dropdown()
 		{
@@ -78,6 +97,7 @@ namespace UI
 			delete[] elementselected;
 			delete maintext;
 			delete[] droptext;
+			delete[] dropcolor;
 		}
 		void setSelected(const sf::Vector2f & mouse);
 		void handleInput(const sf::Event &event, sf::Sound & pressbutton);
@@ -91,6 +111,7 @@ namespace UI
 		void setScale(const sf::Vector2f &scale);
 		void setMaintext(const std::string & text);
 		void setDroptext(const unsigned short &i, const std::string & text);
+		void setDroptextColor(const unsigned short &i, const sf::Color &color);
 		void setDropColor(const unsigned short &i, const sf::Color &color);
 		void setActive(const unsigned short &i, const bool & active);
 		void setInactive(const bool & inactive);

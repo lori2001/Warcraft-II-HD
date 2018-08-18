@@ -90,6 +90,9 @@
     <ClCompile Include="includes\Screens\Singleplayer.cpp">
       <Filter>Source Files\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="includes\Others\Players.cpp">
+      <Filter>Source Files\Others</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\RW\Environment.h">
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="includes\Screens\Singleplayer.h">
       <Filter>Header Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\Others\Players.h">
+      <Filter>Header Files\Others</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

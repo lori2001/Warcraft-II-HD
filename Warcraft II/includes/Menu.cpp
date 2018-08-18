@@ -7,19 +7,26 @@ void Menu::Setup(sf::RenderWindow & window)
 	options.S0setLevel(settings.getMusic());
 	options.S1setLevel(settings.getSoundFX());
 
+	/*initialize screens*/
 	mainmenu.setTransform();
 	singleplayer.setTransform();
 	singleplayer.setText();
+	singleplayer.setColors();
 	multiplayer.setTransform();
 	options.setTransform();
 	options.setText(modes);
+	/*******************/
 
+	/*initialize popups*/
 	reswarning.setScale(settings.get1920Scale());
 	reswarning.setPosition(sf::Vector2f(float(settings.getRes().x / 2), float(settings.getRes().y / 2)));
 	reswarning.setDescription(0, "Please press OK to keep the resolution,\nCancel to revert it.");
 	reswarning.setDescription(1, "Reverting in:");
 	reswarning.setDescriptionPos(1, sf::Vector2f(0.5f, 0.68f));
 	reswarning.setCountdownPos(sf::Vector2f(0.65f,0.68f));
+	/*******************/
+
+	players.resetValues(); //set players' values to default
 }
 
 void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
