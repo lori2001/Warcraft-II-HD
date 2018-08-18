@@ -40,10 +40,12 @@ namespace RW
 			//read from file
 			in >> jsonfile;
 
+#if defined _DEBUG // only in debug mode
 			// +1  to build number
 			int temp = jsonfile["version"]["build"];
 			temp++;
 			jsonfile["version"]["build"] = temp;
+#endif
 
 			//saves changes
 			save();
