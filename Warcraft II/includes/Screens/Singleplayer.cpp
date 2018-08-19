@@ -60,7 +60,7 @@ namespace Screens
 
 		for (short i = 0; i < 11; i++)
 		{
-			aicolor[i].setDropColor(0, colors[0]);
+			aicolor[i].setDropColor(0, colors[i+1]);
 
 			for (short j = 0; j < 12; j++)
 			{
@@ -146,7 +146,7 @@ namespace Screens
 			aiteam[0].setSelected(mouse);
 			aicolor[0].setSelected(mouse);
 
-			for (int i = 0; i < 11; i++)
+			for (int i = 0; i < std::stoi(ais.getDroptext(0)); i++)
 			{
 				bool isNotRestricted = true;
 				for (int j = 0; j < i; j++)
@@ -181,7 +181,7 @@ namespace Screens
 
 		ais.handleInput(event, loading.pressbutton);
 
-		for (int i = 0; i < 11; i++)
+		for (int i = 0; i < std::stoi(ais.getDroptext(0)); i++)
 		{
 			aidifficulty[i].handleInput(event, loading.pressbutton);
 			airace[i].handleInput(event, loading.pressbutton);
@@ -199,7 +199,7 @@ namespace Screens
 		target.draw(play, states);
 		target.draw(relativecolors, states);
 
-		for (int i = 11 - 1; i >= 0; i--) //draws things backwards so first things come on top
+		for (int i = std::stoi(ais.getDroptext(0)) - 1; i >= 0; i--) //draws things backwards so first things come on top
 		{
 			target.draw(aidifficulty[i], states);
 			target.draw(airace[i], states);
