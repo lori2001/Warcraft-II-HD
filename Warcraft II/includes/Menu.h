@@ -2,6 +2,7 @@
 #include "SFML\Graphics.hpp"
 #include "RW/Settings.h"
 #include "RW/Loading.h"
+#include "RW/MapReader.h"
 #include "Screens/MainMenu.h"
 #include "Screens/Singleplayer.h"
 #include "Screens/Multiplayer.h"
@@ -16,6 +17,7 @@ private:
 
 	RW::Settings settings;
 	RW::Loading loading;
+	RW::MapReader mapreader;
 
 	Players players;
 

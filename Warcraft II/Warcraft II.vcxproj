@@ -128,6 +128,7 @@
     <ClCompile Include="includes\Others\Players.cpp" />
     <ClCompile Include="includes\RW\Environment.cpp" />
     <ClCompile Include="includes\RW\Loading.cpp" />
+    <ClCompile Include="includes\RW\MapReader.cpp" />
     <ClCompile Include="includes\RW\Settings.cpp" />
     <ClCompile Include="includes\Screens\MainMenu.cpp" />
     <ClCompile Include="includes\Screens\Multiplayer.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="includes\Others\Players.h" />
     <ClInclude Include="includes\RW\Environment.h" />
     <ClInclude Include="includes\RW\Loading.h" />
+    <ClInclude Include="includes\RW\MapReader.h" />
     <ClInclude Include="includes\RW\Settings.h" />
     <ClInclude Include="includes\Screens\MainMenu.h" />
     <ClInclude Include="includes\Screens\Multiplayer.h" />

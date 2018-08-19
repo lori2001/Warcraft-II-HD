@@ -93,6 +93,9 @@
     <ClCompile Include="includes\Others\Players.cpp">
       <Filter>Source Files\Others</Filter>
     </ClCompile>
+    <ClCompile Include="includes\RW\MapReader.cpp">
+      <Filter>Source Files\RW</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\RW\Environment.h">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="includes\Others\Players.h">
       <Filter>Header Files\Others</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\RW\MapReader.h">
+      <Filter>Header Files\RW</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

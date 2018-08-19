@@ -26,6 +26,11 @@ void Menu::Setup(sf::RenderWindow & window)
 	reswarning.setDescriptionPos(1, sf::Vector2f(0.5f, 0.68f));
 	reswarning.setCountdownPos(sf::Vector2f(0.65f,0.68f));
 	/*******************/
+
+	/*read maps*/
+	mapreader.readList(); //read the list of maps
+	mapreader.read(0); //read the first map
+	/****************/
 }
 
 void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
