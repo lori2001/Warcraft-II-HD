@@ -95,6 +95,7 @@ namespace UI
 		void setPosition(const sf::Vector2f &position);
 		void setScale(const sf::Vector2f &scale);
 		void setText(const std::string &text);
+		void setActive(const bool &isActive) { *this->isActive = isActive; }
 
 		//getters
 		sf::Vector2f getSSize() const

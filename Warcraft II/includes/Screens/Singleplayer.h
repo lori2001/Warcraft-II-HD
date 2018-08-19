@@ -94,6 +94,7 @@ namespace Screens
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 		//setters
+		void S0setActive(const bool &active) { relativecolors.setActive(active); }
 		void B0setActive(const bool &active) { back.setActive(active); }
 		void B1setActive(const bool &active) { play.setActive(active); }
 		void TH0setActive(const bool &active) { name.setActive(active); }

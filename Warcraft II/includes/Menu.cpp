@@ -77,8 +77,17 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 		if (singleplayer.B0getActive())
 		{
 			singleplayer.B0setActive(false);
+
+			//rests all values
+			singleplayer.setText();
+			singleplayer.setColors();
+			singleplayer.S0setActive(false);
+
+			//goes back to main menu
 			singleplayer.isActive = false;
 			mainmenu.isActive = true;
+
+			mainmenu.handleInput(event, mouse); //erases buggy output
 		}
 	}
 	else if (multiplayer.isActive)
@@ -90,6 +99,8 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 			multiplayer.B0setActive(false);
 			multiplayer.isActive = false;
 			mainmenu.isActive = true;
+
+			mainmenu.handleInput(event, mouse); //erases buggy output
 		}
 	}
 	else if (options.isActive)
@@ -111,6 +122,8 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 			//goes back to mainmenu
 			options.isActive = false;
 			mainmenu.isActive = true;
+
+			mainmenu.handleInput(event, mouse); //erases buggy output
 		}
 		else if (options.B1getActive()) //if "apply" is pressed
 		{
@@ -126,6 +139,7 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 				//open warning ro revert in case something goes wrong with changing the resolution
 				reswarning.isActive = true;
 				reswarning.restartTimining();
+
 				options.isActive = false;
 			}
 			//sets button back to inactive
@@ -178,18 +192,24 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 			mainmenu.B0setActive(false);
 			mainmenu.isActive = false;
 			singleplayer.isActive = true;
+
+			singleplayer.handleInput(event, mouse); //erases buggy output
 		}
 		else if (mainmenu.B1getActive()) //multiplayer
 		{
 			mainmenu.B1setActive(false);
 			mainmenu.isActive = false;
 			multiplayer.isActive = true;
+
+			multiplayer.handleInput(event, mouse); //erases buggy output
 		}
 		else if (mainmenu.B2getActive()) //options
 		{
 			mainmenu.B2setActive(false);
 			mainmenu.isActive = false;
 			options.isActive = true;
+
+			options.handleInput(event, mouse); //erases buggy output
 		}
 		else if (mainmenu.B3getActive()) //exit game
 		{
