@@ -29,7 +29,11 @@ void Menu::Setup(sf::RenderWindow & window)
 
 	/*read maps*/
 	mapreader.readList(); //read the list of maps
-	mapreader.read(0); //read the first map
+	mapreader.read(1); //read the first map
+	test.setTexture(loading.summertilesT, loading.wastelandtilesT, loading.wintertilesT);
+	test.setTiles(mapreader);
+	test.setScale(settings.get1920Scale());
+	test.setPosition(500,300);
 	/****************/
 }
 
@@ -349,4 +353,7 @@ void Menu::Compose(sf::RenderWindow & window)
 		window.draw(options);
 	else if (mainmenu.isActive)
 		window.draw(mainmenu);
+
+	window.draw(test);
+
 }

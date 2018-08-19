@@ -137,6 +137,7 @@
     <ClCompile Include="includes\UI\Button.cpp" />
     <ClCompile Include="includes\UI\Cursor.cpp" />
     <ClCompile Include="includes\UI\Dropdown.cpp" />
+    <ClCompile Include="includes\UI\Minimap.cpp" />
     <ClCompile Include="includes\UI\Slider.cpp" />
     <ClCompile Include="includes\UI\Switch.cpp" />
     <ClCompile Include="includes\UI\TextHolder.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="includes\UI\Cursor.h" />
     <ClInclude Include="includes\Screens\Options.h" />
     <ClInclude Include="includes\UI\Dropdown.h" />
+    <ClInclude Include="includes\UI\Minimap.h" />
     <ClInclude Include="includes\UI\Slider.h" />
     <ClInclude Include="includes\UI\Switch.h" />
     <ClInclude Include="includes\UI\TextHolder.h" />

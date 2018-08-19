@@ -7,6 +7,7 @@
 #include "..\UI\Dropdown.h"
 #include "..\UI\TextHolder.h"
 #include "..\UI\Switch.h"
+#include "..\UI\Minimap.h"
 
 namespace Screens
 {
