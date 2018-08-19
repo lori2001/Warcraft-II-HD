@@ -16,7 +16,7 @@ namespace UI
 	}
 	void TextHolder::handleInput(const sf::Event & event, sf::Sound & pressbutton)
 	{//TODO: if resolution changes text goes out of bound
-		if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed && *isSelected)
+		if (*isSelected && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
 		{ // if pressed and selected
 			if (pressbutton.getStatus() != sf::Music::Status::Playing && !*isActive) // play sound
 				pressbutton.play();
@@ -28,9 +28,10 @@ namespace UI
 
 			*isActive = true; //makes active so writing may occur
 		}
-		else if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
+		else if (*isActive == true && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
 		{ // if mouse button pressed anywhere else
 			*isActive = false; //make inactive
+			*hasChanged = true; //signal that string has changed
 		}
 
 		if (*isActive)
@@ -69,6 +70,7 @@ namespace UI
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 			{ //if enter pressed make inactive
 				*isActive = false;
+				*hasChanged = true; //signal that string has changed
 			}
 		}
 	}
@@ -146,9 +148,5 @@ namespace UI
 
 		this->maintext->setOrigin(this->maintext->getLocalBounds().left + this->maintext->getLocalBounds().width / 2.0f,
 			this->maintext->getLocalBounds().top + this->maintext->getLocalBounds().height / 2.0f);
-	}
-	void TextHolder::setActive(const bool & active)
-	{
-		*isActive = active;
 	}
 }

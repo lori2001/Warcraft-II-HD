@@ -1,11 +1,12 @@
 #include "Menu.h"
-#include <iostream>
 
 void Menu::Setup(sf::RenderWindow & window)
 {
 	// set options slider levels to levels in settings.json
 	options.S0setLevel(settings.getMusic());
 	options.S1setLevel(settings.getSoundFX());
+
+	players.resetValues(); //set players' values to default
 
 	/*initialize screens*/
 	mainmenu.setTransform();
@@ -25,8 +26,6 @@ void Menu::Setup(sf::RenderWindow & window)
 	reswarning.setDescriptionPos(1, sf::Vector2f(0.5f, 0.68f));
 	reswarning.setCountdownPos(sf::Vector2f(0.65f,0.68f));
 	/*******************/
-
-	players.resetValues(); //set players' values to default
 }
 
 void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
@@ -78,16 +77,109 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 		{
 			singleplayer.B0setActive(false);
 
-			//rests all values
+			players.resetValues(); //set players' values to default
+
+			//resets all values
 			singleplayer.setText();
 			singleplayer.setColors();
 			singleplayer.S0setActive(false);
+			singleplayer.setColorsInactive(false);
 
 			//goes back to main menu
 			singleplayer.isActive = false;
 			mainmenu.isActive = true;
 
 			mainmenu.handleInput(event, mouse); //erases buggy output
+		}
+		else if (singleplayer.B1getActive())
+		{
+			singleplayer.B1setActive(false);
+		}
+		else if (singleplayer.TH0getChanged()) // if the text inside textholder has changed
+		{
+			settings.setName(singleplayer.TH0getString()); //set new name in settings
+		}
+		else if (players.relativecolors != singleplayer.S0getActive()) //if the state of relative colors has changed
+		{
+			players.relativecolors = singleplayer.S0getActive(); // set relative colors to new state
+
+			if (players.relativecolors) // if state is true
+			{
+				players.setColorsTeamRelative(); //sets all colors relative to team
+				singleplayer.setColorsInactive(true); //makes color dropdowns inactive
+			}
+			else // if state is false 
+			{
+				players.resetColors(); //resets colors back
+				singleplayer.setColorsInactive(false); //makes color dropdowns active
+			}
+		}
+
+		for (short i = 1; i < 13; i++) //13 is the greatest number used in singleplayer dropdowns
+		{
+			if (i < 4 && singleplayer.D0getActive(i))
+			{
+				players.playerrace = i; //race changes to whatever it is equal to now
+				singleplayer.D0setActive(i, false);
+			}
+			else if (i < 13 && singleplayer.D1getActive(i))
+			{
+				players.playerteam = i; // change team to new value
+
+				if (players.relativecolors) //if relative colors is on
+				{
+					players.setPlayerColor(players.playerteam); //set color according to team
+					singleplayer.setColors();
+				}
+
+				singleplayer.D1setActive(i, false);
+			}
+			else if (i < 13 && singleplayer.D2getActive(i))
+			{
+				players.setPlayerColor(i); //sets new player color
+				singleplayer.setColors(); //displays changes
+				singleplayer.D2setActive(i, false);
+			}
+			else if (i < players.ailimit + 1 && singleplayer.D3getActive(i))
+			{
+				players.setAiColorsAfter(players.ais); //set ai colors after the old ais number
+				singleplayer.setColors(); //display them
+
+				players.ais = i; //set new ais number
+
+				singleplayer.D3setActive(i, false);
+			}
+			for (short j = 0; j < players.ais; j++)
+			{
+				if (i < 4 && singleplayer.D4getActive(j, i))
+				{
+					players.aidifficulty[j] = i; //sets new difficulty
+					singleplayer.D4setActive(j, i, false);
+				}
+				else if (i < 4 && singleplayer.D5getActive(j, i))
+				{
+					players.airace[j] = i; //sets new race
+					singleplayer.D5setActive(j, i, false);
+				}
+				else if (i < 11 && singleplayer.D6getActive(j, i))
+				{
+					players.aiteam[j] = i; //sets new team
+
+					if (players.relativecolors) // if relative colors is on
+					{
+						players.setAiColor(j, players.aiteam[j]); //set color relative to team
+						singleplayer.setColors(); //displays changes
+					}
+
+					singleplayer.D6setActive(j, i, false);
+				}
+				else if (i < 13 && singleplayer.D7getActive(j, i))
+				{
+					players.setAiColor(j, i);
+					singleplayer.setColors(); //displays changes
+					singleplayer.D7setActive(j, i, false);
+				}
+			}
 		}
 	}
 	else if (multiplayer.isActive)
@@ -221,6 +313,7 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 
 void Menu::Update(sf::RenderWindow & window)
 {
+	singleplayer.setColors();
 	if (reswarning.isActive)
 	{
 		options.animateGears();

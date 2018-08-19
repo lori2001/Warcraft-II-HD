@@ -5,67 +5,63 @@ namespace Screens
 	void Singleplayer::setText()
 	{
 		//set player's race dropdown texts
-		playerrace.setDroptext(0, "Random");
 		playerrace.setDroptext(1, "Random");
 		playerrace.setDroptext(2, "Orcs[");
 		playerrace.setDroptextColor(2, sf::Color::Red);
 		playerrace.setDroptext(3, "Humans]");
 		playerrace.setDroptextColor(3, sf::Color::Blue);
+		playerrace.setDroptext(0, playerrace.getDroptext(players.playerrace));
 
 		//set player's teams dropdown texts
-		playerteam.setDroptext(0, "Team " + std::to_string(1));
 		for (short i = 1; i <= 12; i++) //starts from 1 because we want the numbers to be right
 			playerteam.setDroptext(i, "Team " + std::to_string(i));
+		playerteam.setDroptext(0, playerteam.getDroptext(players.playerteam));
 
 		//set aiumber's dropdown texts
 		ais.setMaintext("AI: ");
-		ais.setDroptext(0, std::to_string(1));
 		for (short i = 1; i <= 11; i++)
 			ais.setDroptext(i, std::to_string(i));
+		ais.setDroptext(0, ais.getDroptext(players.ais));
 
 		for (int i = 0; i < 11; i++) // for every ai
 		{
-			aidifficulty[i].setMaintext("");
-
-			aidifficulty[i].setDroptext(0, "Easy");
+			//set ai difficulty's dropdown texts
 			aidifficulty[i].setDroptext(1, "Easy");
 			aidifficulty[i].setDroptext(2, "Medium");
 			aidifficulty[i].setDroptext(3, "Hard");
+			aidifficulty[i].setDroptext(0, aidifficulty[i].getDroptext(players.aidifficulty[i]));
 
-			airace[i].setMaintext("");
-
-			airace[i].setDroptext(0, "Random");
+			//set ai airace's dropdown texts
 			airace[i].setDroptext(1, "Random");
 			airace[i].setDroptext(2, "Orcs[");
 			airace[i].setDroptextColor(2, sf::Color::Red);
 			airace[i].setDroptext(3, "Humans]");
 			airace[i].setDroptextColor(3, sf::Color::Blue);
+			airace[i].setDroptext(0, airace[i].getDroptext(players.airace[i]));
 
-			aiteam[i].setMaintext("");
-			aiteam[i].setDroptext(0, "Team " + std::to_string(1));
+			//set ai aiteam's dropdown texts
 			for (int j = 1; j < 13; j++)
 				aiteam[i].setDroptext(j, "Team " + std::to_string(j));
-
-			aicolor[i].setMaintext("");
+			aiteam[i].setDroptext(0, aiteam[i].getDroptext(players.aiteam[i]));
 		}
 	}
 	void Singleplayer::setColors()
 	{
-		playercolor.setDropColor(0, colors[0]);
-
+		//sets player's colors
 		for (short i = 0; i < 12; i++)
 		{
 			playercolor.setDropColor(i+1 , colors[i]);
 		}
+		playercolor.setDropColor(0, playercolor.getDropColor(players.playercolor));
 
+		//sets ais'colors
 		for (short i = 0; i < 11; i++)
 		{
-			aicolor[i].setDropColor(0, colors[i+1]);
-
 			for (short j = 0; j < 12; j++)
 			{
 				aicolor[i].setDropColor(j + 1, colors[j]);
 			}
+			aicolor[i].setDropColor(0, aicolor[i].getDropColor(players.aicolor[i]));
 		}
 	}
 	void Singleplayer::setColorsInactive(const bool &inactive)

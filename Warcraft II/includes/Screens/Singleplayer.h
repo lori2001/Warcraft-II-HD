@@ -2,6 +2,7 @@
 #include "SFML\Graphics.hpp"
 #include "..\RW\Settings.h"
 #include "..\RW\Loading.h"
+#include "..\Others\Players.h"
 #include "..\UI\Button.h"
 #include "..\UI\Dropdown.h"
 #include "..\UI\TextHolder.h"
@@ -16,6 +17,8 @@ namespace Screens
 
 		RW::Loading loading;
 		RW::Settings settings;
+
+		Players players;
 
 		UI::Button back{ "Back" }; // back button (sends to mainmenu)
 		UI::Button play{ "Play" }; // starts game
@@ -97,7 +100,7 @@ namespace Screens
 		void S0setActive(const bool &active) { relativecolors.setActive(active); }
 		void B0setActive(const bool &active) { back.setActive(active); }
 		void B1setActive(const bool &active) { play.setActive(active); }
-		void TH0setActive(const bool &active) { name.setActive(active); }
+		void TH0setChanged(const bool &changed) { name.setChanged(changed); }
 		void TH0setString(const std::string & text) { name.setString(text); }
 		void D0setActive(const unsigned short &i, const bool &active) { playerrace.setActive(i, active); }
 		void D1setActive(const unsigned short &i, const bool &active) { playerteam.setActive(i, active); }
@@ -112,7 +115,7 @@ namespace Screens
 		const bool S0getActive() { return relativecolors.getActive(); }
 		const bool B0getActive() { return back.getActive(); }
 		const bool B1getActive() { return play.getActive(); }
-		const bool TH0getActive() { return name.getActive(); }
+		const bool TH0getChanged() { return name.getChanged(); }
 		const std::string TH0getString() { return name.getString(); }
 		const bool D0getActive(const unsigned short &i) { return playerrace.getActive(i); }
 		const bool D1getActive(const unsigned short &i) { return playerteam.getActive(i); }

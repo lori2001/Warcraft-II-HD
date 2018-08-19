@@ -121,6 +121,7 @@ namespace UI
 		bool getActive(const unsigned short &i) const { return isActive[i]; }
 		bool getDroppeddown() const { return *isDroppeddown; }
 		std::string getDroptext(const unsigned short &i) const { return droptext[i].getString(); }
+		sf::Color getDropColor(const unsigned short &i) const { return dropcolor[i].getFillColor(); }
 		unsigned short getElementnr() const { return *elementnr; }
 		sf::Vector2f getSize() const { return *size; }
 	};

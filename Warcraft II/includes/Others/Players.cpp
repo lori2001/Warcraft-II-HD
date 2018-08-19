@@ -1,7 +1,5 @@
 #include "Players.h"
 
-std::string Players::playername;
-
 unsigned short Players::playerrace = 1;
 unsigned short Players::playerteam = 1;
 unsigned short Players::playercolor = 1;
@@ -19,12 +17,14 @@ bool Players::canStart()
 {
 	bool canstart = false;
 	bool onlyspaces = true;
+	
+	RW::Settings settings; 
 
 	//checks if there are only spaces in the name
-	for (std::string::const_iterator i = playername.begin(); i != playername.end(); ++i)
+	for (std::string::const_iterator i = settings.getName().begin(); i != settings.getName().end(); ++i)
 		onlyspaces = (*i == ' ');
 
-	if (playername == "" || onlyspaces) //if the name contains nothing, return false
+	if (settings.getName() == "" || onlyspaces) //if the name contains nothing or has only spaces, return false
 		return false;
 
 	for (short i = 0; i < ais; i++) // if any of the teams are different the game can start
@@ -49,7 +49,7 @@ bool Players::canStart()
 
 	return canstart;
 }
-void Players::setAiColorTeamRelative()
+void Players::setColorsTeamRelative()
 {
 	playercolor = playerteam;
 	for (int i = 0; i < 11; i++)
@@ -78,7 +78,7 @@ bool Players::setAiColor(const unsigned short & i, const unsigned short & value)
 			return false;
 	}
 	else
-		return false;
+		aicolor[i] = aiteam[i];
 
 	return true;
 }
@@ -86,18 +86,21 @@ void Players::setAiColorsAfter(const unsigned short & from)
 { 
 	unsigned short colors[12] = { 1,2,3,4,5,6,7,8,9,10,11,12 };
 
-	for (short i = from; i < ais; i++) // for every ai after the param
+	for (short i = from; i < 11; i++) // for every ai after the param
 	{
 		for (short j = 1; j < 12; j++) // for every existing color
 		{
-			if (setAiColor(i, colors[j])) //if color setting is succesful
+			if (setAiColor(i, j)) //if color setting is succesful
+			{
+				ais++; // adds the color to the ais pool
 				break; // break because no further color setting is needed
+			}
 		}
 	}
 }
 bool Players::setPlayerColor(const unsigned short & value)
 {
-	if (!relativecolors)
+	if (!relativecolors) // doublecheck for relativecolors disabled
 	{
 		bool usedup = false;
 
@@ -116,7 +119,7 @@ bool Players::setPlayerColor(const unsigned short & value)
 			return false;
 	}
 	else
-		return false;
+		playercolor = playerteam;
 
 	return true;
 }

@@ -1,13 +1,12 @@
 #pragma once
-#include <vector>
 #include "SFML\Graphics.hpp"
+#include "../RW/Settings.h"
 
 struct Players
 {
 public: // not needed but put for safety
 
 	//contains player's info
-	static std::string playername;
 	static unsigned short playerrace;
 	static unsigned short playerteam;
 	static unsigned short playercolor;
@@ -24,7 +23,7 @@ public: // not needed but put for safety
 
 	static bool canStart(); // checks if the name is not empty and if there is at least 2 teams (if not returns false)
 
-	static void setAiColorTeamRelative(); // sets colors relative to their teams
+	static void setColorsTeamRelative(); // sets colors relative to their teams
 	//used to set a single ai's color (returns false if it fails)
 	static bool setAiColor(const unsigned short &i, const unsigned short &value); //sets ai color avoiding same-color outputs
 	//used when the number of ai's changes

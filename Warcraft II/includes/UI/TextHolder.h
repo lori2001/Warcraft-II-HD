@@ -14,8 +14,9 @@ namespace UI
 		sf::Text *cursor = new sf::Text; // just a | to show off cursor position
 		sf::Text *text = new sf::Text; // text the object contains
 
-		bool *isSelected = new bool{ false };
-		bool *isActive = new bool{ false };
+		bool *isSelected = new bool{ false }; // true when the mouse is hovered on the TextHolder
+		bool *isActive = new bool{ false }; // true when string is under editing
+		bool *hasChanged = new bool{ false }; // true if the string has been modified
 
 		unsigned short *textsize = new unsigned short{ 18 }; // the default size of texts
 		sf::Vector2f *lastscale = new sf::Vector2f; //holds the last scale in case of change of resolution
@@ -63,10 +64,10 @@ namespace UI
 		void setScale(const sf::Vector2f &scale);
 		void setString(const std::string & text);
 		void setMaintext(const std::string & text);
-		void setActive(const bool & active);
+		void setChanged(const bool & hasChanged) { *this->hasChanged = hasChanged; }
 
 		//getters
-		bool getActive() const { return *isActive; }
+		bool getChanged() const { return *hasChanged; }
 		sf::Vector2f getScale() const { return sprite->getScale(); }
 		sf::Vector2f getPosition() const { return sprite->getPosition(); }
 		sf::Vector2f getSize() const { return *size; }
