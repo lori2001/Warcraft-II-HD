@@ -20,6 +20,8 @@ namespace UI
 		sf::Texture *wintertilesT = new sf::Texture;
 
 		sf::Vector2f *scale = new sf::Vector2f; // holds the last scale inputed in set scale
+
+		float round(float &x);
 	public:
 		~Minimap()
 		{

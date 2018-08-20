@@ -32,8 +32,10 @@ void Menu::Setup(sf::RenderWindow & window)
 	mapreader.read(1); //read the first map
 	test.setTexture(loading.summertilesT, loading.wastelandtilesT, loading.wintertilesT);
 	test.setTiles(mapreader);
+	//test.setScale(sf::Vector2f(0.300123f, 0.300123f));
 	test.setScale(settings.get1920Scale());
-	test.setPosition(500,300);
+	test.setPosition(102.23,200.453);
+
 	/****************/
 }
 

@@ -2,6 +2,14 @@
 
 namespace UI
 {
+	float Minimap::round(float &x)
+	{
+		float whole;
+		if (std::modf(x, &whole) >= 0.5f)
+			return x >= 0 ? ceil(x) : floor(x);
+		else
+			return x < 0 ? ceil(x) : floor(x);
+	}
 	void Minimap::move(float x, float y)
 	{
 		Transformable::setPosition(Transformable::getPosition().x + x, Transformable::getPosition().y + y);
@@ -24,7 +32,7 @@ namespace UI
 		*this->wintertilesT = wintertilesT;
 	}
 	void Minimap::setTiles(const RW::MapReader &mapreader)
-	{
+	{ 
 		*tilessize = mapreader.getTilessize();
 
 		if (mapreader.getTheme() == 0)
@@ -36,7 +44,7 @@ namespace UI
 
 		tilesV->setPrimitiveType(sf::Quads);
 		tilesV->resize(tilessize->x * tilessize->y * 4);
-
+		
 		for (int y = 0; y < tilessize->y; ++y)
 			for (int x = 0; x < tilessize->x; ++x)
 			{
@@ -63,10 +71,23 @@ namespace UI
 		//saves scale for further use
 		*this->scale = scale;
 
+		float usedScale;
+
 		//scales according to the bigger size
 		if (tilessize->x > tilessize->y)
-			Transformable::setScale((minimapsize->x * scale.x) / (tilessize->x * (*tilesize)), (minimapsize->x * scale.x) / (tilessize->x * (*tilesize)));
+			usedScale = (minimapsize->x * scale.x) / (tilessize->x * (*tilesize));
 		else
-			Transformable::setScale((minimapsize->y * scale.y) / (tilessize->y * (*tilesize)), (minimapsize->y * scale.y) / (tilessize->y * (*tilesize)));
+			usedScale = (minimapsize->y * scale.y) / (tilessize->y * (*tilesize));
+
+		float temp; // holds the part that needs to be cut
+		float whole; // not really used (just for modf to work
+
+		temp = usedScale * 10000; // separates the last two digits by the decimal (y.xxxxxx)=>(yyyyy.xx)
+		temp = std::modf(temp, &whole); // gets rid of whole part
+		temp /= 10000; //puts the las to decimals back to their original position
+
+		usedScale -= temp;
+
+		Transformable::setScale(usedScale, usedScale);
 	}
 }

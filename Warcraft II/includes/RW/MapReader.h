@@ -25,6 +25,8 @@ namespace RW
 
 		static sf::Vector2i goldmines[24]; // contains coordinates of different gold mines
 		static unsigned short minesize; // holds the number of mines on the map
+
+		static void clear(); //reads map number mapnr
 	public:
 		static void readList(); //reads the list of map names
 		static void read(const unsigned short &mapnr); //reads map number mapnr
