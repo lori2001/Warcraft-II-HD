@@ -94,10 +94,11 @@ namespace UI
 			else
 				return sf::Vector2f(tilessize->x * (*tilesize) * ((minimapsize->y * scale->y) / (tilessize->y * (*tilesize))), tilessize->y * (*tilesize) * ((minimapsize->y * scale->y) / (tilessize->y * (*tilesize))));
 		}
-		//returns the size of the currently displayed minimap
+		sf::Vector2f getScale() const { return *scale; }
+		//returns the scaledsize of the currently displayed minimap
 		sf::Vector2f getMinimapSize() const { return sf::Vector2f(minimapsize->x * scale->x, minimapsize->y * scale->y); }
 		sf::Vector2f getSize() const { return sf::Vector2f((getScaledSize().x / Transformable::getScale().x), (getScaledSize().y / Transformable::getScale().y)); }
-		bool getlActive() const { return islActive; }
-		bool getrActive() const { return isrActive; }
+		bool getlActive() const { return *islActive; }
+		bool getrActive() const { return *isrActive; }
 	};
 }

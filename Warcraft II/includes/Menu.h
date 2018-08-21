@@ -19,8 +19,6 @@ private:
 	RW::Loading loading;
 	RW::MapReader mapreader;
 
-	UI::MapSelector test;
-
 	Players players;
 
 	Screens::MainMenu mainmenu;

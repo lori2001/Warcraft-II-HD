@@ -8,6 +8,12 @@ void Menu::Setup(sf::RenderWindow & window)
 
 	players.resetValues(); //set players' values to default
 
+	/*read maps*/
+	mapreader.readList(); //read the list of maps
+	mapreader.read(); //read the first map
+	singleplayer.M0setTiles(mapreader);
+	/****************/
+
 	/*initialize screens*/
 	mainmenu.setTransform();
 	singleplayer.setTransform();
@@ -26,23 +32,11 @@ void Menu::Setup(sf::RenderWindow & window)
 	reswarning.setDescriptionPos(1, sf::Vector2f(0.5f, 0.68f));
 	reswarning.setCountdownPos(sf::Vector2f(0.65f,0.68f));
 	/*******************/
-
-	/*read maps*/
-	mapreader.readList(); //read the list of maps
-	mapreader.read(1); //read the first map
-	test.setTexture(loading.summertilesT, loading.wastelandtilesT, loading.wintertilesT, loading.mapcontainerT);
-	test.setTiles(mapreader);
-	test.setScale(settings.get1920Scale());
-	test.setPosition(sf::Vector2f(418 * settings.get1920Scale().x/2, 297 * settings.get1920Scale().y/2));
-	//test.setupContainer(loading.mapcontainerT);
-	/****************/
 }
 
 void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 {
 	mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window)); //gets mouse position relative to window
-	test.setSelected(mouse);
-	test.handleInput(event, loading.pressbutton);
 
 	if (reswarning.isActive)
 	{
@@ -125,6 +119,20 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 				players.resetColors(); //resets colors back
 				singleplayer.setColorsInactive(false); //makes color dropdowns active
 			}
+		}
+		else if (singleplayer.M0getlActive())
+		{
+			mapreader.shiftby(-1); // shift map backward
+			singleplayer.M0setTiles(mapreader); //set new tiles
+			singleplayer.setTransform();
+			singleplayer.M0setlActive(false);
+		}
+		else if (singleplayer.M0getrActive())
+		{
+			mapreader.shiftby(1); // shift map forward
+			singleplayer.M0setTiles(mapreader); //set new tiles
+			singleplayer.setTransform();
+			singleplayer.M0setrActive(false);
 		}
 
 		for (short i = 1; i < 13; i++) //13 is the greatest number used in singleplayer dropdowns
@@ -356,6 +364,4 @@ void Menu::Compose(sf::RenderWindow & window)
 		window.draw(options);
 	else if (mainmenu.isActive)
 		window.draw(mainmenu);
-
-	window.draw(test);
 }

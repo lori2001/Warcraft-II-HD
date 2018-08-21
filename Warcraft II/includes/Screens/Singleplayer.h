@@ -2,6 +2,7 @@
 #include "SFML\Graphics.hpp"
 #include "..\RW\Settings.h"
 #include "..\RW\Loading.h"
+#include "..\RW\MapReader.h"
 #include "..\Others\Players.h"
 #include "..\UI\Button.h"
 #include "..\UI\Dropdown.h"
@@ -56,6 +57,8 @@ namespace Screens
 		UI::Dropdown aicolor[11]{ 13,13,13,13,13,13,13,13,13,13,13 };
 
 		UI::Switch relativecolors{ 0, "Relative Team Colors ON" };
+
+		UI::MapSelector mapselector;
 	public:
 		Singleplayer()
 		{
@@ -78,6 +81,7 @@ namespace Screens
 			}
 
 			relativecolors.setTexture(loading.switchT, loading.normalF);
+			mapselector.setTexture(loading.summertilesT,loading.wastelandtilesT,loading.wintertilesT,loading.mapcontainerT);
 			/******************************/
 
 			player.setFillColor(sf::Color::Yellow); //set color of yellow
@@ -89,13 +93,13 @@ namespace Screens
 
 		bool isActive = false;
 
-		void setText();
-		void setColors();
-		void setColorsInactive(const bool &inactive);
-
 		void setTransform();
 		void handleInput(const sf::Event & event, const sf::Vector2f & mouse);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+		void setText();
+		void setColors();
+		void setColorsInactive(const bool &inactive);
 
 		//setters
 		void S0setActive(const bool &active) { relativecolors.setActive(active); }
@@ -111,20 +115,25 @@ namespace Screens
 		void D5setActive(const unsigned short &i, const unsigned short &j, const bool &active) { airace[i].setActive(j, active); }
 		void D6setActive(const unsigned short &i, const unsigned short &j, const bool &active) { aiteam[i].setActive(j, active); }
 		void D7setActive(const unsigned short &i, const unsigned short &j, const bool &active) { aicolor[i].setActive(j, active); }
+		void M0setTiles(const RW::MapReader & mapreader) { mapselector.setTiles(mapreader); }
+		void M0setlActive(const bool &active) { mapselector.setlActive(active); }
+		void M0setrActive(const bool &active) { mapselector.setrActive(active); }
 
 		//getters
-		const bool S0getActive() { return relativecolors.getActive(); }
-		const bool B0getActive() { return back.getActive(); }
-		const bool B1getActive() { return play.getActive(); }
-		const bool TH0getChanged() { return name.getChanged(); }
-		const std::string TH0getString() { return name.getString(); }
-		const bool D0getActive(const unsigned short &i) { return playerrace.getActive(i); }
-		const bool D1getActive(const unsigned short &i) { return playerteam.getActive(i); }
-		const bool D2getActive(const unsigned short &i) { return playercolor.getActive(i); }
-		const bool D3getActive(const unsigned short &i) { return ais.getActive(i); }
-		const bool D4getActive(const unsigned short &i, const unsigned short &j) { return aidifficulty[i].getActive(j); }
-		const bool D5getActive(const unsigned short &i, const unsigned short &j) { return airace[i].getActive(j); }
-		const bool D6getActive(const unsigned short &i, const unsigned short &j) { return aiteam[i].getActive(j); }
-		const bool D7getActive(const unsigned short &i, const unsigned short &j) { return aicolor[i].getActive(j); }
+		bool S0getActive() const { return relativecolors.getActive(); }
+		bool B0getActive() const { return back.getActive(); }
+		bool B1getActive() const { return play.getActive(); }
+		bool TH0getChanged() const { return name.getChanged(); }
+		std::string TH0getString() const { return name.getString(); }
+		bool D0getActive(const unsigned short &i) const { return playerrace.getActive(i); }
+		bool D1getActive(const unsigned short &i) const { return playerteam.getActive(i); }
+		bool D2getActive(const unsigned short &i) const { return playercolor.getActive(i); }
+		bool D3getActive(const unsigned short &i) const { return ais.getActive(i); }
+		bool D4getActive(const unsigned short &i, const unsigned short &j) const { return aidifficulty[i].getActive(j); }
+		bool D5getActive(const unsigned short &i, const unsigned short &j) const { return airace[i].getActive(j); }
+		bool D6getActive(const unsigned short &i, const unsigned short &j) const { return aiteam[i].getActive(j); }
+		bool D7getActive(const unsigned short &i, const unsigned short &j) const { return aicolor[i].getActive(j); }
+		bool M0getlActive() { return mapselector.getlActive(); }
+		bool M0getrActive() { return mapselector.getrActive(); }
 	};
 }
