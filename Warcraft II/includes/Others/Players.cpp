@@ -22,7 +22,13 @@ bool Players::canStart()
 
 	//checks if there are only spaces in the name
 	for (std::string::const_iterator i = settings.getName().begin(); i != settings.getName().end(); ++i)
-		onlyspaces = (*i == ' ');
+	{
+		if (*i != ' ' && *i != '\t')
+		{
+			onlyspaces = false;
+			break;
+		}
+	}
 
 	if (settings.getName() == "" || onlyspaces) //if the name contains nothing or has only spaces, return false
 		return false;

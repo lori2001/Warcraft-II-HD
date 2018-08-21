@@ -96,7 +96,7 @@
     <ClCompile Include="includes\RW\MapReader.cpp">
       <Filter>Source Files\RW</Filter>
     </ClCompile>
-    <ClCompile Include="includes\UI\Minimap.cpp">
+    <ClCompile Include="includes\UI\MapSelector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -155,7 +155,7 @@
     <ClInclude Include="includes\RW\MapReader.h">
       <Filter>Header Files\RW</Filter>
     </ClInclude>
-    <ClInclude Include="includes\UI\Minimap.h">
+    <ClInclude Include="includes\UI\MapSelector.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>

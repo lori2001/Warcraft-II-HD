@@ -20,23 +20,23 @@ namespace RW
 
 	void MapReader::clear()
 	{
-		theme = 0;
+		//theme = 0;
 
-		for (int y = 0; y < 300; y++)
-			for (int x = 0; x < 300; x++)
-				tiles[x][y] = { 0 };
+		//for (int y = 0; y < 300; y++)
+		//	for (int x = 0; x < 300; x++)
+		//		tiles[x][y] = { 0 };
 
-		tilessize = { 0, 0 };
+		//tilessize = { 0, 0 };
 
-		for (int i = 0; i < 12; i++)
-			spawnpoints[i] = { 0,0 };
+		//for (int i = 0; i < 12; i++)
+		//	spawnpoints[i] = { 0,0 };
 
-		spawnsize = 0;
+		//spawnsize = 0;
 
-		for (int i = 0; i < 24; i++)
-			goldmines[i] = { 0,0 };
+		//for (int i = 0; i < 24; i++)
+		//	goldmines[i] = { 0,0 };
 
-		minesize = 0;
+		//minesize = 0;
 	}
 	void MapReader::readList()
 	{
@@ -89,16 +89,29 @@ namespace RW
 			{
 				while (std::getline(in, input) && input != "</tiles>")
 				{
-					tilessize.x = 0;
+					bool onlyspaces = true;
 
-					std::istringstream iss(input);
-
-					while (iss >> tiles[tilessize.x][tilessize.y])
+					for (std::string::const_iterator i = input.begin(); i != input.end(); ++i)
 					{
-						tilessize.x++;
+						if (*i != ' ' && *i != '\t')
+						{
+							onlyspaces = false;
+							break;
+						}
 					}
 
-					tilessize.y++;
+					if (input != " " && !onlyspaces) // checks for potential empty lines
+					{
+						tilessize.x = 0;
+
+						std::istringstream iss(input);
+
+						while (iss >> tiles[tilessize.x][tilessize.y])
+						{
+							tilessize.x++;
+						}
+						tilessize.y++;
+					}
 				}
 			}
 			else if (input == "<spawnpoint>")

@@ -25,6 +25,7 @@ namespace RW
 	sf::Texture Loading::smalldropdownT;
 	sf::Texture Loading::textholderT;
 	sf::Texture Loading::switchT;
+	sf::Texture Loading::mapcontainerT;
 	sf::Texture Loading::cursorT;
 	sf::Texture Loading::summertilesT;
 	sf::Texture Loading::wastelandtilesT;
@@ -71,7 +72,6 @@ namespace RW
 
 	sf::Font Loading::warcraftF;
 	sf::Font Loading::normalF;
-
 
 	void Loading::setMusicVolume(const unsigned short & in)
 	{
@@ -178,6 +178,9 @@ namespace RW
 
 		if (!switchT.loadFromFile("assets/images/switch.png"))
 			std::cout << "error: could not load switch.png" << std::endl;
+
+		if (!mapcontainerT.loadFromFile("assets/images/map container.png"))
+			std::cout << "error: could not load mapcontainer.png" << std::endl;
 
 		if (!cursorT.loadFromFile("assets/images/orc cursor.png"))
 			std::cout << "error: could not load orc cursor.png" << std::endl;

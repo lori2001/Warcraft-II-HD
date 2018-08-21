@@ -30,18 +30,19 @@ void Menu::Setup(sf::RenderWindow & window)
 	/*read maps*/
 	mapreader.readList(); //read the list of maps
 	mapreader.read(1); //read the first map
-	test.setTexture(loading.summertilesT, loading.wastelandtilesT, loading.wintertilesT);
+	test.setTexture(loading.summertilesT, loading.wastelandtilesT, loading.wintertilesT, loading.mapcontainerT);
 	test.setTiles(mapreader);
-	//test.setScale(sf::Vector2f(0.300123f, 0.300123f));
 	test.setScale(settings.get1920Scale());
-	test.setPosition(102.23,200.453);
-
+	test.setPosition(sf::Vector2f(418 * settings.get1920Scale().x/2, 297 * settings.get1920Scale().y/2));
+	//test.setupContainer(loading.mapcontainerT);
 	/****************/
 }
 
 void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 {
 	mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window)); //gets mouse position relative to window
+	test.setSelected(mouse);
+	test.handleInput(event, loading.pressbutton);
 
 	if (reswarning.isActive)
 	{
@@ -357,5 +358,4 @@ void Menu::Compose(sf::RenderWindow & window)
 		window.draw(mainmenu);
 
 	window.draw(test);
-
 }

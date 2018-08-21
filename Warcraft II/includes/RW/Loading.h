@@ -46,6 +46,8 @@ namespace RW
 
 		static sf::Texture switchT;
 
+		static sf::Texture mapcontainerT;
+
 		static sf::Texture cursorT;
 
 		static sf::Texture summertilesT;

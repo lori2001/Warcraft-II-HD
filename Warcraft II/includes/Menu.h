@@ -19,7 +19,7 @@ private:
 	RW::Loading loading;
 	RW::MapReader mapreader;
 
-	UI::Minimap test;
+	UI::MapSelector test;
 
 	Players players;
 

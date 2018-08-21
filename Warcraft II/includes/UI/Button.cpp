@@ -18,7 +18,7 @@ namespace UI
 	}
 	void Button::handleInput(const sf::Event & event, sf::Sound & pressbutton)
 	{
-		// if the mouse interecst with the button and leftmousebutton is enabled
+		// if the mouse intersects with the button and leftmousebutton is enabled
 		if (event.mouseButton.button == sf::Mouse::Left && *isSelected)
 		{
 			if (event.type == sf::Event::MouseButtonPressed)
