@@ -133,10 +133,11 @@ namespace UI
 		float usedScale;
 
 		//scales according to the bigger size
-		if (tilessize->x >= tilessize->y)
-			usedScale = (minimapsize->x * scale.x) / (tilessize->x * (*tilesize));
-		else
+		if ((minimapsize->y * scale.y) / (tilessize->y * (*tilesize)) < (minimapsize->x * scale.x) / (tilessize->x * (*tilesize)))
 			usedScale = (minimapsize->y * scale.y) / (tilessize->y * (*tilesize));
+		else
+			usedScale = (minimapsize->x * scale.x) / (tilessize->x * (*tilesize));
+
 
 		//TODO: Get rid of black tripes inside the minimap
 		float temp; // holds the part that needs to be cut

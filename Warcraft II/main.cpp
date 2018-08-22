@@ -3,7 +3,6 @@
 #include "includes/RW/Loading.h"
 #include "includes/RW/Environment.h"
 #include "includes/Menu.h"
-#include "includes/UI/Cursor.h"
 
 int main()
 {
@@ -26,10 +25,6 @@ int main()
 	//display version
 	std::cout << "Version: " << env.getVersion() << std::endl;
 
-	UI::Cursor cursor;
-	cursor.setTexture(loading.cursorT);
-	cursor.setScale(settings.get1000Scale());
-
 	Menu menu;
 	menu.Setup(window);
 
@@ -39,7 +34,6 @@ int main()
 
 		while (window.pollEvent(event))
 		{
-			//insert input handling in here
 			menu.handleInput(window,event);
 
 			if (event.type == sf::Event::Closed)
@@ -48,17 +42,10 @@ int main()
 
 		window.clear();
 
-		//insert drawing commands in here
-
 		//contains frame-by-frame logic
 		menu.Update(window);
 		//contains drawing commands
 		menu.Compose(window);
-
-		//set position of cursor
-		cursor.setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
-		//draw cursor
-		window.draw(cursor);
 
 		window.display();
 	}

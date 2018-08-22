@@ -12,7 +12,12 @@ void Menu::Setup(sf::RenderWindow & window)
 	mapreader.readList(); //read the list of maps
 	mapreader.read(); //read the first map
 	singleplayer.M0setTiles(mapreader);
-	/****************/
+	/***********/
+
+	/*initialize cursor*/
+	cursor.setTexture(loading.cursorT);
+	cursor.setScale(settings.get1000Scale());
+	/*******************/
 
 	/*initialize screens*/
 	mainmenu.setTransform();
@@ -37,6 +42,9 @@ void Menu::Setup(sf::RenderWindow & window)
 void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 {
 	mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window)); //gets mouse position relative to window
+
+	//set position of cursor
+	cursor.setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
 
 	if (reswarning.isActive)
 	{
@@ -364,4 +372,7 @@ void Menu::Compose(sf::RenderWindow & window)
 		window.draw(options);
 	else if (mainmenu.isActive)
 		window.draw(mainmenu);
+
+	//draw cursor
+	window.draw(cursor);
 }

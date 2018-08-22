@@ -9,10 +9,12 @@
 #include "Screens/Options.h"
 #include "Screens/Popup.h"
 #include "Others/Players.h"
+#include "UI/Cursor.h"
 
 class Menu
 {
 private:
+	UI::Cursor cursor;
 	sf::Vector2f mouse; //holds position of the mouse
 
 	RW::Settings settings;
