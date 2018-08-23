@@ -1,6 +1,5 @@
 #pragma once
 #include "SFML\Graphics.hpp"
-#include "..\RW\Settings.h"
 
 namespace UI
 {
@@ -11,7 +10,6 @@ namespace UI
 		sf::Texture *cursorT;
 
 		sf::VertexArray vertices;
-
 	public:
 		Cursor()
 		{

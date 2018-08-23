@@ -1,12 +1,14 @@
 #include "SFML\Graphics.hpp"
 #include <nfd.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <iostream>
+//#include <stdlib.h>
 
 int main()
 {
 	sf::RenderWindow window;
 	window.create(sf::VideoMode(800, 600), "Half-an Engine");
+
+	std::cout << window.getSize().x << " " << window.getSize().y << std::endl;
 
 	while (window.isOpen())
 	{

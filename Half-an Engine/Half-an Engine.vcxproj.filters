@@ -60,6 +60,12 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="includes\Program.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\Sections\Toolbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="environment.json" />
@@ -94,6 +100,12 @@
     </ClInclude>
     <ClInclude Include="includes\UI\Switch.h">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\Program.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\Sections\Toolbar.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
