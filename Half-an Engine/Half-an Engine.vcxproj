@@ -123,7 +123,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="includes\RW\Environment.cpp" />
+    <ClCompile Include="includes\RW\Loading.cpp" />
+    <ClCompile Include="includes\RW\MapReader.cpp" />
+    <ClCompile Include="includes\UI\Button.cpp" />
+    <ClCompile Include="includes\UI\Cursor.cpp" />
+    <ClCompile Include="includes\UI\Dropdown.cpp" />
+    <ClCompile Include="includes\UI\MapSelector.cpp" />
+    <ClCompile Include="includes\UI\Slider.cpp" />
+    <ClCompile Include="includes\UI\Switch.cpp" />
+    <ClCompile Include="includes\UI\TextHolder.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="environment.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="includes\RW\Environment.h" />
+    <ClInclude Include="includes\RW\Loading.h" />
+    <ClInclude Include="includes\RW\MapReader.h" />
+    <ClInclude Include="includes\UI\Button.h" />
+    <ClInclude Include="includes\UI\Cursor.h" />
+    <ClInclude Include="includes\UI\Dropdown.h" />
+    <ClInclude Include="includes\UI\MapSelector.h" />
+    <ClInclude Include="includes\UI\Slider.h" />
+    <ClInclude Include="includes\UI\Switch.h" />
+    <ClInclude Include="includes\UI\TextHolder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

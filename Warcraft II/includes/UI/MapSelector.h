@@ -1,8 +1,7 @@
 #pragma once
 #include <math.h>
 #include "SFML\Graphics.hpp"
-#include "..\RW\Loading.h"
-#include "..\RW\Settings.h"
+#include "SFML\Audio.hpp"
 #include "..\RW\MapReader.h"
 
 namespace UI
