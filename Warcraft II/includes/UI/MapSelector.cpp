@@ -130,7 +130,7 @@ namespace UI
 		//saves scale for further use
 		*this->scale = scale;
 
-		float usedScale;
+		float usedScale = 0;
 
 		//scales according to the bigger size
 		if ((minimapsize->y * scale.y) / (tilessize->y * (*tilesize)) < (minimapsize->x * scale.x) / (tilessize->x * (*tilesize)))
@@ -138,24 +138,16 @@ namespace UI
 		else
 			usedScale = (minimapsize->x * scale.x) / (tilessize->x * (*tilesize));
 
-
-		//TODO: Get rid of black tripes inside the minimap
-		float temp; // holds the part that needs to be cut
-		float whole; // not really used (just for modf to work
-
-		temp = usedScale * 10000; // separates the last two digits by the decimal (y.xxxxxx)=>(yyyyy.xx)
-		temp = std::modf(temp, &whole); // gets rid of whole part
-		temp /= 10000; //puts the las to decimals back to their original position
-
-		usedScale -= temp;
-
 		Transformable::setScale(usedScale, usedScale);
 		container->setScale(scale);
 		leftbutton->setScale(scale);
 		rightbutton->setScale(scale);
 	}
-	void MapSelector::setPosition(const sf::Vector2f & position)
+	void MapSelector::setPosition(sf::Vector2f position)
 	{
+		position.x = round(position.x);
+		position.y = round(position.y);
+
 		Transformable::setPosition(position);
 		container->setPosition(position);
 		leftbutton->setPosition(container->getPosition().x - (containersize->x / 2 - buttonsize->x / 2) * scale->x, container->getPosition().y);

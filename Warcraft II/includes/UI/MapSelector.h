@@ -1,4 +1,5 @@
 #pragma once
+#include <math.h>
 #include "SFML\Graphics.hpp"
 #include "..\RW\Loading.h"
 #include "..\RW\Settings.h"
@@ -81,23 +82,16 @@ namespace UI
 		void setTexture(const sf::Texture &summertilesT, const sf::Texture &wastelandtilesT, const sf::Texture &wintertilesT, const sf::Texture & mapcontainerT);
 		void setTiles(const RW::MapReader &mapreader);
 		void setScale(const sf::Vector2f &scale);
-		void setPosition(const sf::Vector2f & position);
+		void setPosition(sf::Vector2f position);
 		void setlActive(bool lactive) { *islActive = lactive; }
 		void setrActive(bool ractive) { *isrActive = ractive; }
 
 		//getters
 		//returns the size of the currently displayed map right now on screen
-		sf::Vector2f getScaledSize() const
-		{
-			if (tilessize->x > tilessize->y)
-				return sf::Vector2f(tilessize->x * (*tilesize) * ((minimapsize->x * scale->x) / (tilessize->x * (*tilesize))), tilessize->y * (*tilesize) * ((minimapsize->x * scale->x) / (tilessize->x * (*tilesize))));
-			else
-				return sf::Vector2f(tilessize->x * (*tilesize) * ((minimapsize->y * scale->y) / (tilessize->y * (*tilesize))), tilessize->y * (*tilesize) * ((minimapsize->y * scale->y) / (tilessize->y * (*tilesize))));
-		}
-		sf::Vector2f getScale() const { return *scale; }
-		//returns the scaledsize of the currently displayed minimap
-		sf::Vector2f getMinimapSize() const { return sf::Vector2f(minimapsize->x * scale->x, minimapsize->y * scale->y); }
-		sf::Vector2f getSize() const { return sf::Vector2f((getScaledSize().x / Transformable::getScale().x), (getScaledSize().y / Transformable::getScale().y)); }
+		sf::Vector2f getScaledSize() const { return sf::Vector2f(getSize().x * Transformable::getScale().x, getSize().y * Transformable::getScale().y); }
+		sf::Vector2f getContScale() const { return *scale; }
+		//sf::Vector2f getMinimapSize() const { return sf::Vector2f(minimapsize->x, minimapsize->y); }
+		sf::Vector2f getSize() const { return sf::Vector2f(float(tilessize->x * (*tilesize)), float(tilessize->y * (*tilesize))); }
 		bool getlActive() const { return *islActive; }
 		bool getrActive() const { return *isrActive; }
 	};

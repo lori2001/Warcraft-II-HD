@@ -53,7 +53,7 @@ namespace Screens
 
 		relativecolors.setPosition(sf::Vector2f(float(3 * relativecolors.getSSize().x * settings.get1000Scale().x), float(16 * relativecolors.getSSize().x * settings.get1000Scale().y)));
 	
-		mapselector.setPosition(sf::Vector2f(1650 * mapselector.getScale().x, 175 * mapselector.getScale().y));
+		mapselector.setPosition(sf::Vector2f(1650 * mapselector.getContScale().x, 175 * mapselector.getContScale().y));
 	}
 	void Singleplayer::handleInput(const sf::Event & event, const sf::Vector2f & mouse)
 	{
