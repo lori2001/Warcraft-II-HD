@@ -30,7 +30,10 @@ namespace RW
 	public:
 		static void readList(); //reads the list of map names
 		static void read(); //reads map number mapnr
-		static void shiftby(const short &shiftnr); //reads map number mapnr
+
+		//setters
+		static void shiftSelectedmap(const short &shiftnr); //changes selectedmap by the amunt specified
+		static void setSelectedmap(const unsigned short &newnr); //changes selectedmap to the number specified
 
 		//getters
 		static std::string getMaps(unsigned short i) { return maps[i]; }

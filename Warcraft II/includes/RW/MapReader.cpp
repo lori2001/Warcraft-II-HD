@@ -161,9 +161,8 @@ namespace RW
 		//assert(spawnsize >= 2);
 		//assert(minesize >= 1);
 	}
-	void MapReader::shiftby(const short & shiftnr)
+	void MapReader::shiftSelectedmap(const short & shiftnr)
 	{
-
 		if (selectedmap + shiftnr < 0)
 			selectedmap = mapsnr - 1;
 		else if (selectedmap + shiftnr >= mapsnr)
@@ -172,5 +171,15 @@ namespace RW
 			selectedmap += shiftnr;
 
 		read();
+	}
+	void MapReader::setSelectedmap(const unsigned short & newnr)
+	{
+		if (newnr >= mapsnr)
+			std::cout << "WARNING: Failed to set selectedmap to " << mapsnr << " ,the number is too big." << std::endl;
+		else
+		{
+			selectedmap = newnr;
+			read();
+		}
 	}
 }

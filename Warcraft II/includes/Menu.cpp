@@ -10,7 +10,7 @@ void Menu::Setup(sf::RenderWindow & window)
 
 	/*read maps*/
 	mapreader.readList(); //read the list of maps
-	mapreader.read(); //read the first map
+	mapreader.read(); //read the maps in list
 	singleplayer.M0setTiles(mapreader);
 	/***********/
 
@@ -99,6 +99,11 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 			singleplayer.S0setActive(false);
 			singleplayer.setColorsInactive(false);
 
+			//reset map
+			mapreader.setSelectedmap(0); // read the first map
+			singleplayer.M0setTiles(mapreader); //set new tiles
+			singleplayer.setTransform();
+
 			//goes back to main menu
 			singleplayer.isActive = false;
 			mainmenu.isActive = true;
@@ -130,14 +135,14 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 		}
 		else if (singleplayer.M0getlActive())
 		{
-			mapreader.shiftby(-1); // shift map backward
+			mapreader.shiftSelectedmap(-1); // shift map backward
 			singleplayer.M0setTiles(mapreader); //set new tiles
 			singleplayer.setTransform();
 			singleplayer.M0setlActive(false);
 		}
 		else if (singleplayer.M0getrActive())
 		{
-			mapreader.shiftby(1); // shift map forward
+			mapreader.shiftSelectedmap(1); // shift map forward
 			singleplayer.M0setTiles(mapreader); //set new tiles
 			singleplayer.setTransform();
 			singleplayer.M0setrActive(false);
