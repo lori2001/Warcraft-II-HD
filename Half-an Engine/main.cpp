@@ -1,12 +1,23 @@
-#include "SFML\Graphics.hpp"
 #include <nfd.h>
 #include <iostream>
 //#include <stdlib.h>
+#include "SFML\Graphics.hpp"
+#include "includes/RW/Loading.h"
+#include "includes/UI/Cursor.h"
+#include "includes/Windows.h"
 
 int main()
 {
-	sf::RenderWindow window;
+	//sf::RenderWindow window;
+	//window.create(sf::VideoMode(800, 600), "Half-an Engine");
+
+	MainWindow window;
 	window.create(sf::VideoMode(800, 600), "Half-an Engine");
+
+	RW::Loading loading;
+	loading.loadFiles(window);
+
+	UI::Cursor cursor;
 
 	std::cout << window.getSize().x << " " << window.getSize().y << std::endl;
 

@@ -135,6 +135,7 @@
     <ClCompile Include="includes\UI\Slider.cpp" />
     <ClCompile Include="includes\UI\Switch.cpp" />
     <ClCompile Include="includes\UI\TextHolder.cpp" />
+    <ClCompile Include="includes\Windows.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +154,7 @@
     <ClInclude Include="includes\UI\Slider.h" />
     <ClInclude Include="includes\UI\Switch.h" />
     <ClInclude Include="includes\UI\TextHolder.h" />
+    <ClInclude Include="includes\Windows.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

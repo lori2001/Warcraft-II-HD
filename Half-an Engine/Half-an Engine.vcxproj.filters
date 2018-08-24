@@ -25,6 +25,12 @@
     <Filter Include="Header Files\UI">
       <UniqueIdentifier>{6813584d-221a-4638-a30e-6579541a1219}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Sections">
+      <UniqueIdentifier>{1d4822d5-17ee-4943-9868-819c442c7e22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sections">
+      <UniqueIdentifier>{9502b1ef-1b77-414b-8787-ddaea6e1d93b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="includes\RW\Environment.cpp">
@@ -64,6 +70,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="includes\Sections\Toolbar.cpp">
+      <Filter>Source Files\Sections</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\Windows.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -105,6 +114,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\Sections\Toolbar.h">
+      <Filter>Header Files\Sections</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\Windows.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
