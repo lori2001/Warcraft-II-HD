@@ -6,7 +6,7 @@ namespace UI
 	class Cursor : public sf::Drawable, public sf::Transformable
 	{
 	private:
-		const unsigned short size = 32;
+		const unsigned short size = 64;
 		sf::Texture *cursorT;
 
 		sf::VertexArray vertices;

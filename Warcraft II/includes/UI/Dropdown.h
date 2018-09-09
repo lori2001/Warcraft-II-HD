@@ -8,7 +8,7 @@ namespace UI
 	class Dropdown : public sf::Drawable
 	{
 	private:
-		sf::Vector2f *size = new sf::Vector2f{ 144,22 }; // the size of a closed dropdown
+		sf::Vector2f *size = new sf::Vector2f{ 277,40 }; // the size of a closed dropdown
 
 		sf::RectangleShape *sprite = new sf::RectangleShape{ *size };
 		sf::RectangleShape *selectedsprite = new sf::RectangleShape{ *size }; //holds the outline for selected dropdown parts

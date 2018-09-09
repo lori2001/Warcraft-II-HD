@@ -13,8 +13,16 @@ namespace RW
 		static sf::Sprite loadingscreenS;
 
 		static sf::RectangleShape progressbar;
+		static const int progressperfile; // holds the number of files before loading
+		static int nroffiles; // counts the number of files loaded while loading
 
 		static sf::SoundBuffer pressbuttonSB;
+
+		static void animateBar(sf::RenderWindow & window);
+		static void loadFile(sf::Texture & texture, const std::string & from, sf::RenderWindow & window);
+		static void loadFile(sf::Font & font, const std::string & from, sf::RenderWindow & window);
+		static void loadFile(sf::Music & music, const std::string & from, sf::RenderWindow & window);
+		static void loadFile(sf::SoundBuffer & soundbuffer, const std::string & from, sf::RenderWindow & window);
 	public:
 		static sf::Sound pressbutton;
 

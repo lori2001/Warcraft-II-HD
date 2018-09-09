@@ -19,7 +19,7 @@ namespace UI
 				circle->getPosition().y + *this->csize / 2 * circle->getScale().y >= mouse.y);
 
 			if (*isSelected)
-				circle->setOutlineThickness(-1);
+				circle->setOutlineThickness(-2);
 			else
 				circle->setOutlineThickness(0);
 		}
@@ -70,14 +70,14 @@ namespace UI
 			if (*isPressed)
 			{
 				if (*isActive)
-					circle->setTextureRect(sf::IntRect(short(3 * *csize), int(rsize->y), int(*csize), int(*csize)));
+					circle->setTextureRect(sf::IntRect(int(3 * *csize), int(rsize->y), int(*csize), int(*csize)));
 				else
-					circle->setTextureRect(sf::IntRect(short(*csize), int(rsize->y), int(*csize), int(*csize)));
+					circle->setTextureRect(sf::IntRect(int(*csize), int(rsize->y), int(*csize), int(*csize)));
 			}
 			else
 			{
 				if (*isActive)
-					circle->setTextureRect(sf::IntRect(short(2 * *csize), int(rsize->y), int(*csize), int(*csize)));
+					circle->setTextureRect(sf::IntRect(int(2 * *csize), int(rsize->y), int(*csize), int(*csize)));
 				else
 					circle->setTextureRect(sf::IntRect(0, int(rsize->y), int(*csize), int(*csize)));
 			}
@@ -140,7 +140,7 @@ namespace UI
 		else
 			circle->setScale(scale);
 
-		text->setCharacterSize(int(18 * scale.y));
+		text->setCharacterSize(int(32 * scale.y));
 
 		this->text->setOrigin(this->text->getLocalBounds().left + this->text->getLocalBounds().width / 2.0f,
 			this->text->getLocalBounds().top + this->text->getLocalBounds().height / 2.0f);

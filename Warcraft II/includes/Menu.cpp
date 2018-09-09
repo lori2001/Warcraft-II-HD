@@ -16,7 +16,7 @@ void Menu::Setup(sf::RenderWindow & window)
 
 	/*initialize cursor*/
 	cursor.setTexture(loading.cursorT);
-	cursor.setScale(settings.get1000Scale());
+	cursor.setScale(settings.get1920Scale());
 	/*******************/
 
 	/*initialize screens*/

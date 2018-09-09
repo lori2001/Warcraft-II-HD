@@ -34,17 +34,17 @@ namespace Screens
 		backgroundS.setScale(settings.get1920Scale());
 		gears.setTopScale(settings.get1920Scale());
 		gears.setBotScale(settings.get1920Scale());
-		back.setScale(settings.get1000Scale());
-		apply.setScale(settings.get1000Scale());
-		resolution.setScale(settings.get1000Scale());
-		fullscreen.setScale(settings.get1000Scale());
-		music.setScale(settings.get1000Scale());
-		soundfx.setScale(settings.get1000Scale());
+		back.setScale(settings.get1920Scale());
+		apply.setScale(settings.get1920Scale());
+		resolution.setScale(settings.get1920Scale());
+		fullscreen.setScale(settings.get1920Scale());
+		music.setScale(settings.get1920Scale());
+		soundfx.setScale(settings.get1920Scale());
 
 		gears.setTopPosition(sf::Vector2f(float(settings.getRes().x) / 16, float(settings.getRes().y) / 14));
 		gears.setBotPosition(sf::Vector2f(float(settings.getRes().x - settings.getRes().x / 16), float(settings.getRes().y - settings.getRes().y / 14)));
 		back.setPosition(sf::Vector2f(float(settings.getRes().x / 4), float(settings.getRes().y / 1.25f)));
-		apply.setPosition(sf::Vector2f(float(settings.getRes().x / 4 + apply.getSize().x * 1.25f * settings.get1000Scale().x), float(settings.getRes().y / 1.25f)));
+		apply.setPosition(sf::Vector2f(float(settings.getRes().x / 4 + apply.getSize().x * 1.25f * settings.get1920Scale().x), float(settings.getRes().y / 1.25f)));
 		resolution.setPosition(sf::Vector2f(float(settings.getRes().x / 2), float(settings.getRes().y / 2)));
 		fullscreen.setPosition(sf::Vector2f(float(settings.getRes().x / 3.5f), float(settings.getRes().y / 2)));
 		music.setPosition(sf::Vector2f(float(settings.getRes().x / 2.5f), float(settings.getRes().y / 2.7f)));

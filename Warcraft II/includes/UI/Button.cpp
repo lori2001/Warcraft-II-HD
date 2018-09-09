@@ -12,7 +12,7 @@ namespace UI
 
 		//if they do, the outline appears
 		if (*isSelected)
-			sprite->setOutlineThickness(-1);
+			sprite->setOutlineThickness(-2);
 		else //else, the outline disappears
 			sprite->setOutlineThickness(0);
 	}
@@ -100,7 +100,7 @@ namespace UI
 		sprite->setScale(scale);
 
 		//changes text size
-		text->setCharacterSize(int(20 * scale.y));
+		text->setCharacterSize(int(38 * scale.y));
 
 		//centers the newly sized text
 		this->text->setOrigin(this->text->getLocalBounds().left + this->text->getLocalBounds().width / 2.0f,

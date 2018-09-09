@@ -8,11 +8,11 @@ namespace UI
 	class Slider : public sf::Drawable
 	{
 	private:
-		const sf::Vector2f *ssize = new const sf::Vector2f{ 212,25 }; // slider size
-		const sf::Vector2f *csize = new const sf::Vector2f{ 174,17 }; // center body size
-		const sf::Vector2f *lrsize = new const sf::Vector2f{ 17,17 }; // left and right arrow size
-		const sf::Vector2f *center = new const sf::Vector2f{ 212 / 2,17 / 2 }; // the center of the whole slider
-		const sf::Vector2f *bsize = new const sf::Vector2f{ 17,15 }; // the size of the button
+		const sf::Vector2f *ssize = new const sf::Vector2f{ 407,45 }; // slider size
+		const sf::Vector2f *csize = new const sf::Vector2f{ 335,31 }; // center body size
+		const sf::Vector2f *lrsize = new const sf::Vector2f{ 33,31 }; // left and right arrow size
+		const sf::Vector2f *center = new const sf::Vector2f{ 407 / 2,31 / 2 }; // the center of the whole slider
+		const sf::Vector2f *bsize = new const sf::Vector2f{ 33,27 }; // the size of the button
 
 		sf::RectangleShape *slider = new sf::RectangleShape{ *ssize };
 		sf::RectangleShape *button = new sf::RectangleShape{ *bsize };
@@ -46,9 +46,9 @@ namespace UI
 			leftOutline->setOutlineColor(sf::Color::Yellow);
 			rightOutline->setOutlineColor(sf::Color::Yellow);
 
-			centerOutline->setOutlineThickness(-1);
-			leftOutline->setOutlineThickness(-1);
-			rightOutline->setOutlineThickness(-1);
+			centerOutline->setOutlineThickness(-2);
+			leftOutline->setOutlineThickness(-2);
+			rightOutline->setOutlineThickness(-2);
 
 			centerOutline->setFillColor(sf::Color::Transparent);
 			leftOutline->setFillColor(sf::Color::Transparent);
@@ -91,7 +91,6 @@ namespace UI
 		void setTexture(const sf::Texture &sliderT, const sf::Texture &buttonT, const sf::Font & font);
 		void setPosition(const sf::Vector2f &position);
 		void setSelectColor(const sf::Color &color);
-		void setOutlineThickness(const float &thickness);
 		void setScale(const sf::Vector2f &scale);
 		void setString(const std::string & txt);
 		void setActive(const bool & active);

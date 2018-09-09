@@ -105,12 +105,6 @@ namespace UI
 		leftOutline->setOutlineColor(color);
 		rightOutline->setOutlineColor(color);
 	}
-	void Slider::setOutlineThickness(const float & thickness)
-	{
-		centerOutline->setOutlineThickness(thickness);
-		leftOutline->setOutlineThickness(thickness);
-		rightOutline->setOutlineThickness(thickness);
-	}
 	void Slider::setScale(const sf::Vector2f & scale)
 	{
 		slider->setScale(scale);
@@ -118,7 +112,7 @@ namespace UI
 		centerOutline->setScale(scale);
 		leftOutline->setScale(scale);
 		rightOutline->setScale(scale);
-		text->setCharacterSize(int(20 * scale.y));
+		text->setCharacterSize(int(38 * scale.y));
 
 		this->text->setOrigin(this->text->getLocalBounds().left + this->text->getLocalBounds().width / 2.0f,
 			this->text->getLocalBounds().top + this->text->getLocalBounds().height / 2.0f);

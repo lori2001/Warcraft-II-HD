@@ -58,22 +58,19 @@ namespace Screens
 	}
 	void Popup::setScale(const sf::Vector2f & scale)
 	{
-		//basically adjusts scale proportinons the right way
-		sf::Vector2f smallscale{ scale.x * 1.92f ,scale.y * 1.8f };
-
 		//set proper scales
 		popupS.setScale(scale);
-		cancel.setScale(sf::Vector2f(smallscale.x / 3, smallscale.y));
-		ok.setScale(sf::Vector2f(smallscale.x / 3, smallscale.y));
+		cancel.setScale(sf::Vector2f(scale.x / 3, scale.y));
+		ok.setScale(sf::Vector2f(scale.x / 3, scale.y));
 
-		countdown.setCharacterSize(int(16 * smallscale.x));
+		countdown.setCharacterSize(int(31 * scale.x));
 		//centers text according to the new scale
 		this->countdown.setOrigin(this->countdown.getLocalBounds().left + this->countdown.getLocalBounds().width / 2.0f,
 			this->countdown.getLocalBounds().top + this->countdown.getLocalBounds().height / 2.0f);
 
 		for (short i = 0; i < descriptionsnr; i++)
 		{
-			descriptions[i].setCharacterSize(int(16 * smallscale.x));
+			descriptions[i].setCharacterSize(int(31 * scale.x));
 			//centers text according to the new scale
 			this->descriptions[i].setOrigin(this->descriptions[i].getLocalBounds().left + this->descriptions[i].getLocalBounds().width / 2.0f,
 				this->descriptions[i].getLocalBounds().top + this->descriptions[i].getLocalBounds().height / 2.0f);

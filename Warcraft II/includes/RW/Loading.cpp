@@ -73,6 +73,50 @@ namespace RW
 	sf::Font Loading::warcraftF;
 	sf::Font Loading::normalF;
 
+	int Loading::nroffiles = 0;
+	const int Loading::progressperfile = 103;
+
+	void Loading::animateBar(sf::RenderWindow & window)
+	{
+		int progress = 1620 / progressperfile; // bar width minus the number of loadings
+
+		progressbar.setSize(sf::Vector2f(progressbar.getSize().x + progress, 35));
+
+		window.clear();
+		window.draw(loadingscreenS);
+		window.draw(progressbar);
+		window.display();
+
+		nroffiles++;
+	}
+	void Loading::loadFile(sf::Texture & texture, const std::string & from, sf::RenderWindow & window)
+	{
+		if (!texture.loadFromFile(from))
+			std::cout << "error: could not load file from " << from << std::endl;
+
+		animateBar(window);
+	}
+	void Loading::loadFile(sf::Font & font, const std::string & from, sf::RenderWindow & window)
+	{
+		if (!font.loadFromFile(from))
+			std::cout << "error: could not load file from " << from << std::endl;
+
+		animateBar(window);
+	}
+	void Loading::loadFile(sf::Music & music, const std::string & from, sf::RenderWindow & window)
+	{
+		if (!music.openFromFile(from))
+			std::cout << "error: could not load file from " << from << std::endl;
+
+		animateBar(window);
+	}
+	void Loading::loadFile(sf::SoundBuffer & soundbuffer, const std::string & from, sf::RenderWindow & window)
+	{
+		if (!soundbuffer.loadFromFile(from))
+			std::cout << "error: could not load file from " << from << std::endl;
+
+		animateBar(window);
+	}
 	void Loading::setMusicVolume(const unsigned short & in)
 	{
 		orcsong.setVolume(in);
@@ -86,254 +130,102 @@ namespace RW
 	void Loading::loadFiles(sf::RenderWindow & window, RW::Settings & settings)
 	{
 		if (!loadingscreenT.loadFromFile("assets/images/loadingscreen.jpg"))
-			std::cout << "error: could not load loadingscreen.jpg" << std::endl;
+			std::cout << "error: could not load file from assets/images/loadingscreen.jpg" << std::endl;
 
 		loadingscreenS.setTexture(loadingscreenT);
 		loadingscreenS.setScale(sf::Vector2f(float(settings.get1920Scale().x), float(settings.get1920Scale().y)));
 
 		progressbar.setFillColor(sf::Color::Green);
-		progressbar.setScale(settings.get1000Scale());
-		progressbar.setPosition(sf::Vector2f(float(100 * settings.get1000Scale().x), float(settings.getRes().y - 50 * settings.get1000Scale().y)));
-		progressbar.setSize(sf::Vector2f(50, 25));
+		progressbar.setScale(settings.get1920Scale());
+		progressbar.setPosition(sf::Vector2f(float(150 * settings.get1920Scale().x), float(settings.getRes().y - 100 * settings.get1920Scale().y)));
 
 		window.clear();
 		window.draw(loadingscreenS);
 		window.display();
 
-		if (!orcsong.openFromFile("assets/sounds/Theme/Orc/Orc War Room.wav"))
-			std::cout << "error: could not load Orc War Room.wav" << std::endl;
-
-		if (!humansong.openFromFile("assets/sounds/Theme/Human/Human War Room.wav"))
-			std::cout << "error: could not load Human War Room.wav" << std::endl;
-
-		if (!menusong.openFromFile("assets/sounds/Theme/Menu.wav"))
-			std::cout << "error: could not load Menu.wav" << std::endl;
-
-		if (!pressbuttonSB.loadFromFile("assets/sounds/Mouse/pressbutton.wav"))
-			std::cout << "error: could not load pressbutton.wav" << std::endl;
+		loadFile(orcsong, "assets/sounds/Theme/Orc/Orc War Room.wav", window);
+		loadFile(humansong, "assets/sounds/Theme/Human/Human War Room.wav", window);
+		loadFile(menusong, "assets/sounds/Theme/Menu.wav", window);
+		loadFile(pressbuttonSB, "assets/sounds/Mouse/pressbutton.wav", window);
 		pressbutton.setBuffer(pressbuttonSB);
 
 		setMusicVolume(10 * settings.getMusic());
 		setSFXVolume(10 * settings.getSoundFX());
 
-		progressbar.setSize(sf::Vector2f(100, 25));
-		window.clear();
-		window.draw(loadingscreenS);
-		window.draw(progressbar);
-		window.display();
-
-		if (!backgroundT.loadFromFile("assets/images/background.jpg"))
-			std::cout << "error: could not load background.jpg" << std::endl;
-
-		if (!menubackgroundT.loadFromFile("assets/images/menubackground.jpg"))
-			std::cout << "error: could not load menubackground.jpg" << std::endl;
-
-		if (!spbackgroundT.loadFromFile("assets/images/startgamebackground.jpg"))
-			std::cout << "error: could not load startgamebackground.jpg" << std::endl;
-
-		if (!inworkT.loadFromFile("assets/images/in work.jpg"))
-			std::cout << "error: could not load in work.jpg" << std::endl;
-
-		if (!interfaceT.loadFromFile("assets/images/interface.png"))
-			std::cout << "error: could not load interface.png" << std::endl;
-
-		progressbar.setSize(sf::Vector2f(250, 25));
-		window.clear();
-		window.draw(loadingscreenS);
-		window.draw(progressbar);
-		window.display();
+		loadFile(backgroundT, "assets/images/background.jpg", window);
+		loadFile(menubackgroundT, "assets/images/menubackground.jpg", window);
+		loadFile(spbackgroundT, "assets/images/startgamebackground.jpg", window);
+		loadFile(inworkT, "assets/images/in work.jpg", window);
+		loadFile(interfaceT, "assets/images/interface.png", window);
 
 		for (unsigned short i = 0; i < 20; i++)
 		{
-			if (!topgearsT[i].loadFromFile("assets/images/top gears/" + std::to_string(i + 1) + ".png"))
-				std::cout << "error: could not load top gears/" + std::to_string(i + 1) + ".png" << std::endl;
-			if (!botgearsT[i].loadFromFile("assets/images/bot gears/" + std::to_string(i + 1) + ".png"))
-				std::cout << "error: could not load bot gears/" + std::to_string(i + 1) + ".png" << std::endl;
+			loadFile(topgearsT[i], "assets/images/top gears/" + std::to_string(i + 1) + ".png", window);
+			loadFile(botgearsT[i], "assets/images/bot gears/" + std::to_string(i + 1) + ".png", window);
 		}
 
-		if (!popupT.loadFromFile("assets/images/popup.png"))
-			std::cout << "error: could not load popup.png" << std::endl;
-
-		if (!buttonT.loadFromFile("assets/images/button.png"))
-			std::cout << "error: could not load button.png" << std::endl;
-
-		if (!sliderT.loadFromFile("assets/images/slider.png"))
-			std::cout << "error: could not load slider.png" << std::endl;
-
-		if (!sliderbuttonT.loadFromFile("assets/images/sliderbutton.png"))
-			std::cout << "error: could not load sliderbutton.png" << std::endl;
-
-		if (!dropdownT.loadFromFile("assets/images/dropdown.png"))
-			std::cout << "error: could not load dropdown.png" << std::endl;
-
+		loadFile(popupT, "assets/images/popup.png", window);
+		loadFile(buttonT, "assets/images/button.png", window);
+		loadFile(sliderT, "assets/images/slider.png", window);
+		loadFile(sliderbuttonT, "assets/images/sliderbutton.png", window);
+		loadFile(dropdownT, "assets/images/dropdown.png", window);
 		dropdownT.setRepeated(true);
-
-		if (!smalldropdownT.loadFromFile("assets/images/smalldropdown.png"))
-			std::cout << "error: could not load smalldropdown.png" << std::endl;
-
+		loadFile(smalldropdownT, "assets/images/smalldropdown.png", window);
 		smalldropdownT.setRepeated(true);
+		loadFile(textholderT, "assets/images/textholder.png", window);
+		loadFile(switchT, "assets/images/switch.png", window);
+		loadFile(mapcontainerT, "assets/images/map container.png", window);
+		loadFile(cursorT, "assets/images/orc cursor.png", window);
 
-		if (!textholderT.loadFromFile("assets/images/textholder.png"))
-			std::cout << "error: could not load textholder.png" << std::endl;
+		loadFile(warcraftF, "assets/fonts/Warcraft.ttf", window);
+		loadFile(normalF, "assets/fonts/Normal.ttf", window);
 
-		if (!switchT.loadFromFile("assets/images/switch.png"))
-			std::cout << "error: could not load switch.png" << std::endl;
+		loadFile(summertilesT, "assets/images/Summer Tiles.png", window);
+		loadFile(wastelandtilesT, "assets/images/Wasteland Tiles.png", window);
+		loadFile(wintertilesT, "assets/images/Winter Tiles.png", window);
+		loadFile(ballistaT, "assets/images/Ballista.png", window);
+		loadFile(battleshipT, "assets/images/Battleship.png", window);
+		loadFile(catapultT, "assets/images/Catapult.png", window);
+		loadFile(corpsesT, "assets/images/Corpses.png", window);
+		loadFile(crittersT, "assets/images/Critters.png", window);
+		loadFile(daemonT, "assets/images/Daemon.png", window);
+		loadFile(deathknightT, "assets/images/Death Knight.png", window);
+		loadFile(dragonT, "assets/images/Dragon.png", window);
+		loadFile(dwarvendemolitionsquadT, "assets/images/Dwarven Demolition Squad.png", window);
+		loadFile(elvenarcherT, "assets/images/Elven Archer.png", window);
+		loadFile(elvendestroyerT, "assets/images/Elven Destroyer.png", window);
+		loadFile(footmanT, "assets/images/Footman.png", window);
+		loadFile(giantturtleT, "assets/images/Giant Turtle.png", window);
+		loadFile(gnomishflyingmachineT, "assets/images/Gnomish Flying Machine.png", window);
+		loadFile(gnomishsubmarineT, "assets/images/Gnomish Submarine.png", window);
+		loadFile(goblinsappersT, "assets/images/Goblin Sappers.png", window);
+		loadFile(goblinzeppelinT, "assets/images/Goblin Zeppelin.png", window);
+		loadFile(gruntT, "assets/images/Grunt.png", window);
+		loadFile(gryphonriderT, "assets/images/Gryphon Rider.png", window);
+		loadFile(humanbuildingssummerT, "assets/images/Human Buildings Summer.png", window);
+		loadFile(humanbuildingswinterT, "assets/images/Human Buildings Winter.png", window);
+		loadFile(humanoiltankerT, "assets/images/Human Oil Tanker.png", window);
+		loadFile(humantransportT, "assets/images/Human Transport.png", window);
+		loadFile(iconsT, "assets/images/Icons.png", window);
+		loadFile(knightT, "assets/images/Knight.png", window);
+		loadFile(mageT, "assets/images/Mage.png", window);
+		loadFile(magicandmisslesT, "assets/images/Magic and Missiles.png", window);
+		loadFile(miscT, "assets/images/Misc.png", window);
+		loadFile(ogrejuggernautT, "assets/images/Ogre Juggernaut.png", window);
+		loadFile(ogreT, "assets/images/Ogre.png", window);
+		loadFile(orcbuildingssummerT, "assets/images/Orc Buildings Summer.png", window);
+		loadFile(orcbuildingswinterT, "assets/images/Orc Buildings Winter.png", window);
+		loadFile(orcoiltankerT, "assets/images/Orc Oil Tanker.png", window);
+		loadFile(orctransportT, "assets/images/Orc Transport.png", window);
+		loadFile(peasantT, "assets/images/Peasant.png", window);
+		loadFile(peonT, "assets/images/Peon.png", window);
+		loadFile(skeletonT, "assets/images/Skeleton.png", window);
+		loadFile(trollaxethrowerT, "assets/images/Troll Axethrower.png", window);
+		loadFile(trolldestroyerT, "assets/images/Troll Destroyer.png", window);
 
-		if (!mapcontainerT.loadFromFile("assets/images/map container.png"))
-			std::cout << "error: could not load mapcontainer.png" << std::endl;
+		std::cout << "Files loaded: " << nroffiles << std::endl;
 
-		if (!cursorT.loadFromFile("assets/images/orc cursor.png"))
-			std::cout << "error: could not load orc cursor.png" << std::endl;
-
-		progressbar.setSize(sf::Vector2f(400, 25));
-		window.clear();
-		window.draw(loadingscreenS);
-		window.draw(progressbar);
-		window.display();
-
-		if (!warcraftF.loadFromFile("assets/fonts/Warcraft.ttf"))
-			std::cout << "error: could not load Warcraft.tff" << std::endl;
-
-		if (!normalF.loadFromFile("assets/fonts/Normal.ttf"))
-			std::cout << "error: could not load Normal.tff" << std::endl;
-
-		progressbar.setSize(sf::Vector2f(450, 25));
-		window.clear();
-		window.draw(loadingscreenS);
-		window.draw(progressbar);
-		window.display();
-
-		if (!summertilesT.loadFromFile("assets/images/Summer Tiles.png"))
-			std::cout << "error: could not load Summer Tiles.png" << std::endl;
-
-		if (!wastelandtilesT.loadFromFile("assets/images/Wasteland Tiles.png"))
-			std::cout << "error: could not load Wasteland Tiles.png" << std::endl;
-
-		if (!wintertilesT.loadFromFile("assets/images/Winter Tiles.png"))
-			std::cout << "error: could not load Winter Tiles.png" << std::endl;
-
-		if (!ballistaT.loadFromFile("assets/images/Ballista.png"))
-			std::cout << "error: could not load Ballista.png" << std::endl;
-
-		if (!battleshipT.loadFromFile("assets/images/Battleship.png"))
-			std::cout << "error: could not load Battleship.png" << std::endl;
-
-		if (!catapultT.loadFromFile("assets/images/Catapult.png"))
-			std::cout << "error: could not load Catapult.png" << std::endl;
-
-		if (!corpsesT.loadFromFile("assets/images/Corpses.png"))
-			std::cout << "error: could not load Corpses.png" << std::endl;
-
-		if (!crittersT.loadFromFile("assets/images/Critters.png"))
-			std::cout << "error: could not load Critters.png" << std::endl;
-
-		if (!daemonT.loadFromFile("assets/images/Daemon.png"))
-			std::cout << "error: could not load Daemon.png" << std::endl;
-
-		if (!deathknightT.loadFromFile("assets/images/Death Knight.png"))
-			std::cout << "error: could not load Death Knight.png" << std::endl;
-
-		if (!dragonT.loadFromFile("assets/images/Dragon.png"))
-			std::cout << "error: could not load Dragon.png" << std::endl;
-
-		if (!dwarvendemolitionsquadT.loadFromFile("assets/images/Dwarven Demolition Squad.png"))
-			std::cout << "error: could not load Dwarven Demolition Squad.png" << std::endl;
-
-		if (!elvenarcherT.loadFromFile("assets/images/Elven Archer.png"))
-			std::cout << "error: could not load Elven Archer.png" << std::endl;
-
-		if (!elvendestroyerT.loadFromFile("assets/images/Elven Destroyer.png"))
-			std::cout << "error: could not load Elven Archer.png" << std::endl;
-
-		if (!footmanT.loadFromFile("assets/images/Footman.png"))
-			std::cout << "error: could not load Footman.png" << std::endl;
-
-		if (!giantturtleT.loadFromFile("assets/images/Giant Turtle.png"))
-			std::cout << "error: could not load Giant Turtle.png" << std::endl;
-
-		if (!gnomishflyingmachineT.loadFromFile("assets/images/Gnomish Flying Machine.png"))
-			std::cout << "error: could not load Gnomish Flying Machine.png" << std::endl;
-
-		if (!gnomishsubmarineT.loadFromFile("assets/images/Gnomish Submarine.png"))
-			std::cout << "error: could not load Gnomish Submarine.png" << std::endl;
-
-		if (!goblinsappersT.loadFromFile("assets/images/Goblin Sappers.png"))
-			std::cout << "error: could not load Goblin Sappers.png" << std::endl;
-
-		if (!goblinzeppelinT.loadFromFile("assets/images/Goblin Zeppelin.png"))
-			std::cout << "error: could not load Goblin Zeppelin.png" << std::endl;
-
-		if (!gruntT.loadFromFile("assets/images/Grunt.png"))
-			std::cout << "error: could not load Grunt.png" << std::endl;
-
-		if (!gryphonriderT.loadFromFile("assets/images/Gryphon Rider.png"))
-			std::cout << "error: could not load Gryphon Rider.png" << std::endl;
-
-		if (!humanbuildingssummerT.loadFromFile("assets/images/Human Buildings Summer.png"))
-			std::cout << "error: could not load Human Buildings Summer.png" << std::endl;
-
-		if (!humanbuildingswinterT.loadFromFile("assets/images/Human Buildings Winter.png"))
-			std::cout << "error: could not load Human Buildings Winter.png" << std::endl;
-
-		if (!humanoiltankerT.loadFromFile("assets/images/Human Oil Tanker.png"))
-			std::cout << "error: could not load Human Oil Tanker.png" << std::endl;
-
-		if (!humantransportT.loadFromFile("assets/images/Human Transport.png"))
-			std::cout << "error: could not load Human Transport.png" << std::endl;
-
-		if (!iconsT.loadFromFile("assets/images/Icons.png"))
-			std::cout << "error: could not load Icons.png" << std::endl;
-
-		if (!knightT.loadFromFile("assets/images/Knight.png"))
-			std::cout << "error: could not load Knight.png" << std::endl;
-
-		if (!mageT.loadFromFile("assets/images/Mage.png"))
-			std::cout << "error: could not load Mage.png" << std::endl;
-
-		if (!magicandmisslesT.loadFromFile("assets/images/Magic and Missiles.png"))
-			std::cout << "error: could not load Magic and Missiles.png" << std::endl;
-
-		if (!miscT.loadFromFile("assets/images/Misc.png"))
-			std::cout << "error: could not load Misc.png" << std::endl;
-
-		if (!ogrejuggernautT.loadFromFile("assets/images/Ogre Juggernaut.png"))
-			std::cout << "error: could not load Ogre Juggernaut.png" << std::endl;
-
-		if (!ogreT.loadFromFile("assets/images/Ogre.png"))
-			std::cout << "error: could not load Ogre.png" << std::endl;
-
-		if (!orcbuildingssummerT.loadFromFile("assets/images/Orc Buildings Summer.png"))
-			std::cout << "error: could not load Orc Buildings Summer.png" << std::endl;
-
-		if (!orcbuildingswinterT.loadFromFile("assets/images/Orc Buildings Winter.png"))
-			std::cout << "error: could not load Orc Buildings Winter.png" << std::endl;
-
-		if (!orcoiltankerT.loadFromFile("assets/images/Orc Oil Tanker.png"))
-			std::cout << "error: could not load Orc Oil Tanker.png" << std::endl;
-
-		if (!orctransportT.loadFromFile("assets/images/Orc Transport.png"))
-			std::cout << "error: could not load Orc Transport.png" << std::endl;
-
-		if (!peasantT.loadFromFile("assets/images/Peasant.png"))
-			std::cout << "error: could not load Peasant.png" << std::endl;
-
-		if (!peonT.loadFromFile("assets/images/Peon.png"))
-			std::cout << "error: could not load Peon.png" << std::endl;
-
-		if (!skeletonT.loadFromFile("assets/images/Skeleton.png"))
-			std::cout << "error: could not load Skeleton.png" << std::endl;
-
-		if (!trollaxethrowerT.loadFromFile("assets/images/Troll Axethrower.png"))
-			std::cout << "error: could not load Troll Axethrower.png" << std::endl;
-
-		if (!trolldestroyerT.loadFromFile("assets/images/Troll Destroyer.png"))
-			std::cout << "error: could not load Troll Destroyer.png" << std::endl;
-
-
-		progressbar.setSize(sf::Vector2f(500, 25));
-		window.clear();
-		window.draw(loadingscreenS);
-		window.draw(progressbar);
-		window.display();
+		if(nroffiles != progressperfile)
+			std::cout << "NOTE: Progress per file("<<progressperfile<<") isn't equal to the number of files counted."<< std::endl;
 	}
 }

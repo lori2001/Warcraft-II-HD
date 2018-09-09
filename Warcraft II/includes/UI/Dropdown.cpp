@@ -76,7 +76,7 @@ namespace UI
 			sprite->setTextureRect(sf::IntRect(0, 0, int(size->x), int(size->y)));
 
 		if (*isDroppeddown || *isSelected)
-			sprite->setOutlineThickness(-1);
+			sprite->setOutlineThickness(-2);
 		else
 			sprite->setOutlineThickness(0);
 
@@ -143,14 +143,14 @@ namespace UI
 	{
 		sprite->setScale(scale);
 		selectedsprite->setScale(scale);
-		maintext->setCharacterSize(int(20 * scale.y));
+		maintext->setCharacterSize(int(38 * scale.y));
 
 		this->maintext->setOrigin(this->maintext->getLocalBounds().left + this->maintext->getLocalBounds().width / 2.0f,
 			this->maintext->getLocalBounds().top + this->maintext->getLocalBounds().height / 2.0f);
 
 		for (int i = 0; i < *elementnr; i++)
 		{
-			droptext[i].setCharacterSize(int(20 * scale.y));
+			droptext[i].setCharacterSize(int(38 * scale.y));
 
 			this->droptext[i].setOrigin(this->droptext[i].getLocalBounds().left + this->droptext[i].getLocalBounds().width / 2.0f,
 				this->droptext[i].getLocalBounds().top + this->droptext[i].getLocalBounds().height / 2.0f);

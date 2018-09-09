@@ -29,7 +29,6 @@ namespace RW
 		static const sf::Vector2i getRes() { return sf::Vector2i(jsonfile["resolution"]["width"].get<int>(), jsonfile["resolution"]["height"].get<int>()); }
 		static const sf::Vector2i getOldRes() { return oldres; }
 		static const sf::Vector2f get1920Scale() { return sf::Vector2f(jsonfile["resolution"]["width"].get<float>() / res1920.x, jsonfile["resolution"]["height"].get<float>() / res1920.y); }
-		static const sf::Vector2f get1000Scale() { return sf::Vector2f(jsonfile["resolution"]["width"].get<float>() / res1000.x, jsonfile["resolution"]["height"].get<float>() / res1000.y); }
 		static const unsigned short getMusic() { return jsonfile["music"].get<unsigned short>(); }
 		static const unsigned short getSoundFX() { return jsonfile["soundfx"].get<unsigned short>(); }
 		static const std::string getName() { return jsonfile["playerName"].get<std::string>(); }

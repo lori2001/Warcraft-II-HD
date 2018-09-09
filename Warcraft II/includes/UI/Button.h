@@ -7,7 +7,7 @@ namespace UI
 	class Button : public sf::Drawable
 	{
 	private:
-		const sf::Vector2f *size = new const sf::Vector2f{ 224,28 }; //this is the sprite's size
+		const sf::Vector2f *size = new const sf::Vector2f{ 430, 50 }; //this is the sprite's size
 
 		sf::RectangleShape *sprite = new sf::RectangleShape{ *size }; //creates a rect with that size
 		sf::Text *text = new sf::Text; // a text to be on the button

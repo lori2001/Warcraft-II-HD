@@ -25,7 +25,7 @@ namespace Screens
 		UI::Button back{ "Back" }; // back button (sends to mainmenu)
 		UI::Button play{ "Play" }; // starts game
 
-		sf::Text player{"Player:", loading.warcraftF, unsigned int(20 * settings.get1000Scale().y) }; // holds text "Player:"
+		sf::Text player{"Player:", loading.warcraftF, unsigned int(20 * settings.get1920Scale().y) }; // holds text "Player:"
 		UI::TextHolder name{ "Name" }; // Holds the name which may be changed
 
 		// 3 dropdowns which hold players details
@@ -48,7 +48,7 @@ namespace Screens
 							  sf::Color(0,0,0) }; //12.black
 
 		//changes the number of ai's deployed
-		UI::Dropdown ais{ 12,sf::Vector2f(36,30) };
+		UI::Dropdown ais{ 12,sf::Vector2f(69,54) };
 
 		//holds ai's details
 		UI::Dropdown aidifficulty[11]{ 4,4,4,4,4,4,4,4,4,4,4 };
@@ -56,7 +56,7 @@ namespace Screens
 		UI::Dropdown aiteam[11]{ 13,13,13,13,13,13,13,13,13,13,13 };
 		UI::Dropdown aicolor[11]{ 13,13,13,13,13,13,13,13,13,13,13 };
 
-		UI::Switch relativecolors{ 0, "Relative Team Colors ON" };
+		UI::Switch relativecolors{ 1, "Relative Team Colors ON" };
 
 		UI::MapSelector mapselector;
 	public:

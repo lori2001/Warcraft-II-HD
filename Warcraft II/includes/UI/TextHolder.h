@@ -7,7 +7,7 @@ namespace UI
 	class TextHolder : public sf::Drawable
 	{
 	private:
-		sf::Vector2f *size = new sf::Vector2f{ 210,22 }; // the default size of a textholder
+		sf::Vector2f *size = new sf::Vector2f{365, 32}; // the default size of a textholder
 		sf::RectangleShape *sprite = new sf::RectangleShape{ *size }; 
 
 		sf::Text *maintext = new sf::Text; // text above the textholder

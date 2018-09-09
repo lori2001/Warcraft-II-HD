@@ -10,7 +10,7 @@ namespace UI
 			sprite->getPosition().y + size->y / 2 * sprite->getScale().y >= mouse.y);
 
 		if (*isSelected)
-			sprite->setOutlineThickness(-1);
+			sprite->setOutlineThickness(-2);
 		else
 			sprite->setOutlineThickness(0);
 	}
@@ -121,8 +121,8 @@ namespace UI
 
 		text->setCharacterSize(int(*textsize * scale.y));
 
-		maintext->setCharacterSize(int(20 * scale.y));
-		cursor->setCharacterSize(int(20 * scale.y));
+		maintext->setCharacterSize(int(38 * scale.y));
+		cursor->setCharacterSize(int(38 * scale.y));
 
 		*lastscale = scale;
 
