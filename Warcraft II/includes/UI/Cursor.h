@@ -7,7 +7,7 @@ namespace UI
 	{
 	private:
 		const unsigned short size = 64;
-		sf::Texture *cursorT;
+		sf::Texture cursorT;
 
 		sf::VertexArray vertices;
 	public:

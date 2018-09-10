@@ -5,12 +5,12 @@ namespace UI
 	void Cursor::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		states.transform *= getTransform();
-		states.texture = cursorT;
+		states.texture = &cursorT;
 		target.draw(vertices, states);
 	}
 	void Cursor::setTexture(sf::Texture & cursorT)
 	{
-		this->cursorT = &cursorT;
+		this->cursorT = cursorT;
 	}
 	void Cursor::setPosition(const sf::Vector2f & mouse)
 	{

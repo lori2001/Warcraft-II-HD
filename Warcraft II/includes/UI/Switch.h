@@ -7,85 +7,50 @@ namespace UI
 	class Switch : public sf::Drawable
 	{
 	private:
-		const sf::Vector2f *boxsize; // outlines size
-		const sf::Vector2f *rsize = new const sf::Vector2f{ 48,50 }; // rectangles size (this is general bc its needed when settings texture coords for circle)
-		sf::RectangleShape *rect; // rectangle object
-		sf::RectangleShape *rectOutline; //outline
+		const sf::Vector2f boxsize{ 40,40 }; // outlines size
+		const sf::Vector2f rsize{ 48,50 }; // rectangles size (this is general bc its needed when settings texture coords for circle)
+		sf::RectangleShape rect{ rsize }; // rectangle object
+		sf::RectangleShape rectOutline{ boxsize }; //outline
 
-		const float *csize; // circles size
-		sf::CircleShape *circle; //circle object
+		const float csize = 36; // circles size
+		sf::CircleShape circle{ csize / 2 };; //circle object
 
-		sf::Text *text = new sf::Text; // a text to be next to the button
+		sf::Text text; // a text to be next to the button
 
-		bool *isPressed = new bool{ false };
-		bool *isSelected = new bool{ false };
-		bool *isActive = new bool{ false };
+		bool isPressed = false;
+		bool isSelected = false;
+		bool isActive = false;
 
-		unsigned short *type = new unsigned short; // 2 types 0-rectangle 1-circle
+		bool isCircle = false; // types: false-rectangle true-circle
 	public:
-		Switch(const unsigned short & type)
+		Switch(const unsigned short & isCircle)
 		{
-			if (type == 0)
+			//set specific attributes
+			if (isCircle)
 			{
-				//sets the size of the outline
-				boxsize = new const sf::Vector2f{ 40,40 };
-
-				//creates the proper objects
-				rect = new sf::RectangleShape{ *rsize };
-				rectOutline = new sf::RectangleShape{ *boxsize };
-
-				//set default attributes
-				rect->setOrigin(sf::Vector2f(this->rsize->x / 2, this->rsize->y / 2));
-				rectOutline->setOutlineColor(sf::Color::Yellow);
-				rectOutline->setOutlineThickness(-1);
-				rectOutline->setFillColor(sf::Color::Transparent);
-				rectOutline->setOrigin(sf::Vector2f(boxsize->x - boxsize->x * 2 / 5, boxsize->y - boxsize->y * 5 / 13));
+				circle.setOrigin(sf::Vector2f(this->csize / 2, this->csize / 2));
+				circle.setOutlineColor(sf::Color::Yellow);
 			}
 			else
 			{
-				//sets circle size
-				csize = new const float{ 36 };
-
-				//creates circle
-				circle = new sf::CircleShape{ *csize / 2 };
-
-				//set default attributes
-				circle->setOrigin(sf::Vector2f(*this->csize / 2, *this->csize / 2));
-				circle->setOutlineColor(sf::Color::Yellow);
+				rect.setOrigin(sf::Vector2f(this->rsize.x / 2, this->rsize.y / 2));
+				rectOutline.setOutlineColor(sf::Color::Yellow);
+				rectOutline.setOutlineThickness(-1);
+				rectOutline.setFillColor(sf::Color::Transparent);
+				rectOutline.setOrigin(sf::Vector2f(boxsize.x - boxsize.x * 2 / 5, boxsize.y - boxsize.y * 5 / 13));
 			}
-			text->setFillColor(sf::Color::Black);
 
-			*this->type = type;
+			//set common attributes
+			text.setFillColor(sf::Color::Black);
+			this->isCircle = isCircle;
 		}
 		Switch() : Switch(0) {} // as default constructor use the rect type
 		Switch(const unsigned short & type, const std::string &text) : Switch(type)
 		{
-			this->text->setString(text);
+			this->text.setString(text);
 		}
 		Switch(const std::string &text) : Switch(0, text) {} // constructor which defaults to rect type and takes in text
-		~Switch()
-		{
-			//deletes only objects specific to type
-			if (*type == 0)
-			{
-				delete boxsize;
-				delete rect;
-				delete rectOutline;
-			}
-			else
-			{
-				delete csize;
-				delete circle;
-			}
 
-			//deletes general objects
-			delete rsize;
-			delete text;
-			delete isPressed;
-			delete isSelected;
-			delete isActive;
-			delete type;
-		}
 		void setSelected(const sf::Vector2f & mouse);
 		void handleInput(const sf::Event &event, sf::Sound & pressbutton);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -95,16 +60,16 @@ namespace UI
 		void setPosition(const sf::Vector2f &position);
 		void setScale(const sf::Vector2f &scale);
 		void setText(const std::string &text);
-		void setActive(const bool &isActive) { *this->isActive = isActive; }
+		void setActive(const bool &isActive) { this->isActive = isActive; }
 
 		//getters
 		sf::Vector2f getSSize() const
 		{
-			if (*type == 0)
-				return *rsize;
+			if (isCircle)
+				return sf::Vector2f(csize, csize);
 			else
-				return sf::Vector2f(*csize, *csize);
+				return rsize;
 		}
-		bool getActive() const { return *isActive; }
+		bool getActive() const { return isActive; }
 	};
 }
