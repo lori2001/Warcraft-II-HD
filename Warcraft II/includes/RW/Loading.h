@@ -13,6 +13,7 @@ namespace RW
 		static sf::Sprite loadingscreenS;
 
 		static sf::RectangleShape progressbar;
+		static sf::RectangleShape progressbg;
 		static const int progressperfile; // holds the number of files before loading
 		static int nroffiles; // counts the number of files loaded while loading
 

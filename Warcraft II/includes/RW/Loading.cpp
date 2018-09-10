@@ -5,6 +5,7 @@ namespace RW
 	sf::Texture Loading::loadingscreenT;
 	sf::Sprite Loading::loadingscreenS;
 	sf::RectangleShape Loading::progressbar;
+	sf::RectangleShape Loading::progressbg;
 	sf::SoundBuffer Loading::pressbuttonSB;
 	sf::Sound Loading::pressbutton;
 	sf::Music Loading::menusong;
@@ -84,6 +85,7 @@ namespace RW
 
 		window.clear();
 		window.draw(loadingscreenS);
+		window.draw(progressbg);
 		window.draw(progressbar);
 		window.display();
 
@@ -135,12 +137,18 @@ namespace RW
 		loadingscreenS.setTexture(loadingscreenT);
 		loadingscreenS.setScale(sf::Vector2f(float(settings.get1920Scale().x), float(settings.get1920Scale().y)));
 
+		progressbg.setFillColor(sf::Color(50,50,50,150));
+		progressbg.setScale(settings.get1920Scale());
+		progressbg.setSize(sf::Vector2f(1620, 35));
+		progressbg.setPosition(sf::Vector2f(float(150 * settings.get1920Scale().x), float(settings.getRes().y - 100 * settings.get1920Scale().y)));
+
 		progressbar.setFillColor(sf::Color::Green);
 		progressbar.setScale(settings.get1920Scale());
 		progressbar.setPosition(sf::Vector2f(float(150 * settings.get1920Scale().x), float(settings.getRes().y - 100 * settings.get1920Scale().y)));
 
 		window.clear();
 		window.draw(loadingscreenS);
+		window.draw(progressbg);
 		window.display();
 
 		loadFile(orcsong, "assets/sounds/Theme/Orc/Orc War Room.wav", window);
