@@ -56,7 +56,7 @@ namespace Screens
 		UI::Dropdown aiteam[11]{ 13,13,13,13,13,13,13,13,13,13,13 };
 		UI::Dropdown aicolor[11]{ 13,13,13,13,13,13,13,13,13,13,13 };
 
-		UI::Switch relativecolors{ 1, "Relative Team Colors ON" };
+		UI::Switch relativecolors{ 0, "Relative Team Colors ON" };
 
 		UI::MapSelector mapselector;
 	public:

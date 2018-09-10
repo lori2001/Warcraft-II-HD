@@ -15,7 +15,7 @@ namespace Screens
 
 		ais.setScale(settings.get1920Scale());
 
-		for (unsigned short i = 0; i < 11; i++)
+		for (int i = 0; i < 11; i++)
 		{
 			aidifficulty[i].setScale(sf::Vector2f(0.85f * (settings.get1920Scale().x - (0.25f* settings.get1920Scale().x)), 0.85f * settings.get1920Scale().y));
 			airace[i].setScale(sf::Vector2f(0.85f * (settings.get1920Scale().x - (0.25f* settings.get1920Scale().x)), 0.85f * settings.get1920Scale().y));
@@ -31,29 +31,29 @@ namespace Screens
 
 		backgroundS.setScale(settings.get1920Scale());
 
-		back.setPosition(sf::Vector2f(float((back.getSize().x / 2 + 15) * settings.get1920Scale().x), float(settings.getRes().y - back.getSize().y * settings.get1920Scale().y)));
-		play.setPosition(sf::Vector2f(float(settings.getRes().x - (play.getSize().x * 1.75f + 15) * settings.get1920Scale().x), float(settings.getRes().y - play.getSize().y * settings.get1920Scale().y)));
+		back.setPosition(sf::Vector2f(settings.unit().x * 2, settings.unit().y * 11));
+		play.setPosition(sf::Vector2f(settings.unit().x * 5, settings.unit().y * 11));
+		name.setPosition(sf::Vector2f(settings.unit().x * 1.5f, settings.unit().y * 1.2f));
 
-		name.setPosition(sf::Vector2f(float((name.getSize().x / 2 + 30) * settings.get1920Scale().x), float(3 * name.getSize().y * settings.get1920Scale().y)));
+		playerrace.setPosition(sf::Vector2f(name.getPosition().x + settings.unit().x * 2.3f, name.getPosition().y));
+		playerteam.setPosition(sf::Vector2f(playerrace.getPosition().x + settings.unit().x * 1.8f, name.getPosition().y));
+		playercolor.setPosition(sf::Vector2f(playerteam.getPosition().x + settings.unit().x * 1.6f, name.getPosition().y));
 
-		playerrace.setPosition(sf::Vector2f(float((name.getSize().x + 60 + playerrace.getSize().x / 2) * settings.get1920Scale().x), float(3 * name.getSize().y * settings.get1920Scale().y)));
-		playerteam.setPosition(sf::Vector2f(float((name.getSize().x + 70 + playerteam.getSize().x * 1.5f) * settings.get1920Scale().x), float(3 * name.getSize().y * settings.get1920Scale().y)));
-		playercolor.setPosition(sf::Vector2f(float((name.getSize().x + 80 + playercolor.getSize().x * 2.4f) * settings.get1920Scale().x), float(3 * name.getSize().y * settings.get1920Scale().y)));
+		ais.setPosition(sf::Vector2f(settings.unit().x * 0.5f, settings.unit().y * 2.4f));
 
-		ais.setPosition(sf::Vector2f(float((ais.getSize().x / 2 + 15 * settings.get1920Scale().x)), float(5.8f * name.getSize().y * settings.get1920Scale().y)));
-
-		for (unsigned short i = 0; i < 11; i++)
+		for (int i = 0; i < 11; i++)
 		{
-			aidifficulty[i].setPosition(sf::Vector2f(float((name.getSize().x / 2 + 30) * settings.get1920Scale().x), float(5.8f * name.getSize().y * settings.get1920Scale().y + i * aidifficulty[i].getSize().y * settings.get1920Scale().y)));
-			airace[i].setPosition(sf::Vector2f(float((name.getSize().x + 40) * settings.get1920Scale().x), float(5.8f * name.getSize().y * settings.get1920Scale().y + i * airace[i].getSize().y * settings.get1920Scale().y)));
-			aiteam[i].setPosition(sf::Vector2f(float((name.getSize().x + 45 + 0.8f * aiteam[i].getSize().x) * settings.get1920Scale().x), float(5.8f * name.getSize().y * settings.get1920Scale().y + i * aiteam[i].getSize().y * settings.get1920Scale().y)));
-			aicolor[i].setPosition(sf::Vector2f(float((name.getSize().x + 10 + aicolor[i].getSize().x * 1.9f) * settings.get1920Scale().x), float(5.8f * name.getSize().y * settings.get1920Scale().y + i * aicolor[i].getSize().y * settings.get1920Scale().y)));
+			aidifficulty[i].setPosition(sf::Vector2f(ais.getPosition().x + settings.unit().x, settings.unit().y * 2.4f + (i * aidifficulty[i].getSize().y * settings.get1920Scale().y)));
+			airace[i].setPosition(sf::Vector2f(aidifficulty[i].getPosition().x + settings.unit().x * 1.3f, settings.unit().y * 2.4f + (i * airace[i].getSize().y * settings.get1920Scale().y)));
+			aiteam[i].setPosition(sf::Vector2f(airace[i].getPosition().x + settings.unit().x * 1.3f, settings.unit().y * 2.4f + (i * aiteam[i].getSize().y * settings.get1920Scale().y)));
+			aicolor[i].setPosition(sf::Vector2f(aiteam[i].getPosition().x + settings.unit().x * 1.3f, settings.unit().y * 2.4f + (i * aicolor[i].getSize().y * settings.get1920Scale().y)));
 		}
 
-		player.setPosition(sf::Vector2f(float(player.getLocalBounds().width / 2 + 15 * settings.get1920Scale().x), float(back.getSize().y * settings.get1920Scale().y)));
+		player.setPosition(sf::Vector2f(settings.unit().x * 0.4f, settings.unit().y * 0.3f));
 
-		relativecolors.setPosition(sf::Vector2f(float(3 * relativecolors.getSSize().x * settings.get1920Scale().x), float(16 * relativecolors.getSSize().x * settings.get1920Scale().y)));
-	
+		//relativecolors.setPosition(sf::Vector2f(float(3 * relativecolors.getSSize().x * settings.get1920Scale().x), float(16 * relativecolors.getSSize().x * settings.get1920Scale().y)));
+		relativecolors.setPosition(sf::Vector2f(settings.unit().x, settings.unit().y * 9));
+
 		mapselector.setPosition(sf::Vector2f(1650 * mapselector.getContScale().x, 175 * mapselector.getContScale().y));
 	}
 	void Singleplayer::handleInput(const sf::Event & event, const sf::Vector2f & mouse)

@@ -117,7 +117,7 @@ namespace UI
 		if (text->getLocalBounds().width >= (size->x - 20) * sprite->getScale().x)
 			(*textsize)--;
 		else if (text->getLocalBounds().width < (size->x - 20) * sprite->getScale().x && *lastscale != scale)
-			*textsize = 18;
+			*textsize = 32;
 
 		text->setCharacterSize(int(*textsize * scale.y));
 

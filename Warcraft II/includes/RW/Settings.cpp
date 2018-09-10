@@ -6,7 +6,6 @@ namespace RW
 	io::json Settings::jsonfile;
 
 	sf::Vector2i Settings::res1920 = { 1920,1080 };
-	sf::Vector2i Settings::res1000 = { 1000,600 };
 
 	sf::Vector2i Settings::oldres;
 	bool Settings::oldfullscreen = false;

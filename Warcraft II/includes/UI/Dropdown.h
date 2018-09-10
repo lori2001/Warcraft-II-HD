@@ -116,7 +116,8 @@ namespace UI
 		void setActive(const unsigned short &i, const bool & active);
 		void setInactive(const bool & inactive);
 
-		//getter
+		//getters
+		sf::Vector2f getPosition() const { return sprite->getPosition(); }
 		bool getInactive() const { return *isInactive; }
 		bool getActive(const unsigned short &i) const { return isActive[i]; }
 		bool getDroppeddown() const { return *isDroppeddown; }

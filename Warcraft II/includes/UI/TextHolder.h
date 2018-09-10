@@ -18,7 +18,7 @@ namespace UI
 		bool *isActive = new bool{ false }; // true when string is under editing
 		bool *hasChanged = new bool{ false }; // true if the string has been modified
 
-		unsigned short *textsize = new unsigned short{ 18 }; // the default size of texts
+		unsigned short *textsize = new unsigned short{ 32 }; // the default size of texts
 		sf::Vector2f *lastscale = new sf::Vector2f; //holds the last scale in case of change of resolution
 	public:
 		TextHolder()

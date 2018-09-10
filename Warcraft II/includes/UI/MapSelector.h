@@ -4,10 +4,12 @@
 #include "SFML\Audio.hpp"
 #include "..\RW\MapReader.h"
 
+//TODO: Fix the texture bleeding once and for all
+
 namespace UI
 {
 	class MapSelector : public sf::Drawable, public sf::Transformable
-	{ //Transformable only contains the map itself (not the container)
+	{ //Transformable only affects the map itself (not the container)
 	private:
 		//basic map
 		const short *tilesize = new const short{ 32 }; //size of 1 tile
