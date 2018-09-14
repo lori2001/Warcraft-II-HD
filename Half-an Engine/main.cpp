@@ -26,7 +26,10 @@ int main()
 
 	MainWindow window;
 	//window.createWindow(sf::VideoMode(800, 600), "Half-an Engine");
-	window.createWindow(sf::VideoMode(800, 600));
+	window.create(sf::VideoMode(800, 600), "Half-an Engine");
+
+	Window win1;
+	win1.create(sf::VideoMode(200, 200));
 
 	RW::Loading loading;
 	loading.loadFiles(window);

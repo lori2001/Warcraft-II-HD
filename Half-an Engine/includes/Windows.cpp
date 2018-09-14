@@ -9,9 +9,16 @@ void MainWindow::onResize(sf::FloatRect & visibleArea)
 	resolution.y = (int)visibleArea.height;
 }
 
-void MainWindow::createWindow(sf::VideoMode resolution)
+void MainWindow::create(sf::VideoMode resolution, const std::string &name)
 {
-	//sf::VideoMode temp = sf::VideoMode(resolution.x ,resolution.y);
-	sf::RenderWindow::create(resolution, "Half-an Engine");
+	sf::RenderWindow::create(resolution, name);
+	this->resolution = sf::Vector2i(resolution.width, resolution.height);
+}
+
+int Window::index = 0;
+
+void Window::create(sf::VideoMode resolution, const std::string & name)
+{
+	sf::RenderWindow::create(resolution, name);
 	this->resolution = sf::Vector2i(resolution.width, resolution.height);
 }
