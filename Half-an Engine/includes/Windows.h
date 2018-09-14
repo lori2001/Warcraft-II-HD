@@ -23,11 +23,19 @@ private:
 	sf::Vector2i resolution;
 	sf::Vector2i res1920;
 
-	static int index;
+	static std::vector<int> WindowNr;
+	int index = 0;
 public:
 	void create(sf::VideoMode resolution, const std::string &name);
 	void create(sf::VideoMode resolution) {
-		create(resolution, std::string("Window " + std::to_string(index++)));
+		index = WindowNr.size();
+		WindowNr.push_back(index);
+		create(resolution, std::string("Window " + std::to_string(index)));
+	}
+
+	void close() {
+		WindowNr.erase(WindowNr.begin() + index);
+		sf::RenderWindow::close();
 	}
 
 	//getters

@@ -15,8 +15,10 @@ int main()
 	//display version
 	std::cout << "Version: " << env.getVersion() << std::endl;
 
-	sf::RectangleShape box{ sf::Vector2f(100,100) };
-	box.setFillColor(sf::Color::Red);
+		sf::RectangleShape box{ sf::Vector2f(100,100) };
+		box.setFillColor(sf::Color::Red);
+		bool windowed = false;
+		Window win1;
 
 	/*opens a dialog box where the user should choose the game's location*/
 	RW::Paths paths;
@@ -25,11 +27,7 @@ int main()
 	}
 
 	MainWindow window;
-	//window.createWindow(sf::VideoMode(800, 600), "Half-an Engine");
 	window.create(sf::VideoMode(800, 600), "Half-an Engine");
-
-	Window win1;
-	win1.create(sf::VideoMode(200, 200));
 
 	RW::Loading loading;
 	loading.loadFiles(window);
@@ -39,10 +37,31 @@ int main()
 	while (window.isOpen())
 	{
 		sf::Event event;
+			sf::Event event1;
+
+			while (win1.pollEvent(event1))
+			{
+				if (event1.type == sf::Event::MouseButtonReleased) {
+					windowed = false;
+					win1.close();
+				}
+
+				if (event1.type == sf::Event::Closed)
+					win1.close();
+			}
+
+			win1.clear(sf::Color::Color(60, 60, 60, 255));
+			win1.draw(box);
+			win1.display();
 
 		while (window.pollEvent(event))
 		{
 			//insert input handling in here
+				if (event.type == sf::Event::MouseButtonReleased ) 
+				{
+					win1.create(sf::VideoMode(200, 200));
+					windowed = true;
+				}
 
 			if (event.type == sf::Event::Closed)
 				window.close();
@@ -58,8 +77,9 @@ int main()
 
 		window.clear(sf::Color::Color(60, 60, 60, 255));
 
-		//insert drawing commands in here
-		window.draw(box);
+			if(!windowed)
+			//insert drawing commands in here
+			window.draw(box);
 
 		window.display();
 	}

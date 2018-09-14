@@ -15,7 +15,7 @@ void MainWindow::create(sf::VideoMode resolution, const std::string &name)
 	this->resolution = sf::Vector2i(resolution.width, resolution.height);
 }
 
-int Window::index = 0;
+std::vector<int> Window::WindowNr;
 
 void Window::create(sf::VideoMode resolution, const std::string & name)
 {
