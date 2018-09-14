@@ -2,18 +2,30 @@
 #include <iostream>
 #include "SFML\Graphics.hpp"
 #include "SFML\Audio.hpp"
+#include "../Windows.h"
+#include "Paths.h"
 
 namespace RW
 {
 	class Loading
 	{
 	private:
+		static Paths paths;
 		static sf::Texture loadingscreenT;
 		static sf::Sprite loadingscreenS;
 
 		static sf::RectangleShape progressbar;
+		static sf::RectangleShape progressbg;
+		static const int progressperfile; // holds the number of files before loading
+		static int nroffiles; // counts the number of files loaded while loading
 
 		static sf::SoundBuffer pressbuttonSB;
+
+		static void animateBar(MainWindow & window);
+		static void loadFile(sf::Texture & texture, const std::string & from, MainWindow & window);
+		static void loadFile(sf::Font & font, const std::string & from, MainWindow & window);
+		static void loadFile(sf::Music & music, const std::string & from, MainWindow & window);
+		static void loadFile(sf::SoundBuffer & soundbuffer, const std::string & from, MainWindow & window);
 	public:
 		static sf::Sound pressbutton;
 
@@ -98,6 +110,6 @@ namespace RW
 
 		static void setMusicVolume(const unsigned short &in);
 		static void setSFXVolume(const unsigned short &in);
-		static void loadFiles(sf::RenderWindow & window);
+		static void loadFiles(MainWindow & window);
 	};
 }
