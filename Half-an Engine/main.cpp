@@ -1,6 +1,6 @@
 #include <iostream>
-//#include <stdlib.h>
 #include "SFML\Graphics.hpp"
+#include "includes/RW/Environment.h"
 #include "../Warcraft II/includes/UI/Cursor.h"
 #include "includes/RW/Paths.h"
 #include "includes/RW/Loading.h"
@@ -8,16 +8,19 @@
 
 int main()
 {
-	//sf::RenderWindow window;
-	//window.create(sf::VideoMode(800, 600), "Half-an Engine");
+	RW::Environment env;
+	//load version number and add +1 to build
+	env.read();
+
+	//display version
+	std::cout << "Version: " << env.getVersion() << std::endl;
 
 	sf::RectangleShape box{ sf::Vector2f(100,100) };
 	box.setFillColor(sf::Color::Red);
 
-	/*opens a dialog box where you should choose the game's loaction*/
+	/*opens a dialog box where the user should choose the game's location*/
 	RW::Paths paths;
 	paths.chooseGamePath();
-	//std::cout << paths.getGamePath();
 
 	MainWindow window;
 	//window.createWindow(sf::VideoMode(800, 600), "Half-an Engine");
