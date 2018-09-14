@@ -20,7 +20,9 @@ int main()
 
 	/*opens a dialog box where the user should choose the game's location*/
 	RW::Paths paths;
-	paths.chooseGamePath();
+	if (!paths.chooseGamePath()) {
+		return 0;
+	}
 
 	MainWindow window;
 	//window.createWindow(sf::VideoMode(800, 600), "Half-an Engine");

@@ -5,7 +5,7 @@ namespace RW {
 	nfdchar_t* Paths::path = NULL;
 	nfdresult_t Paths::dialog;
 
-	void Paths::chooseGamePath()
+	bool Paths::chooseGamePath()
 	{
 		std::cout << "Please choose the location of the warcraft's exe file!" << std::endl;
 		dialog = NFD_OpenDialog(NULL, NULL, &path);;
@@ -21,10 +21,12 @@ namespace RW {
 
 		}
 		else if (dialog == NFD_CANCEL) {
-			//Close the window
+			return 0;
 		}
 		else {
 			std::cout << "Error: " << NFD_GetError() << std::endl;
 		}
+
+		return 1;
 	}
 }

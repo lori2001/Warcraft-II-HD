@@ -10,7 +10,7 @@ namespace RW {
 		static nfdchar_t *path;
 		static nfdresult_t dialog;
 	public:
-		static void chooseGamePath();
+		static bool chooseGamePath();
 
 		//getters
 		static std::string getGamePath() { return gamePath; }
