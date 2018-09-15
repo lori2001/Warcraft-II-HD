@@ -16,15 +16,16 @@ namespace UI
 		bool isPressed = false; // if true do the the pressed animation and play the sound(once)
 		bool isSelected = false; // if true show outline
 		bool isDroppeddown = false; // if true drop down
-		bool *isActive; // if true react(ex. change 800x600 resolution to 1000x600) - this is done in Menu.cpp
+		bool *isActive; //(array) if true react(ex. change 800x600 resolution to 1000x600) - this is done in Menu.cpp
 		bool isInactive = false; // if true make it grey and set it to unselectable
+		bool isStatic = false; // if true the dropdown[0] does not change
 
 		unsigned int elementnr; // holds the number of elements in the dropdown
 		bool *elementselected; // array of size elementnr | if a member is true it is selected | else not
 
 		sf::Text maintext; // text above dropdown
-		sf::Text * droptext; // text in dropdown
-		sf::RectangleShape * dropcolor; // used only if you want colors instead of texts
+		sf::Text * droptext; // (array) text in dropdown
+		sf::RectangleShape * dropcolor; // (array) used only if you want colors instead of texts
 	public:
 		Dropdown(const unsigned int &elementnr)
 		{
@@ -57,6 +58,10 @@ namespace UI
 			selectedsprite.setOrigin(sf::Vector2f(float(size.x / 2), float(size.y / 2)));
 			selectedsprite.setOutlineColor(sf::Color::Yellow);
 			selectedsprite.setOutlineThickness(-2);
+		}
+		Dropdown(const unsigned int &elementnr, const bool isStatic) : Dropdown(elementnr)
+		{
+			this->isStatic = isStatic;
 		}
 		Dropdown(const unsigned int &elementnr, const std::string &text) : Dropdown(elementnr)
 		{
