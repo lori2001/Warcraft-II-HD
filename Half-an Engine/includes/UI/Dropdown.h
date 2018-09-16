@@ -18,6 +18,7 @@ namespace UI
 		bool isDroppeddown = false; // if true drop down
 		bool *isActive; //(array) if true react(ex. change 800x600 resolution to 1000x600) - this is done in Menu.cpp
 		bool isInactive = false; // if true make it grey and set it to unselectable
+		bool isStatic = false; // if true the dropdown[0] does not change
 
 		unsigned int elementnr; // holds the number of elements in the dropdown
 		bool *elementselected; // array of size elementnr | if a member is true it is selected | else not
@@ -57,6 +58,10 @@ namespace UI
 			selectedsprite.setOrigin(sf::Vector2f(float(size.x / 2), float(size.y / 2)));
 			selectedsprite.setOutlineColor(sf::Color::Yellow);
 			selectedsprite.setOutlineThickness(-2);
+		}
+		Dropdown(const unsigned int &elementnr, const bool isStatic) : Dropdown(elementnr)
+		{
+			this->isStatic = isStatic;
 		}
 		Dropdown(const unsigned int &elementnr, const std::string &text) : Dropdown(elementnr)
 		{

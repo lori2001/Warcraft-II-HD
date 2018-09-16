@@ -2,29 +2,14 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 
-class MainWindow : public sf::RenderWindow
-{
-private:
-	static sf::Vector2i resolution;
-	static sf::Vector2i res1920;
-
-public:
-	static void onResize(sf::FloatRect &visibleArea);
-	void create(sf::VideoMode resolution, const std::string &name);
-
-	//getters
-	static sf::Vector2i getRes() { return resolution; }
-	static sf::Vector2f get1920Scale() { return sf::Vector2f(float(resolution.x) / res1920.x, float(resolution.y) / res1920.y); }
-};
-
 class Window : public sf::RenderWindow
 {
 private:
 	sf::Vector2i resolution;
-	sf::Vector2i res1920;
+	sf::Vector2i res1920{ 1920,1080 };
 
 	static std::vector<int> WindowNr;
-	int index = 0;
+	int index = -1;
 public:
 	void create(sf::VideoMode resolution, const std::string &name);
 	void create(sf::VideoMode resolution) {
@@ -34,9 +19,14 @@ public:
 	}
 
 	void close() {
-		WindowNr.erase(WindowNr.begin() + index);
+
+		if(index != -1)
+			WindowNr.erase(WindowNr.begin() + index);
+
 		sf::RenderWindow::close();
 	}
+
+	void onResize(const sf::Vector2i &visibleArea);
 
 	//getters
 	sf::Vector2i getRes() { return resolution; }

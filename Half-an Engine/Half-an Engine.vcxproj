@@ -123,19 +123,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Warcraft II\includes\UI\Button.cpp" />
-    <ClCompile Include="..\Warcraft II\includes\UI\Cursor.cpp" />
-    <ClCompile Include="..\Warcraft II\includes\UI\Dropdown.cpp" />
-    <ClCompile Include="..\Warcraft II\includes\UI\MapSelector.cpp" />
-    <ClCompile Include="..\Warcraft II\includes\UI\Slider.cpp" />
-    <ClCompile Include="..\Warcraft II\includes\UI\Switch.cpp" />
-    <ClCompile Include="..\Warcraft II\includes\UI\TextHolder.cpp" />
     <ClCompile Include="includes\Program.cpp" />
     <ClCompile Include="includes\RW\Environment.cpp" />
     <ClCompile Include="includes\RW\Loading.cpp" />
     <ClCompile Include="includes\RW\MapReader.cpp" />
+    <ClCompile Include="includes\Sections\MainView.cpp" />
     <ClCompile Include="includes\Sections\Toolbar.cpp" />
-    <ClCompile Include="includes\Windows.cpp" />
+    <ClCompile Include="includes\UI\Button.cpp" />
+    <ClCompile Include="includes\UI\Cursor.cpp" />
+    <ClCompile Include="includes\UI\Dropdown.cpp" />
+    <ClCompile Include="includes\UI\MapSelector.cpp" />
+    <ClCompile Include="includes\UI\Slider.cpp" />
+    <ClCompile Include="includes\UI\Switch.cpp" />
+    <ClCompile Include="includes\UI\TextHolder.cpp" />
+    <ClCompile Include="includes\Window.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="includes\RW\Paths.cpp" />
   </ItemGroup>
@@ -143,19 +144,20 @@
     <None Include="environment.json" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Warcraft II\includes\UI\Button.h" />
-    <ClInclude Include="..\Warcraft II\includes\UI\Cursor.h" />
-    <ClInclude Include="..\Warcraft II\includes\UI\Dropdown.h" />
-    <ClInclude Include="..\Warcraft II\includes\UI\MapSelector.h" />
-    <ClInclude Include="..\Warcraft II\includes\UI\Slider.h" />
-    <ClInclude Include="..\Warcraft II\includes\UI\Switch.h" />
-    <ClInclude Include="..\Warcraft II\includes\UI\TextHolder.h" />
     <ClInclude Include="includes\Program.h" />
     <ClInclude Include="includes\RW\Environment.h" />
     <ClInclude Include="includes\RW\Loading.h" />
     <ClInclude Include="includes\RW\MapReader.h" />
+    <ClInclude Include="includes\Sections\MainView.h" />
     <ClInclude Include="includes\Sections\Toolbar.h" />
-    <ClInclude Include="includes\Windows.h" />
+    <ClInclude Include="includes\UI\Button.h" />
+    <ClInclude Include="includes\UI\Cursor.h" />
+    <ClInclude Include="includes\UI\Dropdown.h" />
+    <ClInclude Include="includes\UI\MapSelector.h" />
+    <ClInclude Include="includes\UI\Slider.h" />
+    <ClInclude Include="includes\UI\Switch.h" />
+    <ClInclude Include="includes\UI\TextHolder.h" />
+    <ClInclude Include="includes\Window.h" />
     <ClInclude Include="includes\RW\Paths.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

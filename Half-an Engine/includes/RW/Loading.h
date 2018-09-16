@@ -2,7 +2,7 @@
 #include <iostream>
 #include "SFML\Graphics.hpp"
 #include "SFML\Audio.hpp"
-#include "../Windows.h"
+#include "../Window.h"
 #include "Paths.h"
 
 namespace RW
@@ -21,11 +21,11 @@ namespace RW
 
 		static sf::SoundBuffer pressbuttonSB;
 
-		static void animateBar(MainWindow & window);
-		static void loadFile(sf::Texture & texture, const std::string & from, MainWindow & window);
-		static void loadFile(sf::Font & font, const std::string & from, MainWindow & window);
-		static void loadFile(sf::Music & music, const std::string & from, MainWindow & window);
-		static void loadFile(sf::SoundBuffer & soundbuffer, const std::string & from, MainWindow & window);
+		static void animateBar(Window & window);
+		static void loadFile(sf::Texture & texture, const std::string & from, Window & window);
+		static void loadFile(sf::Font & font, const std::string & from, Window & window);
+		static void loadFile(sf::Music & music, const std::string & from, Window & window);
+		static void loadFile(sf::SoundBuffer & soundbuffer, const std::string & from, Window & window);
 	public:
 		static sf::Sound pressbutton;
 
@@ -110,6 +110,6 @@ namespace RW
 
 		static void setMusicVolume(const unsigned short &in);
 		static void setSFXVolume(const unsigned short &in);
-		static void loadFiles(MainWindow & window);
+		static void loadFiles(Window & window);
 	};
 }

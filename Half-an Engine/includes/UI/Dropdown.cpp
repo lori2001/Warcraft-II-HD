@@ -51,10 +51,13 @@ namespace UI
 
 						isActive[i] = true;
 
-						setDroptext(0, droptext[i].getString());
+						if (!isStatic)
+						{
+							setDroptext(0, droptext[i].getString());
 
-						if (dropcolor[i].getFillColor() != sf::Color::Transparent) // if color is used
-							setDropColor(0, dropcolor[i].getFillColor());
+							if (dropcolor[i].getFillColor() != sf::Color::Transparent) // if color is used
+								setDropColor(0, dropcolor[i].getFillColor());
+						}
 
 						break;
 					}

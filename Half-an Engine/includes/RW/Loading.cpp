@@ -78,7 +78,7 @@ namespace RW
 	int Loading::nroffiles = 0;
 	const int Loading::progressperfile = 103;
 
-	void Loading::animateBar(MainWindow & window)
+	void Loading::animateBar(Window & window)
 	{
 		int progress = 1620 / progressperfile; // bar width minus the number of loadings
 
@@ -92,28 +92,28 @@ namespace RW
 
 		nroffiles++;
 	}
-	void Loading::loadFile(sf::Texture & texture, const std::string & from, MainWindow & window)
+	void Loading::loadFile(sf::Texture & texture, const std::string & from, Window & window)
 	{
 		if (!texture.loadFromFile(from))
 			std::cout << "error: could not load file from " << from << std::endl;
 
 		animateBar(window);
 	}
-	void Loading::loadFile(sf::Font & font, const std::string & from, MainWindow & window)
+	void Loading::loadFile(sf::Font & font, const std::string & from, Window & window)
 	{
 		if (!font.loadFromFile(from))
 			std::cout << "error: could not load file from " << from << std::endl;
 
 		animateBar(window);
 	}
-	void Loading::loadFile(sf::Music & music, const std::string & from, MainWindow & window)
+	void Loading::loadFile(sf::Music & music, const std::string & from, Window & window)
 	{
 		if (!music.openFromFile(from))
 			std::cout << "error: could not load file from " << from << std::endl;
 
 		animateBar(window);
 	}
-	void Loading::loadFile(sf::SoundBuffer & soundbuffer, const std::string & from, MainWindow & window)
+	void Loading::loadFile(sf::SoundBuffer & soundbuffer, const std::string & from, Window & window)
 	{
 		if (!soundbuffer.loadFromFile(from))
 			std::cout << "error: could not load file from " << from << std::endl;
@@ -130,7 +130,7 @@ namespace RW
 	{
 		pressbutton.setVolume(in);
 	}
-	void Loading::loadFiles(MainWindow &window)
+	void Loading::loadFiles(Window &window)
 	{
 		if (!loadingscreenT.loadFromFile("assets/images/loadingscreen.jpg"))
 			std::cout << "error: could not load file from /assets/images/loadingscreen.jpg" << std::endl;

@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Imported">
       <UniqueIdentifier>{bee2cda4-b739-43a4-82dd-763a0158c5e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{4a1c9ddc-1b65-46a8-b6df-1c832711e8f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{e2a24608-6a97-411d-b389-fcf9b2b7b89c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="includes\RW\Environment.cpp">
@@ -51,32 +57,35 @@
     <ClCompile Include="includes\Sections\Toolbar.cpp">
       <Filter>Source Files\Sections</Filter>
     </ClCompile>
-    <ClCompile Include="includes\Windows.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Warcraft II\includes\UI\Button.cpp">
-      <Filter>Source Files\Imported</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Warcraft II\includes\UI\Cursor.cpp">
-      <Filter>Source Files\Imported</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Warcraft II\includes\UI\Dropdown.cpp">
-      <Filter>Source Files\Imported</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Warcraft II\includes\UI\MapSelector.cpp">
-      <Filter>Source Files\Imported</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Warcraft II\includes\UI\Slider.cpp">
-      <Filter>Source Files\Imported</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Warcraft II\includes\UI\Switch.cpp">
-      <Filter>Source Files\Imported</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Warcraft II\includes\UI\TextHolder.cpp">
-      <Filter>Source Files\Imported</Filter>
-    </ClCompile>
     <ClCompile Include="includes\RW\Paths.cpp">
       <Filter>Source Files\RW</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\UI\Button.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\UI\Cursor.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\UI\Dropdown.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\UI\MapSelector.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\UI\Slider.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\UI\Switch.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\UI\TextHolder.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\Sections\MainView.cpp">
+      <Filter>Source Files\Sections</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\Window.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,38 +101,41 @@
     <ClInclude Include="includes\RW\Loading.h">
       <Filter>Header Files\RW</Filter>
     </ClInclude>
-    <ClInclude Include="includes\Program.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\Sections\Toolbar.h">
       <Filter>Header Files\Sections</Filter>
     </ClInclude>
-    <ClInclude Include="includes\Windows.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Warcraft II\includes\UI\Button.h">
-      <Filter>Header Files\Imported</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Warcraft II\includes\UI\Cursor.h">
-      <Filter>Header Files\Imported</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Warcraft II\includes\UI\Dropdown.h">
-      <Filter>Header Files\Imported</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Warcraft II\includes\UI\MapSelector.h">
-      <Filter>Header Files\Imported</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Warcraft II\includes\UI\Slider.h">
-      <Filter>Header Files\Imported</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Warcraft II\includes\UI\Switch.h">
-      <Filter>Header Files\Imported</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Warcraft II\includes\UI\TextHolder.h">
-      <Filter>Header Files\Imported</Filter>
-    </ClInclude>
     <ClInclude Include="includes\RW\Paths.h">
       <Filter>Header Files\RW</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\UI\Button.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\UI\Cursor.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\UI\Dropdown.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\UI\MapSelector.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\UI\Slider.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\UI\Switch.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\UI\TextHolder.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\Program.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\Sections\MainView.h">
+      <Filter>Header Files\Sections</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\Window.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
