@@ -164,10 +164,17 @@
     <ClInclude Include="includes\UI\Slider.h" />
     <ClInclude Include="includes\UI\Switch.h" />
     <ClInclude Include="includes\UI\TextHolder.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="environment.json" />
     <None Include="settings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Warcraft II.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

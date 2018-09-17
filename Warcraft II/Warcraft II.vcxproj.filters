@@ -158,9 +158,22 @@
     <ClInclude Include="includes\UI\MapSelector.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="environment.json" />
     <None Include="settings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Warcraft II.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

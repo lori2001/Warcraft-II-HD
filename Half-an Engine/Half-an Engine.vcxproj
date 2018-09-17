@@ -159,6 +159,13 @@
     <ClInclude Include="includes\UI\TextHolder.h" />
     <ClInclude Include="includes\Window.h" />
     <ClInclude Include="includes\RW\Paths.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Half-an Engine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

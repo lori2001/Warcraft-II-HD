@@ -5,7 +5,6 @@ void Program::Setup(Window &window)
 	toolbar.setTransform(window.get1920Scale());
 }
 
-//TODO: Fix tooolbar Scale setting when resized
 void Program::handleInput(Window &window)
 {
 	if(window.hasFocus())
@@ -31,7 +30,10 @@ void Program::handleInput(Window &window)
 			else if (toolbarevent.type == sf::Event::Resized)
 			{
 				toolbar.window.onResize(sf::Vector2i(toolbarevent.size.width, toolbarevent.size.height));
-				toolbar.setTransform(sf::Vector2f(float(toolbar.window.getRes().x / window.getRes().x), float(toolbar.window.getRes().y / window.getRes().y)));
+
+				std::cout << (float)toolbar.window.getRes().x / (float)window.getRes().x * window.get1920Scale().x << " ";
+				std::cout << (float)toolbar.window.getRes().y / (float)window.getRes().y * window.get1920Scale().y << std::endl;
+
 			}
 			else if (toolbarevent.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 				toolbar.isWindowed = false;
