@@ -128,6 +128,7 @@
     <ClCompile Include="includes\RW\Loading.cpp" />
     <ClCompile Include="includes\RW\MapReader.cpp" />
     <ClCompile Include="includes\Sections\MainView.cpp" />
+    <ClCompile Include="includes\Sections\Template.cpp" />
     <ClCompile Include="includes\Sections\Toolbar.cpp" />
     <ClCompile Include="includes\UI\Button.cpp" />
     <ClCompile Include="includes\UI\Cursor.cpp" />
@@ -142,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="environment.json" />
+    <None Include="Half-an Engine.aps" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\Program.h" />
@@ -149,6 +151,7 @@
     <ClInclude Include="includes\RW\Loading.h" />
     <ClInclude Include="includes\RW\MapReader.h" />
     <ClInclude Include="includes\Sections\MainView.h" />
+    <ClInclude Include="includes\Sections\Template.h" />
     <ClInclude Include="includes\Sections\Toolbar.h" />
     <ClInclude Include="includes\UI\Button.h" />
     <ClInclude Include="includes\UI\Cursor.h" />
@@ -166,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico" />
+    <Image Include="icon.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

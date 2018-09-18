@@ -20,7 +20,9 @@ namespace RW
 	sf::Texture Loading::topgearsT[20];
 	sf::Texture Loading::botgearsT[20];
 	sf::Texture Loading::popupT;
+	sf::Texture Loading::borderT;
 	sf::Texture Loading::buttonT;
+	sf::Texture Loading::undockT;
 	sf::Texture Loading::sliderT;
 	sf::Texture Loading::sliderbuttonT;
 	sf::Texture Loading::dropdownT;
@@ -76,7 +78,7 @@ namespace RW
 	sf::Font Loading::normalF;
 
 	int Loading::nroffiles = 0;
-	const int Loading::progressperfile = 103;
+	const int Loading::progressperfile = 105;
 
 	void Loading::animateBar(Window & window)
 	{
@@ -174,7 +176,9 @@ namespace RW
 		}
 
 		loadFile(popupT, paths.getGamePath() + "\\assets\\images\\popup.png", window);
+		loadFile(borderT, "assets/images/border.png", window);
 		loadFile(buttonT, paths.getGamePath() + "\\assets\\images\\button.png", window);
+		loadFile(undockT, "assets/images/undock.png", window);
 		loadFile(sliderT, paths.getGamePath() + "\\assets\\images\\slider.png", window);
 		loadFile(sliderbuttonT, paths.getGamePath() + "\\assets\\images\\sliderbutton.png", window);
 		loadFile(dropdownT, paths.getGamePath() + "\\assets\\images\\dropdown.png", window);

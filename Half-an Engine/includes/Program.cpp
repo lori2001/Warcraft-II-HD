@@ -14,7 +14,7 @@ void Program::handleInput(Window &window)
 
 	sf::Event event;
 
-	if (toolbar.isWindowed)
+	if (toolbar.getWindowed())
 	{
 		sf::Event toolbarevent;
 
@@ -22,21 +22,13 @@ void Program::handleInput(Window &window)
 		{
 			toolbar.handleInput(toolbarevent, mouse);
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-			{
-				std::cout << (float)window.getRes().x / (float)toolbar.window.getRes().x << " " << (float)window.getRes().y / (float)toolbar.window.getRes().y;
-				std::cout << window.get1920Scale().x << "  " << window.get1920Scale().y << std::endl;
-			}
-			else if (toolbarevent.type == sf::Event::Resized)
+			if (toolbarevent.type == sf::Event::Resized)
 			{
 				toolbar.window.onResize(sf::Vector2i(toolbarevent.size.width, toolbarevent.size.height));
-
-				std::cout << (float)toolbar.window.getRes().x / (float)window.getRes().x * window.get1920Scale().x << " ";
-				std::cout << (float)toolbar.window.getRes().y / (float)window.getRes().y * window.get1920Scale().y << std::endl;
-
 			}
-			else if (toolbarevent.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-				toolbar.isWindowed = false;
+			else if (toolbarevent.type == sf::Event::Closed || toolbar.B0getActive()) {
+				toolbar.B0setActive(false);
+				toolbar.unwindowize(window.get1920Scale());
 				toolbar.window.close();
 			}
 		}
@@ -51,11 +43,11 @@ void Program::handleInput(Window &window)
 			sf::FloatRect visibleArea(0, 0, (float)event.size.width, (float)event.size.height);
 			window.setView(sf::View(visibleArea));
 			window.onResize(sf::Vector2i(event.size.width, event.size.height));
-			toolbar.setTransform(window.get1920Scale());
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-			toolbar.isWindowed = true;
-			toolbar.window.create(sf::VideoMode(int(toolbar.getSize().x * window.get1920Scale().x), int(toolbar.getSize().y * window.get1920Scale().y)), "Toolbar");
+		else if (toolbar.B0getActive()) {
+			toolbar.B0setActive(false);
+			toolbar.window.create(sf::VideoMode(int(toolbar.getWindowSize().x * window.get1920Scale().x), int(toolbar.getWindowSize().y * window.get1920Scale().y)), "Toolbar");
+			toolbar.windowize(window.get1920Scale());
 		}
 		else if (event.type == sf::Event::Closed)
 			window.close();
@@ -68,7 +60,7 @@ void Program::Update(Window &window)
 
 void Program::Compose(Window &window)
 {
-	if (toolbar.isWindowed)
+	if (toolbar.getWindowed())
 	{
 		toolbar.window.clear(sf::Color::Color(60, 60, 60, 255));
 		toolbar.window.draw(toolbar);

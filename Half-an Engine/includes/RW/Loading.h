@@ -43,8 +43,10 @@ namespace RW
 		static sf::Texture botgearsT[20];
 
 		static sf::Texture popupT;
+		static sf::Texture borderT;
 
 		static sf::Texture buttonT;
+		static sf::Texture undockT;
 
 		static sf::Texture sliderT;
 		static sf::Texture sliderbuttonT;
