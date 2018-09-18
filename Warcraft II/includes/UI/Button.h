@@ -7,7 +7,7 @@ namespace UI
 	class Button : public sf::Drawable
 	{
 	private:
-		const sf::Vector2f size{ 430, 50 }; //this is the sprite's size
+		sf::Vector2f size{ 430, 50 }; //this is the sprite's size
 
 		sf::RectangleShape sprite{ size }; //creates a rect with that size
 		sf::Text text; // a text to be on the button
@@ -23,14 +23,24 @@ namespace UI
 			sprite.setOrigin(sf::Vector2f(this->size.x / 2, this->size.y / 2));
 			sprite.setOutlineColor(sf::Color::Yellow);
 		}
+		Button(const sf::Vector2f &size)
+		{
+			this->size = size;
+			sprite.setSize(size);
+
+			text.setFillColor(sf::Color::Yellow);
+
+			sprite.setOrigin(sf::Vector2f(this->size.x / 2, this->size.y / 2));
+			sprite.setOutlineColor(sf::Color::Yellow);
+		}
 		Button(const std::string &text) : Button()
 		{
 			this->text.setString(text);
 		}
 		Button(const std::string &text, const sf::Vector2f &position) : Button(text)
 		{
-			this->text.setPosition(position);
 			sprite.setPosition(position);
+			this->text.setPosition(position);
 		}
 		void setSelected(const sf::Vector2f & mouse);
 		void handleInput(const sf::Event &event, sf::Sound & pressbutton);
@@ -49,6 +59,7 @@ namespace UI
 
 		//getters
 		bool getActive() const { return isActive; }
+		bool getSelected() const { return isSelected; }
 		sf::Vector2f getScale() const { return  sprite.getScale(); }
 		sf::Vector2f getPosition() const { return sprite.getPosition(); }
 		sf::Vector2f getSize() const { return size; }
