@@ -10,6 +10,7 @@ namespace Sections
 	protected:
 		RW::Loading loading;
 
+		sf::Vector2f winprop{ sf::Vector2f(1,1)}; // makes window scaling easily changeable
 		UI::Button windowize{ sf::Vector2f(125, 125) };
 
 		sf::Vector2f bsize{ 1920,1080 }; // size of intial border sprite

@@ -7,7 +7,7 @@ namespace Sections
 		this->scale = sf::Vector2f(size.x / (bsize.x - sizeofB.x * 2) * scale.x, size.y / (bsize.y - sizeofB.y * 2) * scale.y);
 
 		border.setScale(this->scale);
-		windowize.setScale(sf::Vector2f(this->scale.x / 1.5f, this->scale.x / 1.5f));
+		windowize.setScale(sf::Vector2f(this->scale.x / winprop.x, this->scale.x / winprop.y));
 
 		windowize.setPosition(sf::Vector2f(windowize.getSize().x / 2 * windowize.getScale().x ,windowize.getSize().y / 2 * windowize.getScale().x));
 	}
