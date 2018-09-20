@@ -6,8 +6,9 @@ namespace Sections
 	{
 		dropfile.setDroptext(0, "File");
 		dropfile.setDroptext(1, "New");
-		dropfile.setDroptext(2, "Save");
-		dropfile.setDroptext(3, "Save as");
+		dropfile.setDroptext(2, "Open");
+		dropfile.setDroptext(3, "Save");
+		dropfile.setDroptext(4, "Save as");
 
 		dropwindow.setDroptext(0, "Window");
 		dropwindow.setDroptext(1, "Unit Editor");
