@@ -38,6 +38,7 @@ namespace RW
 		static sf::Texture spbackgroundT;
 		static sf::Texture inworkT;
 		static sf::Texture interfaceT;
+		static sf::Texture toolbarT;
 
 		static sf::Texture topgearsT[20];
 		static sf::Texture botgearsT[20];

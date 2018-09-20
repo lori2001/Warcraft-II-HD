@@ -17,6 +17,7 @@ namespace RW
 	sf::Texture Loading::spbackgroundT;
 	sf::Texture Loading::inworkT;
 	sf::Texture Loading::interfaceT;
+	sf::Texture Loading::toolbarT;
 	sf::Texture Loading::topgearsT[20];
 	sf::Texture Loading::botgearsT[20];
 	sf::Texture Loading::popupT;
@@ -78,7 +79,7 @@ namespace RW
 	sf::Font Loading::normalF;
 
 	int Loading::nroffiles = 0;
-	const int Loading::progressperfile = 105;
+	const int Loading::progressperfile = 106;
 
 	void Loading::animateBar(Window & window)
 	{
@@ -168,6 +169,7 @@ namespace RW
 		loadFile(spbackgroundT, paths.getGamePath() + "\\assets\\images\\startgamebackground.jpg", window);
 		loadFile(inworkT, paths.getGamePath() + "\\assets\\images\\in work.jpg", window);
 		loadFile(interfaceT, paths.getGamePath() + "\\assets\\images\\interface.png", window);
+		loadFile(toolbarT, "assets/images/toolbar.png", window);
 
 		for (unsigned short i = 0; i < 20; i++)
 		{

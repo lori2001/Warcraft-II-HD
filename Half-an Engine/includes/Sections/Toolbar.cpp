@@ -17,6 +17,7 @@ namespace Sections
 
 		Template::setTransform(this->size, scale);
 
+		background.setScale(scale);
 		dropfile.setScale(scale);
 		dropwindow.setScale(scale);
 
@@ -30,6 +31,7 @@ namespace Sections
 	{
 		Template::isWindowed = true;
 
+		background.setPosition(sf::Vector2f(Template::sizeofB.x * Template::scale.x, Template::sizeofB.y * Template::scale.y));
 		dropfile.setPosition(sf::Vector2f(dropfile.getSize().x * 0.5f * scale.x + Template::sizeofB.x * Template::scale.x, dropfile.getSize().y * 0.5f * scale.y + Template::sizeofB.y * Template::scale.y));
 		dropwindow.setPosition(sf::Vector2f(dropwindow.getSize().x * 1.5f * scale.x + Template::sizeofB.x * Template::scale.x, dropwindow.getSize().y * 0.5f * scale.y + Template::sizeofB.y * Template::scale.y));
 	}
@@ -37,6 +39,7 @@ namespace Sections
 	{
 		Template::isWindowed = false;
 
+		background.setPosition(sf::Vector2f(0,0));
 		dropfile.setPosition(sf::Vector2f(dropfile.getSize().x * 0.5f * scale.x, dropfile.getSize().y * 0.5f * scale.y));
 		dropwindow.setPosition(sf::Vector2f(dropwindow.getSize().x * 1.5f * scale.x, dropwindow.getSize().y * 0.5f * scale.y));
 	}
@@ -54,6 +57,7 @@ namespace Sections
 	}
 	void Toolbar::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
+		target.draw(background, states);
 		target.draw(dropfile, states);
 		target.draw(dropwindow, states);
 

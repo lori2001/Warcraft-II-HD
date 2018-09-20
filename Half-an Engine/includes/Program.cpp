@@ -43,6 +43,9 @@ void Program::handleInput(Window &window)
 			sf::FloatRect visibleArea(0, 0, (float)event.size.width, (float)event.size.height);
 			window.setView(sf::View(visibleArea));
 			window.onResize(sf::Vector2i(event.size.width, event.size.height));
+
+			if(!toolbar.getWindowed())
+				toolbar.setTransform(window.get1920Scale());
 		}
 		else if (toolbar.B0getActive()) {
 			toolbar.B0setActive(false);
