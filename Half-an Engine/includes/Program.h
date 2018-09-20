@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML\Graphics.hpp"
 #include "Window.h"
+#include "RW\Paths.h"
 #include "Sections\MainView.h"
 #include "Sections\Toolbar.h"
 
@@ -8,8 +9,9 @@ class Program {
 private:
 	sf::Vector2f mouse; //holds position of the mouse
 
+	RW::Paths paths;
 	Window window;
-
+	
 	Sections::MainView mainView;
 	Sections::Toolbar toolbar;
 public:

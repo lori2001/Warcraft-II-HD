@@ -38,10 +38,14 @@ namespace Sections
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 		//setters
+		void D0setActive(const int &i, const bool &active) { dropfile.setActive(i, active); }
+		void D1setActive(const int &i, const bool &active) { dropwindow.setActive(i, active); }
 		void B0setActive(const bool &active) { Template::windowize.setActive(active); }
 
 		//getters
 		bool getWindowed() { return Template::isWindowed; }
+		bool D0getActive(const int &i) { return dropfile.getActive(i); }
+		bool D1getActive(const int &i) { return dropwindow.getActive(i); }
 		bool B0getActive() { return Template::windowize.getActive(); }
 		sf::Vector2f getSize() { return size; }
 		sf::Vector2f getWindowSize() { return windowsize; }

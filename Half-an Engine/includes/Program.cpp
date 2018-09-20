@@ -20,13 +20,14 @@ void Program::handleInput(Window &window)
 
 		while (toolbar.window.pollEvent(toolbarevent))
 		{
-			toolbar.handleInput(toolbarevent, mouse);
+			toolbar.handleInput(toolbarevent, mouse); //gets input
 
 			if (toolbarevent.type == sf::Event::Resized)
 			{
 				toolbar.window.onResize(sf::Vector2i(toolbarevent.size.width, toolbarevent.size.height));
 			}
-			else if (toolbarevent.type == sf::Event::Closed || toolbar.B0getActive()) {
+			else if (toolbarevent.type == sf::Event::Closed || toolbar.B0getActive()) 
+			{
 				toolbar.B0setActive(false);
 				toolbar.unwindowize(window.get1920Scale());
 				toolbar.window.close();
@@ -36,7 +37,7 @@ void Program::handleInput(Window &window)
 
 	while (window.pollEvent(event))
 	{
-		toolbar.handleInput(event, mouse);
+		toolbar.handleInput(event, mouse); //gets input
 
 		if (event.type == sf::Event::Resized)
 		{
@@ -59,6 +60,17 @@ void Program::handleInput(Window &window)
 
 void Program::Update(Window &window)
 {
+	for (int i = 0; i < 5; i++)
+	{
+		if (i < 5 && toolbar.D0getActive(i))
+		{
+			toolbar.D0setActive(i, false);
+
+			if (i == 1) {
+				paths.chooseFilePath();
+			}
+		}
+	}
 }
 
 void Program::Compose(Window &window)
