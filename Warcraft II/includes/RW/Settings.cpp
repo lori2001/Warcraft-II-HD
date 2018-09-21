@@ -50,8 +50,8 @@ namespace RW
 		oldfullscreen = jsonfile["fullscreen"].get<bool>();
 
 		//check if music is in range
-		assert(0 <= jsonfile["music"].get<unsigned short>() && jsonfile["music"].get<unsigned short>() <= 10);
-		assert(0 <= jsonfile["soundfx"].get<unsigned short>() && jsonfile["soundfx"].get<unsigned short>() <= 10);
+		assert(0 <= jsonfile["music"].get<unsigned int>() && jsonfile["music"].get<unsigned int>() <= 10);
+		assert(0 <= jsonfile["soundfx"].get<unsigned int>() && jsonfile["soundfx"].get<unsigned int>() <= 10);
 	}
 
 	void Settings::save()

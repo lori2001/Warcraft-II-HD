@@ -106,8 +106,8 @@ namespace RW
 		static sf::Font warcraftF;
 		static sf::Font normalF;
 
-		static void setMusicVolume(const unsigned short &in);
-		static void setSFXVolume(const unsigned short &in);
+		static void setMusicVolume(const unsigned int &in);
+		static void setSFXVolume(const unsigned int &in);
 		static void loadFiles(sf::RenderWindow & window, RW::Settings & settings);
 	};
 }

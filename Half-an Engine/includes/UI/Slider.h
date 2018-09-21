@@ -28,7 +28,7 @@ namespace UI
 		bool islSelected = false; // true if left arrow is selected
 		bool isActive = false; //true if level changes
 
-		unsigned short level = 5; //contains slider position - defaults to rthe center
+		unsigned int level = 5; //contains slider position - defaults to rthe center
 
 		sf::Text text; // text above slider
 	public:
@@ -74,10 +74,10 @@ namespace UI
 		void setScale(const sf::Vector2f &scale);
 		void setString(const std::string & txt);
 		void setActive(const bool & active);
-		void setLevel(const unsigned short  & lvl);
+		void setLevel(const unsigned int  & lvl);
 
 		//getters
 		bool getActive() const { return isActive; }
-		unsigned short getLevel() const { return level; }
+		unsigned int getLevel() const { return level; }
 	};
 }

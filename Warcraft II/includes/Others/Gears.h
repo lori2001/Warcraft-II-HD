@@ -5,7 +5,7 @@
 class Gears : public sf::Drawable
 {
 private:
-	const short *SIZE = new const short{ 20 }; // the number of frames
+	const unsigned int *SIZE = new const unsigned int{ 20 }; // the number of frames
 	const float *SPF = new const float{ 0.1f }; // Seconds for each frame (the framerate of the gears' animation)
 
 	RW::Loading loading;
@@ -15,7 +15,7 @@ private:
 
 	sf::Clock *clock = new sf::Clock;
 
-	unsigned short *curr = new unsigned short{ 0 }; //current frame to display
+	unsigned int *curr = new unsigned int{ 0 }; //current frame to display
 
 	const int *topdim = new const int{ 700 };
 	const int *botdim = new const int{ 520 };

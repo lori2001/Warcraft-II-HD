@@ -3,20 +3,20 @@
 namespace RW
 {
 	std::string MapReader::maps[20];
-	unsigned short MapReader::mapsnr = 0;
-	unsigned short MapReader::selectedmap = 0;
+	unsigned int MapReader::mapsnr = 0;
+	unsigned int MapReader::selectedmap = 0;
 
 	//0-summer , 1-wastelands, 2 -winter
-	unsigned short MapReader::theme = 0;
+	unsigned int MapReader::theme = 0;
 
-	unsigned short MapReader::tiles[300][300];
+	unsigned int MapReader::tiles[300][300];
 	sf::Vector2i MapReader::tilessize{ 0, 0 };
 
 	sf::Vector2i MapReader::spawnpoints[12];
-	unsigned short MapReader::spawnsize = 0;
+	unsigned int MapReader::spawnsize = 0;
 
 	sf::Vector2i MapReader::goldmines[24];
-	unsigned short MapReader::minesize = 0;
+	unsigned int MapReader::minesize = 0;
 
 	void MapReader::clear()
 	{
@@ -161,7 +161,7 @@ namespace RW
 		//assert(spawnsize >= 2);
 		//assert(minesize >= 1);
 	}
-	void MapReader::shiftSelectedmap(const short & shiftnr)
+	void MapReader::shiftSelectedmap(const int & shiftnr)
 	{
 		if (selectedmap + shiftnr < 0)
 			selectedmap = mapsnr - 1;
@@ -172,7 +172,7 @@ namespace RW
 
 		read();
 	}
-	void MapReader::setSelectedmap(const unsigned short & newnr)
+	void MapReader::setSelectedmap(const unsigned int & newnr)
 	{
 		if (newnr >= mapsnr)
 			std::cout << "WARNING: Failed to set selectedmap to " << mapsnr << " ,the number is too big." << std::endl;

@@ -51,10 +51,13 @@ namespace UI
 
 						isActive[i] = true;
 
-						setDroptext(0, droptext[i].getString());
+						if (!isStatic)
+						{
+							setDroptext(0, droptext[i].getString());
 
-						if (dropcolor[i].getFillColor() != sf::Color::Transparent) // if color is used
-							setDropColor(0, dropcolor[i].getFillColor());
+							if (dropcolor[i].getFillColor() != sf::Color::Transparent) // if color is used
+								setDropColor(0, dropcolor[i].getFillColor());
+						}
 
 						break;
 					}
@@ -184,7 +187,7 @@ namespace UI
 		maintext.setPosition(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y - size.y * sprite.getScale().y));
 		/*********************************************/
 	}
-	void Dropdown::setDroptext(const unsigned short & i, const std::string & text)
+	void Dropdown::setDroptext(const unsigned int & i, const std::string & text)
 	{
 		droptext[i].setString(text);
 
@@ -196,20 +199,20 @@ namespace UI
 			droptext[i].setPosition(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y + size.y * i * sprite.getScale().y));
 		/*********************************************/
 	}
-	void Dropdown::setDroptextColor(const unsigned short & i, const sf::Color & color)
+	void Dropdown::setDroptextColor(const unsigned int & i, const sf::Color & color)
 	{
 		droptext[i].setFillColor(color);
 	}
-	void Dropdown::setDropColor(const unsigned short & i, const sf::Color & color)
+	void Dropdown::setDropColor(const unsigned int & i, const sf::Color & color)
 	{
 		dropcolor[i].setFillColor(color);
 		selectedsprite.setFillColor(sf::Color::Transparent);
 	}
-	void Dropdown::setElementnr(const unsigned short & elementnr)
+	void Dropdown::setElementnr(const unsigned int & elementnr)
 	{
 		this->elementnr = elementnr;
 	}
-	void Dropdown::setActive(const unsigned short & i, const bool & active)
+	void Dropdown::setActive(const unsigned int & i, const bool & active)
 	{
 		isActive[i] = active;
 	}

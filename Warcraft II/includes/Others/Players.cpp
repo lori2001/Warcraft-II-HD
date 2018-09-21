@@ -1,15 +1,15 @@
 #include "Players.h"
 
-unsigned short Players::playerrace = 1;
-unsigned short Players::playerteam = 1;
-unsigned short Players::playercolor = 1;
+unsigned int Players::playerrace = 1;
+unsigned int Players::playerteam = 1;
+unsigned int Players::playercolor = 1;
 
-unsigned short Players::ais = 1;
-unsigned short Players::ailimit = 11;
-unsigned short Players::aidifficulty[11] = { 1,1,1,1,1,1,1,1,1,1,1 };
-unsigned short Players::airace[11] = { 1,1,1,1,1,1,1,1,1,1,1 };
-unsigned short Players::aiteam[11] = { 2,3,4,5,6,7,8,9,10,11,12 };
-unsigned short Players::aicolor[11] = { 2,3,4,5,6,7,8,9,10,11,12 };
+unsigned int Players::ais = 1;
+unsigned int Players::ailimit = 11;
+unsigned int Players::aidifficulty[11] = { 1,1,1,1,1,1,1,1,1,1,1 };
+unsigned int Players::airace[11] = { 1,1,1,1,1,1,1,1,1,1,1 };
+unsigned int Players::aiteam[11] = { 2,3,4,5,6,7,8,9,10,11,12 };
+unsigned int Players::aicolor[11] = { 2,3,4,5,6,7,8,9,10,11,12 };
 
 bool Players::relativecolors = false;
 
@@ -33,7 +33,7 @@ bool Players::canStart()
 	if (settings.getName() == "" || onlyspaces) //if the name contains nothing or has only spaces, return false
 		return false;
 
-	for (short i = 0; i < ais; i++) // if any of the teams are different the game can start
+	for (unsigned int i = 0; i < ais; i++) // if any of the teams are different the game can start
 	{
 		if (aiteam[i] != playerteam)
 		{
@@ -41,7 +41,7 @@ bool Players::canStart()
 			break;
 		}
 
-		for (short j = i + 1; j < ais; j++)
+		for (unsigned int j = i + 1; j < ais; j++)
 		{
 			if (aiteam[i] != aiteam[j])
 			{
@@ -63,13 +63,13 @@ void Players::setColorsTeamRelative()
 		aicolor[i] = aiteam[i];
 	}
 }
-bool Players::setAiColor(const unsigned short & i, const unsigned short & value)
+bool Players::setAiColor(const unsigned int & i, const unsigned int & value)
 {
 	if (!relativecolors) // doublecheck for relativecolors disabled
 	{
 		bool usedup = false;
 
-		for (short j = 0; j < ais; j++)
+		for (unsigned int j = 0; j < ais; j++)
 		{
 			if ((i != j && value == aicolor[j]) || value == playercolor)
 			{
@@ -88,13 +88,13 @@ bool Players::setAiColor(const unsigned short & i, const unsigned short & value)
 
 	return true;
 }
-void Players::setAiColorsAfter(const unsigned short & from)
+void Players::setAiColorsAfter(const unsigned int & from)
 { 
-	unsigned short colors[12] = { 1,2,3,4,5,6,7,8,9,10,11,12 };
+	unsigned int colors[12] = { 1,2,3,4,5,6,7,8,9,10,11,12 };
 
-	for (short i = from; i < 11; i++) // for every ai after the param
+	for (int i = from; i < 11; i++) // for every ai after the param
 	{
-		for (short j = 1; j < 12; j++) // for every existing color
+		for (int j = 1; j < 12; j++) // for every existing color
 		{
 			if (setAiColor(i, j)) //if color setting is succesful
 			{
@@ -104,13 +104,13 @@ void Players::setAiColorsAfter(const unsigned short & from)
 		}
 	}
 }
-bool Players::setPlayerColor(const unsigned short & value)
+bool Players::setPlayerColor(const unsigned int & value)
 {
 	if (!relativecolors) // doublecheck for relativecolors disabled
 	{
 		bool usedup = false;
 
-		for (short j = 0; j < ais; j++)
+		for (unsigned int j = 0; j < ais; j++)
 		{
 			if (value == aicolor[j])
 			{
@@ -133,7 +133,7 @@ void Players::resetColors()
 {
 	playercolor = 1;
 
-	for (short i = 0; i < 11; i++)
+	for (int i = 0; i < 11; i++)
 	{
 		aicolor[i] = i + 2;
 	}
@@ -146,7 +146,7 @@ void Players::resetValues()
 	relativecolors = false;
 
 	ais = 1;
-	for (short i = 0; i < 11; i++)
+	for (int i = 0; i < 11; i++)
 	{
 		aidifficulty[i] = 1;
 		airace[i] = 1;

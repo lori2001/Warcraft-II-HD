@@ -106,23 +106,23 @@ namespace UI
 		void setTexture(const sf::Texture & texture, const sf::Font & font);
 		void setPosition(const sf::Vector2f &position);
 		void setSelectColor(const sf::Color &color);
-		void setElementnr(const unsigned short &elementnr);
+		void setElementnr(const unsigned int &elementnr);
 		void setScale(const sf::Vector2f &scale);
 		void setMaintext(const std::string & text);
-		void setDroptext(const unsigned short &i, const std::string & text);
-		void setDroptextColor(const unsigned short &i, const sf::Color &color);
-		void setDropColor(const unsigned short &i, const sf::Color &color);
-		void setActive(const unsigned short &i, const bool & active);
+		void setDroptext(const unsigned int &i, const std::string & text);
+		void setDroptextColor(const unsigned int &i, const sf::Color &color);
+		void setDropColor(const unsigned int &i, const sf::Color &color);
+		void setActive(const unsigned int &i, const bool & active);
 		void setInactive(const bool & inactive);
 
 		//getters
 		sf::Vector2f getPosition() const { return sprite.getPosition(); }
 		bool getInactive() const { return isInactive; }
-		bool getActive(const unsigned short &i) const { return isActive[i]; }
+		bool getActive(const unsigned int &i) const { return isActive[i]; }
 		bool getDroppeddown() const { return isDroppeddown; }
-		std::string getDroptext(const unsigned short &i) const { return droptext[i].getString(); }
-		sf::Color getDropColor(const unsigned short &i) const { return dropcolor[i].getFillColor(); }
-		unsigned short getElementnr() const { return elementnr; }
+		std::string getDroptext(const unsigned int &i) const { return droptext[i].getString(); }
+		sf::Color getDropColor(const unsigned int &i) const { return dropcolor[i].getFillColor(); }
+		unsigned int getElementnr() const { return elementnr; }
 		sf::Vector2f getSize() const { return size; }
 	};
 }

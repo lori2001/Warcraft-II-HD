@@ -72,7 +72,7 @@ namespace Screens
 			playercolor.setTexture(loading.dropdownT, loading.warcraftF);
 			ais.setTexture(loading.smalldropdownT, loading.warcraftF);
 
-			for (unsigned short i = 0; i < 11; i++)
+			for (unsigned int i = 0; i < 11; i++)
 			{
 				aidifficulty[i].setTexture(loading.dropdownT, loading.warcraftF);
 				airace[i].setTexture(loading.dropdownT, loading.warcraftF);
@@ -107,14 +107,14 @@ namespace Screens
 		void B1setActive(const bool &active) { play.setActive(active); }
 		void TH0setChanged(const bool &changed) { name.setChanged(changed); }
 		void TH0setString(const std::string & text) { name.setString(text); }
-		void D0setActive(const unsigned short &i, const bool &active) { playerrace.setActive(i, active); }
-		void D1setActive(const unsigned short &i, const bool &active) { playerteam.setActive(i, active); }
-		void D2setActive(const unsigned short &i, const bool &active) { playercolor.setActive(i, active); }
-		void D3setActive(const unsigned short &i, const bool &active) { ais.setActive(i, active); }
-		void D4setActive(const unsigned short &i, const unsigned short &j, const bool &active) { aidifficulty[i].setActive(j, active); }
-		void D5setActive(const unsigned short &i, const unsigned short &j, const bool &active) { airace[i].setActive(j, active); }
-		void D6setActive(const unsigned short &i, const unsigned short &j, const bool &active) { aiteam[i].setActive(j, active); }
-		void D7setActive(const unsigned short &i, const unsigned short &j, const bool &active) { aicolor[i].setActive(j, active); }
+		void D0setActive(const unsigned int &i, const bool &active) { playerrace.setActive(i, active); }
+		void D1setActive(const unsigned int &i, const bool &active) { playerteam.setActive(i, active); }
+		void D2setActive(const unsigned int &i, const bool &active) { playercolor.setActive(i, active); }
+		void D3setActive(const unsigned int &i, const bool &active) { ais.setActive(i, active); }
+		void D4setActive(const unsigned int &i, const unsigned int &j, const bool &active) { aidifficulty[i].setActive(j, active); }
+		void D5setActive(const unsigned int &i, const unsigned int &j, const bool &active) { airace[i].setActive(j, active); }
+		void D6setActive(const unsigned int &i, const unsigned int &j, const bool &active) { aiteam[i].setActive(j, active); }
+		void D7setActive(const unsigned int &i, const unsigned int &j, const bool &active) { aicolor[i].setActive(j, active); }
 		void M0setTiles(const RW::MapReader & mapreader) { mapselector.setTiles(mapreader); }
 		void M0setlActive(const bool &active) { mapselector.setlActive(active); }
 		void M0setrActive(const bool &active) { mapselector.setrActive(active); }
@@ -125,14 +125,14 @@ namespace Screens
 		bool B1getActive() const { return play.getActive(); }
 		bool TH0getChanged() const { return name.getChanged(); }
 		std::string TH0getString() const { return name.getString(); }
-		bool D0getActive(const unsigned short &i) const { return playerrace.getActive(i); }
-		bool D1getActive(const unsigned short &i) const { return playerteam.getActive(i); }
-		bool D2getActive(const unsigned short &i) const { return playercolor.getActive(i); }
-		bool D3getActive(const unsigned short &i) const { return ais.getActive(i); }
-		bool D4getActive(const unsigned short &i, const unsigned short &j) const { return aidifficulty[i].getActive(j); }
-		bool D5getActive(const unsigned short &i, const unsigned short &j) const { return airace[i].getActive(j); }
-		bool D6getActive(const unsigned short &i, const unsigned short &j) const { return aiteam[i].getActive(j); }
-		bool D7getActive(const unsigned short &i, const unsigned short &j) const { return aicolor[i].getActive(j); }
+		bool D0getActive(const unsigned int &i) const { return playerrace.getActive(i); }
+		bool D1getActive(const unsigned int &i) const { return playerteam.getActive(i); }
+		bool D2getActive(const unsigned int &i) const { return playercolor.getActive(i); }
+		bool D3getActive(const unsigned int &i) const { return ais.getActive(i); }
+		bool D4getActive(const unsigned int &i, const unsigned int &j) const { return aidifficulty[i].getActive(j); }
+		bool D5getActive(const unsigned int &i, const unsigned int &j) const { return airace[i].getActive(j); }
+		bool D6getActive(const unsigned int &i, const unsigned int &j) const { return aiteam[i].getActive(j); }
+		bool D7getActive(const unsigned int &i, const unsigned int &j) const { return aicolor[i].getActive(j); }
 		bool M0getlActive() { return mapselector.getlActive(); }
 		bool M0getrActive() { return mapselector.getrActive(); }
 	};

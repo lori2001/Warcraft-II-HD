@@ -16,7 +16,7 @@ namespace Screens
 		RW::Loading loading; //used only for button and font but NOT for background
 
 		sf::Text *descriptions;
-		unsigned short descriptionsnr;
+		unsigned int descriptionsnr;
 
 		sf::Text countdown;
 
@@ -28,7 +28,7 @@ namespace Screens
 		float resettimer = 0;
 		float resetlimit = 10;
 	public:
-		Popup(const unsigned short &descriptionsnr)
+		Popup(const unsigned int &descriptionsnr)
 		{
 			//sets the number odf descriptions desired
 			descriptions = new sf::Text[descriptionsnr];
@@ -40,13 +40,13 @@ namespace Screens
 			ok.setTexture(loading.buttonT, loading.warcraftF);
 			countdown.setFont(loading.normalF);
 
-			for (short i = 0; i < descriptionsnr; i++)
+			for (unsigned int i = 0; i < descriptionsnr; i++)
 				descriptions[i].setFont(loading.normalF);
 
 			//default font colors
 			countdown.setFillColor(sf::Color::Yellow);
 
-			for (short i = 0; i < descriptionsnr; i++)
+			for (unsigned int i = 0; i < descriptionsnr; i++)
 				descriptions[i].setFillColor(sf::Color::Yellow);
 
 			//set backgrounds origin to center

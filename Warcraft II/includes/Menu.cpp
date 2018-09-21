@@ -148,7 +148,7 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 			singleplayer.M0setrActive(false);
 		}
 
-		for (short i = 1; i < 13; i++) //13 is the greatest number used in singleplayer dropdowns
+		for (unsigned int i = 1; i < 13; i++) //13 is the greatest number used in singleplayer dropdowns
 		{
 			if (i < 4 && singleplayer.D0getActive(i))
 			{
@@ -182,7 +182,7 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 
 				singleplayer.D3setActive(i, false);
 			}
-			for (short j = 0; j < players.ais; j++)
+			for (unsigned int j = 0; j < players.ais; j++)
 			{
 				if (i < 4 && singleplayer.D4getActive(j, i))
 				{
@@ -286,7 +286,7 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 
 			options.S1setActive(false);
 		}
-		for (short int i = 1; i < 8; i++)
+		for (unsigned int i = 1; i < 8; i++)
 		{
 			if (i < 3 && options.D1getActive(i))
 			{

@@ -36,7 +36,7 @@ namespace Screens
 		target.draw(cancel, states);
 		target.draw(ok, states);
 
-		for(short i = 0; i < descriptionsnr; i++)
+		for(unsigned int i = 0; i < descriptionsnr; i++)
 			target.draw(descriptions[i], states);
 
 		target.draw(countdown, states);
@@ -53,7 +53,7 @@ namespace Screens
 
 		//default text positions
 		countdown.setPosition(sf::Vector2f(popupS.getPosition().x + 30 * scale.x, popupS.getPosition().y + 23 * scale.y));
-		for (short i = 0; i < descriptionsnr; i++)
+		for (unsigned int i = 0; i < descriptionsnr; i++)
 			descriptions[i].setPosition(sf::Vector2f(popupS.getPosition().x - 10 * scale.x, popupS.getPosition().y - 18 * scale.y));
 	}
 	void Popup::setScale(const sf::Vector2f & scale)
@@ -68,7 +68,7 @@ namespace Screens
 		this->countdown.setOrigin(this->countdown.getLocalBounds().left + this->countdown.getLocalBounds().width / 2.0f,
 			this->countdown.getLocalBounds().top + this->countdown.getLocalBounds().height / 2.0f);
 
-		for (short i = 0; i < descriptionsnr; i++)
+		for (unsigned int i = 0; i < descriptionsnr; i++)
 		{
 			descriptions[i].setCharacterSize(int(31 * scale.x));
 			//centers text according to the new scale

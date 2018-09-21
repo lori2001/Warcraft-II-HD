@@ -119,15 +119,15 @@ namespace RW
 
 		animateBar(window);
 	}
-	void Loading::setMusicVolume(const unsigned short & in)
+	void Loading::setMusicVolume(const unsigned int & in)
 	{
-		orcsong.setVolume(in);
-		humansong.setVolume(in);
-		menusong.setVolume(in);
+		orcsong.setVolume((float)in);
+		humansong.setVolume((float)in);
+		menusong.setVolume((float)in);
 	}
-	void Loading::setSFXVolume(const unsigned short & in)
+	void Loading::setSFXVolume(const unsigned int & in)
 	{
-		pressbutton.setVolume(in);
+		pressbutton.setVolume((float)in);
 	}
 	void Loading::loadFiles(sf::RenderWindow & window, RW::Settings & settings)
 	{
@@ -166,7 +166,7 @@ namespace RW
 		loadFile(inworkT, "assets/images/in work.jpg", window);
 		loadFile(interfaceT, "assets/images/interface.png", window);
 
-		for (unsigned short i = 0; i < 20; i++)
+		for (unsigned int i = 0; i < 20; i++)
 		{
 			loadFile(topgearsT[i], "assets/images/top gears/" + std::to_string(i + 1) + ".png", window);
 			loadFile(botgearsT[i], "assets/images/bot gears/" + std::to_string(i + 1) + ".png", window);

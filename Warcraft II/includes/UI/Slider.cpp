@@ -21,7 +21,7 @@ namespace UI
 	}
 	void Slider::handleInput(const sf::Event & event, const sf::Vector2f & mouse, sf::Sound & pressbutton)
 	{
-		const unsigned short lastlevel = level;
+		const unsigned int lastlevel = level;
 		assert(0 <= level && level <= 10);
 
 		if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed) // if left button is pressed
@@ -46,7 +46,7 @@ namespace UI
 			if (iscSelected && isPressed)
 			{
 				const float unit = csize.x / 11 * slider.getScale().x;
-				unsigned short measure = 0;
+				unsigned int measure = 0;
 				for (float i = slider.getPosition().x - csize.x / 2 * slider.getScale().x + unit; measure <= 10; i += unit)
 				{
 					if (mouse.x > i - unit && mouse.x < i)
@@ -128,7 +128,7 @@ namespace UI
 	{
 		this->isActive = active;
 	}
-	void Slider::setLevel(const unsigned short & level)
+	void Slider::setLevel(const unsigned int & level)
 	{
 		this->level = level;
 	}

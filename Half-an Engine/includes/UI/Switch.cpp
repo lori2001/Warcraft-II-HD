@@ -70,14 +70,14 @@ namespace UI
 			if (isPressed)
 			{
 				if (isActive)
-					rect.setTextureRect(sf::IntRect(short(3 * rsize.x), 0, int(rsize.x), int(rsize.y)));
+					rect.setTextureRect(sf::IntRect(int(3 * rsize.x), 0, int(rsize.x), int(rsize.y)));
 				else
-					rect.setTextureRect(sf::IntRect(short(rsize.x), 0, int(rsize.x), int(rsize.y)));
+					rect.setTextureRect(sf::IntRect(int(rsize.x), 0, int(rsize.x), int(rsize.y)));
 			}
 			else
 			{
 				if (isActive)
-					rect.setTextureRect(sf::IntRect(short(2 * rsize.x), 0, int(rsize.x), int(rsize.y)));
+					rect.setTextureRect(sf::IntRect(int(2 * rsize.x), 0, int(rsize.x), int(rsize.y)));
 				else
 					rect.setTextureRect(sf::IntRect(0, 0, int(rsize.x), int(rsize.y)));
 			}

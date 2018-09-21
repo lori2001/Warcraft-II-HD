@@ -23,7 +23,7 @@ namespace UI
 
 		bool isCircle = false; // types: false-rectangle true-circle
 	public:
-		Switch(const unsigned short & isCircle)
+		Switch(const unsigned int & isCircle)
 		{
 			//set specific attributes
 			if (isCircle)
@@ -45,7 +45,7 @@ namespace UI
 			this->isCircle = isCircle;
 		}
 		Switch() : Switch(0) {} // as default constructor use the rect type
-		Switch(const unsigned short & type, const std::string &text) : Switch(type)
+		Switch(const unsigned int & type, const std::string &text) : Switch(type)
 		{
 			this->text.setString(text);
 		}

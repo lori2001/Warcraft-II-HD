@@ -162,13 +162,13 @@ namespace Screens
 		playerrace.setDroptext(0, playerrace.getDroptext(players.playerrace));
 
 		//set player's teams dropdown texts
-		for (short i = 1; i <= 12; i++) //starts from 1 because we want the numbers to be right
+		for (int i = 1; i <= 12; i++) //starts from 1 because we want the numbers to be right
 			playerteam.setDroptext(i, "Team " + std::to_string(i));
 		playerteam.setDroptext(0, playerteam.getDroptext(players.playerteam));
 
 		//set aiumber's dropdown texts
 		ais.setMaintext("AI: ");
-		for (short i = 1; i <= 11; i++)
+		for (int i = 1; i <= 11; i++)
 			ais.setDroptext(i, std::to_string(i));
 		ais.setDroptext(0, ais.getDroptext(players.ais));
 
@@ -197,16 +197,16 @@ namespace Screens
 	void Singleplayer::setColors()
 	{
 		//sets player's colors
-		for (short i = 0; i < 12; i++)
+		for (int i = 0; i < 12; i++)
 		{
 			playercolor.setDropColor(i + 1, colors[i]);
 		}
 		playercolor.setDropColor(0, playercolor.getDropColor(players.playercolor));
 
 		//sets ais'colors
-		for (short i = 0; i < 11; i++)
+		for (int i = 0; i < 11; i++)
 		{
-			for (short j = 0; j < 12; j++)
+			for (int j = 0; j < 12; j++)
 			{
 				aicolor[i].setDropColor(j + 1, colors[j]);
 			}

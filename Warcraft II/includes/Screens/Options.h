@@ -48,23 +48,23 @@ namespace Screens
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		
 		//setters
-		void S0setLevel(const unsigned short &level) { music.setLevel(level); }
+		void S0setLevel(const unsigned int &level) { music.setLevel(level); }
 		void S0setActive(const bool &active) { music.setActive(active); }
-		void S1setLevel(const unsigned short &level) { soundfx.setLevel(level); }
+		void S1setLevel(const unsigned int &level) { soundfx.setLevel(level); }
 		void S1setActive(const bool &active) { soundfx.setActive(active); }
 		void B0setActive(const bool &active) { back.setActive(active); }
 		void B1setActive(const bool &active) { apply.setActive(active); }
-		void D0setActive(const unsigned short &i, const bool &active) { resolution.setActive(i, active); }
-		void D1setActive(const unsigned short &i, const bool &active) { fullscreen.setActive(i, active); }
+		void D0setActive(const unsigned int &i, const bool &active) { resolution.setActive(i, active); }
+		void D1setActive(const unsigned int &i, const bool &active) { fullscreen.setActive(i, active); }
 
 		//getters
-		const unsigned short S0getLevel() { return music.getLevel(); }
+		const unsigned int S0getLevel() { return music.getLevel(); }
 		const bool S0getActive() { return music.getActive(); }
-		const unsigned short S1getLevel() { return soundfx.getLevel(); }
+		const unsigned int S1getLevel() { return soundfx.getLevel(); }
 		const bool S1getActive() { return soundfx.getActive(); }
 		const bool B0getActive() { return back.getActive(); }
 		const bool B1getActive() { return apply.getActive(); }
-		const bool D0getActive(const unsigned short &i) { return resolution.getActive(i); }
-		const bool D1getActive(const unsigned short &i) { return fullscreen.getActive(i); }
+		const bool D0getActive(const unsigned int &i) { return resolution.getActive(i); }
+		const bool D1getActive(const unsigned int &i) { return fullscreen.getActive(i); }
 	};
 }
