@@ -12,9 +12,11 @@ namespace RW {
 		static nfdresult_t dialog;
 	public:
 		static bool chooseGamePath();
-		static bool chooseFilePath();
+		static bool saveFilePath();
+		static bool openFilePath();
 
 		//getters
+		static std::string getFilePath() { return filePath; }
 		static std::string getGamePath() { return gamePath; }
 	};
 }

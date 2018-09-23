@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="includes\RW\FileReader.cpp" />
     <ClCompile Include="includes\Program.cpp" />
     <ClCompile Include="includes\RW\Environment.cpp" />
     <ClCompile Include="includes\RW\Loading.cpp" />
@@ -146,6 +147,7 @@
     <None Include="Half-an Engine.aps" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\RW\FileReader.h" />
     <ClInclude Include="includes\Program.h" />
     <ClInclude Include="includes\RW\Environment.h" />
     <ClInclude Include="includes\RW\Loading.h" />

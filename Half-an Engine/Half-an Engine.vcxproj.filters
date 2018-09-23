@@ -90,6 +90,9 @@
     <ClCompile Include="includes\Sections\Template.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="includes\RW\FileReader.cpp">
+      <Filter>Source Files\RW</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="environment.json" />
@@ -146,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="includes\Sections\Template.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\RW\FileReader.h">
+      <Filter>Header Files\RW</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

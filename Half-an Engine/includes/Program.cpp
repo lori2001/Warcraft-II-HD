@@ -66,8 +66,31 @@ void Program::Update(Window &window)
 		{
 			toolbar.D0setActive(i, false);
 
-			if (i == 1) {
-				paths.chooseFilePath();
+			if (i == 1) // if New is pressed
+			{
+				paths.saveFilePath(); //open dialog for file location specification
+				std::cout << paths.getFilePath() << std::endl;
+			}
+			else if (i == 2) // if Open is pressed
+			{
+				paths.openFilePath(); //open dialog for file opening
+				filereader.read(paths.getFilePath()); // decides what type the file is and reads it in
+
+				std::cout << "isMap: " << filereader.isMap() << std::endl;
+				std::cout << "isUnit: " << filereader.isUnit() << std::endl;
+				std::cout << "isJson: " << filereader.isJson() << std::endl;
+				std::cout << std::endl << std::endl << std::endl;
+
+				if (filereader.isMap()) {
+					RW::MapReader mapreader;
+
+					for (int y = 0; y < mapreader.getTilessize().y; y++) {
+						for (int x = 0; x < mapreader.getTilessize().x; x++) {
+							std::cout << mapreader.getTiles(x, y) << " ";
+						}
+						std::cout << std::endl;
+					}
+				}
 			}
 		}
 	}

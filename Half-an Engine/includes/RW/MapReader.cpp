@@ -2,10 +2,6 @@
 
 namespace RW
 {
-	std::string MapReader::maps[20];
-	unsigned short MapReader::mapsnr = 0;
-	unsigned short MapReader::selectedmap = 0;
-
 	//0-summer , 1-wastelands, 2 -winter
 	unsigned short MapReader::theme = 0;
 
@@ -38,39 +34,9 @@ namespace RW
 
 		minesize = 0;
 	}
-	void MapReader::readList()
+	void MapReader::read(const std::string &file)
 	{
-		std::ifstream in("assets/maps/list.txt");
-		std::string input;
-
-		if (!in) //if reading fails
-		{
-			std::cout << "ERROR: assets/maps/list.txt does not exist.";
-			assert(false);
-		}
-		else while (std::getline(in, input))
-		{
-			bool onlyspaces = true;
-
-			for (std::string::const_iterator i = input.begin(); i != input.end(); ++i)
-			{
-				if (*i != ' ' && *i != '\t')
-				{
-					onlyspaces = false;
-					break;
-				}
-			}
-
-			if (input != " " && !onlyspaces) // checks for potential empty lines and ignores them
-			{
-				maps[mapsnr] = input;
-				mapsnr++;
-			}
-		}
-	}
-	void MapReader::read()
-	{
-		std::ifstream in("assets/maps/" + maps[selectedmap]); //opens the map selected
+		std::ifstream in(file); //opens the map selected
 
 		clear(); // clears tiles' data
 
@@ -81,7 +47,7 @@ namespace RW
 
 		if (!in) // if file cannot load
 		{
-			std::cout << "ERROR: " + maps[selectedmap] +  " file specified in list.txt does not exist."; //output the exact error circumstances
+			std::cout << "ERROR: " + file + " does not exist."; //output the exact error circumstances
 			assert(false); //stop program and signal an error
 		}
 		else while (in >> input)
@@ -153,33 +119,12 @@ namespace RW
 
 		if(!themewasset)
 		{
-			std::cout << "WARNING: Theme is NOT specified inside " + maps[selectedmap] << std::endl;
+			std::cout << "WARNING: Theme is NOT specified inside " + file << std::endl;
 			std::cout << "Theme will default to Summer" << std::endl;
 		}
 
 		//each maps should have at least 2 spawnpoints and 1 gold mine
 		//assert(spawnsize >= 2);
 		//assert(minesize >= 1);
-	}
-	void MapReader::shiftSelectedmap(const short & shiftnr)
-	{
-		if (selectedmap + shiftnr < 0)
-			selectedmap = mapsnr - 1;
-		else if (selectedmap + shiftnr >= mapsnr)
-			selectedmap = 0;
-		else
-			selectedmap += shiftnr;
-
-		read();
-	}
-	void MapReader::setSelectedmap(const unsigned short & newnr)
-	{
-		if (newnr >= mapsnr)
-			std::cout << "WARNING: Failed to set selectedmap to " << mapsnr << " ,the number is too big." << std::endl;
-		else
-		{
-			selectedmap = newnr;
-			read();
-		}
 	}
 }

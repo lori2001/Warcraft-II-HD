@@ -26,7 +26,7 @@ namespace RW {
 
 		return true;
 	}
-	bool Paths::chooseFilePath()
+	bool Paths::saveFilePath()
 	{
 		path = NULL;
 		dialog = NFD_SaveDialog("map", NULL, &path);
@@ -45,6 +45,28 @@ namespace RW {
 			std::cout << "Error: " << NFD_GetError();
 		}
 
-		return false;
+		return true;
+	}
+	bool Paths::openFilePath()
+	{
+
+		path = NULL;
+		dialog = NFD_OpenDialog("map,unit,json", NULL, &path);
+
+		if (dialog == NFD_OKAY)
+		{
+			filePath = path;
+			free(path);
+		}
+		else if (dialog == NFD_CANCEL)
+		{
+			return false;
+		}
+		else
+		{
+			std::cout << "Error: " << NFD_GetError();
+		}
+
+		return true;
 	}
 }
