@@ -163,12 +163,14 @@ namespace RW
 	}
 	void MapReader::shiftSelectedmap(const int & shiftnr)
 	{
-		if (selectedmap + shiftnr < 0)
+		const int newmapnr = selectedmap + shiftnr;
+
+		if (newmapnr < 0)
 			selectedmap = mapsnr - 1;
-		else if (selectedmap + shiftnr >= mapsnr)
+		else if (newmapnr >= mapsnr)
 			selectedmap = 0;
 		else
-			selectedmap += shiftnr;
+			selectedmap = newmapnr;
 
 		read();
 	}

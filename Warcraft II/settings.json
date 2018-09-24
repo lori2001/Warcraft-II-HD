@@ -1,10 +1,10 @@
 {
     "fullscreen": false,
-    "music": 1,
+    "music": 0,
     "playerName": "I am the BO$$",
     "resolution": {
         "height": 600,
         "width": 800
     },
-    "soundfx": 2
+    "soundfx": 6
 }
