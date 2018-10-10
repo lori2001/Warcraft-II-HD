@@ -13,7 +13,7 @@ private:
 	RW::Paths paths;
 	RW::FileReader filereader;
 	Window window;
-	
+
 	Sections::MainView mainView;
 	Sections::Toolbar toolbar;
 public:

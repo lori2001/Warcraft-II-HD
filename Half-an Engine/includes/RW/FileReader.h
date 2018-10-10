@@ -8,17 +8,17 @@ namespace RW
 	class FileReader
 	{
 	private:
-		MapReader mapreader;
+		static MapReader mapreader;
 
-		std::string filetype;
-		std::vector<std::string> supportedtypes = { "map", "unit", "json"}; //holds all supported filetypes
+		static std::string filetype;
+		static std::vector<std::string> supportedtypes;
 	public:
-		void read(const std::string &path);
+		static void read(const std::string &path);
 
 		//getters 
-		bool isMap() const { return filetype == supportedtypes[0]; }
-		bool isUnit() const { return filetype == supportedtypes[1]; }
-		bool isJson() const { return filetype == supportedtypes[2]; }
-		std::string getFileType() { return filetype; }
+		static bool isMap() { return filetype == supportedtypes[0]; }
+		static bool isUnit() { return filetype == supportedtypes[1]; }
+		static bool isJson() { return filetype == supportedtypes[2]; }
+		static std::string getFileType() { return filetype; }
 	};
 }

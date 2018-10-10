@@ -2,16 +2,20 @@
 
 namespace Sections
 {
-	void MainView::Setup()
+	void MainView::readFile()
 	{
+		if (filereader.isMap()) {
+			map.setTexture(loading.summertilesT, loading.wastelandtilesT, loading.wintertilesT);
+			map.setTiles(mapreader);
+		}
 	}
-	void MainView::handleInput(const sf::Event & event)
+	void MainView::setTransform(const sf::Vector2f & scale)
 	{
+		map.setScale(scale);
+		map.setPosition(sf::Vector2f(0, 40 * scale.y));
 	}
-	void MainView::Update()
+	void MainView::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	{
-	}
-	void MainView::Compose()
-	{
+		target.draw(map, states);
 	}
 }

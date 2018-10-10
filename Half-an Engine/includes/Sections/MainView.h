@@ -1,17 +1,27 @@
 #pragma once
 #include "SFML\Graphics.hpp"
 #include "..\Window.h"
+#include "..\RW\Loading.h"
+#include "..\RW\FileReader.h"
+#include "..\RW\MapReader.h"
+#include "..\Display\Map.h"
 
 namespace Sections 
 {
-	class MainView
+	class MainView : public sf::Drawable
 	{
 	private:
+		RW::Loading loading;
 
+		RW::MapReader mapreader;
+		RW::FileReader filereader;
+
+		Display::Map map;
 	public:
-		void Setup();
-		void handleInput(const sf::Event &event);
-		void Update();
-		void Compose();
+		bool isIntialized = false;
+
+		void readFile();
+		void setTransform(const sf::Vector2f & scale);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	};
 }
