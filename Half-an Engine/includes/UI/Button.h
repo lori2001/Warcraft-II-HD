@@ -2,6 +2,9 @@
 #include "SFML\Graphics.hpp"
 #include "SFML\Audio.hpp"
 
+//TODO: create addSound() function
+//TODO: pressedIn() instead of getActive()
+
 namespace UI
 {
 	class Button : public sf::Drawable

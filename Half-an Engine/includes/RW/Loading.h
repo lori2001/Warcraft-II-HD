@@ -5,6 +5,19 @@
 #include "../Window.h"
 #include "Paths.h"
 
+//TODO: make load-ins txt-file dependent
+//int number_of_lines = 0;
+//std::string line;
+//std::ifstream myfile("textexample.txt");
+//
+//while (std::getline(myfile, line))
+//++number_of_lines;
+//std::cout << "Number of lines in text file: " << number_of_lines;
+//return 0;
+
+//TODO: Separate button load-ins]
+//TODO: Separate fonts
+
 namespace RW
 {
 	class Loading

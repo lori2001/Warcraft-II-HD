@@ -6,6 +6,8 @@
 #include "..\RW\MapReader.h"
 #include "..\Display\Map.h"
 
+//TODO: Resize when panels undocked
+
 namespace Sections 
 {
 	class MainView : public sf::Drawable
