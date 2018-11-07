@@ -41,7 +41,7 @@ Libraries
 	nativefiledialog SETUP:
 	Beginner: Extract Libraries/nativefiledialog-master.zip to "C:/" directory and rename the folder to nativefiledialog. (you may have to recompile)
 	Advanced: Add src/include to your include search path.
-			  Add nfd.lib or nfd_d.lib to the list of list of static libraries to link against (for release or debug, respectively).
+			  Add nfd.lib and/or nfd_d.lib to the list of static libraries to link against (for release or debug, respectively).
 			  Build the source.
 			  Add build/<debug|release>/<arch> to the library search path. (ex. build/Debug/x86)
 			  NOTE: We only need x86 versions.

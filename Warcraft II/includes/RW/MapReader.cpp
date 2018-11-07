@@ -163,21 +163,21 @@ namespace RW
 	}
 	void MapReader::shiftSelectedmap(const int & shiftnr)
 	{
-		const int newmapnr = selectedmap + shiftnr;
+		const unsigned int newmapnr = selectedmap + shiftnr;
 
-		if (newmapnr < 0)
-			selectedmap = mapsnr - 1;
-		else if (newmapnr >= mapsnr)
-			selectedmap = 0;
+		if (selectedmap + shiftnr < 0) // if the new number is negative
+			selectedmap = mapsnr - 1; // shift to the last
+		else if (newmapnr >= mapsnr) // if new number is bigger than the limit
+			selectedmap = 0; // shift to the first
 		else
-			selectedmap = newmapnr;
+			selectedmap = newmapnr; // shift in whatever direction with an amount of change
 
-		read();
+		read(); // read new map
 	}
 	void MapReader::setSelectedmap(const unsigned int & newnr)
 	{
 		if (newnr >= mapsnr)
-			std::cout << "WARNING: Failed to set selectedmap to " << mapsnr << " ,the number is too big." << std::endl;
+			std::cout << "WARNING: Failed to set selectedmap to " << mapsnr << ", the number is too big." << std::endl;
 		else
 		{
 			selectedmap = newnr;
