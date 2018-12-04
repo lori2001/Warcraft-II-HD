@@ -74,50 +74,126 @@ namespace RW
 	sf::Font Loading::warcraftF;
 	sf::Font Loading::normalF;
 
-	int Loading::nroffiles = 0;
-	const int Loading::progressperfile = 103;
-
-	void Loading::animateBar(sf::RenderWindow & window)
-	{
-		int progress = 1620 / progressperfile; // bar width minus the number of loadings
-
-		progressbar.setSize(sf::Vector2f(progressbar.getSize().x + progress, 35));
-
-		window.clear();
-		window.draw(loadingscreenS);
-		window.draw(progressbg);
-		window.draw(progressbar);
-		window.display();
-
-		nroffiles++;
-	}
-	void Loading::loadFile(sf::Texture & texture, const std::string & from, sf::RenderWindow & window)
+	void Loading::loadFile(sf::Texture & texture, const std::string & from)
 	{
 		if (!texture.loadFromFile(from))
 			std::cout << "error: could not load file from " << from << std::endl;
-
-		animateBar(window);
 	}
-	void Loading::loadFile(sf::Font & font, const std::string & from, sf::RenderWindow & window)
+	void Loading::loadFile(sf::Font & font, const std::string & from)
 	{
 		if (!font.loadFromFile(from))
 			std::cout << "error: could not load file from " << from << std::endl;
-
-		animateBar(window);
 	}
-	void Loading::loadFile(sf::Music & music, const std::string & from, sf::RenderWindow & window)
+	void Loading::loadFile(sf::Music & music, const std::string & from)
 	{
 		if (!music.openFromFile(from))
 			std::cout << "error: could not load file from " << from << std::endl;
-
-		animateBar(window);
 	}
-	void Loading::loadFile(sf::SoundBuffer & soundbuffer, const std::string & from, sf::RenderWindow & window)
+	void Loading::loadFile(sf::SoundBuffer & soundbuffer, const std::string & from)
 	{
 		if (!soundbuffer.loadFromFile(from))
 			std::cout << "error: could not load file from " << from << std::endl;
+	}
+	int Loading::animateBar(sf::RenderWindow * window)
+	{
+		for (float i = 0; i <= 1620; i+=0.5f) {
+			progressbar.setSize(sf::Vector2f(i, 35));
 
-		animateBar(window);
+			window->clear();
+			window->draw(loadingscreenS);
+			window->draw(progressbg);
+			window->draw(progressbar);
+			window->display();
+		}
+
+		window->setActive(false);
+		return 0;
+	}
+	int Loading::loadTextures(RW::Settings * settings)
+	{
+		loadFile(orcsong, "assets/sounds/Theme/Orc/Orc War Room.wav");
+		loadFile(humansong, "assets/sounds/Theme/Human/Human War Room.wav");
+		loadFile(menusong, "assets/sounds/Theme/Menu.wav");
+		loadFile(pressbuttonSB, "assets/sounds/Mouse/pressbutton.wav");
+		pressbutton.setBuffer(pressbuttonSB);
+
+		setMusicVolume(10 * settings->getMusic());
+		setSFXVolume(10 * settings->getSoundFX());
+
+		loadFile(backgroundT, "assets/images/background.jpg");
+		loadFile(menubackgroundT, "assets/images/menubackground.jpg");
+		loadFile(spbackgroundT, "assets/images/startgamebackground.jpg");
+		loadFile(inworkT, "assets/images/in work.jpg");
+		loadFile(interfaceT, "assets/images/interface.png");
+
+		for (unsigned int i = 0; i < 20; i++)
+		{
+			loadFile(topgearsT[i], "assets/images/top gears/" + std::to_string(i + 1) + ".png");
+			loadFile(botgearsT[i], "assets/images/bot gears/" + std::to_string(i + 1) + ".png");
+		}
+
+		loadFile(popupT, "assets/images/popup.png");
+		loadFile(buttonT, "assets/images/button.png");
+		loadFile(sliderT, "assets/images/slider.png");
+		loadFile(sliderbuttonT, "assets/images/sliderbutton.png");
+		loadFile(dropdownT, "assets/images/dropdown.png");
+		dropdownT.setRepeated(true);
+		loadFile(smalldropdownT, "assets/images/smalldropdown.png");
+		smalldropdownT.setRepeated(true);
+		loadFile(textholderT, "assets/images/textholder.png");
+		loadFile(switchT, "assets/images/switch.png");
+		loadFile(mapcontainerT, "assets/images/map container.png");
+		loadFile(cursorT, "assets/images/orc cursor.png");
+
+		loadFile(warcraftF, "assets/fonts/Warcraft.ttf");
+		loadFile(normalF, "assets/fonts/Normal.ttf");
+
+		loadFile(summertilesT, "assets/images/Summer Tiles.png");
+		loadFile(wastelandtilesT, "assets/images/Wasteland Tiles.png");
+		loadFile(wintertilesT, "assets/images/Winter Tiles.png");
+		loadFile(ballistaT, "assets/images/Ballista.png");
+		loadFile(battleshipT, "assets/images/Battleship.png");
+		loadFile(catapultT, "assets/images/Catapult.png");
+		loadFile(corpsesT, "assets/images/Corpses.png");
+		loadFile(crittersT, "assets/images/Critters.png");
+		loadFile(daemonT, "assets/images/Daemon.png");
+		loadFile(deathknightT, "assets/images/Death Knight.png");
+		loadFile(dragonT, "assets/images/Dragon.png");
+		loadFile(dwarvendemolitionsquadT, "assets/images/Dwarven Demolition Squad.png");
+		loadFile(elvenarcherT, "assets/images/Elven Archer.png");
+		loadFile(elvendestroyerT, "assets/images/Elven Destroyer.png");
+		loadFile(footmanT, "assets/images/Footman.png");
+		loadFile(giantturtleT, "assets/images/Giant Turtle.png");
+		loadFile(gnomishflyingmachineT, "assets/images/Gnomish Flying Machine.png");
+		loadFile(gnomishsubmarineT, "assets/images/Gnomish Submarine.png");
+		loadFile(goblinsappersT, "assets/images/Goblin Sappers.png");
+		loadFile(goblinzeppelinT, "assets/images/Goblin Zeppelin.png");
+		loadFile(gruntT, "assets/images/Grunt.png");
+		loadFile(gryphonriderT, "assets/images/Gryphon Rider.png");
+		loadFile(humanbuildingssummerT, "assets/images/Human Buildings Summer.png");
+		loadFile(humanbuildingswinterT, "assets/images/Human Buildings Winter.png");
+		loadFile(humanoiltankerT, "assets/images/Human Oil Tanker.png");
+		loadFile(humantransportT, "assets/images/Human Transport.png");
+		loadFile(iconsT, "assets/images/Icons.png");
+		loadFile(knightT, "assets/images/Knight.png");
+		loadFile(mageT, "assets/images/Mage.png");
+		loadFile(magicandmisslesT, "assets/images/Magic and Missiles.png");
+		loadFile(miscT, "assets/images/Misc.png");
+		loadFile(ogrejuggernautT, "assets/images/Ogre Juggernaut.png");
+		loadFile(ogreT, "assets/images/Ogre.png");
+		loadFile(orcbuildingssummerT, "assets/images/Orc Buildings Summer.png");
+		loadFile(orcbuildingswinterT, "assets/images/Orc Buildings Winter.png");
+		loadFile(orcoiltankerT, "assets/images/Orc Oil Tanker.png");
+		loadFile(orctransportT, "assets/images/Orc Transport.png");
+		loadFile(peasantT, "assets/images/Peasant.png");
+		loadFile(peonT, "assets/images/Peon.png");
+		loadFile(skeletonT, "assets/images/Skeleton.png");
+		loadFile(trollaxethrowerT, "assets/images/Troll Axethrower.png");
+		loadFile(trolldestroyerT, "assets/images/Troll Destroyer.png");
+
+		std::cout << "All Files Loaded!" << std::endl;
+
+		return 0;
 	}
 	void Loading::setMusicVolume(const unsigned int & in)
 	{
@@ -139,101 +215,19 @@ namespace RW
 
 		progressbg.setFillColor(sf::Color(50,50,50,150));
 		progressbg.setScale(settings.get1920Scale());
-		progressbg.setSize(sf::Vector2f(1620, 35));
+		progressbg.setSize(sf::Vector2f(0, 35)); // 1620, 35
 		progressbg.setPosition(sf::Vector2f(float(150 * settings.get1920Scale().x), float(settings.getRes().y - 100 * settings.get1920Scale().y)));
 
 		progressbar.setFillColor(sf::Color::Green);
 		progressbar.setScale(settings.get1920Scale());
 		progressbar.setPosition(sf::Vector2f(float(150 * settings.get1920Scale().x), float(settings.getRes().y - 100 * settings.get1920Scale().y)));
 
-		window.clear();
-		window.draw(loadingscreenS);
-		window.draw(progressbg);
-		window.display();
+		window.setActive(false);
+		std::thread textureloading(loadTextures, &settings);
+		std::thread animation(animateBar, &window);
 
-		loadFile(orcsong, "assets/sounds/Theme/Orc/Orc War Room.wav", window);
-		loadFile(humansong, "assets/sounds/Theme/Human/Human War Room.wav", window);
-		loadFile(menusong, "assets/sounds/Theme/Menu.wav", window);
-		loadFile(pressbuttonSB, "assets/sounds/Mouse/pressbutton.wav", window);
-		pressbutton.setBuffer(pressbuttonSB);
-
-		setMusicVolume(10 * settings.getMusic());
-		setSFXVolume(10 * settings.getSoundFX());
-
-		loadFile(backgroundT, "assets/images/background.jpg", window);
-		loadFile(menubackgroundT, "assets/images/menubackground.jpg", window);
-		loadFile(spbackgroundT, "assets/images/startgamebackground.jpg", window);
-		loadFile(inworkT, "assets/images/in work.jpg", window);
-		loadFile(interfaceT, "assets/images/interface.png", window);
-
-		for (unsigned int i = 0; i < 20; i++)
-		{
-			loadFile(topgearsT[i], "assets/images/top gears/" + std::to_string(i + 1) + ".png", window);
-			loadFile(botgearsT[i], "assets/images/bot gears/" + std::to_string(i + 1) + ".png", window);
-		}
-
-		loadFile(popupT, "assets/images/popup.png", window);
-		loadFile(buttonT, "assets/images/button.png", window);
-		loadFile(sliderT, "assets/images/slider.png", window);
-		loadFile(sliderbuttonT, "assets/images/sliderbutton.png", window);
-		loadFile(dropdownT, "assets/images/dropdown.png", window);
-		dropdownT.setRepeated(true);
-		loadFile(smalldropdownT, "assets/images/smalldropdown.png", window);
-		smalldropdownT.setRepeated(true);
-		loadFile(textholderT, "assets/images/textholder.png", window);
-		loadFile(switchT, "assets/images/switch.png", window);
-		loadFile(mapcontainerT, "assets/images/map container.png", window);
-		loadFile(cursorT, "assets/images/orc cursor.png", window);
-
-		loadFile(warcraftF, "assets/fonts/Warcraft.ttf", window);
-		loadFile(normalF, "assets/fonts/Normal.ttf", window);
-
-		loadFile(summertilesT, "assets/images/Summer Tiles.png", window);
-		loadFile(wastelandtilesT, "assets/images/Wasteland Tiles.png", window);
-		loadFile(wintertilesT, "assets/images/Winter Tiles.png", window);
-		loadFile(ballistaT, "assets/images/Ballista.png", window);
-		loadFile(battleshipT, "assets/images/Battleship.png", window);
-		loadFile(catapultT, "assets/images/Catapult.png", window);
-		loadFile(corpsesT, "assets/images/Corpses.png", window);
-		loadFile(crittersT, "assets/images/Critters.png", window);
-		loadFile(daemonT, "assets/images/Daemon.png", window);
-		loadFile(deathknightT, "assets/images/Death Knight.png", window);
-		loadFile(dragonT, "assets/images/Dragon.png", window);
-		loadFile(dwarvendemolitionsquadT, "assets/images/Dwarven Demolition Squad.png", window);
-		loadFile(elvenarcherT, "assets/images/Elven Archer.png", window);
-		loadFile(elvendestroyerT, "assets/images/Elven Destroyer.png", window);
-		loadFile(footmanT, "assets/images/Footman.png", window);
-		loadFile(giantturtleT, "assets/images/Giant Turtle.png", window);
-		loadFile(gnomishflyingmachineT, "assets/images/Gnomish Flying Machine.png", window);
-		loadFile(gnomishsubmarineT, "assets/images/Gnomish Submarine.png", window);
-		loadFile(goblinsappersT, "assets/images/Goblin Sappers.png", window);
-		loadFile(goblinzeppelinT, "assets/images/Goblin Zeppelin.png", window);
-		loadFile(gruntT, "assets/images/Grunt.png", window);
-		loadFile(gryphonriderT, "assets/images/Gryphon Rider.png", window);
-		loadFile(humanbuildingssummerT, "assets/images/Human Buildings Summer.png", window);
-		loadFile(humanbuildingswinterT, "assets/images/Human Buildings Winter.png", window);
-		loadFile(humanoiltankerT, "assets/images/Human Oil Tanker.png", window);
-		loadFile(humantransportT, "assets/images/Human Transport.png", window);
-		loadFile(iconsT, "assets/images/Icons.png", window);
-		loadFile(knightT, "assets/images/Knight.png", window);
-		loadFile(mageT, "assets/images/Mage.png", window);
-		loadFile(magicandmisslesT, "assets/images/Magic and Missiles.png", window);
-		loadFile(miscT, "assets/images/Misc.png", window);
-		loadFile(ogrejuggernautT, "assets/images/Ogre Juggernaut.png", window);
-		loadFile(ogreT, "assets/images/Ogre.png", window);
-		loadFile(orcbuildingssummerT, "assets/images/Orc Buildings Summer.png", window);
-		loadFile(orcbuildingswinterT, "assets/images/Orc Buildings Winter.png", window);
-		loadFile(orcoiltankerT, "assets/images/Orc Oil Tanker.png", window);
-		loadFile(orctransportT, "assets/images/Orc Transport.png", window);
-		loadFile(peasantT, "assets/images/Peasant.png", window);
-		loadFile(peonT, "assets/images/Peon.png", window);
-		loadFile(skeletonT, "assets/images/Skeleton.png", window);
-		loadFile(trollaxethrowerT, "assets/images/Troll Axethrower.png", window);
-		loadFile(trolldestroyerT, "assets/images/Troll Destroyer.png", window);
-
-		std::cout << "Files loaded: " << nroffiles << std::endl;
-
-		if(nroffiles != progressperfile)
-			std::cout << "NOTE: Progress per file("<<progressperfile<<") isn't equal to the number of files counted."<< std::endl;
+		textureloading.join();
+		animation.join();
+		window.setActive(true);
 	}
 }
