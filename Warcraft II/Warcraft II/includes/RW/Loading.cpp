@@ -74,6 +74,8 @@ namespace RW
 	sf::Font Loading::warcraftF;
 	sf::Font Loading::normalF;
 
+	bool Loading::complete;
+
 	void Loading::loadFile(sf::Texture & texture, const std::string & from)
 	{
 		if (!texture.loadFromFile(from))
@@ -96,7 +98,7 @@ namespace RW
 	}
 	int Loading::animateBar(sf::RenderWindow * window)
 	{
-		for (float i = 0; i <= 1620; i+=0.5f) {
+		for (float i = 0; i <= 1620; i+=1) {
 			progressbar.setSize(sf::Vector2f(i, 35));
 
 			window->clear();
@@ -104,6 +106,10 @@ namespace RW
 			window->draw(progressbg);
 			window->draw(progressbar);
 			window->display();
+
+			if (complete) {
+				break;
+			}
 		}
 
 		window->setActive(false);
@@ -192,6 +198,8 @@ namespace RW
 		loadFile(trolldestroyerT, "assets/images/Troll Destroyer.png");
 
 		std::cout << "All Files Loaded!" << std::endl;
+
+		complete = true;
 
 		return 0;
 	}

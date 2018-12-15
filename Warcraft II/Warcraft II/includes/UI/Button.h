@@ -4,6 +4,7 @@
 
 namespace UI
 {
+	//TODO: Button auto inactive
 	class Button : public sf::Drawable
 	{
 	private:

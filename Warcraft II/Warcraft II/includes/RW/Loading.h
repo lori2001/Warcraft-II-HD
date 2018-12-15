@@ -1,13 +1,14 @@
 #pragma once
 #include <iostream>
 #include <thread>
-#include <chrono>
+#include <atomic>
 #include "SFML\Graphics.hpp"
 #include "SFML\Audio.hpp"
 #include "Settings.h"
 
 namespace RW
 {
+	//TODO: Implement proper Resource Management
 	class Loading
 	{
 	private:
@@ -18,6 +19,8 @@ namespace RW
 		static sf::RectangleShape progressbg;
 
 		static sf::SoundBuffer pressbuttonSB;
+
+		static bool complete;
 
 		static void loadFile(sf::Texture & texture, const std::string & from);
 		static void loadFile(sf::Font & font, const std::string & from);
