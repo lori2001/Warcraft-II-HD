@@ -6,6 +6,10 @@
 
 int main()
 {
+	//load icon file
+	sf::Image icon;
+	icon.loadFromFile("icon.png");
+
 	RW::Settings settings;
 	//load settings
 	settings.read();
@@ -13,6 +17,9 @@ int main()
 	sf::RenderWindow window;
 	//create a window with appropiate settings
 	settings.setWindow(window);
+
+	//sets icon to sfml window
+	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
 	RW::Loading loading;
 	//load textures and sounds
