@@ -43,18 +43,18 @@ namespace Screens
 	}
 	void Popup::setPosition(const sf::Vector2f & position)
 	{
-		//converts (for example) 1920x1080 - scale to 1000x600 | this was used in previous versions in a direct way
-		//basically adjusts scale proportinons the right way
-		sf::Vector2f scale{ popupS.getScale().x * 1.92f ,popupS.getScale().y * 1.8f};
-
 		popupS.setPosition(position.x, position.y);
-		cancel.setPosition(sf::Vector2f(popupS.getPosition().x - 120 * scale.x, popupS.getPosition().y + 23 * scale.y));
-		ok.setPosition(sf::Vector2f(popupS.getPosition().x + 120 * scale.x, popupS.getPosition().y + 23 * scale.y));
+		cancel.setPosition(sf::Vector2f(popupS.getPosition().x - 240, popupS.getPosition().y + 50));
+		ok.setPosition(sf::Vector2f(popupS.getPosition().x + 240, popupS.getPosition().y + 50));
 
 		//default text positions
-		countdown.setPosition(sf::Vector2f(popupS.getPosition().x + 30 * scale.x, popupS.getPosition().y + 23 * scale.y));
-		for (unsigned int i = 0; i < descriptionsnr; i++)
-			descriptions[i].setPosition(sf::Vector2f(popupS.getPosition().x - 10 * scale.x, popupS.getPosition().y - 18 * scale.y));
+		countdown.setPosition(sf::Vector2f(popupS.getPosition().x + 30, popupS.getPosition().y + 23));
+
+		for (unsigned int i = 0; i < descriptionsnr; i++) {
+			if (descriptions[i].getPosition().x == 0 && descriptions[i].getPosition().y == 0) {
+				descriptions[i].setPosition(sf::Vector2f(popupS.getPosition().x - 10, popupS.getPosition().y - 18));
+			}
+		}
 	}
 	void Popup::setScale(const sf::Vector2f & scale)
 	{
@@ -63,14 +63,14 @@ namespace Screens
 		cancel.setScale(sf::Vector2f(scale.x / 3, scale.y));
 		ok.setScale(sf::Vector2f(scale.x / 3, scale.y));
 
-		countdown.setCharacterSize(int(31 * scale.x));
+		countdown.setCharacterSize(int(28 * scale.x));
 		//centers text according to the new scale
 		this->countdown.setOrigin(this->countdown.getLocalBounds().left + this->countdown.getLocalBounds().width / 2.0f,
 			this->countdown.getLocalBounds().top + this->countdown.getLocalBounds().height / 2.0f);
 
 		for (unsigned int i = 0; i < descriptionsnr; i++)
 		{
-			descriptions[i].setCharacterSize(int(31 * scale.x));
+			descriptions[i].setCharacterSize(int(28 * scale.x));
 			//centers text according to the new scale
 			this->descriptions[i].setOrigin(this->descriptions[i].getLocalBounds().left + this->descriptions[i].getLocalBounds().width / 2.0f,
 				this->descriptions[i].getLocalBounds().top + this->descriptions[i].getLocalBounds().height / 2.0f);

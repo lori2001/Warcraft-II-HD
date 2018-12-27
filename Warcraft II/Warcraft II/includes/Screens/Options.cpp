@@ -31,24 +31,14 @@ namespace Screens
 	}
 	void Options::setTransform()
 	{
-		backgroundS.setScale(settings.get1920Scale());
-		gears.setTopScale(settings.get1920Scale());
-		gears.setBotScale(settings.get1920Scale());
-		back.setScale(settings.get1920Scale());
-		apply.setScale(settings.get1920Scale());
-		resolution.setScale(settings.get1920Scale());
-		fullscreen.setScale(settings.get1920Scale());
-		music.setScale(settings.get1920Scale());
-		soundfx.setScale(settings.get1920Scale());
-
-		gears.setTopPosition(sf::Vector2f(float(settings.getRes().x) / 16, float(settings.getRes().y) / 14));
-		gears.setBotPosition(sf::Vector2f(float(settings.getRes().x - settings.getRes().x / 16), float(settings.getRes().y - settings.getRes().y / 14)));
-		back.setPosition(sf::Vector2f(float(settings.getRes().x / 4), float(settings.getRes().y / 1.25f)));
-		apply.setPosition(sf::Vector2f(float(settings.getRes().x / 4 + apply.getSize().x * 1.25f * settings.get1920Scale().x), float(settings.getRes().y / 1.25f)));
-		resolution.setPosition(sf::Vector2f(float(settings.getRes().x / 2), float(settings.getRes().y / 2)));
-		fullscreen.setPosition(sf::Vector2f(float(settings.getRes().x / 3.5f), float(settings.getRes().y / 2)));
-		music.setPosition(sf::Vector2f(float(settings.getRes().x / 2.5f), float(settings.getRes().y / 2.7f)));
-		soundfx.setPosition(sf::Vector2f(float(settings.getRes().x / 1.5f), float(settings.getRes().y / 2.7f)));
+		gears.setTopPosition(sf::Vector2f(float(1920) / 16, float(1080) / 14));
+		gears.setBotPosition(sf::Vector2f(float(1920 - 1920 / 16), float(1080 - 1080 / 14)));
+		back.setPosition(sf::Vector2f(float(1920 / 4), float(1080 / 1.25f)));
+		apply.setPosition(sf::Vector2f(float(1920 / 4 + apply.getSize().x * 1.25f), float(1080 / 1.25f)));
+		resolution.setPosition(sf::Vector2f(float(1920 / 2), float(1080 / 2)));
+		fullscreen.setPosition(sf::Vector2f(float(1920 / 3.5f), float(1080 / 2)));
+		music.setPosition(sf::Vector2f(float(1920 / 2.5f), float(1080 / 2.7f)));
+		soundfx.setPosition(sf::Vector2f(float(1920 / 1.5f), float(1080 / 2.7f)));
 	}
 	void Options::handleInput(const sf::Event & event, const sf::Vector2f & mouse)
 	{

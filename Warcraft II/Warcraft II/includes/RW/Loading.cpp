@@ -219,16 +219,13 @@ namespace RW
 			std::cout << "error: could not load file from assets/images/loadingscreen.jpg" << std::endl;
 
 		loadingscreenS.setTexture(loadingscreenT);
-		loadingscreenS.setScale(sf::Vector2f(float(settings.get1920Scale().x), float(settings.get1920Scale().y)));
 
 		progressbg.setFillColor(sf::Color(50,50,50,150));
-		progressbg.setScale(settings.get1920Scale());
 		progressbg.setSize(sf::Vector2f(0, 35)); // 1620, 35
-		progressbg.setPosition(sf::Vector2f(float(150 * settings.get1920Scale().x), float(settings.getRes().y - 100 * settings.get1920Scale().y)));
+		progressbg.setPosition(sf::Vector2f(150, 1080 - 100));
 
 		progressbar.setFillColor(sf::Color::Green);
-		progressbar.setScale(settings.get1920Scale());
-		progressbar.setPosition(sf::Vector2f(float(150 * settings.get1920Scale().x), float(settings.getRes().y - 100 * settings.get1920Scale().y)));
+		progressbar.setPosition(sf::Vector2f(150, 1080 - 100));
 
 		window.setActive(false);
 		std::thread textureloading(loadTextures, &settings);

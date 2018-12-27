@@ -25,7 +25,7 @@ namespace Screens
 		UI::Button back{ "Back" }; // back button (sends to mainmenu)
 		UI::Button play{ "Play" }; // starts game
 
-		sf::Text player{"Player:", loading.warcraftF, unsigned int(20 * settings.get1920Scale().y) }; // holds text "Player:"
+		sf::Text player{"Player:", loading.warcraftF, 20 }; // holds text "Player:"
 		UI::TextHolder name{ "Name" }; // Holds the name which may be changed
 
 		// 3 dropdowns which hold players details

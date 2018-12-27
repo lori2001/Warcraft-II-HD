@@ -16,7 +16,6 @@ void Menu::Setup(sf::RenderWindow & window)
 
 	/*initialize cursor*/
 	cursor.setTexture(loading.cursorT);
-	cursor.setScale(settings.get1920Scale());
 	/*******************/
 
 	/*initialize screens*/
@@ -30,12 +29,12 @@ void Menu::Setup(sf::RenderWindow & window)
 	/*******************/
 
 	/*initialize popups*/
-	reswarning.setScale(settings.get1920Scale());
-	reswarning.setPosition(sf::Vector2f(float(settings.getRes().x / 2), float(settings.getRes().y / 2)));
+	reswarning.setPosition({1920 / 2, 1080 / 2});
 	reswarning.setDescription(0, "Please press OK to keep the resolution,\nCancel to revert it.");
 	reswarning.setDescription(1, "Reverting in:");
-	reswarning.setDescriptionPos(1, sf::Vector2f(0.5f, 0.68f));
-	reswarning.setCountdownPos(sf::Vector2f(0.65f,0.68f));
+	reswarning.setDescriptionPos(0, sf::Vector2f(0.5f, 0.37f));
+	reswarning.setDescriptionPos(1, sf::Vector2f(0.5f, 0.7f));
+	reswarning.setCountdownPos(sf::Vector2f(0.65f,0.7f));
 	/*******************/
 }
 
@@ -60,7 +59,7 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 			settings.setFullscreen(settings.getOldFullscreen());
 
 			//apply old resolution to window
-			settings.setWindow(window);
+			settings.applyToWindow(window);
 
 			//reset proper scales
 			this->Setup(window);
@@ -256,7 +255,7 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 			if (settings.getOldFullscreen() != settings.getFullscreen() || settings.getOldRes() != settings.getRes())
 			{
 				//apply new resolution to window
-				settings.setWindow(window);
+				settings.applyToWindow(window);
 
 				//set proper scales
 				this->Setup(window);

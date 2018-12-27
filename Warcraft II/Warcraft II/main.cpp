@@ -16,7 +16,7 @@ int main()
 
 	sf::RenderWindow window;
 	//create a window with appropiate settings
-	settings.setWindow(window);
+	settings.applyToWindow(window);
 
 	//sets icon to sfml window
 	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());

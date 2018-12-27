@@ -14,7 +14,7 @@ namespace UI
 		//basic map
 		const int tilesize = 32; //size of 1 tile
 		const sf::Vector2f minimapsize{ 328,284 }; //size of the minimap (exactly fits the in-game UI)
-		sf::Vector2i tilessize{ 0, 0 }; //number of tiles x and y
+		sf::Vector2i nroftiles{ 0, 0 }; //number of tiles x and y
 
 		sf::VertexArray tilesV;
 		sf::Texture tilesT; // the texture used by the map
@@ -51,7 +51,6 @@ namespace UI
 			rightbutton.setOutlineColor(sf::Color::Yellow);
 			rightbutton.setOutlineThickness(-2);
 		}
-		//used to move minimap with view and interface (in case of in-game minimap only)
 		void setSelected(const sf::Vector2f & mouse);
 		void handleInput(const sf::Event & event, sf::Sound & pressbutton);
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -69,7 +68,7 @@ namespace UI
 		sf::Vector2f getScaledSize() const { return sf::Vector2f(getSize().x * Transformable::getScale().x, getSize().y * Transformable::getScale().y); }
 		sf::Vector2f getContScale() const { return scale; }
 		//sf::Vector2f getMinimapSize() const { return sf::Vector2f(minimapsize.x, minimapsize.y); }
-		sf::Vector2f getSize() const { return sf::Vector2f(float(tilessize.x * tilesize), float(tilessize.y * tilesize)); }
+		sf::Vector2f getSize() const { return sf::Vector2f(float(nroftiles.x * tilesize), float(nroftiles.y * tilesize)); }
 		bool getlActive() const { return islActive; }
 		bool getrActive() const { return isrActive; }
 	};

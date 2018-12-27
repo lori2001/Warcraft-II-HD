@@ -5,8 +5,6 @@ namespace RW
 {
 	io::json Settings::jsonfile;
 
-	sf::Vector2i Settings::res1920 = { 1920,1080 };
-
 	sf::Vector2i Settings::oldres;
 	bool Settings::oldfullscreen = false;
 
@@ -26,12 +24,15 @@ namespace RW
 		//print out
 		save();
 	}
-	void Settings::setWindow(sf::RenderWindow & window)
+	void Settings::applyToWindow(sf::RenderWindow & window)
 	{
 		if (jsonfile["fullscreen"].get<bool>())
 			window.create(sf::VideoMode(jsonfile["resolution"]["width"], jsonfile["resolution"]["height"]), "Warcraft II", sf::Style::Fullscreen);
 		else
 			window.create(sf::VideoMode(jsonfile["resolution"]["width"], jsonfile["resolution"]["height"]), "Warcraft II", sf::Style::Titlebar | sf::Style::Close);
+
+		sf::View view(sf::FloatRect(0, 0, 1920, 1080));
+		window.setView(view);
 
 		window.setMouseCursorVisible(false);
 	}

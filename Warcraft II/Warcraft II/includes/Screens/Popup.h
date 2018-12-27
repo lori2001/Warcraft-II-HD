@@ -8,7 +8,7 @@
 namespace Screens
 {
 	class Popup : public sf::Drawable
-	{
+	{ //TODO: Revise unnecessary sf::Text dynamic pointer
 	private:
 		const sf::Vector2f size{ 700,220 };
 		sf::RectangleShape popupS{ size }; //will hold popup background
@@ -30,7 +30,7 @@ namespace Screens
 	public:
 		Popup(const unsigned int &descriptionsnr)
 		{
-			//sets the number odf descriptions desired
+			//sets the number of descriptions desired
 			descriptions = new sf::Text[descriptionsnr];
 			this->descriptionsnr = descriptionsnr;
 
@@ -40,17 +40,19 @@ namespace Screens
 			ok.setTexture(loading.buttonT, loading.warcraftF);
 			countdown.setFont(loading.normalF);
 
-			for (unsigned int i = 0; i < descriptionsnr; i++)
-				descriptions[i].setFont(loading.normalF);
-
 			//default font colors
 			countdown.setFillColor(sf::Color::Yellow);
 
-			for (unsigned int i = 0; i < descriptionsnr; i++)
+			for (unsigned int i = 0; i < descriptionsnr; i++) {
+				descriptions[i].setFont(loading.normalF);
 				descriptions[i].setFillColor(sf::Color::Yellow);
+				descriptions[i].setPosition({0,0});
+			}
 
 			//set backgrounds origin to center
 			popupS.setOrigin(size.x / 2, size.y / 2);
+
+			this->setScale({ 1, 1 }); //sets default scales
 		}
 		~Popup()
 		{

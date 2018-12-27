@@ -87,7 +87,7 @@ namespace UI
 	}
 	void MapSelector::setTiles(const RW::MapReader &mapreader)
 	{
-		tilessize = mapreader.getTilessize();
+		nroftiles = mapreader.getTilessize();
 
 		if (mapreader.getTheme() == 0)
 			tilesT = summertilesT;
@@ -97,14 +97,14 @@ namespace UI
 			tilesT = wintertilesT;
 
 		tilesV.setPrimitiveType(sf::Quads);
-		tilesV.resize(tilessize.x * tilessize.y * 4);
+		tilesV.resize(nroftiles.x * nroftiles.y * 4);
 
-		for (int y = 0; y< tilessize.y; ++y)
+		for (int y = 0; y < nroftiles.y; ++y)
 		{
-			for (int x = 0; x < tilessize.x; ++x)
+			for (int x = 0; x < nroftiles.x; ++x)
 			{
 				// get a pointer to the current tile's quad
-				sf::Vertex* quad = &(tilesV)[(x + y * tilessize.x) * 4];
+				sf::Vertex* quad = &(tilesV)[(x + y * nroftiles.x) * 4];
 
 				// define its 4 corners
 				quad[0].position = sf::Vector2f(float(x * (tilesize)), float(y * (tilesize)));
@@ -123,25 +123,20 @@ namespace UI
 		}
 
 		//center the map after the number of tiles
-		Transformable::setOrigin(float(tilesize * tilessize.x / 2), float(tilesize * tilessize.y / 2));
-	}
-	void MapSelector::setScale(const sf::Vector2f &scale)
-	{
-		//saves scale for further use
-		this->scale = scale;
+		Transformable::setOrigin(float(tilesize * nroftiles.x / 2), float(tilesize * nroftiles.y / 2));
 
-		float usedScale = 0;
+		//calculating the scale of the minimap
+		sf::Vector2f scale(minimapsize.x / (tilesize * nroftiles.x), minimapsize.y / (tilesize * nroftiles.y));
 
-		//scales according to the bigger size
-		if ((minimapsize.y * scale.y) / (tilessize.y * (tilesize)) < (minimapsize.x * scale.x) / (tilessize.x * (tilesize)))
-			usedScale = (minimapsize.y * scale.y) / (tilessize.y * (tilesize));
-		else
-			usedScale = (minimapsize.x * scale.x) / (tilessize.x * (tilesize));
-
-		Transformable::setScale(usedScale, usedScale);
-		container.setScale(scale);
-		leftbutton.setScale(scale);
-		rightbutton.setScale(scale);
+		//using the smaller scale for no deformation
+		if (scale.x <= scale.y) {
+			//actually setting the scale
+			Transformable::setScale({ scale.x, scale.x });
+		}
+		else {
+			//actually setting the scale
+			Transformable::setScale({ scale.y, scale.y });
+		}
 	}
 	void MapSelector::setPosition(sf::Vector2f position)
 	{
@@ -150,7 +145,7 @@ namespace UI
 
 		Transformable::setPosition(position);
 		container.setPosition(position);
-		leftbutton.setPosition(container.getPosition().x - (containersize.x / 2 - buttonsize.x / 2) * scale.x, container.getPosition().y);
-		rightbutton.setPosition(container.getPosition().x + (containersize.x / 2 - buttonsize.x / 2) * scale.x, container.getPosition().y);
+		leftbutton.setPosition(container.getPosition().x - (containersize.x / 2 - buttonsize.x / 2), container.getPosition().y);
+		rightbutton.setPosition(container.getPosition().x + (containersize.x / 2 - buttonsize.x / 2), container.getPosition().y);
 	}
 }

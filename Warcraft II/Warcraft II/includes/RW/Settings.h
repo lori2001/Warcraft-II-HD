@@ -11,14 +11,12 @@ namespace RW
 	private:
 		static io::json jsonfile;
 		
-		static sf::Vector2i res1920;
-
 		static sf::Vector2i oldres;
 		static bool oldfullscreen;
 
 		static void create();
 	public:
-		static void setWindow(sf::RenderWindow & window);
+		static void applyToWindow(sf::RenderWindow & window);
 		static void read();
 		static void save();
 
@@ -27,12 +25,9 @@ namespace RW
 		static const bool getOldFullscreen() { return oldfullscreen; }
 		static const sf::Vector2i getRes() { return sf::Vector2i(jsonfile["resolution"]["width"].get<int>(), jsonfile["resolution"]["height"].get<int>()); }
 		static const sf::Vector2i getOldRes() { return oldres; }
-		static const sf::Vector2f get1920Scale() { return sf::Vector2f(jsonfile["resolution"]["width"].get<float>() / res1920.x, jsonfile["resolution"]["height"].get<float>() / res1920.y); }
 		static const unsigned int getMusic() { return jsonfile["music"].get<unsigned int>(); }
 		static const unsigned int getSoundFX() { return jsonfile["soundfx"].get<unsigned int>(); }
 		static const std::string getName() { return jsonfile["playerName"].get<std::string>(); }
-		//holds 1/12th of the screens values
-		static const sf::Vector2f unit() { return sf::Vector2f((res1920.x/12) * get1920Scale().x, (res1920.y/12) * get1920Scale().y); }
 
 		//setters
 		static void setRes(const sf::Vector2i &res_in) { jsonfile["resolution"]["width"] = res_in.x; jsonfile["resolution"]["height"] = res_in.y;}
