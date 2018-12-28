@@ -21,6 +21,9 @@ namespace UI
 			vertices[1].texCoords = sf::Vector2f((float)size, 0);
 			vertices[2].texCoords = sf::Vector2f((float)size, (float)size);
 			vertices[3].texCoords = sf::Vector2f(0, (float)size);
+
+			//scales the cursor down a bit
+			Transformable::setScale({ 0.85f, 0.85f });
 		}
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
