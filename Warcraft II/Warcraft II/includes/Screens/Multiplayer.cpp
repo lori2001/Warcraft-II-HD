@@ -10,7 +10,7 @@ namespace Screens
 	{
 		back.handleInput(event, loading.pressbutton);
 
-		back.setSelected(mouse);
+		back.checkSelected(mouse);
 	}
 	void Multiplayer::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	{

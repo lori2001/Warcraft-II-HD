@@ -27,8 +27,8 @@ namespace Screens
 		cancel.handleInput(event, loading.pressbutton);
 		ok.handleInput(event, loading.pressbutton);
 
-		cancel.setSelected(mouse);
-		ok.setSelected(mouse);
+		cancel.checkSelected(mouse);
+		ok.checkSelected(mouse);
 	}
 	void Popup::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{

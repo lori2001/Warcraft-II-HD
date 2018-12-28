@@ -66,7 +66,6 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 
 			//resets this bool so it can be used in later instances
 			reswarning.countdownOver = false;
-			reswarning.B0setActive(false);
 		}
 		else if (reswarning.B1getActive())
 		{
@@ -79,7 +78,6 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 
 			//resets this bool so it can be used in later instances
 			reswarning.countdownOver = false;
-			reswarning.B1setActive(false);
 		}
 	}
 	else if (singleplayer.isActive)
@@ -88,8 +86,6 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 
 		if (singleplayer.B0getActive())
 		{
-			singleplayer.B0setActive(false);
-
 			players.resetValues(); //set players' values to default
 
 			//resets all values
@@ -111,7 +107,6 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 		}
 		else if (singleplayer.B1getActive())
 		{
-			singleplayer.B1setActive(false);
 		}
 		else if (singleplayer.TH0getChanged()) // if the text inside textholder has changed
 		{
@@ -220,7 +215,6 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 
 		if (multiplayer.B0getActive())
 		{
-			multiplayer.B0setActive(false);
 			multiplayer.isActive = false;
 			mainmenu.isActive = true;
 
@@ -239,9 +233,6 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 
 			//applies it on-screen
 			options.setText(modes);
-
-			//makes button inactive
-			options.B0setActive(false);
 
 			//goes back to mainmenu
 			options.isActive = false;
@@ -266,8 +257,6 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 
 				options.isActive = false;
 			}
-			//sets button back to inactive
-			options.B1setActive(false);
 		}
 		else if (options.S0getActive()) // if the level has changed
 		{
@@ -313,7 +302,6 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 
 		if (mainmenu.B0getActive()) //singleplayer
 		{
-			mainmenu.B0setActive(false);
 			mainmenu.isActive = false;
 			singleplayer.isActive = true;
 
@@ -321,7 +309,6 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 		}
 		else if (mainmenu.B1getActive()) //multiplayer
 		{
-			mainmenu.B1setActive(false);
 			mainmenu.isActive = false;
 			multiplayer.isActive = true;
 
@@ -329,7 +316,6 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 		}
 		else if (mainmenu.B2getActive()) //options
 		{
-			mainmenu.B2setActive(false);
 			mainmenu.isActive = false;
 			options.isActive = true;
 
@@ -337,7 +323,6 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 		}
 		else if (mainmenu.B3getActive()) //exit game
 		{
-			mainmenu.B3setActive(false);
 			window.close();
 		}
 	}

@@ -42,8 +42,8 @@ namespace Screens
 	}
 	void Options::handleInput(const sf::Event & event, const sf::Vector2f & mouse)
 	{
-		back.setSelected(mouse);
-		apply.setSelected(mouse);
+		back.checkSelected(mouse);
+		apply.checkSelected(mouse);
 		resolution.setSelected(mouse);
 		fullscreen.setSelected(mouse);
 		music.setSelected(mouse);

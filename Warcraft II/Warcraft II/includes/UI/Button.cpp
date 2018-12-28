@@ -2,13 +2,10 @@
 
 namespace UI
 {
-	void Button::setSelected(const sf::Vector2f & mouse)
+	void Button::checkSelected(const sf::Vector2f & mouse)
 	{
 		//checks if the mouse and the button intersect
-		isSelected = (sprite.getPosition().x - this->size.x / 2 * sprite.getScale().x <= mouse.x &&
-			sprite.getPosition().x + this->size.x / 2 * sprite.getScale().x >= mouse.x &&
-			sprite.getPosition().y - this->size.y / 2 * sprite.getScale().y <= mouse.y &&
-			sprite.getPosition().y + this->size.y / 2 * sprite.getScale().y >= mouse.y);
+		isSelected = sprite.getGlobalBounds().intersects(sf::FloatRect(mouse, { 1,1 })); //mouse has the size of 1,1
 
 		//if they do, the outline appears
 		if (isSelected)
@@ -23,11 +20,13 @@ namespace UI
 		{
 			if (event.type == sf::Event::MouseButtonPressed)
 			{
-				if (pressbutton.getStatus() != sf::Music::Status::Playing) // play button sound
+				// play button sound
+				if (pressbutton.getStatus() != sf::Music::Status::Playing)
 					pressbutton.play();
 
 				//create the "pressed in" visual effect
 				sprite.setTextureRect(sf::IntRect((int)size.x, 0, (int)size.x, (int)size.y));
+				text.setPosition(sf::Vector2f(sprite.getPosition().x + (3 * sprite.getScale().x), sprite.getPosition().y + (3 * sprite.getScale().y)));
 
 				//the button has been pressed / take action when released
 				isPressed = true;
@@ -39,23 +38,35 @@ namespace UI
 			}
 		}
 
-		// if the mouse looses touch with the button while pressed, make the button inactive
-		if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased || !isSelected)
+		// if the mouse looses touch with the button
+		if (!isSelected)
 		{
+			//reset visual effects
 			sprite.setTextureRect(sf::IntRect(0, 0, (int)size.x, (int)size.y));
+			text.setPosition(sprite.getPosition());
+
+			//make inactive
 			isPressed = false;
 		}
-
-		//if the button is pressed the text moves down and right a bit
-		if (isPressed && isSelected)
-			text.setPosition(sf::Vector2f(sprite.getPosition().x + (3 * sprite.getScale().x), sprite.getPosition().y + (3 * sprite.getScale().y)));
-		else //else the text gets the position the sprite does
-			text.setPosition(sprite.getPosition());
 	}
 	void Button::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	{
 		target.draw(sprite, states);
 		target.draw(text, states);
+	}
+	bool Button::hasBeenActivated()
+	{
+		bool ret = isActive;
+		isActive = false;
+		return ret;
+	}
+	void Button::setTexture(const sf::Texture & texture)
+	{
+		//sets sprite texture
+		sprite.setTexture(&texture);
+
+		//defaults to the first part of the buttontexture
+		sprite.setTextureRect(sf::IntRect(0, 0, int(size.x), int(size.y)));
 	}
 	void Button::setTexture(const sf::Texture & texture, const sf::Font &font)
 	{
@@ -69,31 +80,19 @@ namespace UI
 		this->text.setOrigin(this->text.getLocalBounds().left + this->text.getLocalBounds().width / 2.0f,
 			this->text.getLocalBounds().top + this->text.getLocalBounds().height / 2.0f);
 	}
-	void Button::setTexture(const sf::Texture & texture)
-	{
-		//sets sprite texture
-		sprite.setTexture(&texture);
-
-		//uses the first part of the buttontexture
-		sprite.setTextureRect(sf::IntRect(0, 0, int(size.x), int(size.y)));
-	}
 	void Button::setPosition(const sf::Vector2f & position)
 	{
 		//sets position of the sprite
 		sprite.setPosition(position);
 
-		// the text gets the position the sprite does
+		//the text gets the position the sprite does
 		text.setPosition(position);
 	}
 	void Button::setSelectColor(const sf::Color & color)
 	{
-		//in case selected this color will be the outline
+		//if selected this will be the outline color
 		sprite.setOutlineColor(color);
 	}
-	//void Button::setSize(const sf::Vector2f & size)
-	//{
-	//	sprite.setSize(size);
-	//}
 	void Button::setScale(const sf::Vector2f & scale)
 	{
 		//changes sprite scale
@@ -114,11 +113,5 @@ namespace UI
 		//centers the new string of text
 		this->text.setOrigin(this->text.getLocalBounds().left + this->text.getLocalBounds().width / 2.0f,
 			this->text.getLocalBounds().top + this->text.getLocalBounds().height / 2.0f);
-	}
-	void Button::setActive(const bool & active)
-	{
-		//mostly gets parameter "false"
-		//it enables/disables the action the button was doing ex.going into options
-		this->isActive = active;
 	}
 }

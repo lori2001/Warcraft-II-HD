@@ -11,10 +11,10 @@ namespace Screens
 	}
 	void MainMenu::handleInput(const sf::Event & event, const sf::Vector2f & mouse)
 	{
-		singleplayer.setSelected(mouse);
-		multiplayer.setSelected(mouse);
-		options.setSelected(mouse);
-		exit.setSelected(mouse);
+		singleplayer.checkSelected(mouse);
+		multiplayer.checkSelected(mouse);
+		options.checkSelected(mouse);
+		exit.checkSelected(mouse);
 
 		singleplayer.handleInput(event, loading.pressbutton);
 		multiplayer.handleInput(event, loading.pressbutton);

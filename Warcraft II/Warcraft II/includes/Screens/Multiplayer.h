@@ -28,10 +28,7 @@ namespace Screens
 		void handleInput(const sf::Event & event, const sf::Vector2f & mouse);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-		//setters
-		void B0setActive(const bool &active) { back.setActive(active); }
-
 		//getters
-		const bool B0getActive() { return back.getActive(); }
+		const bool B0getActive() { return back.hasBeenActivated(); }
 	};
 }

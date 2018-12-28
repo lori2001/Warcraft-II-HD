@@ -8,7 +8,7 @@ namespace UI
 	class Button : public sf::Drawable
 	{
 	private:
-		sf::Vector2f size{ 430, 50 }; //this is the sprite's size
+		sf::Vector2f size{ 430, 50 }; //default sprite size
 
 		sf::RectangleShape sprite{ size }; //creates a rect with that size
 		sf::Text text; // a text to be on the button
@@ -19,6 +19,7 @@ namespace UI
 	public:
 		Button()
 		{
+			text.setCharacterSize(38);
 			text.setFillColor(sf::Color::Yellow);
 
 			sprite.setOrigin(sf::Vector2f(this->size.x / 2, this->size.y / 2));
@@ -29,6 +30,8 @@ namespace UI
 			this->size = size;
 			sprite.setSize(size);
 
+			// copy-pasted from Button() in order to set the origin correctly
+			text.setCharacterSize(38);
 			text.setFillColor(sf::Color::Yellow);
 
 			sprite.setOrigin(sf::Vector2f(this->size.x / 2, this->size.y / 2));
@@ -43,23 +46,23 @@ namespace UI
 			sprite.setPosition(position);
 			this->text.setPosition(position);
 		}
-		void setSelected(const sf::Vector2f & mouse);
+		//class-specific functions
+		void checkSelected(const sf::Vector2f & mouse);
 		void handleInput(const sf::Event &event, sf::Sound & pressbutton);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+		//returns isActive and sets it to false
+		bool hasBeenActivated();
 		
 		//setters
-		void setTexture(const sf::Texture & texture, const sf::Font &font);
 		void setTexture(const sf::Texture & texture);
+		void setTexture(const sf::Texture & texture, const sf::Font &font);
 		void setPosition(const sf::Vector2f &position);
 		void setSelectColor(const sf::Color &color);
-		//this function has been DISABLED due to being unused and buggy
-		//void setSize(const sf::Vector2f &size);
 		void setScale(const sf::Vector2f &scale);
 		void setString(const std::string & text);
-		void setActive(const bool & active);
 
 		//getters
-		bool getActive() const { return isActive; }
 		bool getSelected() const { return isSelected; }
 		sf::Vector2f getScale() const { return  sprite.getScale(); }
 		sf::Vector2f getPosition() const { return sprite.getPosition(); }

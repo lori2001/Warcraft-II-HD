@@ -52,8 +52,6 @@ namespace Screens
 		void S0setActive(const bool &active) { music.setActive(active); }
 		void S1setLevel(const unsigned int &level) { soundfx.setLevel(level); }
 		void S1setActive(const bool &active) { soundfx.setActive(active); }
-		void B0setActive(const bool &active) { back.setActive(active); }
-		void B1setActive(const bool &active) { apply.setActive(active); }
 		void D0setActive(const unsigned int &i, const bool &active) { resolution.setActive(i, active); }
 		void D1setActive(const unsigned int &i, const bool &active) { fullscreen.setActive(i, active); }
 
@@ -62,8 +60,8 @@ namespace Screens
 		const bool S0getActive() { return music.getActive(); }
 		const unsigned int S1getLevel() { return soundfx.getLevel(); }
 		const bool S1getActive() { return soundfx.getActive(); }
-		const bool B0getActive() { return back.getActive(); }
-		const bool B1getActive() { return apply.getActive(); }
+		const bool B0getActive() { return back.hasBeenActivated(); }
+		const bool B1getActive() { return apply.hasBeenActivated(); }
 		const bool D0getActive(const unsigned int &i) { return resolution.getActive(i); }
 		const bool D1getActive(const unsigned int &i) { return fullscreen.getActive(i); }
 	};

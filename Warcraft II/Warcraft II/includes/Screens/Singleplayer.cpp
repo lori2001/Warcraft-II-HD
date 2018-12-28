@@ -43,8 +43,8 @@ namespace Screens
 	}
 	void Singleplayer::handleInput(const sf::Event & event, const sf::Vector2f & mouse)
 	{
-		back.setSelected(mouse);
-		play.setSelected(mouse);
+		back.checkSelected(mouse);
+		play.checkSelected(mouse);
 
 		name.setSelected(mouse);
 

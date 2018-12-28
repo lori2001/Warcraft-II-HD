@@ -103,8 +103,6 @@ namespace Screens
 
 		//setters
 		void S0setActive(const bool &active) { relativecolors.setActive(active); }
-		void B0setActive(const bool &active) { back.setActive(active); }
-		void B1setActive(const bool &active) { play.setActive(active); }
 		void TH0setChanged(const bool &changed) { name.setChanged(changed); }
 		void TH0setString(const std::string & text) { name.setString(text); }
 		void D0setActive(const unsigned int &i, const bool &active) { playerrace.setActive(i, active); }
@@ -121,8 +119,8 @@ namespace Screens
 
 		//getters
 		bool S0getActive() const { return relativecolors.getActive(); }
-		bool B0getActive() const { return back.getActive(); }
-		bool B1getActive() const { return play.getActive(); }
+		bool B0getActive() { return back.hasBeenActivated(); }
+		bool B1getActive() { return play.hasBeenActivated(); }
 		bool TH0getChanged() const { return name.getChanged(); }
 		std::string TH0getString() const { return name.getString(); }
 		bool D0getActive(const unsigned int &i) const { return playerrace.getActive(i); }

@@ -34,16 +34,10 @@ namespace Screens
 		void handleInput(const sf::Event & event, const sf::Vector2f & mouse);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-		//setters
-		void B0setActive(const bool &active) { singleplayer.setActive(active); }
-		void B1setActive(const bool &active) { multiplayer.setActive(active); }
-		void B2setActive(const bool &active) { options.setActive(active); }
-		void B3setActive(const bool &active) { exit.setActive(active); }
-
 		//getters
-		const bool B0getActive() { return singleplayer.getActive(); }
-		const bool B1getActive() { return multiplayer.getActive(); }
-		const bool B2getActive() { return options.getActive(); }
-		const bool B3getActive() { return exit.getActive(); }
+		bool B0getActive() { return singleplayer.hasBeenActivated(); }
+		bool B1getActive() { return multiplayer.hasBeenActivated(); }
+		bool B2getActive() { return options.hasBeenActivated(); }
+		bool B3getActive() { return exit.hasBeenActivated(); }
 	};
 }
