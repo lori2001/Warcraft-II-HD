@@ -4,19 +4,19 @@ namespace Screens
 {
 	void Options::setText(const std::vector<sf::VideoMode>& modes)
 	{
-		resolution.setMaintext("Resolution");
+		resolution.setAbovetext("Resolution");
 		resolution.setDroptext(0, std::to_string(settings.getRes().x) + "x" + std::to_string(settings.getRes().y));
 
-		for (unsigned i = 1; i < resolution.getElementnr(); i++)
+		for (int i = 1; i < resolution.getElementnr(); i++)
 		{
-			if (i <= modes.size())
+			if (i <= int(modes.size()))
 			{
 				sf::VideoMode mode = modes[i - 1];
 				resolution.setDroptext(i, std::to_string(mode.width) + "x" + std::to_string(mode.height));
 			}
 		}
 
-		fullscreen.setMaintext("Fullscreen");
+		fullscreen.setAbovetext("Fullscreen");
 
 		if (settings.getFullscreen())
 			fullscreen.setDroptext(0, "On");
@@ -44,8 +44,8 @@ namespace Screens
 	{
 		back.checkSelected(mouse);
 		apply.checkSelected(mouse);
-		resolution.setSelected(mouse);
-		fullscreen.setSelected(mouse);
+		resolution.checkSelected(mouse);
+		fullscreen.checkSelected(mouse);
 		music.setSelected(mouse);
 		soundfx.setSelected(mouse);
 

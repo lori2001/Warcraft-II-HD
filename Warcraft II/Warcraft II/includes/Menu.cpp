@@ -286,7 +286,7 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 				else if (i == 2)
 					settings.setFullscreen(false);
 			}
-			else if (i < 8 && options.D0getActive(i))
+			if (i < 8 && options.D0getActive(i))
 			{
 				//settings.setOldRes(settings.getRes()); //- dont know why this was used originally
 				options.D0setActive(i, false);

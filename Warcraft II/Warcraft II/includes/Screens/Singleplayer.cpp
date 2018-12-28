@@ -48,18 +48,18 @@ namespace Screens
 
 		name.setSelected(mouse);
 
-		playerrace.setSelected(mouse);
-		playerteam.setSelected(mouse);
-		playercolor.setSelected(mouse);
+		playerrace.checkSelected(mouse);
+		playerteam.checkSelected(mouse);
+		playercolor.checkSelected(mouse);
 
-		ais.setSelected(mouse);
+		ais.checkSelected(mouse);
 
 		if (!playerrace.getDroppeddown() && !playerteam.getDroppeddown() && !playercolor.getDroppeddown())
 		{
-			aidifficulty[0].setSelected(mouse);
-			airace[0].setSelected(mouse);
-			aiteam[0].setSelected(mouse);
-			aicolor[0].setSelected(mouse);
+			aidifficulty[0].checkSelected(mouse);
+			airace[0].checkSelected(mouse);
+			aiteam[0].checkSelected(mouse);
+			aicolor[0].checkSelected(mouse);
 
 			for (int i = 0; i < std::stoi(ais.getDroptext(0)); i++)
 			{
@@ -75,10 +75,10 @@ namespace Screens
 
 				if (isNotRestricted)
 				{
-					aidifficulty[i].setSelected(mouse);
-					airace[i].setSelected(mouse);
-					aiteam[i].setSelected(mouse);
-					aicolor[i].setSelected(mouse);
+					aidifficulty[i].checkSelected(mouse);
+					airace[i].checkSelected(mouse);
+					aiteam[i].checkSelected(mouse);
+					aicolor[i].checkSelected(mouse);
 				}
 			}
 		}
@@ -152,7 +152,7 @@ namespace Screens
 		playerteam.setDroptext(0, playerteam.getDroptext(players.playerteam));
 
 		//set aiumber's dropdown texts
-		ais.setMaintext("AI: ");
+		ais.setAbovetext("AI: ");
 		for (int i = 1; i <= 11; i++)
 			ais.setDroptext(i, std::to_string(i));
 		ais.setDroptext(0, ais.getDroptext(players.ais));

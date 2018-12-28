@@ -8,23 +8,15 @@ namespace UI
 	class Button : public sf::Drawable
 	{
 	private:
-		sf::Vector2f size{ 430, 50 }; //default sprite size
+		sf::Vector2f size; //sprite size
 
-		sf::RectangleShape sprite{ size }; //creates a rect with that size
+		sf::RectangleShape sprite;// holds main sprite
 		sf::Text text; // a text to be on the button
 
 		bool isPressed = false;
 		bool isSelected = false; //if mouse is hovered over the button this is true
 		bool isActive = false; //this is true when the button is pressed upon
 	public:
-		Button()
-		{
-			text.setCharacterSize(38);
-			text.setFillColor(sf::Color::Yellow);
-
-			sprite.setOrigin(sf::Vector2f(this->size.x / 2, this->size.y / 2));
-			sprite.setOutlineColor(sf::Color::Yellow);
-		}
 		Button(const sf::Vector2f &size)
 		{
 			this->size = size;
@@ -36,6 +28,10 @@ namespace UI
 
 			sprite.setOrigin(sf::Vector2f(this->size.x / 2, this->size.y / 2));
 			sprite.setOutlineColor(sf::Color::Yellow);
+		}
+		Button() : Button(sf::Vector2f(430, 50)) 
+		{
+			//default consturctor inherits from constructor with parameter size but uses default values
 		}
 		Button(const std::string &text) : Button()
 		{
