@@ -85,7 +85,7 @@ namespace Screens
 
 		relativecolors.setSelected(mouse);
 
-		mapselector.setSelected(mouse);
+		mapselector.checkSelected(mouse);
 
 		back.handleInput(event, loading.pressbutton);
 		play.handleInput(event, loading.pressbutton);

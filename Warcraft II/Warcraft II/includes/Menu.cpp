@@ -132,14 +132,12 @@ void Menu::handleInput(sf::RenderWindow & window, const sf::Event & event)
 			mapreader.shiftSelectedmap(-1); // shift map backward
 			singleplayer.M0setTiles(mapreader); //set new tiles
 			singleplayer.setTransform();
-			singleplayer.M0setlActive(false);
 		}
 		else if (singleplayer.M0getrActive())
 		{
 			mapreader.shiftSelectedmap(1); // shift map forward
 			singleplayer.M0setTiles(mapreader); //set new tiles
 			singleplayer.setTransform();
-			singleplayer.M0setrActive(false);
 		}
 
 		for (unsigned int i = 1; i < 13; i++) //13 is the greatest number used in singleplayer dropdowns

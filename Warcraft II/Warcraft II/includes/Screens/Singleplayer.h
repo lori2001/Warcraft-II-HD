@@ -114,8 +114,6 @@ namespace Screens
 		void D6setActive(const unsigned int &i, const unsigned int &j, const bool &active) { aiteam[i].setActive(j, active); }
 		void D7setActive(const unsigned int &i, const unsigned int &j, const bool &active) { aicolor[i].setActive(j, active); }
 		void M0setTiles(const RW::MapReader & mapreader) { mapselector.setTiles(mapreader); }
-		void M0setlActive(const bool &active) { mapselector.setlActive(active); }
-		void M0setrActive(const bool &active) { mapselector.setrActive(active); }
 
 		//getters
 		bool S0getActive() const { return relativecolors.getActive(); }

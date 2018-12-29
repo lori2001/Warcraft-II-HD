@@ -54,12 +54,14 @@ namespace UI
 		void setTexture(const sf::Texture & texture);
 		void setTexture(const sf::Texture & texture, const sf::Font &font);
 		void setPosition(const sf::Vector2f &position);
-		void setSelectColor(const sf::Color &color);
+		void setFillColor(const sf::Color &color);
+		void setOutlineColor(const sf::Color &color);
 		void setScale(const sf::Vector2f &scale);
-		void setString(const std::string & text);
+		void setString(const std::string &text);
 
 		//getters
 		bool getSelected() const { return isSelected; }
+		bool getPressed() const { return isPressed; }
 		sf::Vector2f getScale() const { return  sprite.getScale(); }
 		sf::Vector2f getPosition() const { return sprite.getPosition(); }
 		sf::Vector2f getSize() const { return size; }

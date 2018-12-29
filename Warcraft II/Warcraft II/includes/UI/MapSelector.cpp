@@ -2,69 +2,38 @@
 
 namespace UI
 {
-	void MapSelector::setSelected(const sf::Vector2f & mouse)
+	void MapSelector::checkSelected(const sf::Vector2f & mouse)
 	{
+		//checks if the mouse and the right button intersect
+		rightbutton.checkSelected(mouse);
 		//checks if the mouse and the left button intersect
-		islSelected = (leftbutton.getPosition().x - this->buttonsize.x / 2 * leftbutton.getScale().x <= mouse.x &&
-			leftbutton.getPosition().x + this->buttonsize.x / 2 * leftbutton.getScale().x >= mouse.x &&
-			leftbutton.getPosition().y - this->buttonsize.y / 2 * leftbutton.getScale().y <= mouse.y &&
-			leftbutton.getPosition().y + this->buttonsize.y / 2 * leftbutton.getScale().y >= mouse.y);
-
-		isrSelected = (rightbutton.getPosition().x - this->buttonsize.x / 2 * rightbutton.getScale().x <= mouse.x &&
-			rightbutton.getPosition().x + this->buttonsize.x / 2 * rightbutton.getScale().x >= mouse.x &&
-			rightbutton.getPosition().y - this->buttonsize.y / 2 * rightbutton.getScale().y <= mouse.y &&
-			rightbutton.getPosition().y + this->buttonsize.y / 2 * rightbutton.getScale().y >= mouse.y);
+		leftbutton.checkSelected(mouse);
 	}
 	void MapSelector::handleInput(const sf::Event & event, sf::Sound & pressbutton)
 	{
-		// if the mouse intersects with the  left button and leftmousebutton is enabled
-		if (event.mouseButton.button == sf::Mouse::Left && islSelected)
-		{
-			if (event.type == sf::Event::MouseButtonPressed)
-			{
-				if (pressbutton.getStatus() != sf::Music::Status::Playing) // play button sound
-					pressbutton.play();
+		//handle inputs for buttons
+		rightbutton.handleInput(event, pressbutton);
+		leftbutton.handleInput(event, pressbutton);
 
-				//create the "pressed in" visual effect
-				container.setTextureRect(sf::IntRect(2 * (int)containersize.x, 0, (int)containersize.x, (int)containersize.y));
-			}
-			else if (event.type == sf::Event::MouseButtonReleased)
-			{
-				//take action
-				islActive = true;
-			}
-		}
-		else if (event.mouseButton.button == sf::Mouse::Left && isrSelected)
-		{
-			if (event.type == sf::Event::MouseButtonPressed)
-			{
-				if (pressbutton.getStatus() != sf::Music::Status::Playing) // play button sound
-					pressbutton.play();
+		//if right button is pressed
+		if (rightbutton.getPressed())
+			container.setTextureRect(sf::IntRect((int)containersize.x, 0, (int)containersize.x, (int)containersize.y)); //set visuals
+		
+		//if left button is pressed
+		if (leftbutton.getPressed()) 
+			container.setTextureRect(sf::IntRect((int)containersize.x * 2, 0, (int)containersize.x, (int)containersize.y)); //set visuals
 
-				//create the "pressed in" visual effect
-				container.setTextureRect(sf::IntRect((int)containersize.x, 0, (int)containersize.x, (int)containersize.y));
-			}
-			else if (event.type == sf::Event::MouseButtonReleased)
-			{
-				//take action
-				isrActive = true;
-			}
-		}
+		// if no buttons are pressed
+		if (!rightbutton.getPressed() && !leftbutton.getPressed())
+			container.setTextureRect(sf::IntRect(0, 0, (int)containersize.x, (int)containersize.y)); //reset visuals
 
-		// if the mouse looses touch with the button, or the mouse is released make the button inactive
-		if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased || (!islSelected && !isrSelected))
-		{
-			container.setTextureRect(sf::IntRect(0, 0, (int)containersize.x, (int)containersize.y));
-		}
 	}
 	void MapSelector::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(container, states);
 
-		if (islSelected)
-			target.draw(leftbutton, states);
-		else if (isrSelected)
-			target.draw(rightbutton, states);
+		target.draw(rightbutton, states);
+		target.draw(leftbutton, states);
 
 		// apply the transform
 		states.transform *= getTransform();
@@ -103,7 +72,7 @@ namespace UI
 		{
 			for (int x = 0; x < nroftiles.x; ++x)
 			{
-				// get a pointer to the current tile's quad
+				// get a pointer to the current tile'ssc quad
 				sf::Vertex* quad = &(tilesV)[(x + y * nroftiles.x) * 4];
 
 				// define its 4 corners
@@ -145,7 +114,7 @@ namespace UI
 
 		Transformable::setPosition(position);
 		container.setPosition(position);
-		leftbutton.setPosition(container.getPosition().x - (containersize.x / 2 - buttonsize.x / 2), container.getPosition().y);
-		rightbutton.setPosition(container.getPosition().x + (containersize.x / 2 - buttonsize.x / 2), container.getPosition().y);
+		leftbutton.setPosition({ container.getPosition().x - (containersize.x / 2 - buttonsize.x / 2), container.getPosition().y });
+		rightbutton.setPosition({ container.getPosition().x + (containersize.x / 2 - buttonsize.x / 2), container.getPosition().y });
 	}
 }

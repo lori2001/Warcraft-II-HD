@@ -35,6 +35,9 @@ namespace UI
 			{
 				//take action
 				isActive = true;
+				
+				//isn't pressed anymore
+				isPressed = false;
 			}
 		}
 
@@ -56,9 +59,9 @@ namespace UI
 	}
 	bool Button::hasBeenActivated()
 	{
-		bool ret = isActive;
+		bool aux = isActive;
 		isActive = false;
-		return ret;
+		return aux;
 	}
 	void Button::setTexture(const sf::Texture & texture)
 	{
@@ -88,7 +91,11 @@ namespace UI
 		//the text gets the position the sprite does
 		text.setPosition(position);
 	}
-	void Button::setSelectColor(const sf::Color & color)
+	void Button::setFillColor(const sf::Color & color)
+	{
+		sprite.setFillColor(color);
+	}
+	void Button::setOutlineColor(const sf::Color & color)
 	{
 		//if selected this will be the outline color
 		sprite.setOutlineColor(color);
