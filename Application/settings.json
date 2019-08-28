@@ -1,0 +1,11 @@
+{
+    "Music_Volume": 0.23233675956726074,
+    "Player_Name": "[Enter Name]",
+    "Sound_Volume": 0.17267702519893646,
+    "Video_Mode": {
+        "BitsPerPixel": 32,
+        "Height": 768,
+        "Width": 1366
+    },
+    "Window_Type": 1
+}

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\NGin\Files\FileReader.cpp" />
+    <ClCompile Include="src\NGin\Levels\MainLevel.cpp" />
+    <ClCompile Include="src\NGin\Animation\AnimationFile.cpp" />
+    <ClCompile Include="src\NGin\Animation\AnimationRect.cpp" />
+    <ClCompile Include="src\NGin\Audio\Audio.cpp" />
+    <ClCompile Include="src\NGin\System\Console.cpp" />
+    <ClCompile Include="src\NGin\System\Resources.cpp" />
+    <ClCompile Include="src\NGin\System\Timer.cpp" />
+    <ClCompile Include="src\NGin\UserInterface\Button.cpp" />
+    <ClCompile Include="src\NGin\UserInterface\Cursor.cpp" />
+    <ClCompile Include="src\NGin\UserInterface\Dropdown.cpp" />
+    <ClCompile Include="src\NGin\UserInterface\Slider.cpp" />
+    <ClCompile Include="src\NGin\UserInterface\Switcher.cpp" />
+    <ClCompile Include="src\NGin\UserInterface\InputText.cpp" />
+    <ClCompile Include="src\NGin\UserInterface\UIElement.cpp" />
+    <ClCompile Include="src\NGin\Utilities\Align.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\NGin\Audio\Audio.h" />
+    <ClInclude Include="src\NGin\Files\FileReader.h" />
+    <ClInclude Include="src\NGin\Files\Json.h" />
+    <ClInclude Include="src\NGin\Files\json.hpp" />
+    <ClInclude Include="src\NGin\Levels\Level.h" />
+    <ClInclude Include="src\NGin\Levels\MainLevel.h" />
+    <ClInclude Include="src\NGin.h" />
+    <ClInclude Include="src\NGin\Animation\AnimationFile.h" />
+    <ClInclude Include="src\NGin\Animation\AnimationRect.h" />
+    <ClInclude Include="src\NGin\System\Console.h" />
+    <ClInclude Include="src\NGin\System\Resources.h" />
+    <ClInclude Include="src\NGin\System\Timer.h" />
+    <ClInclude Include="src\NGin\EntryPoint.h" />
+    <ClInclude Include="src\NGin\UserInterface\Button.h" />
+    <ClInclude Include="src\NGin\UserInterface\Cursor.h" />
+    <ClInclude Include="src\NGin\UserInterface\Dropdown.h" />
+    <ClInclude Include="src\NGin\UserInterface\Slider.h" />
+    <ClInclude Include="src\NGin\UserInterface\Switcher.h" />
+    <ClInclude Include="src\NGin\UserInterface\InputText.h" />
+    <ClInclude Include="src\NGin\Utilities\Align.h" />
+    <ClInclude Include="src\NGin\UserInterface\UIElement.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\styles\warcraft\button.png" />
+    <Image Include="assets\styles\warcraft\cursor.png" />
+    <Image Include="assets\styles\warcraft\dropdown.png" />
+    <Image Include="assets\styles\warcraft\slider.png" />
+    <Image Include="assets\styles\warcraft\sliderbutton.png" />
+    <Image Include="assets\styles\warcraft\switch.png" />
+    <Image Include="assets\styles\warcraft\textholder.png" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{850621EE-8C71-484D-8182-D7167B90D5F7}</ProjectGuid>
+    <RootNamespace>NGin</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)int\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)int\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)vendor\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>Default</LanguageStandard>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)vendor\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-network-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)vendor\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>Default</LanguageStandard>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)vendor\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-network.lib;sfml-audio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
