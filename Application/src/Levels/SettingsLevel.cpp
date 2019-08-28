@@ -102,8 +102,6 @@ void SettingsLevel::handleEvents(const sf::Event& event)
 
 			// type of change
 			response_ = RESPONSE::APPLY;
-			// close dialog
-			dialogActive_ = false;
 		}
 	}
 	else
@@ -130,8 +128,6 @@ void SettingsLevel::handleEvents(const sf::Event& event)
 		if (applyButton_.isActive()) {
 			changeType_ = CHANGE::TEMPORARY;
 			response_ = RESPONSE::APPLY;
-			dialogActive_ = true;
-			resetTimer_ = 0; // start resetTimer_ from 0
 		}
 		else if (backButton_.isActive()) {
 			response_ = RESPONSE::BACK;
@@ -161,8 +157,6 @@ void SettingsLevel::update()
 			changeType_ = CHANGE::REVERT;
 			// type of change
 			response_ = RESPONSE::APPLY;
-			// close dialog
-			dialogActive_ = false;
 		}
 	}
 }
@@ -205,6 +199,7 @@ void SettingsLevel::changeWindow(sf::VideoMode& windowVideoMode,
 	{
 		videoMode = saveVideoMode_;
 		windowTypeString = saveWindowTypeString_;
+		dialogActive_ = false; // close dialog
 	}
 	else if (changeType_ == CHANGE::PERMANENT)
 	{
@@ -214,21 +209,26 @@ void SettingsLevel::changeWindow(sf::VideoMode& windowVideoMode,
 
 		videoMode = windowVideoMode;
 		windowTypeString = windowTypeStrings_[windowTypeDropdown_.getActiveDrop() - 1];
+		dialogActive_ = false; // close dialog
 	}
 	else if (changeType_ == CHANGE::TEMPORARY)
 	{
+		windowTypeString = windowTypeStrings_[windowTypeDropdown_.getActiveDrop() - 1];
+
 		if (windowTypeString == windowTypeStrings_[2])
 			videoMode = sf::VideoMode::getDesktopMode(); // fullscreen resolution
-		else if (videoModeDropdown_.getActiveDrop() != 0)  // if dropdown has one selected
+		else if (videoModeDropdown_.getActiveDrop() != 0)  // if dropdown has one drop selected
 			videoMode = videoModes_[videoModeDropdown_.getActiveDrop() - 1]; // apply selected
 		else
 			videoMode = windowVideoMode; // else use default
-
-		windowTypeString = windowTypeStrings_[windowTypeDropdown_.getActiveDrop() - 1];
 	}
 	// --------------------------------------------------------------------------
 
 	// --- Apply changes internally and externally ------------------------------
+	// check if there is need for a dialog box
+	auto tempType = windowTypeString;
+	auto tempVideoMode = windowVideoMode;
+
 	if (windowTypeString == windowTypeStrings_[0]) // windowed
 	{
 		windowType = ngin::MainLevel::UNRESIZEABLE;
@@ -251,6 +251,13 @@ void SettingsLevel::changeWindow(sf::VideoMode& windowVideoMode,
 		std::to_string(videoMode.width) + " x " + std::to_string(videoMode.height);
 
 	videoModeDropdown_.setDropString(0, resolutionString);
+
+	// only start dialog if changes have been made
+	if (changeType_ == CHANGE::TEMPORARY &&
+		(tempType != windowTypeString || tempVideoMode != windowVideoMode)) {
+		dialogActive_ = true; // open dialog
+		resetTimer_ = 0; // start resetTimer_ from 0
+	}
 	// --------------------------------------------------------------------------
 }
 

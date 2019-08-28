@@ -302,8 +302,10 @@ namespace ngin
 	void Dropdown::setDropString(const int i, const sf::String& text)
 	{
 		drops_[i].text.setString(text);
-
 		centerTextInBounds(drops_[i].text, closedGlobalBounds_, closedGlobalBounds_.height * i);
+
+		// if the main drop is getting set make sure activeDrop doesn't return anything weird
+		if (i == 0) activeDrop = 0;
 	}
 	void Dropdown::setDisabled(const bool isDisabled)
 	{
