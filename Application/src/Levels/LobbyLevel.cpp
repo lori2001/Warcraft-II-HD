@@ -227,11 +227,11 @@ void LobbyLevel::handleEvents(const sf::Event& event)
 		if (playButton_.isActive()) {
 			// applies options to  Player::GameDetails::players' static class
 			if (applyToPlayers()) {
-				response_ = RESPONSE::PLAY;
+				response_ = RESPONSE::GAME;
 			}
 		}
 		else if (backButton_.isActive()) {
-			response_ = RESPONSE::BACK;
+			response_ = RESPONSE::MAIN_MENU;
 		}
 		else {
 			response_ = RESPONSE::NONE;

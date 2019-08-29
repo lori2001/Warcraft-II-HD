@@ -4,15 +4,18 @@ namespace ngin {
 
 	sf::Sprite Cursor::sprite_;
 	sf::Sound Cursor::sound_;
+	bool Cursor::hasTexture_ = false;
 
 	void Cursor::draw(sf::RenderWindow& window)
 	{
-		window.draw(sprite_);
+		if(hasTexture_)
+			window.draw(sprite_);
 	}
 
 	void Cursor::setTexture(const sf::Texture& texture)
 	{
 		sprite_.setTexture(texture);
+		hasTexture_ = true;
 	}
 
 	void Cursor::followMouse(sf::RenderWindow& window)
@@ -20,10 +23,18 @@ namespace ngin {
 		// sets sprite's coordinates to the mouse's position
 		sprite_.setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
 
-		if (sprite_.getTexture() != 0) {
+		if (hasTexture_) {
 			// disables default Cursor on a given window
 			window.setMouseCursorVisible(false);
 		}
+		else {
+			window.setMouseCursorVisible(true);
+		}
+	}
+
+	void Cursor::resetToDefault()
+	{
+		hasTexture_ = false;
 	}
 
 	void Cursor::setBuffer(sf::SoundBuffer& soundBuffer)

@@ -4,7 +4,7 @@ GameMenu::GameMenu()
 {
 	// --- Load Textures ------------------------
 	buttonTexture_     = ngin::Resources::AcquireTexture("images/ui/button.png");
-	backgroundTexture_ = ngin::Resources::AcquireTexture("images/ui/in_game_menu.png");
+	backgroundTexture_ = ngin::Resources::AcquireTexture("images/ui/orc_clay_bg.png");
 	sliderTexture_     = ngin::Resources::AcquireTexture("images/ui/slider.png");
 	warcraftFont_      = ngin::Resources::AcquireFont("fonts/warcraft.ttf");
 	// ------------------------------------------

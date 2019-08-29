@@ -20,6 +20,9 @@ namespace ngin {
 		// based on where the mouse is at at a given frame
 		static void followMouse(sf::RenderWindow& window);
 
+		// resets mouse to the default OS Look
+		static void resetToDefault();
+
 		// sets the sound the cursor makes ex. when pressing a button 
 		static void setBuffer(sf::SoundBuffer& soundBuffer);
 
@@ -31,5 +34,7 @@ namespace ngin {
 	private:
 		static sf::Sprite sprite_;
 		static sf::Sound sound_;
+
+		static bool hasTexture_;
 	};
 }

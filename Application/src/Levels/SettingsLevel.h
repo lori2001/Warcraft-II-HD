@@ -22,7 +22,7 @@ public:
 
 	enum RESPONSE {
 		NONE = 8,
-		BACK,
+		MAIN_MENU,
 		APPLY,
 	};
 private:

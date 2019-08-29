@@ -51,6 +51,7 @@ void Application::setup()
 
 	// load and draw loadingscreen
 	loadingScreenTexture_ = ngin::Resources::AcquireTexture("images/ui/loadingscreen.jpg");
+	loadingScreen_.setTexture(*loadingScreenTexture_);
 	drawLoadingScreen();
 
 	// set up cursor
@@ -72,66 +73,48 @@ void Application::handleEvents()
 {
 	currentLevel_->handleEvents(event_);
 
-	// --- Menu Responses ---------------------------------------
-	if (currentLevel_->getResponse() == MenuLevel::RESPONSE::START)
-	{
+	switch (currentLevel_->getResponse()) {
+
+	case MenuLevel::LOBBY:
 		delete currentLevel_;
 		currentLevel_ = new LobbyLevel;
-	}
-	else if (currentLevel_->getResponse() == MenuLevel::RESPONSE::OPTIONS)
-	{
+		break;
+
+	case MenuLevel::SETTINGS:
 		delete currentLevel_;
 		currentLevel_ = new SettingsLevel;
 
 		currentLevel_->getFromWindow(windowVideoMode_, windowName_, windowType_);
-	}
-	else if (currentLevel_->getResponse() == MenuLevel::RESPONSE::EDITOR)
-	{
+		break;
+
+	case MenuLevel::EDITOR:
+		drawLoadingScreen(); // slower loading expected
+
 		delete currentLevel_;
 		currentLevel_ = new EditorLevel;
-	}
-	else if (currentLevel_->getResponse() == MenuLevel::RESPONSE::EXIT)
-	{
-		window_.close();
-	}
-	// ----------------------------------------------------------
 
-	// --- Lobby Responses --------------------------------------
-	if (currentLevel_->getResponse() == LobbyLevel::RESPONSE::BACK)
-	{
-		delete currentLevel_;
-		currentLevel_ = new MenuLevel;
-	}
-	else if (currentLevel_->getResponse() == LobbyLevel::RESPONSE::PLAY)
-	{
+		ngin::Resources::destroyUnused(); // destroy menu resources
+		break;
+
+	case LobbyLevel::GAME:
 		drawLoadingScreen(); // slower loading expected
 
 		delete currentLevel_;
 		currentLevel_ = new GameLevel;
 
 		ngin::Resources::destroyUnused(); // destroy menu resources
-	}
-	// ----------------------------------------------------------
+		break;
 
-	// --- Settings Responses -----------------------------------
-	if (currentLevel_->getResponse() == SettingsLevel::RESPONSE::BACK)
-	{
+	// smooth menu loading
+	case SettingsLevel::MAIN_MENU:
+	case LobbyLevel::MAIN_MENU:
 		delete currentLevel_;
 		currentLevel_ = new MenuLevel;
-	} // Settings::RESPONSE::APPLY gets checked upon in update()
-	// ----------------------------------------------------------
+		break;
 
-	// --- Editor Responses -------------------------------------
-	if (currentLevel_->getResponse() == EditorLevel::RESPONSE::BACK)
-	{
-		delete currentLevel_;
-		currentLevel_ = new MenuLevel;
-	}
-	// ----------------------------------------------------------
-
-	// --- GameMenu Responses -----------------------------------
-	if (currentLevel_->getResponse() == GameMenu::RESPONSE::MAIN_MENU)
-	{
+	// heavy menu loading
+	case GameMenu::MAIN_MENU:
+	case EditorLevel::MAIN_MENU:
 		drawLoadingScreen(); // slower loading expected
 
 		delete currentLevel_;
@@ -139,24 +122,22 @@ void Application::handleEvents()
 		ngin::Resources::destroyUnused();
 
 		currentLevel_ = new MenuLevel;
-	}
-	else if (currentLevel_->getResponse() == GameMenu::RESPONSE::EXIT)
-	{
+		break;
+
+	case GameMenu::EXIT:
+	case MenuLevel::EXIT:
 		window_.close();
+		break;
 	}
-	// ----------------------------------------------------------
 }
 
 void Application::update()
 {
 	currentLevel_->update();
 
-	// --- Settings Response ------------------------------------
+	// has to be in update because it can be called by timer
 	if (currentLevel_->getResponse() == SettingsLevel::RESPONSE::APPLY)
-	{
 		currentLevel_->changeWindow(windowVideoMode_, windowName_, windowType_);
-	}
-	// ----------------------------------------------------------
 }
 
 void Application::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -166,7 +147,6 @@ void Application::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Application::drawLoadingScreen()
 {
-	loadingScreen_.setTexture(*loadingScreenTexture_);
 	window_.draw(loadingScreen_);
 	window_.display();
 }

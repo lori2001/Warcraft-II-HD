@@ -35,10 +35,10 @@ void MenuLevel::handleEvents(const sf::Event& event)
 	exitButton_.handleEvents(event, ngin::Cursor::getPosition());
 
 	if (startButton_.isActive()) {
-		response_ = RESPONSE::START;
+		response_ = RESPONSE::LOBBY;
 	}
 	else if (settingsButton_.isActive()) {
-		response_ = RESPONSE::OPTIONS;
+		response_ = RESPONSE::SETTINGS;
 	}
 	else if (editorButton_.isActive()) {
 		response_ = RESPONSE::EDITOR;

@@ -12,7 +12,7 @@ public:
 
 	enum RESPONSE {
 		NONE = 80, // avoid samevalue responses
-		BACK
+		MAIN_MENU
 	};
 private:
 
@@ -20,8 +20,14 @@ private:
 				      const unsigned fontSize,
 					  const sf::Color& themeColor);
 
+	std::shared_ptr<sf::Texture> headerTexture_;
+	std::shared_ptr<sf::Texture> dropdownTexture_;
 	std::shared_ptr<sf::Texture> buttonTexture_;
 	std::shared_ptr<sf::Font> font_;
 
 	ngin::Button backButton_{ "Back to Menu", { 430, 50 } };
+
+	ngin::Dropdown fileDropdown_{ { 277, 40 } };
+
+	sf::Sprite headerSprite_;
 };

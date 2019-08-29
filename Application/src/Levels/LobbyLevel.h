@@ -22,8 +22,8 @@ public:
 
 	enum RESPONSE {
 		NONE = 5,
-		BACK,
-		PLAY
+		MAIN_MENU,
+		GAME
 	};
 
 private:

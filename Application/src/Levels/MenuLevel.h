@@ -13,8 +13,8 @@ public:
 
 	enum RESPONSE {
 		NONE = 0,
-		START,
-		OPTIONS,
+		LOBBY,
+		SETTINGS,
 		EDITOR,
 		EXIT
 	};

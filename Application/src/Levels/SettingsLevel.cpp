@@ -130,7 +130,7 @@ void SettingsLevel::handleEvents(const sf::Event& event)
 			response_ = RESPONSE::APPLY;
 		}
 		else if (backButton_.isActive()) {
-			response_ = RESPONSE::BACK;
+			response_ = RESPONSE::MAIN_MENU;
 		}
 	}
 }
