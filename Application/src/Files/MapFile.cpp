@@ -106,7 +106,7 @@ int MapFile::getMaxNColums() const
 {
 	unsigned maxSize = 0;
 
-	for (int i = 0; i < tiles_.size(); i++) {
+	for (int i = 0; i < int(tiles_.size()); i++) {
 		if (maxSize < tiles_[i].size()) {
 			maxSize = tiles_[i].size();
 		}

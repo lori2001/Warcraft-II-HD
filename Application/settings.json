@@ -4,8 +4,8 @@
     "Sound_Volume": 0.10528689622879028,
     "Video_Mode": {
         "BitsPerPixel": 32,
-        "Height": 768,
-        "Width": 1366
+        "Height": 600,
+        "Width": 1280
     },
     "Window_Type": 1
 }
