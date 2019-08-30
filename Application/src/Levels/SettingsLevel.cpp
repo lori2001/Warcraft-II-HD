@@ -285,8 +285,6 @@ void SettingsLevel::getFromWindow(const sf::VideoMode& windowVideoMode,
 
 void SettingsLevel::addResolutionsTo(ngin::Dropdown& dropdown)
 {
-	// TODO: Fix for smaller screens
-
 	videoModes_.clear(); // clear resolution vector
 	std::vector<sf::Vector2i> importantResolutions_ = {
 	{1920, 1080},

@@ -32,69 +32,75 @@ void MapFile::scanDir()
 
 void MapFile::read()
 {
-	std::ifstream in(paths_[index_]);
-	std::string input;
+	if (paths_.size() > 0) {
+		std::ifstream in(paths_[index_]);
+		std::string input;
 
-	// clear up
-	tiles_.clear();
-	tileSize_ = -1;
-	themeLocation_ = "";
-	title_ = "";
+		// clear up
+		tiles_.clear();
+		tileSize_ = -1;
+		themeLocation_ = "";
+		title_ = "";
 
-	while (std::getline(in, input)) {
+		while (std::getline(in, input)) {
 
-		// clears white lines and comments
-		auto inputType = cleanInput(input);
+			// clears white lines and comments
+			auto inputType = cleanInput(input);
 
-		if (inputType == ngin::FileReader::INPUT_TYPE::OK)
-		{
-			// --- Map Name -----------------------------------
-			if (findAndClear(input, "Title: "))
-				title_ = input;
-			// ------------------------------------------------
+			if (inputType == ngin::FileReader::INPUT_TYPE::OK)
+			{
+				// --- Map Name -----------------------------------
+				if (findAndClear(input, "Title: "))
+					title_ = input;
+				// ------------------------------------------------
 
-			// --- Size of one tile ---------------------------
-			if (findAndClear(input, "TileSize:"))
-				tileSize_ = std::stoi(input);
-			// ------------------------------------------------
+				// --- Size of one tile ---------------------------
+				if (findAndClear(input, "TileSize:"))
+					tileSize_ = std::stoi(input);
+				// ------------------------------------------------
 
-			// --- Theme --------------------------------------
-			if (findAndClear(input, "Theme: ")) {
-				if (input.find("Summer") != std::string::npos)
-					themeLocation_ = "images/tiles/summer.png";
-				else if (input.find("Wastelands") != std::string::npos)
-					themeLocation_ = "images/tiles/wastelands.png";
-				else if (input.find("Winter") != std::string::npos)
-					themeLocation_ = "images/tiles/winter.png";
+				// --- Theme --------------------------------------
+				if (findAndClear(input, "Theme: ")) {
+					if (input.find("Summer") != std::string::npos)
+						themeLocation_ = "images/tiles/summer.png";
+					else if (input.find("Wastelands") != std::string::npos)
+						themeLocation_ = "images/tiles/wastelands.png";
+					else if (input.find("Winter") != std::string::npos)
+						themeLocation_ = "images/tiles/winter.png";
+				}
+				// ------------------------------------------------
+
+				// --- Tiles --------------------------------------
+				if (findAndClear(input, "<tiles>")) {
+					bool goOn = true;
+					do {
+						goOn = !findAndClear(input, "</tiles>");
+						inputType = cleanInput(input);
+
+						if (inputType == ngin::FileReader::INPUT_TYPE::OK)
+						{
+							std::istringstream iss(input);
+							std::vector<unsigned> temp;
+
+							// upload input string stream to temp
+							int aux;
+							while (iss >> aux) temp.push_back(aux);
+
+							// upload temp as row of tiles
+							tiles_.push_back(temp);
+						}
+
+						std::getline(in, input);
+
+					} while (goOn);
+				}
+				// ------------------------------------------------
 			}
-			// ------------------------------------------------
-
-			// --- Tiles --------------------------------------
-			if (findAndClear(input, "<tiles>")) {
-				bool goOn = true;
-				do {
-					goOn = !findAndClear(input, "</tiles>");
-					inputType = cleanInput(input);
-
-					if (inputType == ngin::FileReader::INPUT_TYPE::OK)
-					{
-						std::istringstream iss(input);
-						std::vector<unsigned> temp;
-						
-						// upload input string stream to temp
-						int aux;
-						while (iss >> aux) temp.push_back(aux);
-					
-						// upload temp as row of tiles
-						tiles_.push_back(temp);
-					}
-
-					std::getline(in, input);
-
-				} while (goOn);
-			}
-			// ------------------------------------------------
 		}
+	}
+	else {
+		NG_LOG_ERROR("No maps found in assets/maps/ !");
+		std::abort();
 	}
 }
 
