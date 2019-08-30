@@ -1,0 +1,22 @@
+// This is a comment and gets igonred when reading.
+// : - types are read with a space after ex. (Title: )
+// <> - types are expected to contain integer values
+
+Title: HEEY OOOH!!!
+Theme: Wastelands
+TileSize: 32
+
+<tiles>
+31  32  33  34  31  32  33  34
+61  62  63  64  31  32  33  34
+91  92  93  94  31  32  33  34
+91  92  93  99  31  32  33  34
+31  32  33  34  31  32  33  34
+31  32  33  34  31  32  33
+31  32  33  34  123 67  
+31  32  33  78 
+31  32  84
+31  32  84
+31  84	
+35		
+</tiles>

@@ -1,6 +1,7 @@
 *
 !*/
 !.gitignore
+
 # Do not ignore SFML dll-s
 !openal32.dll
 # Release
@@ -15,3 +16,6 @@
 !sfml-network-d-2.dll
 !sfml-system-d-2.dll
 !sfml-window-d-2.dll
+
+#Do not ignore text files(maps, units)
+!**.txt
