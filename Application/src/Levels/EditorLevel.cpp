@@ -31,6 +31,8 @@ void EditorLevel::setup()
 	fileDropdown_.setPosition({ 50, 5});
 	backButton_.setPosition({ 105, 965 });
 	// ---------------------------------------------
+
+	GameDetails::mapFile.scanDir();
 }
 
 void EditorLevel::handleEvents(const sf::Event& event)
@@ -45,23 +47,27 @@ void EditorLevel::handleEvents(const sf::Event& event)
 		response_ = RESPONSE::NONE;
 	}
 
-	/*if (fileDropdown_.getActiveDrop() == 2) // Load
+	if (fileDropdown_.getActiveDrop() == 2) // Load
 	{
 		nfdchar_t* outPath = NULL;
-		nfdresult_t result = NFD_OpenDialog(NULL, NULL, &outPath);
 
-		if (result == NFD_OKAY) {
-			puts("Success!");
-			puts(outPath);
-			free(outPath);
+		nfdresult_t result = NFD_OpenDialog("mapfile", GameDetails::mapFile.getFolderPath().c_str(), &outPath);
+
+		if (result == NFD_OKAY)
+		{
+			GameDetails::mapFile.read(outPath);
+			NG_LOG_INFO(GameDetails::mapFile.getMapName());
 		}
-		else if (result == NFD_CANCEL) {
-			puts("User pressed cancel.");
+		else if (result == NFD_CANCEL)
+		{
+		//	puts("User pressed cancel.");
 		}
-		else {
-			printf("Error: %s\n", NFD_GetError());
+		else
+		{
+			NG_LOG_ERROR("Error: %s\n", NFD_GetError());
 		}
-	}*/
+		fileDropdown_.setActiveDrop(0);
+	}
 
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "NGin.h"
+#include "Common/GameDetails.h"
 
 class EditorLevel : public ngin::Level {
 public:

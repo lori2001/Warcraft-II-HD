@@ -38,7 +38,7 @@ void LobbyLevel::setup()
 	nameText_.setString("Name");
 	relativeColorText_.setString("Team Relative Colors");
 
-	confirmDialog_.setString("Please create at least two teams \n"
+	confirmDialog_.setString("Please create at least two teams /n"
 		"in order to start the game!");
 
 	// User

@@ -18,4 +18,4 @@
 !sfml-window-d-2.dll
 
 #Do not ignore text files(maps, units)
-!**.txt
+!**.mapfile

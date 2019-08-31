@@ -2,13 +2,11 @@
 // : - types are read with a space after ex. (Title: )
 // <> - types are expected to contain integer values
 
-// signals to program that this is a map file
-#mapfile
+Title: Serious Map1 // name of the map
+Theme: Summer // the tilemap texture type used
+TileSize: 32 // the size of tile textures
 
-Title: Serious Map1
-Theme: Summer
-TileSize: 32
-
+// tiles' type and position
 <tiles>
  250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250
  250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250

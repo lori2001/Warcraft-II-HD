@@ -6,34 +6,48 @@ void MapFile::scanDir()
 {
 	// Secure cleanup
 	paths_.clear();
+	folderPath_ = "";
 
 	char buffer[MAX_PATH];
 	GetModuleFileName(NULL, buffer, sizeof(buffer));
 
 	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
-	std::string path = std::string(buffer).substr(0, pos) + "\\assets\\maps";
+	folderPath_ = std::string(buffer).substr(0, pos) + "\\assets\\maps";
 
 	try {
-		for (const auto& entry : std::filesystem::directory_iterator(path)) {
+		for (const auto& entry : std::filesystem::directory_iterator(folderPath_)) {
 			std::string temp = entry.path().u8string();
 
 			// only load .txt files
 			std::size_t found = temp.find_last_of(".");
-			if (temp.substr(found) == ".txt") {
+			if (temp.substr(found) == ".mapfile") {
 				paths_.push_back(entry.path().u8string());
 			}
 		}
 	}
 	catch (...) {
-		NG_LOG_ERROR("Directory expected to contain maps not found: \n ", path
-			, " -- Please create directory!");
+		NG_LOG_ERROR("Directory expected to contain .mapfile files has not been found: \n ",
+			folderPath_ , " -- Please create directory!");
+		std::abort();
 	}
 }
 
 void MapFile::read()
 {
 	if (paths_.size() > 0) {
-		std::ifstream in(paths_[index_]);
+		read(paths_[index_]);
+	}
+	else {
+		NG_LOG_ERROR("No maps found in assets/maps/ !");
+		std::abort();
+	}
+}
+
+void MapFile::read(const std::string& path)
+{
+	std::ifstream in(path);
+
+	if (in.is_open()) {
 		std::string input;
 
 		// clear up
@@ -99,9 +113,9 @@ void MapFile::read()
 		}
 	}
 	else {
-		NG_LOG_ERROR("No maps found in assets/maps/ !");
-		std::abort();
+		NG_LOG_ERROR("Unable To open file: ", path);
 	}
+	in.close();
 }
 
 void MapFile::save()

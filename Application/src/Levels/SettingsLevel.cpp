@@ -147,7 +147,7 @@ void SettingsLevel::update()
 		resetTimer_ += ngin::Timer::getDeltaTime();
 		int secsRemaining = static_cast<int>(resetLimit_ - resetTimer_);
 
-		std::string confirmDialogString = "Are you sure you want to keep these changes?\n"
+		std::string confirmDialogString = "Are you sure you want to keep these changes?/n"
 			"                    Resetting in " + std::to_string(secsRemaining) + " seconds";
 
 		confirmDialog_.setString(confirmDialogString);

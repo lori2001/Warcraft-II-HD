@@ -9,8 +9,11 @@ public:
 	void scanDir();
 
 	void read();
+	void read(const std::string& path);
+
 	void save();
 
+	std::string getFolderPath() const { return folderPath_; }
 	std::string getThemeLocation() const { return themeLocation_; }
 	std::string getMapName() const { return title_; }
 	int getNumberOfMaps() const { return static_cast<int>(paths_.size()); }
@@ -27,6 +30,7 @@ private:
 
 	std::string title_ = "" ; // name (inside) of current map file
 	std::string themeLocation_ = "";
+	std::string folderPath_ = "";
 
 	int tileSize_ = -1; // size of one tile
 	std::vector<std::vector<unsigned>> tiles_; // tile numbers
