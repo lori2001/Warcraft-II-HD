@@ -8,8 +8,8 @@ void MenuLevel::setup()
 
 	// Aquire Texture resource-heavy textures to make a faster menu
 	for (int i = 0; i < 20; i++) {
-		ngin::Resources::AcquireTexture("images//bot_gears/" + std::to_string(i) + ".png");
-		ngin::Resources::AcquireTexture("images//top_gears/" + std::to_string(i) + ".png");
+		ngin::Resources::AcquireTexture("images/bot_gears/" + std::to_string(i) + ".png");
+		ngin::Resources::AcquireTexture("images/top_gears/" + std::to_string(i) + ".png");
 	}
 	// make sure cursor is in orc-mode
 	ngin::Cursor::setTexture(*ngin::Resources::AcquireTexture("images/ui/orc_cursor.png"));

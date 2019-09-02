@@ -60,6 +60,18 @@ namespace ngin {
 			window_.display();
 		}
 	}
+	
+	void MainLevel::setWindowIcon(const std::string& location)
+	{
+		if (icon_.loadFromFile(location)) {
+			window_.setIcon(icon_.getSize().x, icon_.getSize().y, icon_.getPixelsPtr());
+			hasIcon_ = true;
+		}
+		else {
+			NG_LOG_WARN("Failed to set Icon!");
+			hasIcon_ = false;
+		}
+	}
 
 	void MainLevel::applySettingsToWindow()
 	{
@@ -97,6 +109,10 @@ namespace ngin {
 
 		// set view back
 		window_.setView(saveView);
+
+		// set icon back
+		if(hasIcon_)
+			window_.setIcon(icon_.getSize().x, icon_.getSize().y, icon_.getPixelsPtr());
 
 		// save settings
 		saveName_ = windowName_;

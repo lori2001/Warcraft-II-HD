@@ -50,22 +50,16 @@ void EditorLevel::handleEvents(const sf::Event& event)
 	if (fileDropdown_.getActiveDrop() == 2) // Load
 	{
 		nfdchar_t* outPath = NULL;
-
 		nfdresult_t result = NFD_OpenDialog("mapfile", GameDetails::mapFile.getFolderPath().c_str(), &outPath);
 
-		if (result == NFD_OKAY)
-		{
+		if (result == NFD_OKAY){
 			GameDetails::mapFile.read(outPath);
 			NG_LOG_INFO(GameDetails::mapFile.getMapName());
 		}
-		else if (result == NFD_CANCEL)
-		{
-		//	puts("User pressed cancel.");
-		}
-		else
-		{
+		else if (result == NFD_ERROR) {
 			NG_LOG_ERROR("Error: %s\n", NFD_GetError());
 		}
+
 		fileDropdown_.setActiveDrop(0);
 	}
 

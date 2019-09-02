@@ -38,13 +38,7 @@ void Application::setup()
 	window_.setFramerateLimit(60);
 
 	// load and set icon file
-	sf::Image icon;
-	if (icon.loadFromFile("icon.png")) {
-		window_.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-	}
-	else {
-		NG_LOG_WARN("Failed to set Icon!");
-	}
+	setWindowIcon("icon.png");
 
 	// set default resource folder
 	ngin::Resources::setLocation("assets/");

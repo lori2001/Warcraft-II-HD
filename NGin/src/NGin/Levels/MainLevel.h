@@ -29,6 +29,9 @@ namespace ngin {
 		// gets called every frame but should only draw on window
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
+		// use this to set window icon instead of accesing window_ directly
+		void setWindowIcon(const std::string& location);
+
 		sf::VideoMode windowVideoMode_{ 1000, 600 };
 		sf::String windowName_ = "My Application";
 		WINDOW_TYPE windowType_ = WINDOW_TYPE::UNRESIZEABLE;
@@ -40,6 +43,9 @@ namespace ngin {
 		sf::VideoMode saveVideoMode_ = windowVideoMode_;
 		sf::String saveName_ = windowName_;
 		WINDOW_TYPE saveType_ = windowType_;
+
+		sf::Image icon_;
+		bool hasIcon_ = false;
 
 		// recreates window with current settings
 		void applySettingsToWindow();

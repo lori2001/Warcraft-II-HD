@@ -12,12 +12,12 @@ void SettingsLevel::setup()
 
 	for (int i = 0; i < 20; i++) {
 		botGearsTextures_.push_back(ngin::Resources::AcquireTexture
-		("images//bot_gears/" + std::to_string(i) + ".png"));
+		("images/bot_gears/" + std::to_string(i) + ".png"));
 	}
 
 	for (int i = 0; i < 20; i++) {
 		topGearsTextures_.push_back(ngin::Resources::AcquireTexture
-		("images//top_gears/" + std::to_string(i) + ".png"));
+		("images/top_gears/" + std::to_string(i) + ".png"));
 	}
 	// -------------------------------------
 
@@ -147,7 +147,7 @@ void SettingsLevel::update()
 		resetTimer_ += ngin::Timer::getDeltaTime();
 		int secsRemaining = static_cast<int>(resetLimit_ - resetTimer_);
 
-		std::string confirmDialogString = "Are you sure you want to keep these changes?/n"
+		std::string confirmDialogString = "Are you sure you want to keep these changes?\n"
 			"                    Resetting in " + std::to_string(secsRemaining) + " seconds";
 
 		confirmDialog_.setString(confirmDialogString);
@@ -226,7 +226,7 @@ void SettingsLevel::changeWindow(sf::VideoMode& windowVideoMode,
 
 	// --- Apply changes internally and externally ------------------------------
 	// check if there is need for a dialog box
-	auto tempType = windowTypeString;
+	auto tempType = windowType;
 	auto tempVideoMode = windowVideoMode;
 
 	if (windowTypeString == windowTypeStrings_[0]) // windowed
@@ -254,7 +254,7 @@ void SettingsLevel::changeWindow(sf::VideoMode& windowVideoMode,
 
 	// only start dialog if changes have been made
 	if (changeType_ == CHANGE::TEMPORARY &&
-		(tempType != windowTypeString || tempVideoMode != windowVideoMode)) {
+		(tempType != windowType || tempVideoMode != windowVideoMode)) {
 		dialogActive_ = true; // open dialog
 		resetTimer_ = 0; // start resetTimer_ from 0
 	}

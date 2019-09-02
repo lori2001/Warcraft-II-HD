@@ -34,6 +34,9 @@ private:
 	// scalable sizes
 	sf::View view_{ sf::FloatRect{0, 0, 1920, 1080} };
 
+	// window icon
+	sf::Image icon_;
+
 	std::shared_ptr<sf::SoundBuffer> cursorSound_;
 	std::shared_ptr<sf::Texture> orcCursorTexture_;
 	std::shared_ptr<sf::Texture> humanCursorTexture_;
