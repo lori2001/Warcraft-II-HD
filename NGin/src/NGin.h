@@ -31,6 +31,10 @@
 #include "NGin/UserInterface/Slider.h" // includes Button.h
 #include "NGin/UserInterface/Switcher.h" // includes Button.h
 
+// --- RealTimeStrategy -------------
+#include "NGin/RTS/Pathfinding.h"
+// ----------------------------------
+
 // --- Level Types --------------------
 #include "NGin/Levels/Level.h"
 #include "NGin/Levels/MainLevel.h" 

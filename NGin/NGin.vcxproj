@@ -16,6 +16,7 @@
     <ClCompile Include="src\NGin\Animation\AnimationFile.cpp" />
     <ClCompile Include="src\NGin\Animation\AnimationRect.cpp" />
     <ClCompile Include="src\NGin\Audio\Audio.cpp" />
+    <ClCompile Include="src\NGin\RTS\Pathfinding.cpp" />
     <ClCompile Include="src\NGin\System\Console.cpp" />
     <ClCompile Include="src\NGin\System\Resources.cpp" />
     <ClCompile Include="src\NGin\System\Timer.cpp" />
@@ -38,6 +39,7 @@
     <ClInclude Include="src\NGin.h" />
     <ClInclude Include="src\NGin\Animation\AnimationFile.h" />
     <ClInclude Include="src\NGin\Animation\AnimationRect.h" />
+    <ClInclude Include="src\NGin\RTS\Pathfinding.h" />
     <ClInclude Include="src\NGin\System\Console.h" />
     <ClInclude Include="src\NGin\System\Resources.h" />
     <ClInclude Include="src\NGin\System\Timer.h" />
