@@ -1,6 +1,7 @@
 #pragma once
 #include "NGin.h"
 #include "Common/GameDetails.h"
+#include "Common/Map.h"
 
 class EditorLevel : public ngin::Level {
 public:
@@ -23,12 +24,17 @@ private:
 
 	std::shared_ptr<sf::Texture> headerTexture_;
 	std::shared_ptr<sf::Texture> dropdownTexture_;
-	std::shared_ptr<sf::Texture> buttonTexture_;
+	std::shared_ptr<sf::Texture> leaveButtonTexture_;
 	std::shared_ptr<sf::Font> font_;
 
-	ngin::Button backButton_{ "Back to Menu", { 430, 50 } };
-
+	// Toolbar
+	sf::Sprite headerSprite_;
 	ngin::Dropdown fileDropdown_{ { 277, 40 } };
 
-	sf::Sprite headerSprite_;
+	// Types
+	bool mapEditor_;
+	Map map_;
+
+	// Back
+	ngin::Button backButton_{ "", { 50, 50 } };
 };

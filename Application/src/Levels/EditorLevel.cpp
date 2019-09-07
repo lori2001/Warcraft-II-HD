@@ -6,13 +6,13 @@ void EditorLevel::setup()
 	// -- Textures -----------------------------------------------------
 	headerTexture_   = ngin::Resources::AcquireTexture("images/ui/header.png");
 	dropdownTexture_ = ngin::Resources::AcquireTexture("images/ui/dropdown.png");
-	buttonTexture_   = ngin::Resources::AcquireTexture("images/ui/button.png");
+	leaveButtonTexture_   = ngin::Resources::AcquireTexture("images/ui/leave_button.png");
 	font_ = ngin::Resources::AcquireFont("fonts/normal.ttf");
 
 	// reset cursor to OS-Default
 	ngin::Cursor::resetToDefault();
 
-	backButton_.setTexture(*buttonTexture_);
+	backButton_.setTexture(*leaveButtonTexture_);
 	headerSprite_.setTexture(*headerTexture_);
 	fileDropdown_.setTexture(*dropdownTexture_);
 	// -----------------------------------------------------------------
@@ -29,9 +29,19 @@ void EditorLevel::setup()
 
 	// --- Positions -------------------------------
 	fileDropdown_.setPosition({ 50, 5});
-	backButton_.setPosition({ 105, 965 });
+	backButton_.setPosition({ 30, 980 });
 	// ---------------------------------------------
 
+	// --- Scales ----------------------------------
+	backButton_.setScale({ 1.5F, 1.5F });
+	map_.setScale({ 2, 2 });
+	// ---------------------------------------------
+
+	// (re)set important bools
+	mapEditor_ = false;
+
+	// Map Editor setup
+	map_.setPosition({ 0.0F , headerSprite_.getGlobalBounds().top + headerSprite_.getGlobalBounds().height });
 	GameDetails::mapFile.scanDir();
 }
 
@@ -49,6 +59,7 @@ void EditorLevel::handleEvents(const sf::Event& event)
 
 	if (fileDropdown_.getActiveDrop() == 2) // Load
 	{
+		mapEditor_ = true;
 		nfdchar_t* outPath = NULL;
 		nfdresult_t result = NFD_OpenDialog("mapfile", GameDetails::mapFile.getFolderPath().c_str(), &outPath);
 
@@ -59,6 +70,8 @@ void EditorLevel::handleEvents(const sf::Event& event)
 		else if (result == NFD_ERROR) {
 			NG_LOG_ERROR("Error: %s\n", NFD_GetError());
 		}
+
+		map_.setMapFile(GameDetails::mapFile);
 
 		fileDropdown_.setActiveDrop(0);
 	}
@@ -71,6 +84,10 @@ void EditorLevel::update()
 
 void EditorLevel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	if (mapEditor_) {
+		target.draw(map_);
+	}
+
 	target.draw(headerSprite_);
 	target.draw(fileDropdown_);
 	target.draw(backButton_);
