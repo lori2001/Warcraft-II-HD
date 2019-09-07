@@ -5,7 +5,8 @@
 class MapFile : public ngin::FileReader {
 public:
 
-	// scans directory and saves loadable files
+	// scans directory for loadable files
+	// true if successful false if not
 	void scanDir();
 
 	void read();

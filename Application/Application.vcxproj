@@ -92,6 +92,7 @@
     <ClCompile Include="src\Files\SettingsFile.cpp" />
     <ClCompile Include="src\Levels\Common\ConfirmDialog.cpp" />
     <ClCompile Include="src\Levels\Common\GameDetails.cpp" />
+    <ClCompile Include="src\Levels\Common\Map.cpp" />
     <ClCompile Include="src\Levels\EditorLevel.cpp" />
     <ClCompile Include="src\Levels\GameLevel.cpp" />
     <ClCompile Include="src\Levels\Game\GameMenu\GameMenu.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="src\Files\SettingsFile.h" />
     <ClInclude Include="src\Levels\Common\ConfirmDialog.h" />
     <ClInclude Include="src\Levels\Common\GameDetails.h" />
+    <ClInclude Include="src\Levels\Common\Map.h" />
     <ClInclude Include="src\Levels\Common\Player.h" />
     <ClInclude Include="src\Levels\EditorLevel.h" />
     <ClInclude Include="src\Levels\GameLevel.h" />

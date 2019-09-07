@@ -14,7 +14,8 @@ void MapSelector::handleEvents(const sf::Event& event, const sf::Vector2f& mouse
 
 	if (leftButton_.isActive() || rightButton_.isActive()) {
 		setTitle(GameDetails::mapFile.getMapName());
-		updateMinimap();
+		map_.setMapFile(GameDetails::mapFile);
+		updateMapTransform();
 	}
 }
 
@@ -24,10 +25,7 @@ void MapSelector::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(leftButton_);
 	target.draw(rightButton_);
 	target.draw(mapTitle_);
-
-	states.transform = mapTransformable_.getTransform();
-	states.texture = &(*mapTexture_);
-	target.draw(map_, states);
+	target.draw(map_);
 }
 
 void MapSelector::setTexture(const sf::Texture& texture)
@@ -45,8 +43,10 @@ void MapSelector::setPosition(const sf::Vector2f& position)
 		leftButton_.getPosition().x + leftButton_.getGlobalBounds().width,
 		position.y});
 
+
 	mapPosition_ = { container_.getPosition().x + 6, container_.getPosition().y + 6 };
-	updateMinimap(); // centering
+	map_.setPosition(mapPosition_);
+	updateMapTransform();
 
 	rightButton_.setPosition(
 		{ container_.getPosition().x + container_.getGlobalBounds().width,
@@ -90,64 +90,28 @@ void MapSelector::setSelectThickness(const float thickness)
 	rightButton_.setSelectThickness(thickness);
 }
 
-void MapSelector::updateMinimap()
+void MapSelector::updateMapTransform()
 {
-	// clear map
-	map_ = sf::VertexArray{};
-
-	mapTexture_ = ngin::Resources::AcquireTexture(GameDetails::mapFile.getThemeLocation());
-
-	map_.setPrimitiveType(sf::Quads);
-	map_.resize(GameDetails::mapFile.getNRows() * GameDetails::mapFile.getMaxNColums() * 4);
-	int tileSize = GameDetails::mapFile.getTileSize();
-
-	for (int y = 0; y < GameDetails::mapFile.getNRows(); ++y)
-	{
-		for (int x = 0; x < GameDetails::mapFile.getNColumns(y); ++x)
-		{
-			// get a pointer to the current tile's quad
-			sf::Vertex* quad = &(map_)[(x + y * GameDetails::mapFile.getMaxNColums()) * 4];
-
-			// define its 4 corners
-			quad[0].position = sf::Vector2f(float(x * (tileSize)), float(y * (tileSize)));
-			quad[1].position = sf::Vector2f(float((x + 1) * (tileSize)), float(y * (tileSize)));
-			quad[2].position = sf::Vector2f(float((x + 1) * (tileSize)), float((y + 1) * (tileSize)));
-			quad[3].position = sf::Vector2f(float(x * (tileSize)), float((y + 1) * (tileSize)));
-
-			int tu = GameDetails::mapFile.getTileNum(y, x) % (mapTexture_->getSize().x / (tileSize));
-			int tv = GameDetails::mapFile.getTileNum(y, x) / (mapTexture_->getSize().x / (tileSize));
-
-			quad[0].texCoords = sf::Vector2f(float(tu * ((tileSize)+1)), float(tv * ((tileSize)+1)));
-			quad[1].texCoords = sf::Vector2f(float((tu) * ((tileSize)+1) + (tileSize)), float(tv * ((tileSize)+1)));
-			quad[2].texCoords = sf::Vector2f(float((tu) * ((tileSize)+1) + (tileSize)), float((tv) * ((tileSize)) + (tileSize)));
-			quad[3].texCoords = sf::Vector2f(float(tu * ((tileSize)+1)), float((tv) * ((tileSize)+1) + (tileSize)));
-		}
-	}
-
 	sf::Vector2i intendedSize = { 330, 286 };
 
-	sf::Vector2f mapScale = { intendedSize.x / map_.getBounds().width,
-							  intendedSize.y / map_.getBounds().height };
+	sf::Vector2f mapScale = { intendedSize.x / map_.getLocalBounds().width,
+							  intendedSize.y / map_.getLocalBounds().height };
 
 	if (mapScale.x <= mapScale.y) {
-		mapTransformable_.setScale({ mapScale.x, mapScale.x });
+		map_.setScale({ mapScale.x, mapScale.x });
 
-		sf::Vector2f actualSize = { map_.getBounds().width  * mapScale.x,
-									map_.getBounds().height * mapScale.x };
+		// offset on Y Axis to center
+		float yOffset = map_.getLocalBounds().height * mapScale.x;
 
-		mapTransformable_.setPosition(
-			{ mapPosition_.x, mapPosition_.y + intendedSize.y / 2 - actualSize.y / 2, }
-		);
+		map_.setPosition({ mapPosition_.x, mapPosition_.y + intendedSize.y / 2 - yOffset / 2, });
 
 	}
 	else {
-		mapTransformable_.setScale({ mapScale.y, mapScale.y });
+		map_.setScale({ mapScale.y, mapScale.y });
 
-		sf::Vector2f actualSize = { map_.getBounds().width  * mapScale.y,
-									map_.getBounds().height * mapScale.y };
+		// offset on X Axis to center
+		float xOffset = map_.getLocalBounds().width * mapScale.y;
 
-		mapTransformable_.setPosition(
-			{ mapPosition_.x + intendedSize.x / 2 - actualSize.x / 2, mapPosition_.y }
-		);
+		map_.setPosition({ mapPosition_.x + intendedSize.x / 2 - xOffset / 2, mapPosition_.y });
 	}
 }

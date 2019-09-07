@@ -1,5 +1,6 @@
 #pragma once
 #include "NGin.h"
+#include "../Common/Map.h"
 #include "../Common/GameDetails.h"
 
 class MapSelector : public ngin::UIElement {
@@ -12,7 +13,8 @@ public:
 		GameDetails::mapFile.scanDir();
 		GameDetails::mapFile.read();
 		setTitle(GameDetails::mapFile.getMapName());
-		updateMinimap();
+		map_.setMapFile(GameDetails::mapFile);
+		updateMapTransform();
 	}
 
 	void handleEvents(const sf::Event& event, const sf::Vector2f& mouse);
@@ -29,12 +31,7 @@ public:
 	void setSelectThickness(const float thickness);
 	
 private:
-	void updateMinimap();
-
-	std::shared_ptr<sf::Texture> mapTexture_;
-	sf::Vector2f mapPosition_;
-	sf::Transformable mapTransformable_;
-	sf::VertexArray map_;
+	void updateMapTransform();
 
 	std::shared_ptr<sf::Texture> texture_;
 	sf::RectangleShape container_;
@@ -42,4 +39,6 @@ private:
 	ngin::Button rightButton_;
 
 	sf::Text mapTitle_;
+	sf::Vector2f mapPosition_;
+	Map map_;
 };

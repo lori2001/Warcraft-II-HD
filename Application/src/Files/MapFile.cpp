@@ -6,7 +6,6 @@ void MapFile::scanDir()
 {
 	// Secure cleanup
 	paths_.clear();
-	folderPath_ = "";
 
 	char buffer[MAX_PATH];
 	GetModuleFileName(NULL, buffer, sizeof(buffer));
@@ -26,9 +25,11 @@ void MapFile::scanDir()
 		}
 	}
 	catch (...) {
-		NG_LOG_ERROR("Directory expected to contain .mapfile files has not been found: \n ",
+
+		NG_LOG_WARN("Directory expected to contain .mapfile files has not been found: \n ",
 			folderPath_ , " -- Please create directory!");
-		std::abort();
+
+		folderPath_ = std::string(buffer).substr(0, pos);
 	}
 }
 
@@ -38,7 +39,7 @@ void MapFile::read()
 		read(paths_[index_]);
 	}
 	else {
-		NG_LOG_ERROR("No maps found in assets/maps/ !");
+		NG_LOG_ERROR("No maps found in ./assets/maps/ !");
 		std::abort();
 	}
 }
