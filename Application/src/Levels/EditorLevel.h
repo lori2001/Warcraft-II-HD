@@ -1,7 +1,10 @@
 #pragma once
 #include "NGin.h"
+
 #include "Common/GameDetails.h"
 #include "Common/Map.h"
+
+#include "Editor/EditableMap.h"
 
 class EditorLevel : public ngin::Level {
 public:
@@ -33,7 +36,7 @@ private:
 
 	// Types
 	bool mapEditor_;
-	Map map_;
+	EditableMap editableMap_;
 
 	// Back
 	ngin::Button backButton_{ "", { 50, 50 } };

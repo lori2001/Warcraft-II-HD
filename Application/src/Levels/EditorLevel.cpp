@@ -1,5 +1,4 @@
 #include "EditorLevel.h"
-#include "nfd.h"
 
 void EditorLevel::setup()
 {
@@ -34,14 +33,14 @@ void EditorLevel::setup()
 
 	// --- Scales ----------------------------------
 	backButton_.setScale({ 1.5F, 1.5F });
-	map_.setScale({ 2, 2 });
+	editableMap_.setScale({ 2, 2 });
 	// ---------------------------------------------
 
 	// (re)set important bools
 	mapEditor_ = false;
 
 	// Map Editor setup
-	map_.setPosition({ 0.0F , headerSprite_.getGlobalBounds().top + headerSprite_.getGlobalBounds().height });
+	editableMap_.setPosition({ 0.0F , headerSprite_.getGlobalBounds().top + headerSprite_.getGlobalBounds().height });
 	GameDetails::mapFile.scanDir();
 }
 
@@ -60,19 +59,7 @@ void EditorLevel::handleEvents(const sf::Event& event)
 	if (fileDropdown_.getActiveDrop() == 2) // Load
 	{
 		mapEditor_ = true;
-		nfdchar_t* outPath = NULL;
-		nfdresult_t result = NFD_OpenDialog("mapfile", GameDetails::mapFile.getFolderPath().c_str(), &outPath);
-
-		if (result == NFD_OKAY){
-			GameDetails::mapFile.read(outPath);
-			NG_LOG_INFO(GameDetails::mapFile.getMapName());
-		}
-		else if (result == NFD_ERROR) {
-			NG_LOG_ERROR("Error: %s\n", NFD_GetError());
-		}
-
-		map_.setMapFile(GameDetails::mapFile);
-
+		editableMap_.setMapFile(GameDetails::mapFile);
 		fileDropdown_.setActiveDrop(0);
 	}
 
@@ -84,9 +71,8 @@ void EditorLevel::update()
 
 void EditorLevel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	if (mapEditor_) {
-		target.draw(map_);
-	}
+	if (mapEditor_)
+		target.draw(editableMap_);
 
 	target.draw(headerSprite_);
 	target.draw(fileDropdown_);
