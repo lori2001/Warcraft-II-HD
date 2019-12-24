@@ -72,6 +72,9 @@
     <ClCompile Include="src\Levels\Editor\EditableMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Levels\Game\Units\Unit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -138,6 +141,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Levels\Editor\EditableMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Levels\Game\Units\Unit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

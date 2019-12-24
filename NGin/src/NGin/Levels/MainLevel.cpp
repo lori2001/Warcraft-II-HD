@@ -2,6 +2,9 @@
 #include <Windows.h>
 
 namespace ngin {
+	sf::VideoMode MainLevel::windowVideoMode_{ 1000, 600 };
+	sf::String MainLevel::windowName_ = "My Application";
+	WINDOW_TYPE MainLevel::windowType_ = WINDOW_TYPE::WINDOW_UNRESIZEABLE;
 
 	void MainLevel::run()
 	{
@@ -75,24 +78,21 @@ namespace ngin {
 
 	void MainLevel::applySettingsToWindow()
 	{
-		// prevents destroying window's view
-		const sf::View saveView = window_.getView();
-
 		sf::Uint32 windowStyle = sf::Style::Titlebar;
 		bool isBorderless = false;
 
 		// --- Styling ---------------------------------
-		if (windowType_ == WINDOW_TYPE::RESIZEABLE) {
+		if (windowType_ == WINDOW_TYPE::WINDOW_RESIZEABLE) {
 			windowStyle = sf::Style::Default;
 		}
-		else if (windowType_ == WINDOW_TYPE::UNRESIZEABLE) {
+		else if (windowType_ == WINDOW_TYPE::WINDOW_UNRESIZEABLE) {
 			windowStyle = sf::Style::Titlebar | sf::Style::Close;
 		}
-		else if (windowType_ == WINDOW_TYPE::FULLSCREEN) {
+		else if (windowType_ == WINDOW_TYPE::WINDOW_FULLSCREEN) {
 			windowStyle = sf::Style::Fullscreen;
 			windowVideoMode_ = sf::VideoMode::getDesktopMode();
 		}
-		else if (windowType_ == WINDOW_TYPE::BORDERLESS) {
+		else if (windowType_ == WINDOW_TYPE::WINDOW_BORDERLESS) {
 			isBorderless = true;
 			windowStyle = sf::Style::Fullscreen;
 		}
@@ -106,9 +106,9 @@ namespace ngin {
 		else {
 			window_.create(windowVideoMode_, windowName_, windowStyle);
 		}
-
-		// set view back
-		window_.setView(saveView);
+		
+		// set view (back)
+		window_.setView(view_);
 
 		// set icon back
 		if(hasIcon_)

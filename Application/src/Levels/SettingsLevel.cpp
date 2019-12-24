@@ -189,7 +189,7 @@ void SettingsLevel::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 
 void SettingsLevel::changeWindow(sf::VideoMode& windowVideoMode,
 							sf::String& windowName,
-							ngin::MainLevel::WINDOW_TYPE& windowType)
+							ngin::WINDOW_TYPE& windowType)
 {
 	sf::VideoMode videoMode;
 	std::string windowTypeString;
@@ -231,17 +231,17 @@ void SettingsLevel::changeWindow(sf::VideoMode& windowVideoMode,
 
 	if (windowTypeString == windowTypeStrings_[0]) // windowed
 	{
-		windowType = ngin::MainLevel::UNRESIZEABLE;
+		windowType = ngin::WINDOW_TYPE::WINDOW_UNRESIZEABLE;
 		windowTypeDropdown_.setActiveDrop(1);
 	}
 	else if (windowTypeString == windowTypeStrings_[1]) // borderless
 	{
-		windowType = ngin::MainLevel::BORDERLESS;
+		windowType = ngin::WINDOW_TYPE::WINDOW_BORDERLESS;
 		windowTypeDropdown_.setActiveDrop(2);
 	}
 	else if (windowTypeString == windowTypeStrings_[2]) // fullscreen
 	{
-		windowType = ngin::MainLevel::FULLSCREEN;
+		windowType = ngin::WINDOW_TYPE::WINDOW_FULLSCREEN;
 		windowTypeDropdown_.setActiveDrop(3);
 	}
 
@@ -263,16 +263,16 @@ void SettingsLevel::changeWindow(sf::VideoMode& windowVideoMode,
 
 void SettingsLevel::getFromWindow(const sf::VideoMode& windowVideoMode,
 							 const sf::String& windowName,
-							 const ngin::MainLevel::WINDOW_TYPE& windowType)
+							 const ngin::WINDOW_TYPE& windowType)
 {
 
-	if (windowType == ngin::MainLevel::WINDOW_TYPE::UNRESIZEABLE)
+	if (windowType == ngin::WINDOW_TYPE::WINDOW_UNRESIZEABLE)
 		windowTypeDropdown_.setActiveDrop(1); // windowed
-	else if (windowType == ngin::MainLevel::WINDOW_TYPE::BORDERLESS)
+	else if (windowType == ngin::WINDOW_TYPE::WINDOW_BORDERLESS)
 		windowTypeDropdown_.setActiveDrop(2); // borderless
-	else if (windowType == ngin::MainLevel::WINDOW_TYPE::FULLSCREEN)
+	else if (windowType == ngin::WINDOW_TYPE::WINDOW_FULLSCREEN)
 		windowTypeDropdown_.setActiveDrop(3); // fullscreen
-	else if (windowType == ngin::MainLevel::WINDOW_TYPE::RESIZEABLE)
+	else if (windowType == ngin::WINDOW_TYPE::WINDOW_RESIZEABLE)
 		NG_LOG_ERROR("Window has unsupported Type!"); /// !!! Resizeable window is considered error
 
 	std::string resolutionString =

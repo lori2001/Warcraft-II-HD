@@ -31,9 +31,6 @@ Application::~Application()
 
 void Application::setup()
 {
-	// add view to window to support resizing
-	window_.setView(view_);
-
 	// there is no reason to go above 60fps
 	window_.setFramerateLimit(60);
 
@@ -48,14 +45,15 @@ void Application::setup()
 	loadingScreen_.setTexture(*loadingScreenTexture_);
 	drawLoadingScreen();
 
-	// set up cursor
+	// set up cursor sound
 	cursorSound_ = ngin::Resources::AcquireSoundBuffer("audio/click.wav");
+	ngin::Cursor::setBuffer(*cursorSound_);
 
-	// make sure cursor textures never delete
+	// load textures and make sure they never delete
 	orcCursorTexture_ =  ngin::Resources::AcquireTexture("images/ui/orc_cursor.png");
 	humanCursorTexture_ = ngin::Resources::AcquireTexture("images/ui/human_cursor.png");
 
-	ngin::Cursor::setBuffer(*cursorSound_);
+	// subscribe already loaded sounds to their types
 	ngin::Audio::subscribeSound(ngin::Cursor::getSoundPtr());
 	ngin::Audio::subscribeMusic(&Music::nowPlaying_);
 
@@ -65,10 +63,11 @@ void Application::setup()
 
 void Application::handleEvents()
 {
+	// handle the events of wqhatever the current level
 	currentLevel_->handleEvents(event_);
 
-	switch (currentLevel_->getResponse()) {
-
+	switch (currentLevel_->getResponse())
+	{
 	case MenuLevel::LOBBY:
 		delete currentLevel_;
 		currentLevel_ = new LobbyLevel;
@@ -77,10 +76,7 @@ void Application::handleEvents()
 	case MenuLevel::SETTINGS:
 		delete currentLevel_;
 		currentLevel_ = new SettingsLevel;
-
-		currentLevel_->getFromWindow(windowVideoMode_, windowName_, windowType_);
 		break;
-
 	case MenuLevel::EDITOR:
 		drawLoadingScreen(); // slower loading expected
 
@@ -128,10 +124,6 @@ void Application::handleEvents()
 void Application::update()
 {
 	currentLevel_->update();
-
-	// has to be in update because it can be called by timer
-	if (currentLevel_->getResponse() == SettingsLevel::RESPONSE::APPLY)
-		currentLevel_->changeWindow(windowVideoMode_, windowName_, windowType_);
 }
 
 void Application::draw(sf::RenderTarget& target, sf::RenderStates states) const

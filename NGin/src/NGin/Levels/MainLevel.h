@@ -6,18 +6,22 @@
 #include"../System/Console.h"
 
 namespace ngin {
+	enum class WINDOW_TYPE {
+		WINDOW_RESIZEABLE = 0, // resizeable windowed
+		WINDOW_UNRESIZEABLE, // unresizeable windowed
+		WINDOW_BORDERLESS,
+		WINDOW_FULLSCREEN
+	};
+
 	class MainLevel : public sf::Drawable
 	{
 	public:
 		virtual ~MainLevel() = default;
 		void run();
 
-		enum WINDOW_TYPE {
-			RESIZEABLE = 0, // resizeable windowed
-			UNRESIZEABLE, // unresizeable windowed
-			BORDERLESS,
-			FULLSCREEN
-		};
+		static sf::VideoMode windowVideoMode_;
+		static sf::String windowName_;
+		static WINDOW_TYPE windowType_;
 
 	protected:
 		// gets called after creating the window
@@ -32,14 +36,11 @@ namespace ngin {
 		// use this to set window icon instead of accesing window_ directly
 		void setWindowIcon(const std::string& location);
 
-		sf::VideoMode windowVideoMode_{ 1000, 600 };
-		sf::String windowName_ = "My Application";
-		WINDOW_TYPE windowType_ = WINDOW_TYPE::UNRESIZEABLE;
-
+		sf::View view_{ sf::FloatRect{0, 0, 1920, 1080} }; // default view is full HD
 		sf::RenderWindow window_;
 		sf::Event event_;
-	private:
 
+	private:
 		sf::VideoMode saveVideoMode_ = windowVideoMode_;
 		sf::String saveName_ = windowName_;
 		WINDOW_TYPE saveType_ = windowType_;

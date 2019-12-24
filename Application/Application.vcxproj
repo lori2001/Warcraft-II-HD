@@ -99,6 +99,7 @@
     <ClCompile Include="src\Levels\Game\GameMenu\GameMenu.cpp" />
     <ClCompile Include="src\Levels\Game\GameMenu\GameSettings.cpp" />
     <ClCompile Include="src\Levels\Game\Units\Humans\Footman.cpp" />
+    <ClCompile Include="src\Levels\Game\Units\Unit.cpp" />
     <ClCompile Include="src\Levels\LobbyLevel.cpp" />
     <ClCompile Include="src\Levels\Lobby\MapSelector.cpp" />
     <ClCompile Include="src\Levels\Lobby\NPCLine.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="src\Levels\Game\GameMenu\GameMenu.h" />
     <ClInclude Include="src\Levels\Game\GameMenu\GameSettings.h" />
     <ClInclude Include="src\Levels\Game\Units\Humans\Footman.h" />
+    <ClInclude Include="src\Levels\Game\Units\Unit.h" />
     <ClInclude Include="src\Levels\LobbyLevel.h" />
     <ClInclude Include="src\Levels\Lobby\ColoredString.h" />
     <ClInclude Include="src\Levels\Lobby\MapSelector.h" />

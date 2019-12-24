@@ -14,11 +14,11 @@ public:
 
 	void changeWindow(sf::VideoMode& windowVideoMode,
 					  sf::String& windowName,
-					  ngin::MainLevel::WINDOW_TYPE& windowType);
+					  ngin::WINDOW_TYPE& windowType);
 
 	void getFromWindow(const sf::VideoMode& windowVideoMode,
 					   const sf::String& windowName,
-		               const ngin::MainLevel::WINDOW_TYPE& windowType);
+		               const ngin::WINDOW_TYPE& windowType);
 
 	enum RESPONSE {
 		NONE = 8,

@@ -35,6 +35,9 @@ void GameLevel::setup()
 	// --- Setup Styles -------------------------
 	setupUIStyle(*warcraftFont_, 40, sf::Color::Yellow);
 	// ------------------------------------------
+
+
+	// testSoldier.setup(sf::Vector2f{0,0});
 }
 
 void GameLevel::handleEvents(const sf::Event& event)
@@ -64,10 +67,13 @@ void GameLevel::handleEvents(const sf::Event& event)
 		}
 		// -------------------------------------------
 	}
+
+	testSoldier.handleEvents(event, ngin::Cursor::getPosition());
 }
 
 void GameLevel::update()
 {
+	testSoldier.animate(ngin::Timer::getDeltaTime());
 }
 
 void GameLevel::draw(sf::RenderTarget& target, sf::RenderStates states) const

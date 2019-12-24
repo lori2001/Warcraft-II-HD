@@ -17,16 +17,6 @@ namespace ngin {
 		// gets called every frame but should only draw on window
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
-		// can be called to change window settings
-		virtual void changeWindow(sf::VideoMode& windowVideoMode,
-								  sf::String& windowName,
-								  ngin::MainLevel::WINDOW_TYPE& windowType) {}
-
-		// can be called to get window settings without changing them
-		virtual void getFromWindow(const sf::VideoMode& windowVideoMode,
-								   const sf::String& windowName,
-								   const ngin::MainLevel::WINDOW_TYPE& windowType) {}
-
 		int getResponse() { return response_; }
 
 	protected:
