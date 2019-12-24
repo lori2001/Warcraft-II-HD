@@ -12,18 +12,11 @@ public:
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-	void changeWindow(sf::VideoMode& windowVideoMode,
-					  sf::String& windowName,
-					  ngin::WINDOW_TYPE& windowType);
-
-	void getFromWindow(const sf::VideoMode& windowVideoMode,
-					   const sf::String& windowName,
-		               const ngin::WINDOW_TYPE& windowType);
+	void applySettingsToWindow();
 
 	enum RESPONSE {
 		NONE = 8,
-		MAIN_MENU,
-		APPLY,
+		MAIN_MENU
 	};
 private:
 	void setupUIStyle(const sf::Font& font, const unsigned fontSize, const sf::Color& themeColor);
@@ -49,9 +42,10 @@ private:
 	bool dialogActive_ = false;
 	bool applyChanges_ = false;
 	enum class CHANGE {
-		TEMPORARY,
-		PERMANENT,
-		REVERT
+		CHANGE_NONE,
+		CHANGE_TEMPORARY,
+		CHANGE_PERMANENT,
+		CHANGE_REVERT
 	} changeType_;
 
 	// Properties

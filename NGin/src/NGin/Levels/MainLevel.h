@@ -19,6 +19,7 @@ namespace ngin {
 		virtual ~MainLevel() = default;
 		void run();
 
+		static sf::View view_; // default view is full HD
 		static sf::VideoMode windowVideoMode_;
 		static sf::String windowName_;
 		static WINDOW_TYPE windowType_;
@@ -36,7 +37,6 @@ namespace ngin {
 		// use this to set window icon instead of accesing window_ directly
 		void setWindowIcon(const std::string& location);
 
-		sf::View view_{ sf::FloatRect{0, 0, 1920, 1080} }; // default view is full HD
 		sf::RenderWindow window_;
 		sf::Event event_;
 

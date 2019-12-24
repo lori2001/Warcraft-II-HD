@@ -2,6 +2,7 @@
 #include <Windows.h>
 
 namespace ngin {
+	sf::View MainLevel::view_ = sf::View{ sf::FloatRect{0, 0, 1920, 1080} }; // default view is full HD
 	sf::VideoMode MainLevel::windowVideoMode_{ 1000, 600 };
 	sf::String MainLevel::windowName_ = "My Application";
 	WINDOW_TYPE MainLevel::windowType_ = WINDOW_TYPE::WINDOW_UNRESIZEABLE;

@@ -1,4 +1,5 @@
 #include "SettingsLevel.h"
+#include "NGin/Levels/MainLevel.h"
 
 void SettingsLevel::setup()
 {
@@ -79,11 +80,32 @@ void SettingsLevel::setup()
 	ngin::centerTextInBounds(windowModeText_, windowTypeDropdown_.getClosedGlobalBounds(), -45);
 	ngin::centerTextInBounds(resolutionText_, videoModeDropdown_.getClosedGlobalBounds(), -45);
 	// -------------------------------------
+
+	// --- Getting Data --------------------
+	if (ngin::MainLevel::windowType_ == ngin::WINDOW_TYPE::WINDOW_UNRESIZEABLE)
+		windowTypeDropdown_.setActiveDrop(1); // windowed
+	else if (ngin::MainLevel::windowType_ == ngin::WINDOW_TYPE::WINDOW_BORDERLESS)
+		windowTypeDropdown_.setActiveDrop(2); // borderless
+	else if (ngin::MainLevel::windowType_ == ngin::WINDOW_TYPE::WINDOW_FULLSCREEN)
+		windowTypeDropdown_.setActiveDrop(3); // fullscreen
+	else if (ngin::MainLevel::windowType_ == ngin::WINDOW_TYPE::WINDOW_RESIZEABLE)
+		NG_LOG_ERROR("Window has unsupported Type!"); /// !!! Resizeable window is considered error
+
+	std::string resolutionString =
+		std::to_string(ngin::MainLevel::windowVideoMode_.width)
+		+ " x " +
+		std::to_string(ngin::MainLevel::windowVideoMode_.height);
+
+	videoModeDropdown_.setDropString(0, resolutionString);
+
+	saveWindowTypeString_ = windowTypeStrings_[windowTypeDropdown_.getActiveDrop() - 1];
+	saveVideoMode_ = ngin::MainLevel::windowVideoMode_;
+	// -------------------------------------
 }
 
 void SettingsLevel::handleEvents(const sf::Event& event)
 {
-	// default response
+	// default response and changeType
 	response_ = RESPONSE::NONE;
 
 	if (dialogActive_)
@@ -93,15 +115,14 @@ void SettingsLevel::handleEvents(const sf::Event& event)
 		if (confirmDialog_.getResponse() == ConfirmDialog::RESPONSE::OK ||
 			confirmDialog_.getResponse() == ConfirmDialog::RESPONSE::CLOSE)
 		{
-			// OK pressed => make chnages permanent
+			// OK pressed => make changes permanent
 			if (confirmDialog_.getResponse() == ConfirmDialog::RESPONSE::OK)
-				changeType_ = CHANGE::PERMANENT;
+				changeType_ = CHANGE::CHANGE_PERMANENT;
 			// CLOSE pressed => reset changes
 			else if (confirmDialog_.getResponse() == ConfirmDialog::RESPONSE::CLOSE)
-				changeType_ = CHANGE::REVERT;
-
-			// type of change
-			response_ = RESPONSE::APPLY;
+				changeType_ = CHANGE::CHANGE_REVERT;
+			else
+				changeType_ = CHANGE::CHANGE_NONE;
 		}
 	}
 	else
@@ -125,13 +146,13 @@ void SettingsLevel::handleEvents(const sf::Event& event)
 			videoModeDropdown_.setDisabled(false);
 		}
 
-		if (applyButton_.isActive()) {
-			changeType_ = CHANGE::TEMPORARY;
-			response_ = RESPONSE::APPLY;
-		}
-		else if (backButton_.isActive()) {
+		if (applyButton_.isActive())
+			changeType_ = CHANGE::CHANGE_TEMPORARY;
+		else
+			changeType_ = CHANGE::CHANGE_NONE;
+
+		if (backButton_.isActive())
 			response_ = RESPONSE::MAIN_MENU;
-		}
 	}
 }
 
@@ -148,16 +169,16 @@ void SettingsLevel::update()
 		int secsRemaining = static_cast<int>(resetLimit_ - resetTimer_);
 
 		std::string confirmDialogString = "Are you sure you want to keep these changes?\n"
-			"                    Resetting in " + std::to_string(secsRemaining) + " seconds";
+			"                    Reverting in " + std::to_string(secsRemaining) + " seconds";
 
 		confirmDialog_.setString(confirmDialogString);
 
-		if (resetTimer_ > resetLimit_)
-		{
-			changeType_ = CHANGE::REVERT;
-			// type of change
-			response_ = RESPONSE::APPLY;
-		}
+		if (secsRemaining == 0)
+			changeType_ = CHANGE::CHANGE_REVERT; // type of change
+	}
+
+	if (changeType_ != CHANGE::CHANGE_NONE) {
+		applySettingsToWindow();
 	}
 }
 
@@ -187,31 +208,29 @@ void SettingsLevel::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 		target.draw(confirmDialog_);
 }
 
-void SettingsLevel::changeWindow(sf::VideoMode& windowVideoMode,
-							sf::String& windowName,
-							ngin::WINDOW_TYPE& windowType)
+void SettingsLevel::applySettingsToWindow()
 {
 	sf::VideoMode videoMode;
 	std::string windowTypeString;
 
 	// --- Change based on changeType_ ------------------------------------------
-	if (changeType_ == CHANGE::REVERT)
+	if (changeType_ == CHANGE::CHANGE_REVERT)
 	{
 		videoMode = saveVideoMode_;
 		windowTypeString = saveWindowTypeString_;
 		dialogActive_ = false; // close dialog
 	}
-	else if (changeType_ == CHANGE::PERMANENT)
+	else if (changeType_ == CHANGE::CHANGE_PERMANENT)
 	{
 		// PERMANENT always runs after TEMPORARY -> very important !
-		saveVideoMode_ = windowVideoMode;
+		saveVideoMode_ = ngin::MainLevel::windowVideoMode_;
 		saveWindowTypeString_ = windowTypeStrings_[windowTypeDropdown_.getActiveDrop() - 1];
 
-		videoMode = windowVideoMode;
+		videoMode = ngin::MainLevel::windowVideoMode_;
 		windowTypeString = windowTypeStrings_[windowTypeDropdown_.getActiveDrop() - 1];
 		dialogActive_ = false; // close dialog
 	}
-	else if (changeType_ == CHANGE::TEMPORARY)
+	else if (changeType_ == CHANGE::CHANGE_TEMPORARY)
 	{
 		windowTypeString = windowTypeStrings_[windowTypeDropdown_.getActiveDrop() - 1];
 
@@ -220,32 +239,32 @@ void SettingsLevel::changeWindow(sf::VideoMode& windowVideoMode,
 		else if (videoModeDropdown_.getActiveDrop() != 0)  // if dropdown has one drop selected
 			videoMode = videoModes_[videoModeDropdown_.getActiveDrop() - 1]; // apply selected
 		else
-			videoMode = windowVideoMode; // else use default
+			videoMode = ngin::MainLevel::windowVideoMode_; // else use default
 	}
 	// --------------------------------------------------------------------------
 
 	// --- Apply changes internally and externally ------------------------------
 	// check if there is need for a dialog box
-	auto tempType = windowType;
-	auto tempVideoMode = windowVideoMode;
+	auto tempType = ngin::MainLevel::windowType_;
+	auto tempVideoMode = ngin::MainLevel::windowVideoMode_;
 
 	if (windowTypeString == windowTypeStrings_[0]) // windowed
 	{
-		windowType = ngin::WINDOW_TYPE::WINDOW_UNRESIZEABLE;
+		ngin::MainLevel::windowType_ = ngin::WINDOW_TYPE::WINDOW_UNRESIZEABLE;
 		windowTypeDropdown_.setActiveDrop(1);
 	}
 	else if (windowTypeString == windowTypeStrings_[1]) // borderless
 	{
-		windowType = ngin::WINDOW_TYPE::WINDOW_BORDERLESS;
+		ngin::MainLevel::windowType_ = ngin::WINDOW_TYPE::WINDOW_BORDERLESS;
 		windowTypeDropdown_.setActiveDrop(2);
 	}
 	else if (windowTypeString == windowTypeStrings_[2]) // fullscreen
 	{
-		windowType = ngin::WINDOW_TYPE::WINDOW_FULLSCREEN;
+		ngin::MainLevel::windowType_ = ngin::WINDOW_TYPE::WINDOW_FULLSCREEN;
 		windowTypeDropdown_.setActiveDrop(3);
 	}
 
-	windowVideoMode = videoMode;
+	ngin::MainLevel::windowVideoMode_ = videoMode;
 
 	std::string resolutionString =
 		std::to_string(videoMode.width) + " x " + std::to_string(videoMode.height);
@@ -253,34 +272,13 @@ void SettingsLevel::changeWindow(sf::VideoMode& windowVideoMode,
 	videoModeDropdown_.setDropString(0, resolutionString);
 
 	// only start dialog if changes have been made
-	if (changeType_ == CHANGE::TEMPORARY &&
-		(tempType != windowType || tempVideoMode != windowVideoMode)) {
+	if (changeType_ == CHANGE::CHANGE_TEMPORARY &&
+		(tempType != ngin::MainLevel::windowType_ ||
+		 tempVideoMode != ngin::MainLevel::windowVideoMode_)) {
 		dialogActive_ = true; // open dialog
 		resetTimer_ = 0; // start resetTimer_ from 0
 	}
 	// --------------------------------------------------------------------------
-}
-
-void SettingsLevel::getFromWindow(const sf::VideoMode& windowVideoMode,
-							 const sf::String& windowName,
-							 const ngin::WINDOW_TYPE& windowType)
-{
-
-	if (windowType == ngin::WINDOW_TYPE::WINDOW_UNRESIZEABLE)
-		windowTypeDropdown_.setActiveDrop(1); // windowed
-	else if (windowType == ngin::WINDOW_TYPE::WINDOW_BORDERLESS)
-		windowTypeDropdown_.setActiveDrop(2); // borderless
-	else if (windowType == ngin::WINDOW_TYPE::WINDOW_FULLSCREEN)
-		windowTypeDropdown_.setActiveDrop(3); // fullscreen
-	else if (windowType == ngin::WINDOW_TYPE::WINDOW_RESIZEABLE)
-		NG_LOG_ERROR("Window has unsupported Type!"); /// !!! Resizeable window is considered error
-
-	std::string resolutionString =
-		std::to_string(windowVideoMode.width) + " x " + std::to_string(windowVideoMode.height);
-	videoModeDropdown_.setDropString(0, resolutionString);
-
-	saveWindowTypeString_ = windowTypeStrings_[windowTypeDropdown_.getActiveDrop() - 1];
-	saveVideoMode_ = windowVideoMode;
 }
 
 void SettingsLevel::addResolutionsTo(ngin::Dropdown& dropdown)
