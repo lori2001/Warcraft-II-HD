@@ -1,15 +1,14 @@
 # Warcraft-II-HD
 A HD clone of Blizzard's classic RPG. Warcraft II.
 
-The project is created in Windows Visual Studio 2017. However it is (in theory) also portable to Linux or MacOS as of version 0.5.0. Note that this may change.
+The project is created in Windows Visual Studio 2019. It works on windows.
 
-In case you cannot compile, you may have to install SFML in order to be able to. Follow the tutorial in Warcraft II/Extra/readme.txt in order to install SFML for the project.
-Also Half-an Engine needs nativefiledialog, you can install it from the same place as SFML.
+In case you can not compile, please check if the libraries got linked up properly.
 
-See CONTRIBUTING.md in case you want to add you'r name to the developers list.
+See CONTRIBUTING.md in case you want to add your name to the developers list.
 
 The project is distributed under GNU Public License v3.
 
-Copyrights belong to ©2018 Blizzard Entertainment for the sprites. The repository shall be taken down at any request from officials.
+Copyrights belong to ©Blizzard Entertainment for the sprites. There is no copyright infringement intended. This is a fan project. The repository will be taken down at any request from officials.
 
 Developers: lori2001
