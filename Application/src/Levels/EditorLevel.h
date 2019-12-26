@@ -38,7 +38,7 @@ private:
 	bool mapEditor_;
 	EditableMap editableMap_;
 
-	float viewMoveSpeed = 5.0F;
+	float viewMoveSpeed = 225.0F;
 
 	// Back
 	ngin::Button backButton_{ "", { 50, 50 } };

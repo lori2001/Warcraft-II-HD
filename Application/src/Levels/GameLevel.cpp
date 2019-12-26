@@ -35,9 +35,6 @@ void GameLevel::setup()
 	// --- Setup Styles -------------------------
 	setupUIStyle(*warcraftFont_, 40, sf::Color::Yellow);
 	// ------------------------------------------
-
-
-	// testSoldier.setup(sf::Vector2f{0,0});
 }
 
 void GameLevel::handleEvents(const sf::Event& event)

@@ -9,10 +9,6 @@ public:
 	virtual void handleEvents(const sf::Event& event, const sf::Vector2f& mouse) = 0;
 	virtual void animate(const float deltaTime) = 0;
 
-	
-	
-
-
 protected:
 	Unit();
 
@@ -22,17 +18,7 @@ protected:
 	sf::Vector2i test;
 	std::vector <sf::Vector2i> tests;
 	
-
-	
-
 private:
 
 	ngin::AStar::Generator generator;
-	
-	
-
-	
-
-
-
 };

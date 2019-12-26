@@ -41,7 +41,7 @@ private:
 	std::shared_ptr<sf::Texture> loadingScreenTexture_;
 	sf::Sprite loadingScreen_;
 
-	ngin::Level* currentLevel_;
+	ngin::Level* currentLevel_ = 0;
 	SettingsFile settingsFile_; // loads and saves settings to json
 };
 
