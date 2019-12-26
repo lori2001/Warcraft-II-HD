@@ -24,6 +24,8 @@ namespace ngin {
 		static sf::String windowName_;
 		static WINDOW_TYPE windowType_;
 
+		static unsigned long int getLoopCicleCount();
+
 	protected:
 		// gets called after creating the window
 		virtual void setup() = 0;
@@ -47,6 +49,8 @@ namespace ngin {
 
 		sf::Image icon_;
 		bool hasIcon_ = false;
+
+		static unsigned long int loopCicles_; // counts how many loops have passed
 
 		// recreates window with current settings
 		void applySettingsToWindow();

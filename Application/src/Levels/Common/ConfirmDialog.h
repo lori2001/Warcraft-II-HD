@@ -1,7 +1,7 @@
 #pragma once
 #include "Ngin.h"
 
-class ConfirmDialog : public ngin::UIElement {
+class ConfirmDialog : public sf::Drawable {
 public:
 	ConfirmDialog() : ConfirmDialog({ 700, 220 }) {}
 	ConfirmDialog(const sf::Vector2f& backgroundSize)

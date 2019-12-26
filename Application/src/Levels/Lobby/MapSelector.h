@@ -3,7 +3,7 @@
 #include "../Common/Map.h"
 #include "../Common/GameDetails.h"
 
-class MapSelector : public ngin::UIElement {
+class MapSelector : public sf::Drawable {
 public:
 	MapSelector() : MapSelector({ 39, 297 }, { 340, 297 }) {}
 	MapSelector(const sf::Vector2f& buttonSize, const sf::Vector2f& containerSize) {

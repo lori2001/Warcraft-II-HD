@@ -16,7 +16,7 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	enum RESPONSE {
-		NONE = 80, // avoid samevalue responses
+		NONE = 80, // avoid same-value responses
 		MAIN_MENU
 	};
 private:
@@ -37,6 +37,8 @@ private:
 	// Types
 	bool mapEditor_;
 	EditableMap editableMap_;
+
+	float viewMoveSpeed = 5.0F;
 
 	// Back
 	ngin::Button backButton_{ "", { 50, 50 } };

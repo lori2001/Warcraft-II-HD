@@ -1,11 +1,11 @@
 {
     "Music_Volume": 0.0,
-    "Player_Name": "[Enter Name]",
-    "Sound_Volume": 0.0775255486369133,
+    "Player_Name": "coool right?",
+    "Sound_Volume": 0.0,
     "Video_Mode": {
         "BitsPerPixel": 32,
-        "Height": 600,
-        "Width": 1000
+        "Height": 768,
+        "Width": 1366
     },
     "Window_Type": 1
 }

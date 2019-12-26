@@ -2,7 +2,7 @@
 #include "NGin.h"
 #include "ColoredString.h"
 
-class PlayerLine : public ngin::UIElement {
+class PlayerLine : public sf::Drawable {
 public:
 	ngin::InputText nameInput;
 	ngin::Dropdown raceDropdown{ { 277, 40 } };

@@ -3,8 +3,6 @@
 #include "SFML/Audio.hpp"
 #include <unordered_map>
 
-
-#include "Console.h"
 namespace ngin
 {
 	class Resources

@@ -41,6 +41,7 @@ namespace ngin {
 
 		float getLevel() const { return level_; }
 		sf::Vector2f getSize() const { return { leftButton_.getSize().x + container_.getSize().x + rightButton_.getSize().x, container_.getSize().y }; }
+		sf::Vector2f getPosition() const { return leftButton_.getPosition(); }
 		bool getHasChanged() const { return hasChanged_; }
 		sf::FloatRect getGlobalBounds() const;
 	private:

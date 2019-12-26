@@ -6,6 +6,7 @@ namespace ngin {
 	sf::VideoMode MainLevel::windowVideoMode_{ 1000, 600 };
 	sf::String MainLevel::windowName_ = "My Application";
 	WINDOW_TYPE MainLevel::windowType_ = WINDOW_TYPE::WINDOW_UNRESIZEABLE;
+	unsigned long int MainLevel::loopCicles_ = 0; // counts how many loops have passed
 
 	void MainLevel::run()
 	{
@@ -20,6 +21,7 @@ namespace ngin {
 
 		while (window_.isOpen())
 		{
+			loopCicles_++;
 			// measure delta time for each iteration
 			ngin::Timer::measureDeltaTime();
 
@@ -54,6 +56,9 @@ namespace ngin {
 				applySettingsToWindow();
 			}
 
+			// make sure view is applied to window
+			window_.setView(view_);
+
 			// draw client's main level
 			window_.draw(*this);
 
@@ -63,6 +68,11 @@ namespace ngin {
 			// display drawn things
 			window_.display();
 		}
+	}
+
+	unsigned long int MainLevel::getLoopCicleCount()
+	{
+		return loopCicles_;
 	}
 	
 	void MainLevel::setWindowIcon(const std::string& location)

@@ -2,7 +2,7 @@
 #include "NGin.h"
 #include "ColoredString.h"
 
-class NPCLine : public ngin::UIElement {
+class NPCLine : public sf::Drawable {
 public:
 	ngin::Dropdown raceDropdown{ { 277, 40 } };
 	ngin::Dropdown teamDropdown{ { 277, 40 } };

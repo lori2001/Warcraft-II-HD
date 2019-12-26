@@ -12,6 +12,7 @@
 
 // --- Utilities ----------------
 #include "NGin/Utilities/Align.h"
+#include "NGin/Utilities/Bind.h"
 
 // --- Animation ----------------
 #include "NGin/Animation/AnimationFile.h" // includes Timer.h
