@@ -63,61 +63,64 @@ void Application::setup()
 
 void Application::handleEvents()
 {
-	// handle the events of wqhatever the current level
-	currentLevel_->handleEvents(event_);
-
-	switch (currentLevel_->getResponse())
+	if (ngin::MainLevel::windowHasFocus())
 	{
-	case MenuLevel::LOBBY:
-		delete currentLevel_;
-		currentLevel_ = new LobbyLevel;
-		break;
+		// handle the events of whatever the current level
+		currentLevel_->handleEvents(event_);
 
-	case MenuLevel::SETTINGS:
-		delete currentLevel_;
-		currentLevel_ = new SettingsLevel;
-		break;
-	case MenuLevel::EDITOR:
-		drawLoadingScreen(); // slower loading expected
+		switch (currentLevel_->getResponse())
+		{
+		case MenuLevel::LOBBY:
+			delete currentLevel_;
+			currentLevel_ = new LobbyLevel;
+			break;
 
-		delete currentLevel_;
-		currentLevel_ = new EditorLevel;
+		case MenuLevel::SETTINGS:
+			delete currentLevel_;
+			currentLevel_ = new SettingsLevel;
+			break;
+		case MenuLevel::EDITOR:
+			drawLoadingScreen(); // slower loading expected
 
-		ngin::Resources::destroyUnused(); // destroy menu resources
-		break;
+			delete currentLevel_;
+			currentLevel_ = new EditorLevel;
 
-	case LobbyLevel::GAME:
-		drawLoadingScreen(); // slower loading expected
+			ngin::Resources::destroyUnused(); // destroy menu resources
+			break;
 
-		delete currentLevel_;
-		currentLevel_ = new GameLevel;
+		case LobbyLevel::GAME:
+			drawLoadingScreen(); // slower loading expected
 
-		ngin::Resources::destroyUnused(); // destroy menu resources
-		break;
+			delete currentLevel_;
+			currentLevel_ = new GameLevel;
 
-	// smooth menu loading
-	case SettingsLevel::MAIN_MENU:
-	case LobbyLevel::MAIN_MENU:
-		delete currentLevel_;
-		currentLevel_ = new MenuLevel;
-		break;
+			ngin::Resources::destroyUnused(); // destroy menu resources
+			break;
 
-	// heavy menu loading
-	case EditorLevel::MAIN_MENU:
-	case GameMenu::MAIN_MENU:
-		drawLoadingScreen(); // slower loading expected
+			// smooth menu loading
+		case SettingsLevel::MAIN_MENU:
+		case LobbyLevel::MAIN_MENU:
+			delete currentLevel_;
+			currentLevel_ = new MenuLevel;
+			break;
 
-		delete currentLevel_;
-		// compromise: loads menu slower but later settings faster
-		ngin::Resources::destroyUnused();
+			// heavy menu loading
+		case EditorLevel::MAIN_MENU:
+		case GameMenu::MAIN_MENU:
+			drawLoadingScreen(); // slower loading expected
 
-		currentLevel_ = new MenuLevel;
-		break;
+			delete currentLevel_;
+			// compromise: loads menu slower but later settings faster
+			ngin::Resources::destroyUnused();
 
-	case GameMenu::EXIT:
-	case MenuLevel::EXIT:
-		window_.close();
-		break;
+			currentLevel_ = new MenuLevel;
+			break;
+
+		case GameMenu::EXIT:
+		case MenuLevel::EXIT:
+			window_.close();
+			break;
+		}
 	}
 }
 

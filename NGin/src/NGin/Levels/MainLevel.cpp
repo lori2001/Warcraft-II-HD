@@ -7,8 +7,10 @@ namespace ngin {
 	sf::String MainLevel::windowName_ = "My Application";
 	sf::Color MainLevel::windowClearColor_ = sf::Color(0, 0, 0);
 	WINDOW_TYPE MainLevel::windowType_ = WINDOW_TYPE::WINDOW_UNRESIZEABLE;
-	unsigned long int MainLevel::loopCicles_ = 0; // counts how many loops have passed
+	
 	sf::RenderWindow MainLevel::window_;
+	bool MainLevel::hasFocus_ = true; // assumes window has focus by default
+	unsigned long MainLevel::loopCicles_ = 0; // counts how many loops have passed
 
 	void MainLevel::run()
 	{
@@ -32,6 +34,10 @@ namespace ngin {
 				// close window on request
 				if (event_.type == sf::Event::Closed)
 					window_.close();
+				else if (event_.type == sf::Event::GainedFocus)
+					hasFocus_ = true;
+				else if (event_.type == sf::Event::LostFocus)
+					hasFocus_ = false;
 
 				// client's events handling
 				handleEvents();

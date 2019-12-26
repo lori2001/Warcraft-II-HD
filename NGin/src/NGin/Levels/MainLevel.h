@@ -28,7 +28,8 @@ namespace ngin {
 		static unsigned long int getLoopCicleCount();
 		// quickly ad view_ to window_
 		static void applyViewToWindow();
-
+		// returns true if window is in focus
+		static bool windowHasFocus() { return hasFocus_; }
 	protected:
 		// gets called after creating the window
 		virtual void setup() = 0;
@@ -53,7 +54,9 @@ namespace ngin {
 		sf::Image icon_;
 		bool hasIcon_ = false;
 
-		static unsigned long int loopCicles_; // counts how many loops have passed
+		static bool hasFocus_;
+
+		static unsigned long loopCicles_; // counts how many loops have passed
 
 		// recreates window with current settings
 		void applySettingsToWindow();

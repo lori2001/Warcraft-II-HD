@@ -79,23 +79,26 @@ void EditorLevel::handleEvents(const sf::Event& event)
 
 void EditorLevel::update()
 {
-	// viewport movement
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		ngin::MainLevel::view_.move({ -viewMoveSpeed, 0 });
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		ngin::MainLevel::view_.move({ viewMoveSpeed, 0 });
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		ngin::MainLevel::view_.move({ 0, -viewMoveSpeed});
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		ngin::MainLevel::view_.move({ 0, viewMoveSpeed});
-	}
+	if (ngin::MainLevel::windowHasFocus())
+	{
+		// viewport movement
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+			ngin::MainLevel::view_.move({ -viewMoveSpeed, 0 });
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+			ngin::MainLevel::view_.move({ viewMoveSpeed, 0 });
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+			ngin::MainLevel::view_.move({ 0, -viewMoveSpeed });
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+			ngin::MainLevel::view_.move({ 0, viewMoveSpeed });
+		}
 
-	ngin::Bindables::bindPosition(fileDropdown_, "mainView", ngin::MainLevel::view_.getCenter());
-	ngin::Bindables::bindPosition(headerSprite_, "mainView", ngin::MainLevel::view_.getCenter());
-	ngin::Bindables::bindPosition(backButton_, "mainView", ngin::MainLevel::view_.getCenter());
+		ngin::Bindables::bindPosition(fileDropdown_, "mainView", ngin::MainLevel::view_.getCenter());
+		ngin::Bindables::bindPosition(headerSprite_, "mainView", ngin::MainLevel::view_.getCenter());
+		ngin::Bindables::bindPosition(backButton_, "mainView", ngin::MainLevel::view_.getCenter());
+	}
 }
 
 void EditorLevel::draw(sf::RenderTarget& target, sf::RenderStates states) const
