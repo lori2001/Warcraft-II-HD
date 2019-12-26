@@ -44,6 +44,9 @@ void EditorLevel::setup()
 	editableMap_.setPosition({ 0.0F , headerSprite_.getGlobalBounds().top + headerSprite_.getGlobalBounds().height });
 	GameDetails::mapFile.scanDir();
 
+	// change window background to a milder color
+	ngin::MainLevel::windowClearColor_ = { 50, 50, 50 };
+
 	// make view bindable so ui elements can stay always the same
 	ngin::Bindables::create("mainView", ngin::MainLevel::view_.getCenter());
 }
@@ -54,6 +57,7 @@ void EditorLevel::handleEvents(const sf::Event& event)
 	fileDropdown_.handleEvents(event, ngin::Cursor::getPosition());
 
 	if (backButton_.isActive()) {
+		ngin::MainLevel::windowClearColor_ = { 0, 0, 0 };
 		response_ = RESPONSE::MAIN_MENU;
 	}
 	else {
@@ -64,6 +68,10 @@ void EditorLevel::handleEvents(const sf::Event& event)
 	{
 		mapEditor_ = true;
 		editableMap_.setMapFile(GameDetails::mapFile);
+
+		// make sure view focuses on newly loaded map
+		ngin::MainLevel::view_.reset(sf::FloatRect{ 0, 0, 1920, 1080 }); // reset moved view
+
 		fileDropdown_.setActiveDrop(0);
 	}
 

@@ -53,7 +53,7 @@ void MapFile::read(const std::string& path)
 
 		// clear up
 		tiles_.clear();
-		tileSize_ = -1;
+		tileSize_ = { 0.0F, 0.0F };
 		themeLocation_ = "";
 		title_ = "";
 
@@ -70,8 +70,10 @@ void MapFile::read(const std::string& path)
 				// ------------------------------------------------
 
 				// --- Size of one tile ---------------------------
-				if (findAndClear(input, "TileSize:"))
-					tileSize_ = std::stoi(input);
+				if (findAndClear(input, "TileWidth:"))
+					tileSize_.x = std::stof(input);
+				if (findAndClear(input, "TileHeight:"))
+					tileSize_.y = std::stof(input);
 				// ------------------------------------------------
 
 				// --- Theme --------------------------------------

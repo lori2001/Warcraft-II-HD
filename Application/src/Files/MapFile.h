@@ -4,7 +4,6 @@
 
 class MapFile : public ngin::FileReader {
 public:
-
 	// scans directory for loadable files
 	// true if successful false if not
 	void scanDir();
@@ -17,14 +16,15 @@ public:
 	std::string getFolderPath() const { return folderPath_; }
 	std::string getThemeLocation() const { return themeLocation_; }
 	std::string getMapName() const { return title_; }
+	sf::Vector2f getTileSize() const { return tileSize_; }
 	int getNumberOfMaps() const { return static_cast<int>(paths_.size()); }
 	int getNRows() const { return static_cast<int>(tiles_.size()); }
 	int getNColumns(int row) const { return static_cast<int>(tiles_[row].size());}
-	int getTileSize() const { return tileSize_; }
 	int getMaxNColums() const;
 	unsigned getTileNum(const int row, const int col) const { return tiles_[row][col]; }
 
 	void offsetIndexBy(const int indexOffset);
+
 private:
 	std::vector<std::string> paths_; // paths of map files
 	int index_ = 0; // index of current map file
@@ -33,6 +33,6 @@ private:
 	std::string themeLocation_ = "";
 	std::string folderPath_ = "";
 
-	int tileSize_ = -1; // size of one tile
+	sf::Vector2f tileSize_ = { 0.0F, 0.0F }; // size of one tile
 	std::vector<std::vector<unsigned>> tiles_; // tile numbers
 };

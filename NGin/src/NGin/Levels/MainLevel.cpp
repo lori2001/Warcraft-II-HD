@@ -5,8 +5,10 @@ namespace ngin {
 	sf::View MainLevel::view_ = sf::View{ sf::FloatRect{0, 0, 1920, 1080} }; // default view is full HD
 	sf::VideoMode MainLevel::windowVideoMode_{ 1000, 600 };
 	sf::String MainLevel::windowName_ = "My Application";
+	sf::Color MainLevel::windowClearColor_ = sf::Color(0, 0, 0);
 	WINDOW_TYPE MainLevel::windowType_ = WINDOW_TYPE::WINDOW_UNRESIZEABLE;
 	unsigned long int MainLevel::loopCicles_ = 0; // counts how many loops have passed
+	sf::RenderWindow MainLevel::window_;
 
 	void MainLevel::run()
 	{
@@ -38,8 +40,8 @@ namespace ngin {
 				ngin::Cursor::followMouse(window_);
 			}
 
-			// clear window from previous bs
-			window_.clear();
+			// clear window of previous bs
+			window_.clear(windowClearColor_);
 
 			// client update
 			update();
@@ -85,6 +87,11 @@ namespace ngin {
 			NG_LOG_WARN("Failed to set Icon!");
 			hasIcon_ = false;
 		}
+	}
+
+	void MainLevel::applyViewToWindow()
+	{
+		window_.setView(view_);
 	}
 
 	void MainLevel::applySettingsToWindow()

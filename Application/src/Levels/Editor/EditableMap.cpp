@@ -15,4 +15,14 @@ void EditableMap::setMapFile(const MapFile& mapFile)
 	}
 
 	Map::setMapFile(GameDetails::mapFile);
+
+	tileMark.setFillColor(sf::Color(255, 0, 0));
+	tileMark.setSize({Map::getTileSize().x * Map::getScale().x, Map::getTileSize().y * Map::getScale().y});
+	tileMark.setPosition({ Map::getPosition().x + Map::getSize().x, Map::getPosition().y + Map::getSize().y });
+}
+
+void EditableMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	Map::draw(target, states);
+	target.draw(tileMark);
 }

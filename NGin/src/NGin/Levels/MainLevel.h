@@ -22,9 +22,12 @@ namespace ngin {
 		static sf::View view_; // default view is full HD
 		static sf::VideoMode windowVideoMode_;
 		static sf::String windowName_;
+		static sf::Color windowClearColor_;
 		static WINDOW_TYPE windowType_;
 
 		static unsigned long int getLoopCicleCount();
+		// quickly ad view_ to window_
+		static void applyViewToWindow();
 
 	protected:
 		// gets called after creating the window
@@ -39,7 +42,7 @@ namespace ngin {
 		// use this to set window icon instead of accesing window_ directly
 		void setWindowIcon(const std::string& location);
 
-		sf::RenderWindow window_;
+		static sf::RenderWindow window_;
 		sf::Event event_;
 
 	private:

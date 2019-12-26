@@ -103,8 +103,8 @@ void Application::handleEvents()
 		break;
 
 	// heavy menu loading
-	case GameMenu::MAIN_MENU:
 	case EditorLevel::MAIN_MENU:
+	case GameMenu::MAIN_MENU:
 		drawLoadingScreen(); // slower loading expected
 
 		delete currentLevel_;
@@ -133,6 +133,10 @@ void Application::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Application::drawLoadingScreen()
 {
+	// make sure view focuses on loading screen
+	ngin::MainLevel::view_.reset(sf::FloatRect{ 0, 0, 1920, 1080 }); // reset moved view
+	ngin::MainLevel::applyViewToWindow();
+
 	window_.draw(loadingScreen_);
 	window_.display();
 }

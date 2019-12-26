@@ -4,7 +4,8 @@
 
 Title: Serious Map2 // name of the map
 Theme: Winter // the tilemap texture type used
-TileSize: 32 // the size of tile textures
+TileWidth: 32 // the width of one tile in texture
+TileHeight: 32 // the height of one tile in texture
 
 // tiles' type and position
 <tiles>
