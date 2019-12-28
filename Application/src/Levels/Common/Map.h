@@ -9,15 +9,18 @@ public:
 
 	void setMapFile(const MapFile& mapFile);
 	
+	void setOrigin(const sf::Vector2f& origin);
 	void setPosition(const sf::Vector2f& position);
 	void setScale(const sf::Vector2f& scale);
 	// uses setScale()
 	void setSize(const sf::Vector2f& size);
+	void move(const sf::Vector2f& offset);
 
 	sf::FloatRect getLocalBounds() const { return vertexArray_.getBounds(); }
 	sf::Vector2f getPosition() const { return transformable_.getPosition(); }
-	sf::Vector2f getSize() const; // returns 'global bounds' size
+	sf::Vector2f getScaledSize() const; // returns 'global bounds' size
 	sf::Vector2f getScale() const { return transformable_.getScale(); }
+	sf::Vector2f getOrigin() const { return transformable_.getOrigin(); }
 
 protected:
 	sf::Vector2f getTileSize() { return tileSize_; } // defaults to none

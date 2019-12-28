@@ -18,11 +18,36 @@ void EditableMap::setMapFile(const MapFile& mapFile)
 
 	tileMark.setFillColor(sf::Color(255, 0, 0));
 	tileMark.setSize({Map::getTileSize().x * Map::getScale().x, Map::getTileSize().y * Map::getScale().y});
-	tileMark.setPosition({ Map::getPosition().x + Map::getSize().x, Map::getPosition().y + Map::getSize().y });
+	tileMark.setPosition({ Map::getPosition().x + Map::getScaledSize().x, Map::getPosition().y + Map::getScaledSize().y });
 }
 
 void EditableMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	Map::draw(target, states);
-	target.draw(tileMark);
+	// TODO: Fix This!
+	// target.draw(tileMark);
+}
+
+void EditableMap::setScale(const sf::Vector2f& scale)
+{
+	Map::setScale(scale);
+	tileMark.setScale(scale);
+}
+
+void EditableMap::setPosition(const sf::Vector2f& position)
+{
+	Map::setPosition(position);
+	tileMark.setPosition({ Map::getPosition().x + Map::getScaledSize().x, Map::getPosition().y + Map::getScaledSize().y });
+}
+
+void EditableMap::setOrigin(const sf::Vector2f& origin)
+{
+	Map::setOrigin(origin);
+	tileMark.setOrigin(origin);
+}
+
+void EditableMap::move(const sf::Vector2f& offset)
+{
+	Map::move(offset);
+	tileMark.move(offset);
 }

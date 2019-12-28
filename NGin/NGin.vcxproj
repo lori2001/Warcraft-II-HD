@@ -29,6 +29,7 @@
     <ClCompile Include="src\NGin\UserInterface\UIElement.cpp" />
     <ClCompile Include="src\NGin\Utilities\Align.cpp" />
     <ClCompile Include="src\NGin\Utilities\Bind.cpp" />
+    <ClCompile Include="src\NGin\Utilities\Vectors.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\NGin\Audio\Audio.h" />
@@ -54,6 +55,7 @@
     <ClInclude Include="src\NGin\Utilities\Align.h" />
     <ClInclude Include="src\NGin\UserInterface\UIElement.h" />
     <ClInclude Include="src\NGin\Utilities\Bind.h" />
+    <ClInclude Include="src\NGin\Utilities\Vectors.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\styles\warcraft\button.png" />

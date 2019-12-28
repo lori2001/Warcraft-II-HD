@@ -42,6 +42,11 @@ void Map::setMapFile(const MapFile& mapFile)
 	}
 }
 
+void Map::setOrigin(const sf::Vector2f& origin)
+{
+	transformable_.setOrigin(origin);
+}
+
 void Map::setPosition(const sf::Vector2f& position)
 {
 	transformable_.setPosition(position);
@@ -60,7 +65,12 @@ void Map::setSize(const sf::Vector2f& size)
 	setScale({ mapScale.x, mapScale.x });
 }
 
-sf::Vector2f Map::getSize() const
+void Map::move(const sf::Vector2f& offset)
+{
+	setPosition(ngin::addVec(getPosition(), offset));
+}
+
+sf::Vector2f Map::getScaledSize() const
 {
 	return { vertexArray_.getBounds().width  * transformable_.getScale().x,
 			 vertexArray_.getBounds().height * transformable_.getScale().y };

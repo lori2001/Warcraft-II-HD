@@ -42,6 +42,7 @@ namespace ngin
 		void setPosition(const sf::Vector2f& position);
 		void setSelectColor(const sf::Color& color);
 		void setSelectThickness(const float thickness);
+		void setOrigin(const sf::Vector2f& origin);
 		void setScale(const sf::Vector2f& scale);
 		void setCharacterSize(const unsigned size);
 		void setSize(const sf::Vector2f size);

@@ -27,28 +27,21 @@ void EditorLevel::setup()
 	fileDropdown_.setStatic(true);
 	// ---------------------------------------------
 
-	// --- Positions -------------------------------
-	fileDropdown_.setPosition({ 50, 5});
+	// --- Positions -------------------
+	fileDropdown_.setPosition({ 50 , 5 });
 	backButton_.setPosition({ 30, 980 });
-	// ---------------------------------------------
-
-	// --- Scales ----------------------------------
-	backButton_.setScale({ 1.5F, 1.5F });
-	editableMap_.setScale({ 2, 2 });
 	// ---------------------------------------------
 
 	// (re)set important bools
 	mapEditor_ = false;
 
-	// Map Editor setup
-	editableMap_.setPosition({ 0.0F , headerSprite_.getGlobalBounds().top + headerSprite_.getGlobalBounds().height });
+	NG_LOG_ERROR(headerSprite_.getGlobalBounds().top +
+		headerSprite_.getGlobalBounds().height);
+
 	GameDetails::mapFile.scanDir();
 
 	// change window background to a milder color
 	ngin::MainLevel::windowClearColor_ = { 50, 50, 50 };
-
-	// make view bindable so ui elements can stay always the same
-	ngin::Bindables::create("mainView", ngin::MainLevel::view_.getCenter());
 }
 
 void EditorLevel::handleEvents(const sf::Event& event)
@@ -68,11 +61,34 @@ void EditorLevel::handleEvents(const sf::Event& event)
 	{
 		mapEditor_ = true;
 		editableMap_.setMapFile(GameDetails::mapFile);
-
-		// make sure view focuses on newly loaded map
-		ngin::MainLevel::view_.reset(sf::FloatRect{ 0, 0, 1920, 1080 }); // reset moved view
+		
+		// (re)set presumably moved map
+		editorZoom_ = 2.0F;
+		editableMap_.setScale(ngin::ftoVec(editorZoom_));
+		editableMap_.setOrigin({ editableMap_.getLocalBounds().width / 2,
+			                     editableMap_.getLocalBounds().height / 2 });
+		editableMap_.setPosition({
+			editableMap_.getScaledSize().x / 2,
+			editableMap_.getScaledSize().y / 2 +
+			headerSprite_.getGlobalBounds().top +
+			headerSprite_.getGlobalBounds().height });
 
 		fileDropdown_.setActiveDrop(0);
+	}
+
+	// editor zoom
+	if (event.type == sf::Event::MouseWheelMoved)
+	{
+		editorZoom_ += event.mouseWheel.delta * editorZoomSpeed_;
+
+		if (editorZoom_ > editorMaxZoom_) {
+			editorZoom_ = editorMaxZoom_;
+		}
+		else if(editorZoom_ < editorMinZoom_){
+			editorZoom_ = editorMinZoom_;
+		}
+
+		editableMap_.setScale(ngin::ftoVec(editorZoom_));
 	}
 
 }
@@ -83,21 +99,17 @@ void EditorLevel::update()
 	{
 		// viewport movement
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-			ngin::MainLevel::view_.move({ -viewMoveSpeed * ngin::Timer::getDeltaTime(), 0 });
+			editableMap_.move({ editorMoveSpeed_ * ngin::Timer::getDeltaTime(), 0 });
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-			ngin::MainLevel::view_.move({ viewMoveSpeed * ngin::Timer::getDeltaTime(), 0 });
+			editableMap_.move({ -editorMoveSpeed_ * ngin::Timer::getDeltaTime(), 0 });
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-			ngin::MainLevel::view_.move({ 0, -viewMoveSpeed * ngin::Timer::getDeltaTime() });
+			editableMap_.move({ 0, editorMoveSpeed_ * ngin::Timer::getDeltaTime() });
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-			ngin::MainLevel::view_.move({ 0, viewMoveSpeed * ngin::Timer::getDeltaTime() });
+			editableMap_.move({ 0, -editorMoveSpeed_ * ngin::Timer::getDeltaTime() });
 		}
-
-		ngin::Bindables::bindPosition(fileDropdown_, "mainView", ngin::MainLevel::view_.getCenter());
-		ngin::Bindables::bindPosition(headerSprite_, "mainView", ngin::MainLevel::view_.getCenter());
-		ngin::Bindables::bindPosition(backButton_, "mainView", ngin::MainLevel::view_.getCenter());
 	}
 }
 

@@ -38,8 +38,12 @@ private:
 	bool mapEditor_;
 	EditableMap editableMap_;
 
-	float viewMoveSpeed = 225.0F;
+	float editorMoveSpeed_ = 225.0F;
+	float editorZoomSpeed_ = 0.2F;
+	float editorZoom_ = 2.0F;
+	float editorMaxZoom_ = 5.0F;
+	float editorMinZoom_ = 0.5F;
 
 	// Back
-	ngin::Button backButton_{ "", { 50, 50 } };
+	ngin::Button backButton_{ "", { 75, 75 } };
 };

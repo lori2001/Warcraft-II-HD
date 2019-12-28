@@ -111,6 +111,10 @@ namespace ngin
 	{
 		selectThickness_ = thickness;
 	}
+	void Button::setOrigin(const sf::Vector2f& origin) {
+		shape_.setOrigin(origin);
+		text_.setOrigin(origin);
+	}
 	void Button::setScale(const sf::Vector2f & scale)
 	{
 		shape_.setScale(scale);
