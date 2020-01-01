@@ -23,7 +23,7 @@ public:
 	sf::Vector2f getOrigin() const { return transformable_.getOrigin(); }
 
 protected:
-	sf::Vector2f getTileSize() { return tileSize_; } // defaults to none
+	sf::Vector2f getTileSize() const { return tileSize_; } // defaults to none
 	
 private:
 	std::shared_ptr<sf::Texture> mapTexture_; // singlas resources not to delete map by mistake

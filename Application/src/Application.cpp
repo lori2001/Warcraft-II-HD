@@ -32,7 +32,7 @@ Application::~Application()
 void Application::setup()
 {
 	// there is no reason to go above 60fps
-	window_.setFramerateLimit(60);
+	// window_.setFramerateLimit(60);
 
 	// load and set icon file
 	setWindowIcon("icon.png");
