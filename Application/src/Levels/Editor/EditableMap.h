@@ -7,7 +7,7 @@ class EditableMap : public Map {
 public:
 	EditableMap();
 
-	void setMapFile(const MapFile &mapFile);
+	bool setMapFile(const MapFile &mapFile);
 	void toolCalculations();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -20,6 +20,7 @@ public:
 
 	// Getters
 	bool getGridIsActive() { return gridIsActive_; }
+	sf::Vector2f getSelectedTilePos() { return selectedTile.getPosition(); }
 
 private:
 	struct Line {

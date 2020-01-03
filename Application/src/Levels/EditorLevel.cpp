@@ -6,12 +6,16 @@ void EditorLevel::setup()
 	// -- Textures -----------------------------------------------------
 	headerTexture_   = ngin::Resources::AcquireTexture("images/ui/header.png");
 	dropdownTexture_ = ngin::Resources::AcquireTexture("images/ui/dropdown.png");
-	leaveButtonTexture_   = ngin::Resources::AcquireTexture("images/ui/leave_button.png");
+	leaveButtonTexture_  = ngin::Resources::AcquireTexture("images/ui/leave_button.png");
+	gridSwitcherTexture_ = ngin::Resources::AcquireTexture("images/ui/grid_switcher.png");
+	painterSwitcherTexture_ = ngin::Resources::AcquireTexture("images/ui/paint_switcher.png");
 	font_ = ngin::Resources::AcquireFont("fonts/normal.ttf");
 
 	// reset cursor to OS-Default
 	ngin::Cursor::resetToDefault();
 
+	tilePainterSwitcher_.setTexture(*painterSwitcherTexture_);
+	gridSwitcher_.setTexture(*gridSwitcherTexture_);
 	backButton_.setTexture(*leaveButtonTexture_);
 	headerSprite_.setTexture(*headerTexture_);
 	fileDropdown_.setTexture(*dropdownTexture_);
@@ -27,13 +31,23 @@ void EditorLevel::setup()
 	fileDropdown_.setStatic(true);
 	// ---------------------------------------------
 
-	// --- Positions -------------------
-	fileDropdown_.setPosition({ 50 , 5 });
-	backButton_.setPosition({ 30, 980 });
+	// --- Scales ----------------------------------
+	gridSwitcher_.setScale(ngin::ftoVec(0.8F));
+	backButton_.setScale(ngin::ftoVec(0.8F));
+	tilePainterSwitcher_.setScale(ngin::ftoVec(0.8F));
+	// ---------------------------------------------
+
+	// --- Positions -------------------------------
+	gridSwitcher_.setPosition({ 1795, 10 });
+	tilePainterSwitcher_.setPosition({ 1700, 10 });
+	backButton_.setPosition({ 50, 10 });
+	fileDropdown_.setPosition({ 160 , 20 });
 	// ---------------------------------------------
 
 	// (re)set important bools
 	mapEditor_ = false;
+	gridSwitcher_.setIsActive(true);
+	tilePainterSwitcher_.setIsActive(false);
 
 	GameDetails::mapFile.scanDir();
 
@@ -59,23 +73,32 @@ void EditorLevel::handleEvents(const sf::Event& event)
 	// --- Loading events -----------------------------
 	if (fileDropdown_.getActiveDrop() == 2)
 	{
-		mapEditor_ = true;
-		editableMap_.setMapFile(GameDetails::mapFile);
+		// select and load file, if successful return true
+		if (editableMap_.setMapFile(GameDetails::mapFile))
+		{
+			mapEditor_ = true;
 
-		// make grid active by default
-		editableMap_.setGridIsActive(true);
-		
-		// (re)set presumably moved map
-		editorZoom_ = 2.0F;
-		editableMap_.setScale(ngin::ftoVec(editorZoom_));
-		editableMap_.setOrigin({ editableMap_.getLocalBounds().width / 2,
-			                     editableMap_.getLocalBounds().height / 2 });
-		editableMap_.setPosition({
-			editableMap_.getScaledSize().x / 2,
-			editableMap_.getScaledSize().y / 2 +
-			headerSprite_.getGlobalBounds().top +
-			headerSprite_.getGlobalBounds().height });
+			// make grid active by default
+			editableMap_.setGridIsActive(true);
 
+			// (re)set presumably moved map
+			editorZoom_ = 2.0F;
+			editableMap_.setScale(ngin::ftoVec(editorZoom_));
+			editableMap_.setOrigin({ editableMap_.getLocalBounds().width / 2,
+									 editableMap_.getLocalBounds().height / 2 });
+			editableMap_.setPosition({
+				editableMap_.getScaledSize().x / 2,
+				editableMap_.getScaledSize().y / 2 +
+				headerSprite_.getGlobalBounds().top +
+				headerSprite_.getGlobalBounds().height });
+
+			tilePainter_.setupWithTheme(
+				GameDetails::mapFile.getThemeLocation(),
+				GameDetails::mapFile.getTileSize());
+
+			// default position
+			tilePainter_.setPosition({ 1520, 80 });
+		}
 		fileDropdown_.setActiveDrop(0);
 	}
 	// ------------------------------------------------
@@ -95,6 +118,20 @@ void EditorLevel::handleEvents(const sf::Event& event)
 			}
 
 			editableMap_.setScale(ngin::ftoVec(editorZoom_));
+		}
+		// grid enable/disable logic
+		gridSwitcher_.handleEvents(event, ngin::Cursor::getPosition());
+		if (gridSwitcher_.isActive()) {
+			editableMap_.setGridIsActive(true);
+		}
+		else {
+			editableMap_.setGridIsActive(false);
+		}
+
+		// map painter enable/disable logic
+		tilePainterSwitcher_.handleEvents(event, ngin::Cursor::getPosition());
+		if (tilePainterSwitcher_.isActive()) {
+			tilePainter_.handleEvents(event, ngin::Cursor::getPosition());
 		}
 	}
 	// ------------------------------------------------
@@ -134,6 +171,15 @@ void EditorLevel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(headerSprite_);
 	target.draw(fileDropdown_);
 	target.draw(backButton_);
+
+	if (mapEditor_) {
+		target.draw(gridSwitcher_);
+		target.draw(tilePainterSwitcher_);
+		if (tilePainterSwitcher_.isActive())
+		{
+			target.draw(tilePainter_);
+		}
+	}
 }
 
 void EditorLevel::setupUIStyle(const sf::Font& font, const unsigned fontSize, const sf::Color& themeColor)
@@ -148,4 +194,9 @@ void EditorLevel::setupUIStyle(const sf::Font& font, const unsigned fontSize, co
 	fileDropdown_.setTextColor(themeColor);
 	fileDropdown_.setSelectColor(themeColor);
 	fileDropdown_.setHighlightColor({ themeColor.r, themeColor.g, themeColor.b, 80 });
+
+	gridSwitcher_.setSelectColor(themeColor);
+	tilePainterSwitcher_.setSelectColor(themeColor);
+
+	tilePainter_.setupUIStyle(font, fontSize, themeColor);
 }

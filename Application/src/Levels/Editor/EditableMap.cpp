@@ -3,10 +3,10 @@
 
 EditableMap::EditableMap()
 {
-	selectedTile.setFillColor(sf::Color(255,255,0,100));
+	selectedTile.setFillColor(sf::Color(255,255,0,70));
 }
 
-void EditableMap::setMapFile(const MapFile& mapFile)
+bool EditableMap::setMapFile(const MapFile& mapFile)
 {
 	nfdchar_t* outPath = NULL;
 	nfdresult_t result = NFD_OpenDialog("mapfile", GameDetails::mapFile.getFolderPath().c_str(), &outPath);
@@ -17,9 +17,14 @@ void EditableMap::setMapFile(const MapFile& mapFile)
 	}
 	else if (result == NFD_ERROR) {
 		NG_LOG_ERROR("Error: %s\n", NFD_GetError());
+		return false;
+	}
+	else {
+		return false;
 	}
 
 	Map::setMapFile(GameDetails::mapFile);
+	return true;
 }
 
 void EditableMap::toolCalculations()
@@ -62,6 +67,7 @@ void EditableMap::toolCalculations()
 	}
 	// ------------------------------------------------------------
 
+	// --- Selected Tile ------------------------------------------
 	// Number of tiles behind cursor
 	sf::Vector2f tilesBehind =
 		ngin::divVec(ngin::subsVec(ngin::Cursor::getPosition(), distFromStart), lineDistance);;
@@ -72,6 +78,7 @@ void EditableMap::toolCalculations()
 	
 	selectedTile.setSize(lineDistance);
 	selectedTile.setPosition(selectedPosition);
+	// ------------------------------------------------------------
 }
 
 void EditableMap::draw(sf::RenderTarget& target, sf::RenderStates states) const

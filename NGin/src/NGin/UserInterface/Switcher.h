@@ -25,7 +25,7 @@ namespace ngin {
 		void setMarkColor(const sf::Color& color);
 		void setButtonColor(const sf::Color& color);
 		void setSelectColor(const sf::Color& color);
-		void setisActive(const bool active);
+		void setIsActive(const bool active);
 		void setDisabled(const bool isDisabled);
 
 		bool isActive() const { return isActive_; }

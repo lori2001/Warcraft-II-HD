@@ -95,6 +95,7 @@
     <ClCompile Include="src\Levels\Common\Map.cpp" />
     <ClCompile Include="src\Levels\EditorLevel.cpp" />
     <ClCompile Include="src\Levels\Editor\EditableMap.cpp" />
+    <ClCompile Include="src\Levels\Editor\TilePainter.cpp" />
     <ClCompile Include="src\Levels\GameLevel.cpp" />
     <ClCompile Include="src\Levels\Game\GameMenu\GameMenu.cpp" />
     <ClCompile Include="src\Levels\Game\GameMenu\GameSettings.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="src\Levels\Common\Player.h" />
     <ClInclude Include="src\Levels\EditorLevel.h" />
     <ClInclude Include="src\Levels\Editor\EditableMap.h" />
+    <ClInclude Include="src\Levels\Editor\TilePainter.h" />
     <ClInclude Include="src\Levels\GameLevel.h" />
     <ClInclude Include="src\Levels\Game\GameMenu\GameMenu.h" />
     <ClInclude Include="src\Levels\Game\GameMenu\GameSettings.h" />

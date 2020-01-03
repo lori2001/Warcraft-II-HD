@@ -79,7 +79,7 @@ namespace ngin {
 	{
 		button_.setSelectColor(color);
 	}
-	void Switcher::setisActive(const bool active)
+	void Switcher::setIsActive(const bool active)
 	{
 		isActive_ = active;
 		mark_.setTextureRect({
