@@ -92,9 +92,7 @@ void EditorLevel::handleEvents(const sf::Event& event)
 				headerSprite_.getGlobalBounds().top +
 				headerSprite_.getGlobalBounds().height });
 
-			tilePainter_.setupWithTheme(
-				GameDetails::mapFile.getThemeLocation(),
-				GameDetails::mapFile.getTileSize());
+			tilePainter_.setup();
 
 			// default position
 			tilePainter_.setPosition({ 1520, 80 });

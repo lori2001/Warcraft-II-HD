@@ -21,12 +21,13 @@ namespace ngin
 		static void destroyUnused();
 
 		// changes default load-in location
-		static void setLocation(const std::string& loc) { location = loc; }
+		static void setLocation(const std::string& loc) { location_ = loc; }
+		static std::string getLocation() { return location_; }
 
 	private:
 		static std::unordered_map<std::string, std::shared_ptr<sf::Texture>> textures_;
 		static std::unordered_map<std::string, std::shared_ptr<sf::Font>> fonts_;
 		static std::unordered_map<std::string, std::shared_ptr<sf::SoundBuffer>> soundBuffers_;
-		static std::string location;
+		static std::string location_;
 	};
 }
