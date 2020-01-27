@@ -44,7 +44,7 @@ namespace ngin {
 		void setWindowIcon(const std::string& location);
 
 		static sf::RenderWindow window_;
-		sf::Event event_;
+		sf::Event event_{};
 
 	private:
 		sf::VideoMode saveVideoMode_ = windowVideoMode_;

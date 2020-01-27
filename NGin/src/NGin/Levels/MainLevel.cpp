@@ -3,10 +3,10 @@
 
 namespace ngin {
 	sf::View MainLevel::view_ = sf::View{ sf::FloatRect{0, 0, 1920, 1080} }; // default view is full HD
-	sf::VideoMode MainLevel::windowVideoMode_{ 1000, 600 };
-	sf::String MainLevel::windowName_ = "My Application";
-	sf::Color MainLevel::windowClearColor_ = sf::Color(0, 0, 0);
-	WINDOW_TYPE MainLevel::windowType_ = WINDOW_TYPE::WINDOW_UNRESIZEABLE;
+	sf::VideoMode MainLevel::windowVideoMode_{ 1000, 600 }; // default window size fits all modern screens
+	sf::String MainLevel::windowName_ = "My Application"; // defualt name
+	sf::Color MainLevel::windowClearColor_ = sf::Color(0, 0, 0); // default screen clear color
+	WINDOW_TYPE MainLevel::windowType_ = WINDOW_TYPE::WINDOW_UNRESIZEABLE; // default window type
 	
 	sf::RenderWindow MainLevel::window_;
 	bool MainLevel::hasFocus_ = true; // assumes window has focus by default

@@ -18,7 +18,7 @@ namespace ngin
 				shape_.setOutlineThickness(selectThickness_);
 
 				if (event.mouseButton.button == sf::Mouse::Left) {
-					if (event.type == sf::Event::MouseButtonPressed)
+					if (event.type == sf::Event::MouseButtonPressed && !isPressed_)
 					{
 						isPressed_ = true;
 

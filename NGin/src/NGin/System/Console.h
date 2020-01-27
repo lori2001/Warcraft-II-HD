@@ -113,6 +113,9 @@ namespace ngin
 #define NG_LOG_ONCE_ERROR(...)
 #endif // NG_CONSOLE_NOPRINT
 
+
+// disable Console functions
 // #ifndef _DEBUG
 // ShowWindow(GetConsoleWindow(), SW_HIDE);
+// #define NG_CONSOLE_NOPRINT
 // #endif

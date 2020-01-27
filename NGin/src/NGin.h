@@ -30,6 +30,7 @@
 #include "NGin/UserInterface/Button.h"
 #include "NGin/UserInterface/Dropdown.h"
 #include "NGin/UserInterface/InputText.h"
+#include "NGin/UserInterface/ScrollBox.h"
 #include "NGin/UserInterface/Slider.h" // includes Button.h
 #include "NGin/UserInterface/Switcher.h" // includes Button.h
 

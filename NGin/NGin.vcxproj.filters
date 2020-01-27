@@ -72,6 +72,9 @@
     <ClCompile Include="src\NGin\Utilities\Vectors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\NGin\UserInterface\ScrollBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\NGin\System\Console.h">
@@ -144,6 +147,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\NGin\Utilities\Vectors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\NGin\UserInterface\ScrollBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

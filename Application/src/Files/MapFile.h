@@ -16,6 +16,7 @@ public:
 	std::string getFolderPath() const { return folderPath_; }
 	std::string getThemeLocation() const { return themeLocation_; }
 	std::string getMapName() const { return title_; }
+	// returns size of ONE tile
 	sf::Vector2f getTileSize() const { return tileSize_; }
 	int getNumberOfMaps() const { return static_cast<int>(paths_.size()); }
 	int getNRows() const { return static_cast<int>(tiles_.size()); }

@@ -30,4 +30,12 @@ namespace ngin
 		static std::unordered_map<std::string, std::shared_ptr<sf::SoundBuffer>> soundBuffers_;
 		static std::string location_;
 	};
+
+#define NG_TEXTURE_PTR(location) ngin::Resources::AcquireTexture(location)
+#define NG_FONT_PTR(location) ngin::Resources::AcquireFont(location)
+#define NG_SOUNDBUFFER_PTR(location) ngin::Resources::AcquireSoundBuffer(location)
+
+#define NG_TEXTURE(location) *ngin::Resources::AcquireTexture(location)
+#define NG_FONT(location) *ngin::Resources::AcquireFont(location)
+#define NG_SOUNDBUFFER(location) *ngin::Resources::AcquireSoundBuffer(location)
 }

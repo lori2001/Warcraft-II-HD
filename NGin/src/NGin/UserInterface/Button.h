@@ -9,7 +9,7 @@ namespace ngin
 	public:
 		Button(const sf::Vector2f& size) {
 			shape_.setSize(size);
-			selectThickness_ = 3.499F;
+			selectThickness_ = 2.5F;
 		}
 		Button(const sf::Vector2f& size, const sf::Texture& texture) : Button(size) {
 			this->setTexture(texture);

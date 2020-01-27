@@ -104,7 +104,7 @@ void EditorLevel::handleEvents(const sf::Event& event)
 	// --- Map editor events --------------------------
 	if (mapEditor_) {
 		// map editor zoom
-		if (event.type == sf::Event::MouseWheelMoved)
+		if (event.type == sf::Event::MouseWheelMoved && !tilePainter_.isFocused())
 		{
 			editorZoom_ += event.mouseWheel.delta * editorZoomSpeed_;
 
@@ -115,7 +115,21 @@ void EditorLevel::handleEvents(const sf::Event& event)
 				editorZoom_ = editorMinZoom_;
 			}
 
+			sf::Vector2f scaleBefore = editableMap_.getScale();
 			editableMap_.setScale(ngin::ftoVec(editorZoom_));
+
+			/*
+			if (scaleBefore != editableMap_.getScale()) {
+				// decide upon the proper direction of moving
+				sf::Vector2f sign = { 1.0F, 1.0F };
+				if (editableMap_.getPosition().x > ngin::MainLevel::view_.getCenter().x)
+					sign.x = -1.0F;
+				if (editableMap_.getPosition().y > ngin::MainLevel::view_.getCenter().y)
+					sign.y = -1.0F;
+
+				const float moveSpeed = 10.0F;
+				editableMap_.move(ngin::multiplyVec(sign, moveSpeed));
+			}*/
 		}
 		// grid enable/disable logic
 		gridSwitcher_.handleEvents(event, ngin::Cursor::getPosition());
