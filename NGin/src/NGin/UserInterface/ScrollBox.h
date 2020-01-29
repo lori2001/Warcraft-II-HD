@@ -46,8 +46,25 @@ namespace ngin {
 		// -- positions outside of bounds will result in warning message and false return
 		// -- makes ScrollBox responsible for drawing the object passed in
 		bool addElement(sf::RectangleShape& rectangle, const sf::Vector2f& relativePosition);
+		// add elements to scrollbox by this
+		// arg1: an sfml text
+		// arg2: the position relative to the inside of scrollbox
+		// -- positions outside of bounds will result in warning message and false return
+		// -- makes ScrollBox responsible for drawing the object passed in
+		bool addElement(sf::Text& text, const sf::Vector2f& relativePosition);
+		// -- keeps the current position as if inputed in relativePosition
+		// -- DO NOT set position to elements passed to this function
+		bool addElement(sf::Text& text);
+		// -- keeps the current position as if inputed in relativePosition
+		// -- DO NOT set position to elements passed to this function
+		bool addElement(sf::RectangleShape& rectangle);
+
 		// deletes all elements off of subsRects_ vector
-		void clearElements() { subsRects_.clear(); }
+		void clearRectangles() { subsRects_.clear(); }
+		// deletes all elements off of subsTexts_ vector
+		void clearTexts() { subsTexts_.clear(); }
+		// deletes all elements off of subsRects_ and subsTexts_ vector
+		void clearElements() { clearRectangles(); clearTexts(); }
 
 		void setXScrollerSize(const sf::Vector2f& size) { Xscroller_.setSize(size); }
 		void setYScrollerSize(const sf::Vector2f& size) { Yscroller_.setSize(size); }
@@ -110,5 +127,10 @@ namespace ngin {
 		std::vector<sf::RectangleShape*> subsRects_;
 		// contains position relative to scrollbox inside
 		std::vector<sf::Vector2f> subsRectPositions_;
+
+		// rectangle subscriptions
+		std::vector<sf::Text*> subsTexts_;
+		// contains position relative to scrollbox inside
+		std::vector<sf::Vector2f> subsTextPositions_;
 	};
 }

@@ -3,7 +3,7 @@
 
 EditableMap::EditableMap()
 {
-	selectedTile.setFillColor(sf::Color(255,255,0,70));
+	selectedTile_.setFillColor(sf::Color(255,255,0,80));
 }
 
 bool EditableMap::setMapFile(const MapFile& mapFile)
@@ -27,28 +27,47 @@ bool EditableMap::setMapFile(const MapFile& mapFile)
 	return true;
 }
 
-void EditableMap::toolCalculations()
+void EditableMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	Map::draw(target, states);
+
+	if (drawSelected_) {
+		target.draw(selectedTile_);
+	}
+
+	if (gridIsActive_) {
+		for (int i = 0; i < int(gridLines_.size()); i++) {
+			sf::Vertex line[] = {
+				gridLines_[i].point1,
+				gridLines_[i].point2
+			};
+			target.draw(line, 2, sf::Lines);
+		}
+	}
+}
+
+void EditableMap::updateGrid()
 {
 	// --- Grid Calculations --------------------------------------
 	// deletes old grid lines before recalculating them
-	sf::Vector2f topLeft = {
+	topLeft_ = {
 		getPosition().x - getScaledSize().x / 2, getPosition().y - getScaledSize().y / 2 };
-	sf::Vector2f bottomRight = {
+	bottomRight_ = {
 		getPosition().x + getScaledSize().x / 2, getPosition().y + getScaledSize().y / 2 };
 
-	sf::Vector2f lineDistance = {
+	lineDistance_ = {
 		Map::getTileSize().x * Map::getScale().x,
 		Map::getTileSize().y * Map::getScale().y };
 
-	sf::Vector2f numOfTiles = ngin::divVec(topLeft, lineDistance);
+	numOfTiles_ = ngin::divVec(topLeft_, lineDistance_);
 
-	sf::Vector2f distFromStart = { topLeft.x - lineDistance.x * static_cast<int>(numOfTiles.x),
-								   topLeft.y - lineDistance.y * static_cast<int>(numOfTiles.y) };
+	distFromStart_ = { topLeft_.x - lineDistance_.x * static_cast<int>(numOfTiles_.x),
+	   			      topLeft_.y - lineDistance_.y * static_cast<int>(numOfTiles_.y) };
 
 	if (gridIsActive_) {
 		gridLines_.clear();
 
-		for (float x = distFromStart.x; x <= ngin::MainLevel::view_.getSize().x; x += lineDistance.x) {
+		for (float x = distFromStart_.x; x <= ngin::MainLevel::view_.getSize().x; x += lineDistance_.x) {
 			Line XLine{
 				sf::Vertex(sf::Vector2f(x, 0)),
 				sf::Vertex(sf::Vector2f(x, ngin::MainLevel::view_.getSize().y))
@@ -56,7 +75,7 @@ void EditableMap::toolCalculations()
 
 			gridLines_.push_back(XLine);
 		}
-		for (float y = distFromStart.y; y <= ngin::MainLevel::view_.getSize().y; y += lineDistance.y) {
+		for (float y = distFromStart_.y; y <= ngin::MainLevel::view_.getSize().y; y += lineDistance_.y) {
 			Line YLine{
 				sf::Vertex(sf::Vector2f(0, y)),
 				sf::Vertex(sf::Vector2f(ngin::MainLevel::view_.getSize().x, y))
@@ -66,35 +85,36 @@ void EditableMap::toolCalculations()
 		}
 	}
 	// ------------------------------------------------------------
-
-	// --- Selected Tile ------------------------------------------
-	// Number of tiles behind cursor
-	sf::Vector2f tilesBehind =
-		ngin::divVec(ngin::subsVec(ngin::Cursor::getPosition(), distFromStart), lineDistance);;
-
-	// exat position of the highlight
-	sf::Vector2f selectedPosition = { distFromStart.x + lineDistance.x * static_cast<int>(tilesBehind.x),
-									  distFromStart.y + lineDistance.y * static_cast<int>(tilesBehind.y) };
-	
-	selectedTile.setSize(lineDistance);
-	selectedTile.setPosition(selectedPosition);
-	// ------------------------------------------------------------
 }
 
-void EditableMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void EditableMap::handleEvents(const sf::Event& event, const TilePainter& tilePainter)
 {
-	Map::draw(target, states);
-	target.draw(selectedTile);
+	if (isFocused_) {
 
-	if (gridIsActive_) {
-		for (int i = 0; i < gridLines_.size(); i++) {
-			sf::Vertex line[] = {
-				gridLines_[i].point1,
-				gridLines_[i].point2
-			};
-			target.draw(line, 2, sf::Lines);
+		// --- Selected Tile ------------------------------------------
+		// Number of tiles behind cursor
+		sf::Vector2f tilesBehind =
+			ngin::divVec(ngin::subsVec(ngin::Cursor::getPosition(), distFromStart_), lineDistance_);;
+
+		// exat position of the highlight
+		sf::Vector2f selectedPosition = { distFromStart_.x + lineDistance_.x * static_cast<int>(tilesBehind.x),
+										  distFromStart_.y + lineDistance_.y * static_cast<int>(tilesBehind.y) };
+
+		drawSelected_ = true;
+		selectedTile_.setSize(lineDistance_);
+		selectedTile_.setPosition(selectedPosition);
+
+		if (event.mouseButton.button == sf::Mouse::Left &&
+			event.type == sf::Event::MouseButtonReleased)
+		{
+			NG_LOG_ERROR(tilePainter.usingTile());
 		}
+		// ------------------------------------------------------------
 	}
+	else {
+		drawSelected_ = false;
+	}
+
 }
 
 void EditableMap::setScale(const sf::Vector2f& scale)

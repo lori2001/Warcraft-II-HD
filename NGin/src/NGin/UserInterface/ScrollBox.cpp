@@ -194,6 +194,19 @@ namespace ngin {
 				target.draw(*it);
 			}
 		}
+
+		for (auto it : subsTexts_) {
+			// draw only if container "contains" the text
+			if (container_.getPosition().x < it->getPosition().x &&
+				container_.getPosition().y < it->getPosition().y &&
+				container_.getPosition().x + container_.getGlobalBounds().width >
+				it->getPosition().x + it->getGlobalBounds().width &&
+				container_.getPosition().y + container_.getGlobalBounds().height >
+				it->getPosition().y + it->getGlobalBounds().height)
+			{
+				target.draw(*it);
+			}
+		}
 	}
 
 	bool ScrollBox::addElement(sf::RectangleShape& rectangle, const sf::Vector2f& relativePosition)
@@ -206,9 +219,7 @@ namespace ngin {
 		{
 			NG_LOG_WARN("Rectangle nr.", subsRects_.size() - 1,
 				" subscribed to scrollbox nr.", getElementIndex(),
-				" with position{", relativePosition.x, ", ", relativePosition.y, "} out of bounds");
-
-			rectangle.setPosition({0, 0});
+				" with position{", relativePosition.x, ", ", relativePosition.y, "} out of reach");
 
 			return false;
 		}
@@ -219,6 +230,42 @@ namespace ngin {
 		});
 
 		return true;
+	}
+
+	bool ScrollBox::addElement(sf::Text& text, const sf::Vector2f& relativePosition)
+	{
+		subsTexts_.push_back(&text);
+		subsTextPositions_.push_back({ relativePosition });
+
+		// TODO: FIX THIS SHIT
+		if (relativePosition.x + text.getGlobalBounds().width > insideSize_.x ||
+			relativePosition.y +
+			text.getGlobalBounds().height -
+			text.getGlobalBounds().top > insideSize_.y)
+		{
+			NG_LOG_WARN("Text nr.", subsTexts_.size() - 1,
+				" subscribed to scrollbox nr.", getElementIndex(),
+				" with position{", relativePosition.x, ", ", relativePosition.y, "} out of reach");
+
+			return false;
+		}
+
+		text.setPosition({
+			container_.getPosition().x + relativePosition.x,
+			container_.getPosition().y + relativePosition.y
+			});
+
+		return true;
+	}
+
+	bool ScrollBox::addElement(sf::Text& text)
+	{
+		return addElement(text, text.getPosition());
+	}
+
+	bool ScrollBox::addElement(sf::RectangleShape& rectangle)
+	{
+		return addElement(rectangle, rectangle.getPosition());
 	}
 
 	void ScrollBox::setTexture(const sf::Texture& texture)
@@ -282,10 +329,16 @@ namespace ngin {
 		// right side
 		Yscroller_.setPosition({ position.x + Yoffset.x, position.y + Yoffset.y });
 
-		for (int i = 0; i < subsRects_.size(); i++) {
+		for (int i = 0; i < static_cast<int>(subsRects_.size()); i++) {
 			subsRects_[i]->setPosition({
 				position.x + subsRectPositions_[i].x - (scrollPercent_.x * (insideSize_.x - outsideSize_.x)),
 				position.y + subsRectPositions_[i].y - (scrollPercent_.y * (insideSize_.y - outsideSize_.y))
+			});
+		}
+		for (int i = 0; i < static_cast<int>(subsTexts_.size()); i++) {
+			subsTexts_[i]->setPosition({
+				position.x + subsTextPositions_[i].x - (scrollPercent_.x * (insideSize_.x - outsideSize_.x)),
+				position.y + subsTextPositions_[i].y - (scrollPercent_.y * (insideSize_.y - outsideSize_.y))
 			});
 		}
 	}

@@ -36,6 +36,7 @@ private:
 	// Toolbar
 	sf::Sprite headerSprite_;
 	ngin::Dropdown fileDropdown_{ { 277, 40 } };
+	bool toolbarHasFocus_ = false;
 
 	// Navigation
 	float editorMoveSpeed_ = 225.0F;

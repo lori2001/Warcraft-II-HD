@@ -4,9 +4,9 @@
 void EditorLevel::setup()
 {
 	// -- Textures -----------------------------------------------------
-	headerTexture_   = ngin::Resources::AcquireTexture("images/ui/header.png");
+	headerTexture_ = ngin::Resources::AcquireTexture("images/ui/header.png");
 	dropdownTexture_ = ngin::Resources::AcquireTexture("images/ui/dropdown.png");
-	leaveButtonTexture_  = ngin::Resources::AcquireTexture("images/ui/leave_button.png");
+	leaveButtonTexture_ = ngin::Resources::AcquireTexture("images/ui/leave_button.png");
 	gridSwitcherTexture_ = ngin::Resources::AcquireTexture("images/ui/grid_switcher.png");
 	painterSwitcherTexture_ = ngin::Resources::AcquireTexture("images/ui/paint_switcher.png");
 	font_ = ngin::Resources::AcquireFont("fonts/normal.ttf");
@@ -70,6 +70,15 @@ void EditorLevel::handleEvents(const sf::Event& event)
 	}
 	// ------------------------------------------------
 
+	// --- Toolbar Focus ------------------------------
+	if (headerSprite_.getGlobalBounds().contains(ngin::Cursor::getPosition())) {
+		toolbarHasFocus_ = true;
+	}
+	else {
+		toolbarHasFocus_ = false;
+	}
+	// ------------------------------------------------
+
 	// --- Loading events -----------------------------
 	if (fileDropdown_.getActiveDrop() == 2)
 	{
@@ -103,8 +112,11 @@ void EditorLevel::handleEvents(const sf::Event& event)
 
 	// --- Map editor events --------------------------
 	if (mapEditor_) {
+		// painting events
+		editableMap_.handleEvents(event, tilePainter_);
+		
 		// map editor zoom
-		if (event.type == sf::Event::MouseWheelMoved && !tilePainter_.isFocused())
+		if (event.type == sf::Event::MouseWheelMoved && editableMap_.isFocused())
 		{
 			editorZoom_ += event.mouseWheel.delta * editorZoomSpeed_;
 
@@ -117,19 +129,6 @@ void EditorLevel::handleEvents(const sf::Event& event)
 
 			sf::Vector2f scaleBefore = editableMap_.getScale();
 			editableMap_.setScale(ngin::ftoVec(editorZoom_));
-
-			/*
-			if (scaleBefore != editableMap_.getScale()) {
-				// decide upon the proper direction of moving
-				sf::Vector2f sign = { 1.0F, 1.0F };
-				if (editableMap_.getPosition().x > ngin::MainLevel::view_.getCenter().x)
-					sign.x = -1.0F;
-				if (editableMap_.getPosition().y > ngin::MainLevel::view_.getCenter().y)
-					sign.y = -1.0F;
-
-				const float moveSpeed = 10.0F;
-				editableMap_.move(ngin::multiplyVec(sign, moveSpeed));
-			}*/
 		}
 		// grid enable/disable logic
 		gridSwitcher_.handleEvents(event, ngin::Cursor::getPosition());
@@ -144,6 +143,12 @@ void EditorLevel::handleEvents(const sf::Event& event)
 		tilePainterSwitcher_.handleEvents(event, ngin::Cursor::getPosition());
 		if (tilePainterSwitcher_.isActive()) {
 			tilePainter_.handleEvents(event, ngin::Cursor::getPosition());
+			// editable map focus
+			editableMap_.checkIfFocused(toolbarHasFocus_, tilePainter_.isFocused());
+		}
+		else {
+			editableMap_.checkIfFocused(toolbarHasFocus_);
+			tilePainter_.resetUsingTile();
 		}
 	}
 	// ------------------------------------------------
@@ -169,7 +174,7 @@ void EditorLevel::update()
 				editableMap_.move({ 0, -editorMoveSpeed_ * ngin::Timer::getDeltaTime() });
 			}
 
-			editableMap_.toolCalculations();
+			editableMap_.updateGrid();
 		}
 	}
 }

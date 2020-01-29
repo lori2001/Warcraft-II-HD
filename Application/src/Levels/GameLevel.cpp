@@ -65,12 +65,10 @@ void GameLevel::handleEvents(const sf::Event& event)
 		// -------------------------------------------
 	}
 
-	testSoldier.handleEvents(event, ngin::Cursor::getPosition());
 }
 
 void GameLevel::update()
 {
-	testSoldier.animate(ngin::Timer::getDeltaTime());
 }
 
 void GameLevel::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -80,8 +78,6 @@ void GameLevel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	if (menuIsActive)
 		target.draw(*menu_);
-
-	target.draw(testSoldier);
 }
 
 void GameLevel::setupUIStyle(const sf::Font& font, const unsigned fontSize, const sf::Color& themeColor)

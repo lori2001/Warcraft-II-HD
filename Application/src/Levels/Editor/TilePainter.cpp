@@ -5,7 +5,7 @@ void TilePainter::setup()
 {
 	// --- Load Textures -------------------------
 	scrollBoxTexture_ = NG_TEXTURE_PTR("images/ui/scrollbox.png");
-	themeTexture_ = ngin::Resources::AcquireTexture(GameDetails::mapFile.getThemeLocation());
+	themeTexture_ = NG_TEXTURE_PTR(GameDetails::mapFile.getThemeLocation());
 	// -------------------------------------------
 
 	// --- Set Textures And Fonts ----------------
@@ -19,6 +19,7 @@ void TilePainter::setup()
 	// make sure tiles' vectors are empty
 	tiles_.clear();
 	tileIndexes_.clear();
+	tileIndexTexts_.clear(); // clear display index texts
 	const sf::Vector2f tileSize = GameDetails::mapFile.getTileSize();
 	int i = 0;
 	for (float y = 0; y <= themeTexture_->getSize().y - tileSize.y; y += tileSize.y + 1)
@@ -26,9 +27,10 @@ void TilePainter::setup()
 		for (float x = 0; x <= themeTexture_->getSize().x - tileSize.x; x += tileSize.x + 1)
 		{
 			// only set if pixels are not empty
-			if (static_cast<int>(analyzer.getPixel(x, y).a) != 0)
+			if (static_cast<int>(analyzer.getPixel(static_cast<unsigned>(x), static_cast<unsigned>(y)).a) != 0)
 			{
 				tiles_.push_back(sf::RectangleShape{});
+				tileIndexTexts_.push_back(sf::Text{});
 				tileIndexes_.push_back(i);
 
 				tiles_.back().setTexture(&*themeTexture_);
@@ -40,38 +42,59 @@ void TilePainter::setup()
 				tiles_.back().setSize(tileSize);
 				tiles_.back().setScale({ ngin::ftoVec(tilesScale_) });
 				tiles_.back().setOutlineColor(selectionColor_);
+
+				// inherit text style from title
+				tileIndexTexts_.back().setFont(*title_.getFont());
+				tileIndexTexts_.back().setCharacterSize(title_.getCharacterSize() - 5);
+				tileIndexTexts_.back().setFillColor(title_.getFillColor());
+				tileIndexTexts_.back().setString(std::to_string(i)); // set string to index
 			}
 			i++;
 		}
 	}
 	// -------------------------------------------
 
-	// -- Add tiles to ScrollBox -----------------
 	// WARNING: overwrites positon properties
 	// WARNING: makes scrollbox responsible for drawing tiles-vector*/
 	scrollBox_.clearElements(); // clear non-valid pointers
 
+	// -- Add title to scrollBox ------------------
+	title_.setString("Tile Painter");
+	ngin::centerTextInBounds(title_, scrollBox_.getGlobalBounds(),
+		50 - scrollBox_.getGlobalBounds().height / 2);
+	scrollBox_.addElement(title_);
+	// -------------------------------------------
+
+	// -- Add rectangles to ScrollBox ------------
 	const float tilesHeight = tilesTopGap_ + tilesOffset_.y * ((tiles_.size() - 1) / tilesRows_) +
 		(GameDetails::mapFile.getTileSize().y * tilesScale_);
 
 	scrollBox_.setInsideSize({ scrollBox_.getOutsideSize().x, tilesHeight + 50 });
-
-	for (int i = 0; i < tiles_.size(); i++) {
-
+	
+	for (int i = 0; i < int(tiles_.size()); i++)
+	{
 		sf::Vector2f currTilePosition =
 			   { tilesLeftGap_ + tilesOffset_.x * (i % tilesRows_),
 				 tilesTopGap_  + tilesOffset_.y * (i / tilesRows_) };
 
-		scrollBox_.addElement(tiles_[i], currTilePosition);
+		scrollBox_.addElement(tiles_[i], currTilePosition); // add tile
+		scrollBox_.addElement(tileIndexTexts_[i], { currTilePosition.x, currTilePosition.y - 18 }); // add tile text
 	}
-	scrollBox_.setScrollSpeed(0.05F);
 	// -------------------------------------------
+
+	// --- Other Properties --------------
+	scrollBox_.setScrollSpeed(0.03F);
+	// -----------------------------------
 }
 
 void TilePainter::setupUIStyle(const sf::Font& font, const unsigned fontSize, const sf::Color& themeColor)
 {
 	scrollBox_.setSelectColor(themeColor);
 	selectionColor_ = themeColor;
+
+	title_.setFont(font);
+	title_.setCharacterSize(fontSize);
+	title_.setFillColor(themeColor);
 }
 
 void TilePainter::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -83,12 +106,25 @@ void TilePainter::handleEvents(const sf::Event& event, const sf::Vector2f& mouse
 {
 	scrollBox_.handleEvents(event, mouse);
 	
-	for (auto& it : tiles_) {
-		if (it.getGlobalBounds().intersects(sf::FloatRect(mouse, { 1,1 }))) {
-			it.setOutlineThickness(selectionThickness_);
+	for (int i = 0; i < tiles_.size(); i++) {
+		if (tiles_[i].getGlobalBounds().intersects(sf::FloatRect(mouse, { 1,1 }))) {
+			tiles_[i].setOutlineThickness(selectionThickness_);
+
+			if (event.mouseButton.button == sf::Mouse::Left &&
+				event.type == sf::Event::MouseButtonReleased) {
+				usingTile_ = tileIndexes_[i];
+			}
 		}
 		else {
-			it.setOutlineThickness(0);
+			tiles_[i].setOutlineThickness(0);
+		}
+
+		// using tiles
+		if (tileIndexes_[i] == usingTile_) {
+			tiles_[i].setFillColor({ 255, 255, 0, 255 });
+		}
+		else {
+			tiles_[i].setFillColor({ 255, 255, 255, 255 });
 		}
 	}
 }
