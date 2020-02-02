@@ -22,11 +22,11 @@ namespace ngin {
 			setPosition({0, 0});
 		
 			if (outsideSize.x > insideSize.x) {
-				NG_LOG_WARN("Scrollbox nr.", getElementIndex(),
+				NG_LOG_WARN("Scrollbox nr.", getUIElementIndex(),
 					" -- outsideSize.x should be smaller or equal to insideSize.x!");
 			} 
 			if (outsideSize.y > insideSize.y) {
-				NG_LOG_WARN("Scrollbox nr.", getElementIndex(),
+				NG_LOG_WARN("Scrollbox nr.", getUIElementIndex(),
 					" -- outsideSize.x should be smaller or equal to insideSize.x!");
 			}
 			if (outsideSize.x == insideSize.x) {
@@ -52,14 +52,24 @@ namespace ngin {
 		// -- positions outside of bounds will result in warning message and false return
 		// -- makes ScrollBox responsible for drawing the object passed in
 		bool addElement(sf::Text& text, const sf::Vector2f& relativePosition);
+
 		// -- converts object's global position to relative position
-		// aka. object at position x and y will only be available if
-		// is inside container + the insideSize expansion
+        // aka. object at position x and y will only be available if
+        // is inside container + the insideSize expansion
 		bool addElement(sf::Text& text);
 		// -- converts object's global position to relative position
 		// aka. object at position x and y will only be available if
 		// is inside container + the insideSize expansion
 		bool addElement(sf::RectangleShape& rectangle);
+
+		// returns the index of the given subscribed element
+		// if not found returns -1
+		int getElementID(sf::Text& text) const;
+		// returns the index of the given subscribed element
+		// if not found returns -1
+		int getElementID(sf::RectangleShape& rectangle) const;
+
+		sf::Text* getTextWithID(int index) const { return subsTexts_[index]; }
 
 		// deletes all elements off of subsRects_ vector
 		void clearRectangles() { subsRects_.clear(); }
@@ -96,6 +106,7 @@ namespace ngin {
 		sf::Vector2f getInsideSize() const { return insideSize_; }
 		// gets the global bounds of the container
 		sf::FloatRect getGlobalBounds() { return container_.getGlobalBounds(); }
+
 	private:
 		// outsideSize_ < insideSize_
 		sf::Vector2f insideSize_; // the hidden size of container

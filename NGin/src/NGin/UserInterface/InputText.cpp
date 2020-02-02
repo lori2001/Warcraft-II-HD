@@ -80,7 +80,7 @@ namespace ngin {
 		// if the font is not set
 		if (text_.getFont() == 0) {
 			NG_LOG_ONCE_WARN("Font undefined for InputText nr.",
-				UIElement::getElementIndex(), " -> OBJECT MAY NOT FUNCTION PROPERLY");
+				UIElement::getUIElementIndex(), " -> OBJECT MAY NOT FUNCTION PROPERLY");
 		}
 	}
 	void InputText::setPosition(const sf::Vector2f& position)

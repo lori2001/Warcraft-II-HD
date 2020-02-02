@@ -38,7 +38,7 @@ namespace ngin
 
 			// if the leftmousebutton is enabled
 			if (event.mouseButton.button == sf::Mouse::Left &&
-				(blockingException_== getElementIndex() || blockingException_ == -1))
+				(blockingException_== getUIElementIndex() || blockingException_ == -1))
 			{
 				// if mouse is pressed and the main element is selected
 				if (event.type == sf::Event::MouseButtonPressed && isSelecteds_[0])
@@ -52,7 +52,7 @@ namespace ngin
 
 					// set main bool to true (makes all items viewable & selectable)
 					isActive_ = true;
-					blockingException_ = getElementIndex();
+					blockingException_ = getUIElementIndex();
 				}
 				// if dropped down & left mouse button released & the mouse isn't on the main element
 				else if (isActive_ && event.type == sf::Event::MouseButtonReleased && !isSelecteds_[0])
@@ -137,7 +137,7 @@ namespace ngin
 		else {
 			for (int i = 0; i < int(drops_.size()); i++) {
 				if (drops_[i].text.getString() != "") {
-					NG_LOG_ONCE_WARN("Dropdown nr.", getElementIndex(), " -> Text nr.", i,
+					NG_LOG_ONCE_WARN("Dropdown nr.", getUIElementIndex(), " -> Text nr.", i,
 						" set but font NOT initialized! -> TEXT MAY NOT BE DISPLAYED!");
 				}
 			}
@@ -193,7 +193,7 @@ namespace ngin
 			}
 		}
 		else {
-			NG_LOG_WARN("Dropdown nr.", getElementIndex(), " -> cannot delete text nr.",
+			NG_LOG_WARN("Dropdown nr.", getUIElementIndex(), " -> cannot delete text nr.",
 				index, " (vector size is ", isSelecteds_.size(), ") -> COMMAND IGNORED");
 		}
 	}
@@ -225,7 +225,7 @@ namespace ngin
 		}
 		else {
 			NG_LOG_WARN("Text color (", color.r, color.g, color.b, ") could not be set "
-				"to element nr.", getElementIndex(), " dropdown nr.", i);
+				"to element nr.", getUIElementIndex(), " dropdown nr.", i);
 		}
 	}
 	void Dropdown::setDropColor(const int i, const sf::Color& color)
@@ -235,7 +235,7 @@ namespace ngin
 		}
 		else {
 			NG_LOG_WARN("Shape color (", color.r, color.g, color.b, ") could not be set "
-				"to element nr.", getElementIndex(), " dropdown nr.", i);
+				"to element nr.", getUIElementIndex(), " dropdown nr.", i);
 		}
 	}
 	void Dropdown::setTextColor(const sf::Color& color)

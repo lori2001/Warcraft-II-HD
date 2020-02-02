@@ -13,7 +13,7 @@ namespace ngin
 		virtual void setPosition(const sf::Vector2f& position) = 0;
 		virtual sf::Vector2f getPosition() const = 0;
 
-		int getElementIndex() const {
+		int getUIElementIndex() const {
 			auto it = std::find(Elements_.begin(), Elements_.end(), elementNo_);
 			return std::distance(Elements_.begin(), it);;
 		}

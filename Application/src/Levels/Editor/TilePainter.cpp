@@ -58,11 +58,17 @@ void TilePainter::setup()
 	// WARNING: makes scrollbox responsible for drawing tiles-vector*/
 	scrollBox_.clearElements(); // clear non-valid pointers
 
-	// -- Add rectangles to ScrollBox ------------
+	// -- Add elements to ScrollBox ------------
 	const float tilesHeight = tilesTopGap_ + tilesOffset_.y * ((tiles_.size() - 1) / tilesRows_) +
 		(GameDetails::mapFile.getTileSize().y * tilesScale_);
 
 	scrollBox_.setInsideSize({ scrollBox_.getOutsideSize().x, tilesHeight + 50 });
+
+	// Add Title
+	title_.setString("Tile Painter");
+	ngin::centerTextInBounds(title_, scrollBox_.getGlobalBounds(),
+		50 - scrollBox_.getGlobalBounds().height / 2);
+	scrollBox_.addElement(title_);
 	
 	for (int i = 0; i < int(tiles_.size()); i++)
 	{
@@ -73,13 +79,6 @@ void TilePainter::setup()
 		scrollBox_.addElement(tiles_[i], currTilePosition); // add tile
 		scrollBox_.addElement(tileIndexTexts_[i], { currTilePosition.x, currTilePosition.y - 18 }); // add tile text
 	}
-	// -------------------------------------------
-
-	// -- Add title to scrollBox ------------------
-	title_.setString("Tile Painter");
-	ngin::centerTextInBounds(title_, scrollBox_.getGlobalBounds(),
-		50 - scrollBox_.getGlobalBounds().height / 2);
-	scrollBox_.addElement(title_);
 	// -------------------------------------------
 
 	// --- Other Properties --------------

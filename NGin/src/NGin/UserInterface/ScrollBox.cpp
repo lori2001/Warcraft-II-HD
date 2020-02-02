@@ -218,7 +218,7 @@ namespace ngin {
 			relativePosition.y + rectangle.getGlobalBounds().height > insideSize_.y)
 		{
 			NG_LOG_WARN("Rectangle nr.", subsRects_.size() - 1,
-				" subscribed to scrollbox nr.", getElementIndex(),
+				" subscribed to scrollbox nr.", getUIElementIndex(),
 				" with position{", relativePosition.x, ", ", relativePosition.y, "} out of reach");
 
 			return false;
@@ -244,7 +244,7 @@ namespace ngin {
 			text.getGlobalBounds().top > insideSize_.y)
 		{
 			NG_LOG_WARN("Text nr.", subsTexts_.size() - 1,
-				" subscribed to scrollbox nr.", getElementIndex(),
+				" subscribed to scrollbox nr.", getUIElementIndex(),
 				" with position{", relativePosition.x, ", ", relativePosition.y, "} out of reach");
 
 			return false;
@@ -274,6 +274,32 @@ namespace ngin {
 			rectangle.getPosition().y - container_.getPosition().y,
 		};
 		return addElement(rectangle, relativePosition);
+	}
+
+	int ScrollBox::getElementID(sf::Text& text) const
+	{
+		// iterate through each pointer
+		for (int i = 0; i < subsTexts_.size(); i++)
+		{
+			// if ID of pointer is found
+			if (subsTexts_[i] == &text) {
+				return i;
+			}
+		}
+		return -1; // not found
+	}
+
+	int ScrollBox::getElementID(sf::RectangleShape& rectangle) const
+	{
+		// iterate through each pointer
+		for (int i = 0; i < subsRects_.size(); i++)
+		{
+			// if ID of pointer is found
+			if (subsRects_[i] == &rectangle) {
+				return i;
+			}
+		}
+		return -1; // not found
 	}
 
 	void ScrollBox::setTexture(const sf::Texture& texture)
