@@ -260,12 +260,20 @@ namespace ngin {
 
 	bool ScrollBox::addElement(sf::Text& text)
 	{
-		return addElement(text, text.getPosition());
+		sf::Vector2f relativePosition = {
+			text.getPosition().x - container_.getPosition().x,
+			text.getPosition().y - container_.getPosition().y,
+		};
+		return addElement(text, relativePosition);
 	}
 
 	bool ScrollBox::addElement(sf::RectangleShape& rectangle)
 	{
-		return addElement(rectangle, rectangle.getPosition());
+		sf::Vector2f relativePosition = {
+			rectangle.getPosition().x - container_.getPosition().x,
+			rectangle.getPosition().y - container_.getPosition().y,
+		};
+		return addElement(rectangle, relativePosition);
 	}
 
 	void ScrollBox::setTexture(const sf::Texture& texture)

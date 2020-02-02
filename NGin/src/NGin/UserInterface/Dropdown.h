@@ -51,6 +51,8 @@ namespace ngin
 		void setStatic(const bool isStatic) { isStatic_ = isStatic; }
 		void setActiveDrop(const int i);
 
+		// returns true if dropped down
+		bool isActive() { return isActive_; }
 		int getActiveDrop() const { return activeDrop; }
 		int getDropsNo() const { return int(isSelecteds_.size()); }
 		std::string getDropString(const int i) const { return drops_[i].text.getString(); }

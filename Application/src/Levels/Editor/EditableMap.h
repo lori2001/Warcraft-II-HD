@@ -10,7 +10,6 @@ public:
 
 	bool setMapFile(const MapFile &mapFile);
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-	void updateGrid();
 	void handleEvents(const sf::Event& event, const TilePainter& tilePainter);
 
 	// Setters
@@ -18,7 +17,12 @@ public:
 	void setPosition(const sf::Vector2f& position);
 	void move(const sf::Vector2f& offset);
 	void setOrigin(const sf::Vector2f& origin);
-	void setGridIsActive(const bool gridIsActive) { gridIsActive_ = gridIsActive; }
+	void setGridIsActive(const bool gridIsActive) {
+		gridIsActive_ = gridIsActive;
+		if (gridIsActive_) {
+			updateGrid();
+		}
+	}
 
 	// Getters
 	bool getGridIsActive() { return gridIsActive_; }
@@ -35,6 +39,9 @@ public:
 		else {isFocused_ = false;}
 	}
 private:
+	void updateGrid();
+	void adjustSelectedTile();
+
 	struct Line {
 		Line() {}
 		Line(const sf::Vertex& p1, const sf::Vertex& p2) {

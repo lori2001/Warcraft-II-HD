@@ -52,11 +52,13 @@ namespace ngin {
 		// -- positions outside of bounds will result in warning message and false return
 		// -- makes ScrollBox responsible for drawing the object passed in
 		bool addElement(sf::Text& text, const sf::Vector2f& relativePosition);
-		// -- keeps the current position as if inputed in relativePosition
-		// -- DO NOT set position to elements passed to this function
+		// -- converts object's global position to relative position
+		// aka. object at position x and y will only be available if
+		// is inside container + the insideSize expansion
 		bool addElement(sf::Text& text);
-		// -- keeps the current position as if inputed in relativePosition
-		// -- DO NOT set position to elements passed to this function
+		// -- converts object's global position to relative position
+		// aka. object at position x and y will only be available if
+		// is inside container + the insideSize expansion
 		bool addElement(sf::RectangleShape& rectangle);
 
 		// deletes all elements off of subsRects_ vector

@@ -42,6 +42,9 @@ void EditorLevel::setup()
 	tilePainterSwitcher_.setPosition({ 1700, 10 });
 	backButton_.setPosition({ 50, 10 });
 	fileDropdown_.setPosition({ 160 , 20 });
+
+	// default position (even if not displayed yet)
+	tilePainter_.setPosition({ 1520, 80 });
 	// ---------------------------------------------
 
 	// (re)set important bools
@@ -102,9 +105,6 @@ void EditorLevel::handleEvents(const sf::Event& event)
 				headerSprite_.getGlobalBounds().height });
 
 			tilePainter_.setup();
-
-			// default position
-			tilePainter_.setPosition({ 1520, 80 });
 		}
 		fileDropdown_.setActiveDrop(0);
 	}
@@ -173,8 +173,6 @@ void EditorLevel::update()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 				editableMap_.move({ 0, -editorMoveSpeed_ * ngin::Timer::getDeltaTime() });
 			}
-
-			editableMap_.updateGrid();
 		}
 	}
 }

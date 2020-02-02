@@ -49,7 +49,6 @@ void EditableMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 void EditableMap::updateGrid()
 {
 	// --- Grid Calculations --------------------------------------
-	// deletes old grid lines before recalculating them
 	topLeft_ = {
 		getPosition().x - getScaledSize().x / 2, getPosition().y - getScaledSize().y / 2 };
 	bottomRight_ = {
@@ -65,6 +64,7 @@ void EditableMap::updateGrid()
 	   			      topLeft_.y - lineDistance_.y * static_cast<int>(numOfTiles_.y) };
 
 	if (gridIsActive_) {
+		// deletes old grid lines before recalculating them
 		gridLines_.clear();
 
 		for (float x = distFromStart_.x; x <= ngin::MainLevel::view_.getSize().x; x += lineDistance_.x) {
@@ -84,28 +84,20 @@ void EditableMap::updateGrid()
 			gridLines_.push_back(YLine);
 		}
 	}
+
+	adjustSelectedTile();
 	// ------------------------------------------------------------
 }
 
 void EditableMap::handleEvents(const sf::Event& event, const TilePainter& tilePainter)
 {
 	if (isFocused_) {
+		adjustSelectedTile();
 
-		// --- Selected Tile ------------------------------------------
-		// Number of tiles behind cursor
-		sf::Vector2f tilesBehind =
-			ngin::divVec(ngin::subsVec(ngin::Cursor::getPosition(), distFromStart_), lineDistance_);;
-
-		// exat position of the highlight
-		sf::Vector2f selectedPosition = { distFromStart_.x + lineDistance_.x * static_cast<int>(tilesBehind.x),
-										  distFromStart_.y + lineDistance_.y * static_cast<int>(tilesBehind.y) };
-
-		drawSelected_ = true;
-		selectedTile_.setSize(lineDistance_);
-		selectedTile_.setPosition(selectedPosition);
-
+		// place tile
 		if (event.mouseButton.button == sf::Mouse::Left &&
-			event.type == sf::Event::MouseButtonReleased)
+			event.type == sf::Event::MouseButtonPressed &&
+			!ngin::UIElement::hasBlockingException()) // no dropped-downs
 		{
 			NG_LOG_ERROR(tilePainter.usingTile());
 		}
@@ -120,6 +112,7 @@ void EditableMap::handleEvents(const sf::Event& event, const TilePainter& tilePa
 void EditableMap::setScale(const sf::Vector2f& scale)
 {
 	Map::setScale(scale);
+	updateGrid();
 }
 
 void EditableMap::setPosition(const sf::Vector2f& position)
@@ -132,7 +125,24 @@ void EditableMap::setOrigin(const sf::Vector2f& origin)
 	Map::setOrigin(origin);
 }
 
+void EditableMap::adjustSelectedTile()
+{
+	// --- Selected Tile ------------------------------------------
+	// Number of tiles behind cursor
+	sf::Vector2f tilesBehind =
+		ngin::divVec(ngin::subsVec(ngin::Cursor::getPosition(), distFromStart_), lineDistance_);;
+
+	// exat position of the highlight
+	sf::Vector2f selectedPosition = { distFromStart_.x + lineDistance_.x * static_cast<int>(tilesBehind.x),
+									  distFromStart_.y + lineDistance_.y * static_cast<int>(tilesBehind.y) };
+
+	drawSelected_ = true;
+	selectedTile_.setSize(lineDistance_);
+	selectedTile_.setPosition(selectedPosition);
+}
+
 void EditableMap::move(const sf::Vector2f& offset)
 {
 	Map::move(offset);
+	updateGrid();
 }

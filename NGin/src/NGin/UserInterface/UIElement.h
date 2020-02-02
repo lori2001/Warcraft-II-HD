@@ -18,6 +18,12 @@ namespace ngin
 			return std::distance(Elements_.begin(), it);;
 		}
 
+		// returns true if one ui element took blocking exception
+		// privileges (ex. dropdown is dropped down somewhere)
+		static bool hasBlockingException() {
+			return blockingException_ == -1 ? false : true;
+		}
+
 	public:
 		UIElement() {
 			elementNo_ = static_cast<int>(Elements_.size());
