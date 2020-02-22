@@ -8,27 +8,50 @@ namespace ngin {
 	std::vector<size_t> Console::strHashes_;
 	std::ostringstream Console::outStringStream_;
 
-	void Console::log(const std::string& output, const Severity& severity)
+	void Console::log(const std::string& output, const FLAG& flag)
 	{
+		// convert once flags to normals
+		FLAG realFlag = flag;
+		bool once = false;
+		if (realFlag > FLAG::FLAG_ERROR) {
+			once = true;
+			FLAG realFlag = FLAG(flag - FLAG::FLAG_ERROR);
+		}
+
+		if (once) {
+			// get the hash for the output string
+			size_t outputHash = strHash_(output);
+			// search for hash in the container vector
+			auto it = find(strHashes_.begin(), strHashes_.end(), outputHash);
+
+			// if no hash was found 
+			if (it == strHashes_.end())
+				strHashes_.push_back(outputHash); // add new hash to vector (later log)
+			else
+				return; // else jump out of the program
+		}
+
+		// --- Actual Printing -------
 		// Change font color based on severity
-		if (severity == Severity::Note) {
+		if (realFlag == FLAG::FLAG_NOTE) {
 			SetConsoleTextAttribute(HConsole_, defaultColors_);
 
 			if (!Timer::getSysMeasured())
 				std::cout << "NOTE: ";
 		}
-		else if (severity == Severity::Info) {
+		else if (realFlag == FLAG::FLAG_INFO) {
 			SetConsoleTextAttribute(HConsole_, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
 			if (!Timer::getSysMeasured())
 				std::cout << "INFO: ";
 		}
-		else if (severity == Severity::Warning) {
+		else if (realFlag == FLAG::FLAG_WARNING){
 			SetConsoleTextAttribute(HConsole_, FOREGROUND_RED | FOREGROUND_GREEN);
 
 			if (!Timer::getSysMeasured())
 				std::cout << "WARNING: ";
-		} else if (severity == Severity::Error) {
+		}
+		else if (realFlag == FLAG::FLAG_ERROR) {
 			SetConsoleTextAttribute(HConsole_, FOREGROUND_RED | FOREGROUND_INTENSITY);
 
 			if (!Timer::getSysMeasured())
@@ -42,20 +65,6 @@ namespace ngin {
 
 		// change colors back in case some1 wants to log using std::cout
 		SetConsoleTextAttribute(HConsole_, defaultColors_);
-	}
-	void Console::logOnce(const std::string& output, const Severity& severity)
-	{
-		// get the hash for the output string
-		size_t outputHash = strHash_(output);
-		// search for hash in the container vector
-		auto it = find(strHashes_.begin(), strHashes_.end(), outputHash);
-
-		// if no hash was found
-		if (it == strHashes_.end()) {
-			log(output, severity); // print
-			strHashes_.push_back(outputHash); // add new hash to vector
-		}
-		else return;
 	}
 	void Console::setSize(const sf::Vector2u& size)
 	{

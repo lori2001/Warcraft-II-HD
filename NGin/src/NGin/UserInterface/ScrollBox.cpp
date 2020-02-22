@@ -279,7 +279,7 @@ namespace ngin {
 	int ScrollBox::getElementID(sf::Text& text) const
 	{
 		// iterate through each pointer
-		for (int i = 0; i < subsTexts_.size(); i++)
+		for (int i = 0; i < static_cast<int>(subsTexts_.size()); i++)
 		{
 			// if ID of pointer is found
 			if (subsTexts_[i] == &text) {
@@ -292,7 +292,7 @@ namespace ngin {
 	int ScrollBox::getElementID(sf::RectangleShape& rectangle) const
 	{
 		// iterate through each pointer
-		for (int i = 0; i < subsRects_.size(); i++)
+		for (int i = 0; i < static_cast<int>(subsRects_.size()); i++)
 		{
 			// if ID of pointer is found
 			if (subsRects_[i] == &rectangle) {

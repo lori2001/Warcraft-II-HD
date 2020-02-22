@@ -105,7 +105,7 @@ void TilePainter::handleEvents(const sf::Event& event, const sf::Vector2f& mouse
 {
 	scrollBox_.handleEvents(event, mouse);
 	
-	for (int i = 0; i < tiles_.size(); i++) {
+	for (int i = 0; i < static_cast<int>(tiles_.size()); i++) {
 		if (tiles_[i].getGlobalBounds().intersects(sf::FloatRect(mouse, { 1,1 }))) {
 			tiles_[i].setOutlineThickness(selectionThickness_);
 
