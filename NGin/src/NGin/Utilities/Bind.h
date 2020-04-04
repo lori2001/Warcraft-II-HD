@@ -3,7 +3,7 @@
 #include "../UserInterface/UIElement.h"
 #include <unordered_map>
 
-namespace ngin {
+namespace ng {
 	class Bindables {
 	public:
 		// sets up an object which other objects can be binded to
@@ -44,7 +44,7 @@ namespace ngin {
 			}
 			else return false;
 		}
-		static bool bindPosition(ngin::UIElement& element,
+		static bool bindPosition(ng::UIElement& element,
 			const std::string& keyOfBindable,
 			const sf::Vector2f& positionOfBindable)
 		{
@@ -67,7 +67,7 @@ namespace ngin {
 
 		// holds the initial positions of the objects at the time of binding
 		static std::unordered_map<std::string, Binder> bindables;
-		static unsigned long int lastLoopCicle_;
+		static unsigned long long lastLoopCicle_;
 	};
 }
 

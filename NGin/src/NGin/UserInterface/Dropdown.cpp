@@ -3,7 +3,7 @@
 #include "../System/Console.h"
 #include "Cursor.h"
 
-namespace ngin
+namespace ng
 {
 	void Dropdown::handleEvents(const sf::Event& event, const sf::Vector2f& mouse)
 	{

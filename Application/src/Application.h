@@ -7,6 +7,7 @@
 #include "Files/SettingsFile.h"
 
 // Levels
+#include "Levels/Levels.h"
 #include "Levels/MenuLevel.h"
 #include "Levels/LobbyLevel.h"
 #include "Levels/SettingsLevel.h"
@@ -18,13 +19,12 @@
 	#define NG_CONSOLE_NOPRINT
 #endif
 
-class Application : public ngin::MainLevel
+class Application : public ng::Main
 {
 public:
 	Application();
 	~Application();
 
-	void setup();
 	void handleEvents();
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -41,10 +41,11 @@ private:
 	std::shared_ptr<sf::Texture> loadingScreenTexture_;
 	sf::Sprite loadingScreen_;
 
-	ngin::Level* currentLevel_ = 0;
+	ng::Level* currentLevel_ = 0;
 	SettingsFile settingsFile_; // loads and saves settings to json
+
 };
 
-ngin::MainLevel* setMainLevel() {
+ng::Main* setMainLevel() {
 	return new Application;
 }

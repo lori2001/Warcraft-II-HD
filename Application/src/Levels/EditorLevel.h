@@ -1,5 +1,6 @@
 #pragma once
 #include "NGin.h"
+#include "Levels.h"
 
 #include "Common/GameDetails.h"
 #include "Common/Map.h"
@@ -7,19 +8,14 @@
 #include "Editor/EditableMap.h"
 #include "Editor/TilePainter.h"
 
-class EditorLevel : public ngin::Level {
+class EditorLevel : public ng::Level {
 public:
-	EditorLevel() { setup(); }
+	EditorLevel();
 
-	void setup();
 	void handleEvents(const sf::Event& event);
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-	enum RESPONSE {
-		NONE = 80, // avoid same-value responses
-		MAIN_MENU
-	};
 private:
 
 	void setupUIStyle(const sf::Font& font,
@@ -35,7 +31,7 @@ private:
 
 	// Toolbar
 	sf::Sprite headerSprite_;
-	ngin::Dropdown fileDropdown_{ { 277, 40 } };
+	ng::Dropdown fileDropdown_{ { 277, 40 } };
 	bool toolbarHasFocus_ = false;
 
 	// Navigation
@@ -52,9 +48,9 @@ private:
 		TilePainter tilePainter_;
 
 	// goes back to main menu
-	ngin::Button backButton_{ "", { 75, 75 } };
+	ng::Button backButton_{ "", { 75, 75 } };
 	// grid enable/disable
-	ngin::Switcher gridSwitcher_ { { 75, 75 } };
+	ng::Switcher gridSwitcher_ { { 75, 75 } };
 	// tilePainter enable/disable
-	ngin::Switcher tilePainterSwitcher_{ { 75, 75 } };
+	ng::Switcher tilePainterSwitcher_{ { 75, 75 } };
 };

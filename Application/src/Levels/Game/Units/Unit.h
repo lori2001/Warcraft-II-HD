@@ -20,5 +20,5 @@ protected:
 	
 private:
 
-	ngin::AStar::Generator generator;
+	ng::AStar::Generator generator;
 };

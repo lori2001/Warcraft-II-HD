@@ -12,7 +12,7 @@ void Map::setMapFile(const MapFile& mapFile)
 	// clear map
 	vertexArray_ = sf::VertexArray{};
 
-	mapTexture_ = ngin::Resources::AcquireTexture(mapFile.getThemeLocation());
+	mapTexture_ = ng::Resources::AcquireTexture(mapFile.getThemeLocation());
 
 	vertexArray_.setPrimitiveType(sf::Quads);
 	vertexArray_.resize(mapFile.getNRows() * mapFile.getMaxNColums() * 4);
@@ -67,7 +67,7 @@ void Map::setSize(const sf::Vector2f& size)
 
 void Map::move(const sf::Vector2f& offset)
 {
-	setPosition(ngin::addVec(getPosition(), offset));
+	setPosition(ng::addVec(getPosition(), offset));
 }
 
 sf::Vector2f Map::getScaledSize() const

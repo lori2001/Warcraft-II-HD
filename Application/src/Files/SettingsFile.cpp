@@ -12,7 +12,7 @@ void SettingsFile::load()
 	else
 		in >> json_; // read json file
 
-	// set non-ngin variable(s)
+	// set non-ng variable(s)
 	playerName_ = json_["Player_Name"].get<std::string>();
 
 	// boundaries' check and correct
@@ -58,7 +58,7 @@ void SettingsFile::create()
 	json_["Video_Mode"]["Width"] = maxres.width;
 	json_["Video_Mode"]["Height"] = maxres.height;
 	json_["Video_Mode"]["BitsPerPixel"] = maxres.bitsPerPixel;
-	json_["Window_Type"] = static_cast<int>(ngin::WINDOW_TYPE::WINDOW_FULLSCREEN);
+	json_["Window_Type"] = static_cast<int>(ng::WINDOW_TYPE::WINDOW_FULLSCREEN);
 	json_["Sound_Volume"] = 0.5F;
 	json_["Music_Volume"] = 0.5F;
 

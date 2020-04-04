@@ -11,7 +11,7 @@ public:
 		setCharacterSize(30);
 
 		GameDetails::mapFile.scanDir();
-		GameDetails::mapFile.read();
+		GameDetails::mapFile.load();
 		setTitle(GameDetails::mapFile.getMapName());
 		map_.setMapFile(GameDetails::mapFile);
 		updateMapTransform();
@@ -35,8 +35,8 @@ private:
 
 	std::shared_ptr<sf::Texture> texture_;
 	sf::RectangleShape container_;
-	ngin::Button leftButton_;
-	ngin::Button rightButton_;
+	ng::Button leftButton_;
+	ng::Button rightButton_;
 
 	sf::Text mapTitle_;
 	sf::Vector2f mapPosition_;

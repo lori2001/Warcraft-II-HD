@@ -36,7 +36,7 @@ void ConfirmDialog::setPosition(const sf::Vector2f& position)
 {
 	background_.setPosition(position);
 
-	ngin::centerTextInShape(text_, background_, textOffset_);
+	ng::centerTextInShape(text_, background_, textOffset_);
 
 	float padding = 35.0F;
 
@@ -75,7 +75,7 @@ void ConfirmDialog::setFont(const sf::Font& font)
 	closeButton_.setFont(font);
 	text_.setFont(font);
 
-	ngin::centerTextInShape(text_, background_, -25.0F); // Reposition
+	ng::centerTextInShape(text_, background_, -25.0F); // Reposition
 }
 
 void ConfirmDialog::setCharacterSize(const unsigned characterSize)
@@ -94,7 +94,7 @@ void ConfirmDialog::setTextCharacterSize(const unsigned characterSize)
 {
 	text_.setCharacterSize(characterSize);
 
-	ngin::centerTextInShape(text_, background_, -25.0F); // Reposition
+	ng::centerTextInShape(text_, background_, -25.0F); // Reposition
 }
 
 void ConfirmDialog::setSelectColor(const sf::Color& color)

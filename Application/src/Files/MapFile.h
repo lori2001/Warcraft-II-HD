@@ -2,14 +2,14 @@
 #include "NGin.h"
 #include <fstream>
 
-class MapFile : public ngin::FileReader {
+class MapFile : public ng::FileReader {
 public:
 	// scans directory for loadable files
 	// true if successful false if not
 	void scanDir();
 
-	void read();
-	void read(const std::string& path);
+	void load();
+	void load(const std::string& path);
 
 	void save();
 

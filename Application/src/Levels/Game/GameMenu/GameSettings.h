@@ -20,9 +20,9 @@ public:
 	};
 	RESPONSE getResponse() { return response_; }
 private:
-	ngin::Button backButton_{ "Back To In-Game Menu", { 430, 50 } };
-	ngin::Slider soundSlider_{ {335, 31}, {36, 45}, {33, 27} };
-	ngin::Slider musicSlider_{ {335, 31}, {36, 45}, {33, 27} };
+	ng::Button backButton_{ "Back To In-Game Menu", { 430, 50 } };
+	ng::Slider soundSlider_{ {335, 31}, {36, 45}, {33, 27} };
+	ng::Slider musicSlider_{ {335, 31}, {36, 45}, {33, 27} };
 
 	sf::Text settingsText_;
 	sf::Text soundText_;

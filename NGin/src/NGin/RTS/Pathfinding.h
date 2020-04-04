@@ -8,8 +8,9 @@
 #include <vector>
 #include <functional>
 #include <set>
+// TODO: Complete and test this shit!
 
-namespace ngin {
+namespace ng {
 	namespace AStar
 	{
 		using uint = unsigned int;

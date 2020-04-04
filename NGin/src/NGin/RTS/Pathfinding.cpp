@@ -1,7 +1,7 @@
 #include "Pathfinding.h"
 #include <algorithm>
 
-namespace ngin {
+namespace ng {
 	using namespace std::placeholders;
 
 	AStar::Node::Node(sf::Vector2i coordinates_, Node* parent_)

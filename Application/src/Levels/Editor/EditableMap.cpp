@@ -12,7 +12,7 @@ bool EditableMap::setMapFile(const MapFile& mapFile)
 	nfdresult_t result = NFD_OpenDialog("mapfile", GameDetails::mapFile.getFolderPath().c_str(), &outPath);
 
 	if (result == NFD_OKAY) {
-		GameDetails::mapFile.read(outPath);
+		GameDetails::mapFile.load(outPath);
 		NG_LOG_INFO(GameDetails::mapFile.getMapName());
 	}
 	else if (result == NFD_ERROR) {
@@ -58,7 +58,7 @@ void EditableMap::updateGrid()
 		Map::getTileSize().x * Map::getScale().x,
 		Map::getTileSize().y * Map::getScale().y };
 
-	numOfTiles_ = ngin::divVec(topLeft_, lineDistance_);
+	numOfTiles_ = ng::divVec(topLeft_, lineDistance_);
 
 	distFromStart_ = { topLeft_.x - lineDistance_.x * static_cast<int>(numOfTiles_.x),
 	   			      topLeft_.y - lineDistance_.y * static_cast<int>(numOfTiles_.y) };
@@ -67,18 +67,18 @@ void EditableMap::updateGrid()
 		// deletes old grid lines before recalculating them
 		gridLines_.clear();
 
-		for (float x = distFromStart_.x; x <= ngin::MainLevel::view_.getSize().x; x += lineDistance_.x) {
+		for (float x = distFromStart_.x; x <= ng::Main::view.getSize().x; x += lineDistance_.x) {
 			Line XLine{
-				sf::Vertex(sf::Vector2f(x, 0)),
-				sf::Vertex(sf::Vector2f(x, ngin::MainLevel::view_.getSize().y))
+				sf::Vertex(sf::Vector2f{x, 0}),
+				sf::Vertex(sf::Vector2f{x, ng::Main::view.getSize().y})
 			};
 
 			gridLines_.push_back(XLine);
 		}
-		for (float y = distFromStart_.y; y <= ngin::MainLevel::view_.getSize().y; y += lineDistance_.y) {
+		for (float y = distFromStart_.y; y <= ng::Main::view.getSize().y; y += lineDistance_.y) {
 			Line YLine{
-				sf::Vertex(sf::Vector2f(0, y)),
-				sf::Vertex(sf::Vector2f(ngin::MainLevel::view_.getSize().x, y))
+				sf::Vertex(sf::Vector2f{0, y}),
+				sf::Vertex(sf::Vector2f{ng::Main::view.getSize().x, y})
 			};
 
 			gridLines_.push_back(YLine);
@@ -97,7 +97,7 @@ void EditableMap::handleEvents(const sf::Event& event, const TilePainter& tilePa
 		// place tile
 		if (event.mouseButton.button == sf::Mouse::Left &&
 			event.type == sf::Event::MouseButtonPressed &&
-			!ngin::UIElement::hasBlockingException()) // no dropped-downs
+			!ng::UIElement::hasBlockingException()) // no dropped-downs
 		{
 			NG_LOG_ERROR(tilePainter.usingTile());
 		}
@@ -130,7 +130,7 @@ void EditableMap::adjustSelectedTile()
 	// --- Selected Tile ------------------------------------------
 	// Number of tiles behind cursor
 	sf::Vector2f tilesBehind =
-		ngin::divVec(ngin::subsVec(ngin::Cursor::getPosition(), distFromStart_), lineDistance_);;
+		ng::divVec(ng::subsVec(ng::Cursor::getPosition(), distFromStart_), lineDistance_);;
 
 	// exat position of the highlight
 	sf::Vector2f selectedPosition = { distFromStart_.x + lineDistance_.x * static_cast<int>(tilesBehind.x),

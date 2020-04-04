@@ -1,7 +1,7 @@
 #include "Button.h"
 #include "Cursor.h"
 
-namespace ngin
+namespace ng
 {
 	void Button::handleEvents(const sf::Event & event, const sf::Vector2f& mouse)
 	{
@@ -23,7 +23,7 @@ namespace ngin
 						isPressed_ = true;
 
 						// audio feedback for pressing
-						ngin::Cursor::playSound();
+						ng::Cursor::playSound();
 
 						// create the "pressed in" visual feedback
 						shape_.setTextureRect(sf::IntRect{

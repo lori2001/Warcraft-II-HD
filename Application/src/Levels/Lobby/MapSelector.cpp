@@ -52,7 +52,7 @@ void MapSelector::setPosition(const sf::Vector2f& position)
 		{ container_.getPosition().x + container_.getGlobalBounds().width,
 		position.y });
 
-	ngin::centerTextInShape(mapTitle_, container_, - container_.getGlobalBounds().height / 2 - 20);
+	ng::centerTextInShape(mapTitle_, container_, - container_.getGlobalBounds().height / 2 - 20);
 }
 
 void MapSelector::setSize(const sf::Vector2f& buttonSize, const sf::Vector2f& containerSize)
@@ -75,7 +75,7 @@ void MapSelector::setTitle(const std::string& titleString)
 {
 	mapTitle_.setString(titleString);
 
-	ngin::centerTextInShape(mapTitle_, container_, -container_.getGlobalBounds().height / 2 - 20);
+	ng::centerTextInShape(mapTitle_, container_, -container_.getGlobalBounds().height / 2 - 20);
 }
 
 void MapSelector::setSelectColor(const sf::Color& color)

@@ -11,7 +11,7 @@ public:
 
 	void setMusicVolume(const float musicVolume) { json_["Music_Volume"] = musicVolume; }
 	void setSoundVolume(const float soundVolume) { json_["Sound_Volume"] = soundVolume; }
-	void setWindowType(const ngin::WINDOW_TYPE& windowType) {
+	void setWindowType(const ng::WINDOW_TYPE& windowType) {
 		json_["Window_Type"] = static_cast<int>(windowType);
 	}
 	void setVideoMode(const sf::VideoMode& videoMode) {
@@ -22,8 +22,8 @@ public:
 
 	float getMusicVolume() const { return json_["Music_Volume"].get<float>(); }
 	float getSoundVolume() const { return json_["Sound_Volume"].get<float>(); }
-	ngin::WINDOW_TYPE getWindowType() const {
-		return static_cast<ngin::WINDOW_TYPE>(json_["Window_Type"].get<int>());
+	ng::WINDOW_TYPE getWindowType() const {
+		return static_cast<ng::WINDOW_TYPE>(json_["Window_Type"].get<int>());
 	}
 	sf::VideoMode getVideoMode() const {
 		return sf::VideoMode{
@@ -34,9 +34,9 @@ public:
 	}
 
 private:
-	ngin::Json json_;
+	ng::json json_;
 
-	static std::string playerName_; // non-ngin property
+	static std::string playerName_; // non-ng property
 
 	void create(); // gets called if loading fails
 };

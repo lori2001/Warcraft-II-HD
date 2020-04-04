@@ -2,7 +2,7 @@
 #include "UIElement.h"
 #include "../Utilities/Align.h"
 
-namespace ngin {
+namespace ng {
 	class InputText : public UIElement {
 	public:
 		InputText(const sf::Vector2f& size) {

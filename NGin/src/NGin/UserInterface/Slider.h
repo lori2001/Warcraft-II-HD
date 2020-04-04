@@ -2,7 +2,7 @@
 #include "UIElement.h"
 #include "Button.h"
 
-namespace ngin {
+namespace ng {
 	class Slider : public UIElement {
 	public:
 		Slider(const sf::Vector2f& shapeSize,
@@ -38,11 +38,12 @@ namespace ngin {
 		void setScale(const sf::Vector2f& scale);
 		void setSelectColor(const sf::Color& color);
 		void setSelectThickness(const float selectSize);
+		void setDisabled(const bool isDisabled) { isDisabled_ = isDisabled; }
 
 		float getLevel() const { return level_; }
 		sf::Vector2f getSize() const { return { leftButton_.getSize().x + container_.getSize().x + rightButton_.getSize().x, container_.getSize().y }; }
 		sf::Vector2f getPosition() const { return leftButton_.getPosition(); }
-		bool getHasChanged() const { return hasChanged_; }
+		bool hasChanged() const { return hasChanged_; }
 		sf::FloatRect getGlobalBounds() const;
 	private:
 		// adjust button position based on level

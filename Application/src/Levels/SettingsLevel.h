@@ -1,37 +1,33 @@
 #pragma once
 #include "NGin.h"
+#include "Levels.h"
 
 #include "Common/ConfirmDialog.h"
 
-class SettingsLevel : public ngin::Level {
+class SettingsLevel : public ng::Level {
 public:
-	SettingsLevel() { setup(); }
+	SettingsLevel();
 
-	void setup();
 	void handleEvents(const sf::Event& event);
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	void applySettingsToWindow();
 
-	enum RESPONSE {
-		NONE = 8,
-		MAIN_MENU
-	};
 private:
 	void setupUIStyle(const sf::Font& font, const unsigned fontSize, const sf::Color& themeColor);
-	void addResolutionsTo(ngin::Dropdown& dropdown);
+	void addResolutionsTo(ng::Dropdown& dropdown);
 	
 	// Navigation buttons 
-	ngin::Button backButton_{ "Back", {430, 50} };
-	ngin::Button applyButton_{ "Apply", {430, 50} };
+	ng::Button backButton_{ "Back", {430, 50} };
+	ng::Button applyButton_{ "Apply", {430, 50} };
 
 	// Settings UI
-	ngin::Slider soundSlider_{ {335, 31}, {36, 45}, {33, 27} };
-	ngin::Slider musicSlider_{ {335, 31}, {36, 45}, {33, 27} };
+	ng::Slider soundSlider_{ {335, 31}, {36, 45}, {33, 27} };
+	ng::Slider musicSlider_{ {335, 31}, {36, 45}, {33, 27} };
 
-	ngin::Dropdown windowTypeDropdown_{ { 277, 40 } };
-	ngin::Dropdown videoModeDropdown_{ { 277, 40 } };
+	ng::Dropdown windowTypeDropdown_{ { 277, 40 } };
+	ng::Dropdown videoModeDropdown_{ { 277, 40 } };
 
 	// Confirm Dialog
 	ConfirmDialog confirmDialog_;
@@ -76,8 +72,8 @@ private:
 	std::vector<std::shared_ptr<sf::Texture>> topGearsTextures_;
 
 	// Background
-	ngin::AnimationFile botGearsAnimation_{ 0.1F };
-	ngin::AnimationFile topGearsAnimation_{ 0.1F };
+	ng::AnimationFile botGearsAnimation_{ 0.1F };
+	ng::AnimationFile topGearsAnimation_{ 0.1F };
 
 	sf::Sprite botGears_;
 	sf::Sprite topGears_;

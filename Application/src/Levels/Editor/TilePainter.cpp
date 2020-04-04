@@ -4,8 +4,8 @@
 void TilePainter::setup()
 {
 	// --- Load Textures -------------------------
-	scrollBoxTexture_ = NG_TEXTURE_PTR("images/ui/scrollbox.png");
-	themeTexture_ = NG_TEXTURE_PTR(GameDetails::mapFile.getThemeLocation());
+	scrollBoxTexture_ = NG_TEXTURE_SPTR("images/ui/scrollbox.png");
+	themeTexture_ = NG_TEXTURE_SPTR(GameDetails::mapFile.getThemeLocation());
 	// -------------------------------------------
 
 	// --- Set Textures And Fonts ----------------
@@ -14,7 +14,7 @@ void TilePainter::setup()
 
 	//--- Break texture into tiles ---------------
 	sf::Image analyzer; // makes sure no empty tiles are read
-	analyzer.loadFromFile(ngin::Resources::getLocation() + GameDetails::mapFile.getThemeLocation());
+	analyzer.loadFromFile(ng::Resources::getLocation() + GameDetails::mapFile.getThemeLocation());
 
 	// make sure tiles' vectors are empty
 	tiles_.clear();
@@ -40,7 +40,7 @@ void TilePainter::setup()
 					static_cast<int>(tileSize.x),
 					static_cast<int>(tileSize.y) });
 				tiles_.back().setSize(tileSize);
-				tiles_.back().setScale({ ngin::ftoVec(tilesScale_) });
+				tiles_.back().setScale({ ng::ftovec(tilesScale_) });
 				tiles_.back().setOutlineColor(selectionColor_);
 
 				// inherit text style from title
@@ -66,7 +66,7 @@ void TilePainter::setup()
 
 	// Add Title
 	title_.setString("Tile Painter");
-	ngin::centerTextInBounds(title_, scrollBox_.getGlobalBounds(),
+	ng::centerTextInBounds(title_, scrollBox_.getGlobalBounds(),
 		50 - scrollBox_.getGlobalBounds().height / 2);
 	scrollBox_.addElement(title_);
 	

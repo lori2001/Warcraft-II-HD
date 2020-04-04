@@ -5,37 +5,54 @@
 #include <windows.h> // <- only windows capable
 #include <sstream>
 
-namespace ngin
+namespace ng
 {
 	class Console {
 	public:
-		enum class Severity {
-			Note = 0,
-			Info,
-			Warning,
-			Error
+		enum FLAG {
+			FLAG_NOTE = 0,
+			FLAG_INFO,
+			FLAG_WARNING,
+			FLAG_ERROR,
+			// error must be always last and orders should match
+			FLAG_ONCE_NOTE,
+			FLAG_ONCE_INFO,
+			FLAG_ONCE_WARNING,
+			FLAG_ONCE_ERROR,
 		};
 
-		// prints out the given message with given severity
-		static void log(const std::string& output, const Severity& severity = Severity::Note);
-
+		// --- Logging functions START ---------------------------------------
+		// prints out the given message with given flag
+		static void log(const std::string& output, const FLAG& flag = FLAG::FLAG_NOTE);
 		template <typename T>
-		static void log(const Severity& severity, T t);
+		static void log(const FLAG& flag, T t);
 		template<typename T, typename... Args>
-		static void log(const Severity& severity, T t, Args... args);
+		static void log(const FLAG& flag, T t, Args... args);
 
-		// prints out the same text only once
-		static void logOnce(const std::string& output, const Severity& severity = Severity::Note);
+		// SFML vectors
+		template <> static void log<sf::Vector2f>(const FLAG& flag, sf::Vector2f t) {
+			log(flag, "x = ", t.x, " y = ", t.y);
+		}
+		template <> static void log<sf::Vector2i>(const FLAG& flag, sf::Vector2i t) {
+			log(flag, "x = ", t.x, " y = ", t.y);
+		}
+		template <> static void log<sf::Vector2u>(const FLAG& flag, sf::Vector2u t) {
+			log(flag, "x = ", t.x, " y = ", t.y);
+		}
+		template <> static void log<sf::Vector3f>(const FLAG& flag, sf::Vector3f t) {
+			log(flag, "x = ", t.x, " y = ", t.y, " z =", t.z);
+		}
+		template <> static void log<sf::Vector3i>(const FLAG& flag, sf::Vector3i t) {
+			log(flag, "x = ", t.x, " y = ", t.y, " z =", t.z);
+		}
+		// --- Logging functions END ----------------------------------------
 
-		template <typename T>
-		static void logOnce(const Severity& severity, T t);
-		template<typename T, typename... Args>
-		static void logOnce(const Severity& severity, T t, Args... args);
-
+		static sf::Vector2u getSize();
 		static void setSize(const sf::Vector2u &size);
 		// !!! Changes all fonts (even those alredy printed)
 		static void setFontStyle(const sf::Vector2i& size, const bool isBold = false);
 		static void setName(const LPCSTR name);
+		static bool isActive();
 
 	private:
 		static HANDLE HConsole_;
@@ -56,51 +73,34 @@ namespace ngin
 	};
 
 	template<typename T>
-	inline void Console::log(const Severity& severity, T t)
+	inline void Console::log(const FLAG& flag, T t)
 	{
 		outStringStream_ << t;
-		log(outStringStream_.str(), severity);
+		log(outStringStream_.str(), flag);
 		outStringStream_.str(""); // clear stream
 	}
 	template<typename T, typename ...Args>
-	inline void Console::log(const Severity& severity, T t, Args ...args)
+	inline void Console::log(const FLAG& flag, T t, Args ...args)
 	{
 		const std::size_t n = sizeof...(Args);
 
 		if (n > 0) // grow stream until last value
 			outStringStream_ << t;
 
-		log(severity, args...);
-	}
-	template<typename T>
-	inline void Console::logOnce(const Severity& severity, T t)
-	{
-		outStringStream_ << t;
-		logOnce(outStringStream_.str(), severity);
-		outStringStream_.str(""); // clear stream
-	}
-	template<typename T, typename ...Args>
-	inline void Console::logOnce(const Severity& severity, T t, Args ...args)
-	{
-		const std::size_t n = sizeof...(Args);
-
-		if (n > 0) // grow stream until last value
-			outStringStream_ << t;
-
-		logOnce(severity, args...);
+		log(flag, args...);
 	}
 }
 
 #ifndef NG_CONSOLE_NOPRINT
-#define NG_LOG_NOTE(...) ngin::Console::log(ngin::Console::Severity::Note, __VA_ARGS__ )
-#define NG_LOG_INFO(...) ngin::Console::log(ngin::Console::Severity::Info, __VA_ARGS__ )
-#define NG_LOG_WARN(...) ngin::Console::log(ngin::Console::Severity::Warning, __VA_ARGS__ )
-#define NG_LOG_ERROR(...) ngin::Console::log(ngin::Console::Severity::Error, __VA_ARGS__ )
+#define NG_LOG_NOTE(...) ng::Console::log(ng::Console::FLAG_NOTE, __VA_ARGS__ )
+#define NG_LOG_INFO(...) ng::Console::log(ng::Console::FLAG_INFO, __VA_ARGS__ )
+#define NG_LOG_WARN(...) ng::Console::log(ng::Console::FLAG_WARNING, __VA_ARGS__ )
+#define NG_LOG_ERROR(...) ng::Console::log(ng::Console::FLAG_ERROR, __VA_ARGS__ )
 
-#define NG_LOG_ONCE_NOTE(...) ngin::Console::logOnce(ngin::Console::Severity::Note, __VA_ARGS__ )
-#define NG_LOG_ONCE_INFO(...) ngin::Console::logOnce(ngin::Console::Severity::Info, __VA_ARGS__ )
-#define NG_LOG_ONCE_WARN(...) ngin::Console::logOnce(ngin::Console::Severity::Warning, __VA_ARGS__ )
-#define NG_LOG_ONCE_ERROR(...) ngin::Console::logOnce(ngin::Console::Severity::Error, __VA_ARGS__ )
+#define NG_LOG_ONCE_NOTE(...) ng::Console::log(ng::Console::FLAG_ONCE_NOTE, __VA_ARGS__ )
+#define NG_LOG_ONCE_INFO(...) ng::Console::log(ng::Console::FLAG_ONCE_INFO, __VA_ARGS__ )
+#define NG_LOG_ONCE_WARN(...) ng::Console::log(ng::Console::FLAG_ONCE_WARNING, __VA_ARGS__ )
+#define NG_LOG_ONCE_ERROR(...) ng::Console::log(ng::Console::FLAG_ONCE_ERROR, __VA_ARGS__ )
 #else
 #define NG_LOG_NOTE
 #define NG_LOG_INFO
@@ -113,9 +113,11 @@ namespace ngin
 #define NG_LOG_ONCE_ERROR(...)
 #endif // NG_CONSOLE_NOPRINT
 
-
-// disable Console functions
-// #ifndef _DEBUG
-// ShowWindow(GetConsoleWindow(), SW_HIDE);
-// #define NG_CONSOLE_NOPRINT
-// #endif
+// --- call this to disable Console functions ---
+/*
+#ifndef _DEBUG // limits to release window
+ShowWindow(GetConsoleWindow(), SW_HIDE); // hides console
+#define NG_CONSOLE_NOPRINT // disables unnecessary printing logic
+#endif
+*/
+// ----------------------------------------------

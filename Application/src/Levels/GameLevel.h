@@ -1,5 +1,6 @@
 #pragma once
 #include "NGin.h"
+#include "Levels.h"
 
 // external
 #include "Common/GameDetails.h"
@@ -7,11 +8,10 @@
 #include "Music/Music.h"
 #include "Game/GameMenu/GameMenu.h"
 
-class GameLevel : public ngin::Level {
+class GameLevel : public ng::Level {
 public:
-	GameLevel() { setup(); }
+	GameLevel();
 
-	void setup();
 	void handleEvents(const sf::Event& event);
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -25,8 +25,8 @@ private:
 	
 	sf::Sprite interface_;
 
-	ngin::Button menuButton_{ "Menu", {430, 50} };
+	ng::Button menuButton_{ "Menu", {430, 50} };
 	bool menuIsActive = false;
 
-	ngin::Level* menu_;
+	// ng::Level* menu_;
 };

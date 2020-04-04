@@ -2,8 +2,9 @@
 #include "SFML/Graphics.hpp"
 
 #include "../System/Timer.h"
+// TODO: Complete and test this shit!
 
-namespace ngin {
+namespace ng {
 	// Animation using Files
 	class AnimationFile {
 	public:

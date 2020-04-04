@@ -1,6 +1,6 @@
 #include "Align.h"
 
-namespace ngin {
+namespace ng {
 	void positionTextInBounds(sf::Vector2f position, sf::Text& text, const sf::FloatRect& bounds)
 	{
 		// skip empty text avoiding errors
@@ -22,8 +22,8 @@ namespace ngin {
 	{
 		if (text.getString() == "" || text.getFont() == 0) return;
 
-		const sf::Vector2f position = { 
-			(bounds.width  / 2) - (text.getGlobalBounds().width  / 2),
+		const sf::Vector2f position = {
+			(bounds.width / 2) - (text.getGlobalBounds().width / 2),
 			(bounds.height / 2) - (text.getGlobalBounds().height / 2) };
 
 		positionTextInBounds(position, text, bounds);
@@ -40,7 +40,7 @@ namespace ngin {
 
 		const sf::Vector2f position = {
 			(bounds.width / 2) - (text.getGlobalBounds().width / 2) + xOffset,
-			(bounds.height / 2) - (text.getGlobalBounds().height / 2)};
+			(bounds.height / 2) - (text.getGlobalBounds().height / 2) };
 
 		positionTextInBounds(position, text, bounds);
 	}
@@ -48,22 +48,27 @@ namespace ngin {
 	{
 		if (text.getString() == "" || text.getFont() == 0) return;
 
-		centerTextInBounds( xOffset, text, shape.getGlobalBounds());
+		centerTextInBounds(xOffset, text, shape.getGlobalBounds());
 	}
 	void centerTextInBounds(sf::Text& text, const sf::FloatRect& bounds, float yOffset)
 	{
-		if (text.getString() == "" || text.getFont() == 0 ) return;
+		if (text.getString() == "" || text.getFont() == 0) return;
 
 		const sf::Vector2f position = {
 			(bounds.width / 2) - (text.getGlobalBounds().width / 2),
-			(bounds.height / 2) - (text.getGlobalBounds().height / 2) + yOffset};
+			(bounds.height / 2) - (text.getGlobalBounds().height / 2) + yOffset };
 
-		positionTextInBounds( position, text, bounds);
+		positionTextInBounds(position, text, bounds);
 	}
 	void centerTextInShape(sf::Text& text, const sf::RectangleShape& shape, float yOffset)
 	{
 		if (text.getString() == "" || text.getFont() == 0) return;
 
 		centerTextInBounds(text, shape.getGlobalBounds(), yOffset);
+	}
+	sf::Vector2f getCenterOf(const sf::RectangleShape& shape)
+	{
+		return { shape.getPosition().x + shape.getGlobalBounds().width / 2,
+				 shape.getPosition().y + shape.getGlobalBounds().height / 2 };
 	}
 }

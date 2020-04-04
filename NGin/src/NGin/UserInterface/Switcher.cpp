@@ -1,9 +1,9 @@
 #include "Switcher.h"
 
-namespace ngin {
+namespace ng {
 	void Switcher::handleEvents(const sf::Event& event, const sf::Vector2f& mouse)
 	{
-		if (blockingException_ == -1) {
+		if (!UIElement::hasBlockingException()) {
 			hasChanged_ = false;
 
 			button_.handleEvents(event, mouse);
@@ -78,6 +78,10 @@ namespace ngin {
 	void Switcher::setSelectColor(const sf::Color& color)
 	{
 		button_.setSelectColor(color);
+	}
+	void Switcher::setSelectThickness(const float thickness)
+	{
+		button_.setSelectThickness(thickness);
 	}
 	void Switcher::setIsActive(const bool active)
 	{

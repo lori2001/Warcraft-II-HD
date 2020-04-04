@@ -1,18 +1,18 @@
 #include "MenuLevel.h"
 
-void MenuLevel::setup()
+MenuLevel::MenuLevel()
 {
-	buttonTexture_ = ngin::Resources::AcquireTexture("images/ui/button.png");
-	font_ = ngin::Resources::AcquireFont("fonts/warcraft.ttf");
-	backgroundTexture_ = ngin::Resources::AcquireTexture("images/ui/menu_bg.jpg");
+	buttonTexture_ = ng::Resources::AcquireTexture("images/ui/button.png");
+	font_ = ng::Resources::AcquireFont("fonts/warcraft.ttf");
+	backgroundTexture_ = ng::Resources::AcquireTexture("images/ui/menu_bg.jpg");
 
 	// Aquire Texture resource-heavy textures to make a faster menu
 	for (int i = 0; i < 20; i++) {
-		ngin::Resources::AcquireTexture("images/bot_gears/" + std::to_string(i) + ".png");
-		ngin::Resources::AcquireTexture("images/top_gears/" + std::to_string(i) + ".png");
+		ng::Resources::AcquireTexture("images/bot_gears/" + std::to_string(i) + ".png");
+		ng::Resources::AcquireTexture("images/top_gears/" + std::to_string(i) + ".png");
 	}
 	// make sure cursor is in orc-mode
-	ngin::Cursor::setTexture(*ngin::Resources::AcquireTexture("images/ui/orc_cursor.png"));
+	ng::Cursor::setTexture(*ng::Resources::AcquireTexture("images/ui/orc_cursor.png"));
 
 	background_.setTexture(*backgroundTexture_);
 
@@ -29,25 +29,26 @@ void MenuLevel::setup()
 
 void MenuLevel::handleEvents(const sf::Event& event)
 {
-	startButton_.handleEvents(event, ngin::Cursor::getPosition());
-	settingsButton_.handleEvents(event, ngin::Cursor::getPosition());
-	editorButton_.handleEvents(event, ngin::Cursor::getPosition());
-	exitButton_.handleEvents(event, ngin::Cursor::getPosition());
+	startButton_.handleEvents(event, ng::Cursor::getPosition());
+	settingsButton_.handleEvents(event, ng::Cursor::getPosition());
+	editorButton_.handleEvents(event, ng::Cursor::getPosition());
+	exitButton_.handleEvents(event, ng::Cursor::getPosition());
 
 	if (startButton_.isActive()) {
-		response_ = RESPONSE::LOBBY;
+		Levels::event = Levels::EVENT::EVENT_LOBBY;
 	}
 	else if (settingsButton_.isActive()) {
-		response_ = RESPONSE::SETTINGS;
+		Levels::event = Levels::EVENT::EVENT_SETTINGS;
 	}
 	else if (editorButton_.isActive()) {
-		response_ = RESPONSE::EDITOR;
+		Levels::event = Levels::EVENT::EVENT_EDITOR;
 	}
 	else if (exitButton_.isActive()) {
-		response_ = RESPONSE::EXIT;
+		// exit
+		ng::Main::closeWindow();
 	}
 	else {
-		response_ = RESPONSE::NONE;
+		Levels::event = Levels::EVENT::EVENT_NONE;
 	}
 }
 

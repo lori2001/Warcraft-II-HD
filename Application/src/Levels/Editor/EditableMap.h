@@ -30,12 +30,12 @@ public:
 
 	bool isFocused() const { return isFocused_; }
 	void checkIfFocused(const bool toolbarFocus) {
-		if (!toolbarFocus && ngin::MainLevel::windowHasFocus()) { isFocused_ = true; }
+		if (!toolbarFocus && ng::Main::windowHasFocus()) { isFocused_ = true; }
 		else { isFocused_ = false; }
 	}
 	// if nothing else but the window is focused then this surely is
 	void checkIfFocused(const bool toolbarFocus, const bool tilePainterFocus) {
-		if (!toolbarFocus && !tilePainterFocus && ngin::MainLevel::windowHasFocus()) {isFocused_ = true;}
+		if (!toolbarFocus && !tilePainterFocus && ng::Main::windowHasFocus()) {isFocused_ = true;}
 		else {isFocused_ = false;}
 	}
 private:

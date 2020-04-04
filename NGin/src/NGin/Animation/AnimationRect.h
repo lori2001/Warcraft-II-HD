@@ -3,7 +3,7 @@
 
 // TODO: Complete and test this shit!
 
-namespace ngin {
+namespace ng {
 	// Animation using rectangles
 	class AnimationRect {
 	public:

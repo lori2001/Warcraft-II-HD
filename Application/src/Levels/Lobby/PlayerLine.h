@@ -4,10 +4,10 @@
 
 class PlayerLine : public sf::Drawable {
 public:
-	ngin::InputText nameInput;
-	ngin::Dropdown raceDropdown{ { 277, 40 } };
-	ngin::Dropdown teamDropdown{ { 277, 40 } };
-	ngin::Dropdown colorDropdown{ { 277, 40 } };
+	ng::InputText nameInput;
+	ng::Dropdown raceDropdown{ { 277, 40 } };
+	ng::Dropdown teamDropdown{ { 277, 40 } };
+	ng::Dropdown colorDropdown{ { 277, 40 } };
 
 	void setPosition(const sf::Vector2f& position);
 	void setTheme(const sf::Font& font, const unsigned fontSize, const sf::Color& themeColor);

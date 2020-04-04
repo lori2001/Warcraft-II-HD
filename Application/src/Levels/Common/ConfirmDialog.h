@@ -48,8 +48,8 @@ private:
 	sf::RectangleShape background_;
 	sf::Text text_;
 
-	ngin::Button okButton_;
-	ngin::Button closeButton_;
+	ng::Button okButton_;
+	ng::Button closeButton_;
 
 	// Properties
 	float textOffset_ = -25.0F; // offset in Y axis

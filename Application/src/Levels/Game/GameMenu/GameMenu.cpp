@@ -3,10 +3,10 @@
 GameMenu::GameMenu()
 {
 	// --- Load Textures ------------------------
-	buttonTexture_     = ngin::Resources::AcquireTexture("images/ui/button.png");
-	backgroundTexture_ = ngin::Resources::AcquireTexture("images/ui/orc_clay_bg.png");
-	sliderTexture_     = ngin::Resources::AcquireTexture("images/ui/slider.png");
-	warcraftFont_      = ngin::Resources::AcquireFont("fonts/warcraft.ttf");
+	buttonTexture_     = ng::Resources::AcquireTexture("images/ui/button.png");
+	backgroundTexture_ = ng::Resources::AcquireTexture("images/ui/orc_clay_bg.png");
+	sliderTexture_     = ng::Resources::AcquireTexture("images/ui/slider.png");
+	warcraftFont_      = ng::Resources::AcquireFont("fonts/warcraft.ttf");
 	// ------------------------------------------
 
 	// --- Set Textures -------------------------
@@ -43,7 +43,7 @@ GameMenu::GameMenu()
 	mainMenuButton_.setPosition({ 745, 730 });
 	exitButton_    .setPosition({ 745, 830 });
 	
-	ngin::centerTextInBounds(menuText_, background_.getGlobalBounds(), -300);
+	ng::centerTextInBounds(menuText_, background_.getGlobalBounds(), -300);
 	gameSettings_.setPositionOn(background_);
 	// ------------------------------------------
 
@@ -52,20 +52,16 @@ GameMenu::GameMenu()
 	gameSettings_.setupSliders();
 }
 
-void GameMenu::setup()
-{
-}
-
 void GameMenu::handleEvents(const sf::Event& event)
 {
-	mainMenuButton_.handleEvents(event, ngin::Cursor::getPosition());
-	settingsButton_.handleEvents(event, ngin::Cursor::getPosition());
-	continueButton_.handleEvents(event, ngin::Cursor::getPosition());
-	exitButton_    .handleEvents(event, ngin::Cursor::getPosition());
+	mainMenuButton_.handleEvents(event, ng::Cursor::getPosition());
+	settingsButton_.handleEvents(event, ng::Cursor::getPosition());
+	continueButton_.handleEvents(event, ng::Cursor::getPosition());
+	exitButton_    .handleEvents(event, ng::Cursor::getPosition());
 
 	// --- Responses -----------------------------
 	if (settingsIsActive) {
-		gameSettings_.handleEvents(event, ngin::Cursor::getPosition());
+		gameSettings_.handleEvents(event, ng::Cursor::getPosition());
 
 		if (gameSettings_.getResponse() == GameSettings::RESPONSE::BACK) {
 			settingsIsActive = false;
@@ -73,19 +69,19 @@ void GameMenu::handleEvents(const sf::Event& event)
 	}
 	else {
 		if (mainMenuButton_.isActive()) {
-			response_ = RESPONSE::MAIN_MENU;
+			Levels::event = Levels::EVENT::EVENT_MENU;
 		}
 		else if (exitButton_.isActive()) {
-			response_ = RESPONSE::EXIT;
+			ng::Main::closeWindow();
 		}
 		else if (settingsButton_.isActive()) {
 			settingsIsActive = true;
 		}
 		else if (continueButton_.isActive()) {
-			response_ = RESPONSE::CONTINUE;
+			// Levels::event = Levels::EVENT::EVENT_MENU;
 		}
 		else {
-			response_ = RESPONSE::NONE;
+			Levels::event = Levels::EVENT::EVENT_NONE;
 		}
 	}
 	// -------------------------------------------

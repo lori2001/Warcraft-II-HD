@@ -1,7 +1,7 @@
 #include "Audio.h"
 #include "../System/Console.h"
 
-namespace ngin {
+namespace ng {
 	std::vector<sf::Sound*> Audio::sounds_;
 	std::vector<sf::Music*> Audio::musics_;
 	float Audio::soundVolume_ = 1.0F; // 100%

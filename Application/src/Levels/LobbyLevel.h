@@ -1,5 +1,6 @@
 #pragma once
 #include "NGin.h"
+#include "Levels.h"
 
 #include "../Files/SettingsFile.h"
 
@@ -11,20 +12,13 @@
 #include "Common/ConfirmDialog.h"
 #include "Common/GameDetails.h"
 
-class LobbyLevel : public ngin::Level {
+class LobbyLevel : public ng::Level {
 public:
-	LobbyLevel() { setup(); }
-
-	void setup();
+	LobbyLevel();
+	
 	void handleEvents(const sf::Event& event);
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
-	enum RESPONSE {
-		NONE = 5,
-		MAIN_MENU,
-		GAME
-	};
 
 private:
 	void setupUIStyle(const sf::Font& font, const unsigned fontSize, const sf::Color& themeColor);
@@ -45,8 +39,8 @@ private:
 	sf::Sprite background_;
 
 	// Navigation buttons 
-	ngin::Button backButton_{ "Back", {430, 50} };
-	ngin::Button playButton_ { "Play", {430, 50} };
+	ng::Button backButton_{ "Back", {430, 50} };
+	ng::Button playButton_ { "Play", {430, 50} };
 
 	// Static stuff
 	sf::Text playerText_;
@@ -65,11 +59,11 @@ private:
 	MapSelector mapSelector_;
 
 	// Nr of NPC's dropdown
-	ngin::Dropdown npcsDropdown_{ {69, 54} };
+	ng::Dropdown npcsDropdown_{ {69, 54} };
 	int npcsNo_ = 1; 
 
 	// To toggle team-relative color mode
-	ngin::Switcher relativeColorSwitcher_{ { 59 , 54 }, { 71, 80 } };
+	ng::Switcher relativeColorSwitcher_{ { 59 , 54 }, { 71, 80 } };
 
 	// Selectables' Content
 	const std::vector<ColoredString> races_

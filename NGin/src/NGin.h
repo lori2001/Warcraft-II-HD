@@ -1,4 +1,10 @@
 #pragma once
+// NGin created by Szoke Lorand
+
+// signifies major and incompatible structural changes
+#define NG_VERSION_MAJOR 2
+#define NG_VERSION_MINOR 0
+#define NG_VERSION_PATCH 0
 
 // --- SFML ---------------------
 #include "SFML/System.hpp"
@@ -22,12 +28,13 @@
 #include "NGin/Audio/Audio.h"
 
 // -- File Reading/Writing ------
-#include "NGin/Files/Json.h" // nlohmann vendor -> class ngin::Json
+#include "NGin/Files/Json.h" // nlohmann vendor -> class ng::Json
 #include "NGin/Files/FileReader.h"
 
 // --- User Interface -----------
-#include "NGin/UserInterface/Cursor.h"
 #include "NGin/UserInterface/Button.h"
+#include "NGin/UserInterface/Cursor.h"
+#include "NGin/UserInterface/ConfirmDialog.h" // includes Button.h
 #include "NGin/UserInterface/Dropdown.h"
 #include "NGin/UserInterface/InputText.h"
 #include "NGin/UserInterface/ScrollBox.h"
@@ -40,7 +47,7 @@
 
 // --- Level Types --------------------
 #include "NGin/Levels/Level.h"
-#include "NGin/Levels/MainLevel.h" 
+#include "NGin/Levels/Main.h" 
 
 // --- Entry Point(int main()) --------
 #include "NGin/EntryPoint.h"

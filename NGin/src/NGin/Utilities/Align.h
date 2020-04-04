@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 
-namespace ngin {
+namespace ng {
 	void positionTextInBounds(sf::Vector2f position, sf::Text& text, const sf::FloatRect& bounds);
 	void positionTextInShape(sf::Vector2f position, sf::Text& text, const sf::RectangleShape& shape);
 
@@ -13,5 +13,7 @@ namespace ngin {
 
 	void centerTextInBounds(sf::Text& text, const sf::FloatRect& bounds, float yOffset);
 	void centerTextInShape(sf::Text& text, const sf::RectangleShape& shape, float yOffset);
+
+	sf::Vector2f getCenterOf(const sf::RectangleShape& shape);
 }
 

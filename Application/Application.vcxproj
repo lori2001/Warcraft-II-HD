@@ -131,6 +131,7 @@
     <ClInclude Include="src\Levels\Game\GameMenu\GameSettings.h" />
     <ClInclude Include="src\Levels\Game\Units\Humans\Footman.h" />
     <ClInclude Include="src\Levels\Game\Units\Unit.h" />
+    <ClInclude Include="src\Levels\Levels.h" />
     <ClInclude Include="src\Levels\LobbyLevel.h" />
     <ClInclude Include="src\Levels\Lobby\ColoredString.h" />
     <ClInclude Include="src\Levels\Lobby\MapSelector.h" />

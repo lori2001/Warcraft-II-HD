@@ -11,9 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\NGin\UserInterface\ConfirmDialog.cpp" />
     <ClCompile Include="src\NGin\UserInterface\ScrollBox.cpp" />
     <ClCompile Include="src\NGin\Files\FileReader.cpp" />
-    <ClCompile Include="src\NGin\Levels\MainLevel.cpp" />
+    <ClCompile Include="src\NGin\Levels\Main.cpp" />
     <ClCompile Include="src\NGin\Animation\AnimationFile.cpp" />
     <ClCompile Include="src\NGin\Animation\AnimationRect.cpp" />
     <ClCompile Include="src\NGin\Audio\Audio.cpp" />
@@ -33,13 +34,14 @@
     <ClCompile Include="src\NGin\Utilities\Vectors.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\NGin\UserInterface\ConfirmDialog.h" />
     <ClInclude Include="src\NGin\UserInterface\ScrollBox.h" />
     <ClInclude Include="src\NGin\Audio\Audio.h" />
     <ClInclude Include="src\NGin\Files\FileReader.h" />
     <ClInclude Include="src\NGin\Files\Json.h" />
     <ClInclude Include="src\NGin\Files\json.hpp" />
     <ClInclude Include="src\NGin\Levels\Level.h" />
-    <ClInclude Include="src\NGin\Levels\MainLevel.h" />
+    <ClInclude Include="src\NGin\Levels\Main.h" />
     <ClInclude Include="src\NGin.h" />
     <ClInclude Include="src\NGin\Animation\AnimationFile.h" />
     <ClInclude Include="src\NGin\Animation\AnimationRect.h" />

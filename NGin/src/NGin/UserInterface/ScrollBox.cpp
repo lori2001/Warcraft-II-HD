@@ -1,7 +1,7 @@
 #include "ScrollBox.h"
 #include "Cursor.h"
 
-namespace ngin {
+namespace ng {
 
 	void ScrollBox::handleEvents(const sf::Event& event, const sf::Vector2f& mouse)
 	{
@@ -174,14 +174,6 @@ namespace ngin {
 	{
 		target.draw(container_);
 
-		if (XisUsed_) {
-			target.draw(Xscroller_);
-		}
-
-		if (YisUsed_) {
-			target.draw(Yscroller_);
-		}
-
 		for (auto it : subsRects_) {
 			// draw only if container "contains" the rectangle
 			if (container_.getPosition().x < it->getPosition().x &&
@@ -206,6 +198,14 @@ namespace ngin {
 			{
 				target.draw(*it);
 			}
+		}
+
+		if (XisUsed_) {
+			target.draw(Xscroller_);
+		}
+
+		if (YisUsed_) {
+			target.draw(Yscroller_);
 		}
 	}
 
@@ -279,7 +279,7 @@ namespace ngin {
 	int ScrollBox::getElementID(sf::Text& text) const
 	{
 		// iterate through each pointer
-		for (int i = 0; i < subsTexts_.size(); i++)
+		for (int i = 0; i < static_cast<int>(subsTexts_.size()); i++)
 		{
 			// if ID of pointer is found
 			if (subsTexts_[i] == &text) {
@@ -292,7 +292,7 @@ namespace ngin {
 	int ScrollBox::getElementID(sf::RectangleShape& rectangle) const
 	{
 		// iterate through each pointer
-		for (int i = 0; i < subsRects_.size(); i++)
+		for (int i = 0; i < static_cast<int>(subsRects_.size()); i++)
 		{
 			// if ID of pointer is found
 			if (subsRects_[i] == &rectangle) {

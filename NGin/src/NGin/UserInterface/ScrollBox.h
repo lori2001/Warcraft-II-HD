@@ -4,9 +4,9 @@
 
 // This UI Element has to be inherited in order to be used properly
 
-namespace ngin {
+namespace ng {
 
-	class ScrollBox : public ngin::UIElement {
+	class ScrollBox : public ng::UIElement {
 	public:
 		ScrollBox() : ScrollBox({ 1000, 1000 }, { 500, 500 }, { 150, 30 }, { 30, 150 }) {}
 		// flips the X scroller size coordinates to read in the Y scroller
@@ -55,11 +55,11 @@ namespace ngin {
 
 		// -- converts object's global position to relative position
         // aka. object at position x and y will only be available if
-        // is inside container + the insideSize expansion
+        // is inside container + the insideSize
 		bool addElement(sf::Text& text);
 		// -- converts object's global position to relative position
 		// aka. object at position x and y will only be available if
-		// is inside container + the insideSize expansion
+		// is inside container + the insideSize
 		bool addElement(sf::RectangleShape& rectangle);
 
 		// returns the index of the given subscribed element
@@ -105,7 +105,7 @@ namespace ngin {
 		sf::Vector2f getOutsideSize() const { return outsideSize_; }
 		sf::Vector2f getInsideSize() const { return insideSize_; }
 		// gets the global bounds of the container
-		sf::FloatRect getGlobalBounds() { return container_.getGlobalBounds(); }
+		sf::FloatRect getGlobalBounds() const { return container_.getGlobalBounds(); }
 
 	private:
 		// outsideSize_ < insideSize_

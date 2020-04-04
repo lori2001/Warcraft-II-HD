@@ -4,12 +4,12 @@
 // This file contains operations with sfml vectors
 // which might shorten otherwise long code
 
-namespace ngin {
+namespace ng {
 	
 	// converts floating point to an unidimensional vector
-	sf::Vector2f ftoVec(const float floatingPoint);
+	sf::Vector2f ftovec(const float floatingPoint);
 	// converts integer to an unidimensional vector
-	sf::Vector2i itoVec(const int integer);
+	sf::Vector2i itovec(const int integer);
 
 	// multiplies two float vectors
 	sf::Vector2f multiplyVec(const sf::Vector2f& leftHand, const sf::Vector2f& rightHand);

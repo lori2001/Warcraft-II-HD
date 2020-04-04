@@ -1,6 +1,6 @@
 #include "AnimationFile.h"
 
-namespace ngin {
+namespace ng {
 	void AnimationFile::update(const std::vector<std::shared_ptr<sf::Texture>>& textureVector)
 	{
 		secsPassed_ += Timer::getDeltaTime();

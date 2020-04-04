@@ -1,7 +1,7 @@
 #include "UIElement.h"
 
-namespace ngin
+namespace ng
 {
-	std::vector<size_t> UIElement::Elements_;
+	std::vector<size_t> UIElement::elements_;
 	int UIElement::blockingException_ = -1;
 }

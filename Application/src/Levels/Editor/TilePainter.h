@@ -43,5 +43,5 @@ private:
 	int usingTile_ = -1;
 
 	const sf::IntRect backgroundTextureRect_ = { 0, 0, 312, 780 };
-	ngin::ScrollBox scrollBox_{ {400, 5500}, {400, 1000}, {200, 35} };
+	ng::ScrollBox scrollBox_{ {400, 5500}, {400, 1000}, {200, 35} };
 };

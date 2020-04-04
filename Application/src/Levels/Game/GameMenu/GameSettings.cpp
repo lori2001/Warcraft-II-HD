@@ -19,8 +19,8 @@ void GameSettings::handleEvents(const sf::Event& event, const sf::Vector2f& mous
 	soundSlider_.handleEvents(event, mouse);
 	musicSlider_.handleEvents(event, mouse);
 
-	ngin::Audio::setSoundVolume(soundSlider_.getLevel());
-	ngin::Audio::setMusicVolume(musicSlider_.getLevel());
+	ng::Audio::setSoundVolume(soundSlider_.getLevel());
+	ng::Audio::setMusicVolume(musicSlider_.getLevel());
 
 	if (backButton_.isActive())
 		response_ = RESPONSE::BACK;
@@ -50,9 +50,9 @@ void GameSettings::setPositionOn(const sf::Sprite& background)
 	background.getGlobalBounds().left + (background.getGlobalBounds().width - musicSlider_.getGlobalBounds().width) / 2 ,
 	background.getGlobalBounds().top + 550 });
 
-	ngin::centerTextInBounds(soundText_, soundSlider_.getGlobalBounds(), -47);
-	ngin::centerTextInBounds(musicText_, musicSlider_.getGlobalBounds(), -47);
-	ngin::centerTextInBounds(settingsText_, background.getGlobalBounds(), -300);
+	ng::centerTextInBounds(soundText_, soundSlider_.getGlobalBounds(), -47);
+	ng::centerTextInBounds(musicText_, musicSlider_.getGlobalBounds(), -47);
+	ng::centerTextInBounds(settingsText_, background.getGlobalBounds(), -300);
 }
 
 void GameSettings::setScales(const sf::Vector2f& scale)
@@ -71,8 +71,8 @@ void GameSettings::setupStrings()
 
 void GameSettings::setupSliders()
 {
-	soundSlider_.setLevel(ngin::Audio::getSoundVolume());
-	musicSlider_.setLevel(ngin::Audio::getMusicVolume());
+	soundSlider_.setLevel(ng::Audio::getSoundVolume());
+	musicSlider_.setLevel(ng::Audio::getMusicVolume());
 }
 
 void GameSettings::setupUIStyle(const sf::Font& font, const unsigned fontSize, const sf::Color& themeColor)

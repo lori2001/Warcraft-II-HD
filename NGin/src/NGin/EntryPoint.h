@@ -1,9 +1,9 @@
 #pragma once
-#include "Levels/MainLevel.h"
+#include "Levels/Main.h"
 
 // only add once to the program
 #ifdef MAIN_LEVEL
-extern ngin::MainLevel* setMainLevel();
+extern ng::Main* setMainLevel();
 
 int main()
 {

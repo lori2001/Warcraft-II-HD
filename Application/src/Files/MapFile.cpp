@@ -33,10 +33,10 @@ void MapFile::scanDir()
 	}
 }
 
-void MapFile::read()
+void MapFile::load()
 {
 	if (paths_.size() > 0) {
-		read(paths_[index_]);
+		load(paths_[index_]);
 	}
 	else {
 		NG_LOG_ERROR("No maps found in ./assets/maps/ !");
@@ -44,7 +44,7 @@ void MapFile::read()
 	}
 }
 
-void MapFile::read(const std::string& path)
+void MapFile::load(const std::string& path)
 {
 	std::ifstream in(path);
 
@@ -62,7 +62,7 @@ void MapFile::read(const std::string& path)
 			// clears white lines and comments
 			auto inputType = cleanInput(input);
 
-			if (inputType == ngin::FileReader::INPUT_TYPE::OK)
+			if (inputType == ng::FileReader::INPUT_TYPE::OK)
 			{
 				// --- Map Name -----------------------------------
 				if (findAndClear(input, "Title: "))
@@ -94,7 +94,7 @@ void MapFile::read(const std::string& path)
 						goOn = !findAndClear(input, "</tiles>");
 						inputType = cleanInput(input);
 
-						if (inputType == ngin::FileReader::INPUT_TYPE::OK)
+						if (inputType == ng::FileReader::INPUT_TYPE::OK)
 						{
 							std::istringstream iss(input);
 							std::vector<unsigned> temp;
@@ -149,5 +149,5 @@ void MapFile::offsetIndexBy(const int indexOffset)
 		index_ = 0;
 
 	// Re-read map
-	read();
+	load();
 }

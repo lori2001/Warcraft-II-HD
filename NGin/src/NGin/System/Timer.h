@@ -5,7 +5,7 @@
 #include <chrono>
 #include <ctime>
 
-namespace ngin {
+namespace ng {
 	class Timer {
 	public:
 		static void measureSysTime();

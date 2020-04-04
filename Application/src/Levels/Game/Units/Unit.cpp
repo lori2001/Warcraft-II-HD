@@ -2,7 +2,7 @@
 
 Unit::Unit() {
 	generator.setWorldSize({ 1920/32, 1080/32 });
-	generator.setHeuristic(ngin::AStar::Heuristic::euclidean);
+	generator.setHeuristic(ng::AStar::Heuristic::euclidean);
 	generator.setDiagonalMovement(true);
 
 	position_ = { 0, 0 };

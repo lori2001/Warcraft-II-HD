@@ -1,11 +1,11 @@
 #include "Bind.h"
 #include "../System/Console.h"
-#include "../Levels/MainLevel.h"
+#include "../Levels/Main.h"
 
-namespace ngin {
+namespace ng {
 
 	std::unordered_map<std::string, Bindables::Binder> Bindables::bindables;
-	unsigned long int Bindables::lastLoopCicle_ = 0;
+	unsigned long long Bindables::lastLoopCicle_ = 0;
 
 	void Bindables::create(const std::string key, const sf::Vector2f& positionOfBindable)
 	{
@@ -20,9 +20,9 @@ namespace ngin {
 		if (search != bindables.end())
 		{
 			// only once in a loop cicle
-			if (lastLoopCicle_ != ngin::MainLevel::getLoopCicleCount())
+			if (lastLoopCicle_ != ng::Main::getLoopCicleCount())
 			{
-				lastLoopCicle_ = ngin::MainLevel::getLoopCicleCount();
+				lastLoopCicle_ = ng::Main::getLoopCicleCount();
 				// update the saved position to the current one
 				search->second.lastPosition_ = search->second.position_;
 				search->second.position_ = positionOfBindable;

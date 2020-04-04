@@ -1,23 +1,23 @@
 #include "SettingsLevel.h"
-#include "NGin/Levels/MainLevel.h"
+#include "NGin/Levels/Main.h"
 
-void SettingsLevel::setup()
+SettingsLevel::SettingsLevel()
 {
 	// --- Loading Textures ----------------
-	buttonTexture_ = ngin::Resources::AcquireTexture("images/ui/button.png");
-	dropdownTexture_ = ngin::Resources::AcquireTexture("images/ui/dropdown.png");
-	sliderTexture_ = ngin::Resources::AcquireTexture("images/ui/slider.png");
-	confirmDialogTexture_ = ngin::Resources::AcquireTexture("images/ui/confirm_dialog.png");
-	backgroundTexture_ = ngin::Resources::AcquireTexture("images/ui/settings_bg.jpg");
-	warcraftFont_ = ngin::Resources::AcquireFont("fonts/warcraft.ttf");
+	buttonTexture_ = ng::Resources::AcquireTexture("images/ui/button.png");
+	dropdownTexture_ = ng::Resources::AcquireTexture("images/ui/dropdown.png");
+	sliderTexture_ = ng::Resources::AcquireTexture("images/ui/slider.png");
+	confirmDialogTexture_ = ng::Resources::AcquireTexture("images/ui/confirm_dialog.png");
+	backgroundTexture_ = ng::Resources::AcquireTexture("images/ui/settings_bg.jpg");
+	warcraftFont_ = ng::Resources::AcquireFont("fonts/warcraft.ttf");
 
 	for (int i = 0; i < 20; i++) {
-		botGearsTextures_.push_back(ngin::Resources::AcquireTexture
+		botGearsTextures_.push_back(ng::Resources::AcquireTexture
 		("images/bot_gears/" + std::to_string(i) + ".png"));
 	}
 
 	for (int i = 0; i < 20; i++) {
-		topGearsTextures_.push_back(ngin::Resources::AcquireTexture
+		topGearsTextures_.push_back(ng::Resources::AcquireTexture
 		("images/top_gears/" + std::to_string(i) + ".png"));
 	}
 	// -------------------------------------
@@ -43,9 +43,9 @@ void SettingsLevel::setup()
 	// -------------------------------------
 
 	// --- Other Properties ----------------
-	soundSlider_.setLevel(ngin::Audio::getSoundVolume());
+	soundSlider_.setLevel(ng::Audio::getSoundVolume());
 	soundText_.setString("Sound Volume:");
-	musicSlider_.setLevel(ngin::Audio::getMusicVolume());
+	musicSlider_.setLevel(ng::Audio::getMusicVolume());
 	musicText_.setString("Music Volume:");
 
 	confirmDialog_.setString("Are you sure you want to keep these changes?");
@@ -75,42 +75,42 @@ void SettingsLevel::setup()
 
 	topGears_.setPosition({ 100, 60 });
 	botGears_.setPosition({ 1300, 500 });
-	ngin::centerTextInBounds(soundText_, soundSlider_.getGlobalBounds(), -47);
-	ngin::centerTextInBounds(musicText_, musicSlider_.getGlobalBounds(), -47);
-	ngin::centerTextInBounds(windowModeText_, windowTypeDropdown_.getClosedGlobalBounds(), -45);
-	ngin::centerTextInBounds(resolutionText_, videoModeDropdown_.getClosedGlobalBounds(), -45);
+	ng::centerTextInBounds(soundText_, soundSlider_.getGlobalBounds(), -47);
+	ng::centerTextInBounds(musicText_, musicSlider_.getGlobalBounds(), -47);
+	ng::centerTextInBounds(windowModeText_, windowTypeDropdown_.getClosedGlobalBounds(), -45);
+	ng::centerTextInBounds(resolutionText_, videoModeDropdown_.getClosedGlobalBounds(), -45);
 	// -------------------------------------
 
 	// --- Getting Data --------------------
-	if (ngin::MainLevel::windowType_ == ngin::WINDOW_TYPE::WINDOW_UNRESIZEABLE)
+	if (ng::Main::windowType == ng::WINDOW_TYPE::WINDOW_UNRESIZEABLE)
 		windowTypeDropdown_.setActiveDrop(1); // windowed
-	else if (ngin::MainLevel::windowType_ == ngin::WINDOW_TYPE::WINDOW_BORDERLESS)
+	else if (ng::Main::windowType == ng::WINDOW_TYPE::WINDOW_BORDERLESS)
 		windowTypeDropdown_.setActiveDrop(2); // borderless
-	else if (ngin::MainLevel::windowType_ == ngin::WINDOW_TYPE::WINDOW_FULLSCREEN)
+	else if (ng::Main::windowType == ng::WINDOW_TYPE::WINDOW_FULLSCREEN)
 		windowTypeDropdown_.setActiveDrop(3); // fullscreen
-	else if (ngin::MainLevel::windowType_ == ngin::WINDOW_TYPE::WINDOW_RESIZEABLE)
+	else if (ng::Main::windowType == ng::WINDOW_TYPE::WINDOW_RESIZEABLE)
 		NG_LOG_ERROR("Window has unsupported Type!"); /// !!! Resizeable window is considered error
 
 	std::string resolutionString =
-		std::to_string(ngin::MainLevel::windowVideoMode_.width)
+		std::to_string(ng::Main::windowVideoMode.width)
 		+ " x " +
-		std::to_string(ngin::MainLevel::windowVideoMode_.height);
+		std::to_string(ng::Main::windowVideoMode.height);
 
 	videoModeDropdown_.setDropString(0, resolutionString);
 
 	saveWindowTypeString_ = windowTypeStrings_[windowTypeDropdown_.getActiveDrop() - 1];
-	saveVideoMode_ = ngin::MainLevel::windowVideoMode_;
+	saveVideoMode_ = ng::Main::windowVideoMode;
 	// -------------------------------------
 }
 
 void SettingsLevel::handleEvents(const sf::Event& event)
 {
 	// default response and changeType
-	response_ = RESPONSE::NONE;
+	Levels::event = Levels::EVENT::EVENT_NONE;
 
 	if (dialogActive_)
 	{
-		confirmDialog_.handleEvents(event, ngin::Cursor::getPosition());
+		confirmDialog_.handleEvents(event, ng::Cursor::getPosition());
 
 		if (confirmDialog_.getResponse() == ConfirmDialog::RESPONSE::OK ||
 			confirmDialog_.getResponse() == ConfirmDialog::RESPONSE::CLOSE)
@@ -127,15 +127,15 @@ void SettingsLevel::handleEvents(const sf::Event& event)
 	}
 	else
 	{
-		applyButton_.handleEvents(event, ngin::Cursor::getPosition());
-		backButton_.handleEvents(event, ngin::Cursor::getPosition());
-		soundSlider_.handleEvents(event, ngin::Cursor::getPosition());
-		musicSlider_.handleEvents(event, ngin::Cursor::getPosition());
-		windowTypeDropdown_.handleEvents(event, ngin::Cursor::getPosition());
-		videoModeDropdown_.handleEvents(event, ngin::Cursor::getPosition());
+		applyButton_.handleEvents(event, ng::Cursor::getPosition());
+		backButton_.handleEvents(event, ng::Cursor::getPosition());
+		soundSlider_.handleEvents(event, ng::Cursor::getPosition());
+		musicSlider_.handleEvents(event, ng::Cursor::getPosition());
+		windowTypeDropdown_.handleEvents(event, ng::Cursor::getPosition());
+		videoModeDropdown_.handleEvents(event, ng::Cursor::getPosition());
 
-		ngin::Audio::setSoundVolume(soundSlider_.getLevel());
-		ngin::Audio::setMusicVolume(musicSlider_.getLevel());
+		ng::Audio::setSoundVolume(soundSlider_.getLevel());
+		ng::Audio::setMusicVolume(musicSlider_.getLevel());
 
 		// fullscreen supports only one resolution
 		if (windowTypeDropdown_.getActiveDrop() == 3) {
@@ -152,7 +152,7 @@ void SettingsLevel::handleEvents(const sf::Event& event)
 			changeType_ = CHANGE::CHANGE_NONE;
 
 		if (backButton_.isActive())
-			response_ = RESPONSE::MAIN_MENU;
+			Levels::event = Levels::EVENT::EVENT_MENU;
 	}
 }
 
@@ -165,7 +165,7 @@ void SettingsLevel::update()
 	topGears_.setTexture(*topGearsAnimation_.getTexturePointer());
 
 	if (dialogActive_) {
-		resetTimer_ += ngin::Timer::getDeltaTime();
+		resetTimer_ += ng::Timer::getDeltaTime();
 		int secsRemaining = static_cast<int>(resetLimit_ - resetTimer_);
 
 		std::string confirmDialogString = "Are you sure you want to keep these changes?\n"
@@ -223,10 +223,10 @@ void SettingsLevel::applySettingsToWindow()
 	else if (changeType_ == CHANGE::CHANGE_PERMANENT)
 	{
 		// PERMANENT always runs after TEMPORARY -> very important !
-		saveVideoMode_ = ngin::MainLevel::windowVideoMode_;
+		saveVideoMode_ = ng::Main::windowVideoMode;
 		saveWindowTypeString_ = windowTypeStrings_[windowTypeDropdown_.getActiveDrop() - 1];
 
-		videoMode = ngin::MainLevel::windowVideoMode_;
+		videoMode = ng::Main::windowVideoMode;
 		windowTypeString = windowTypeStrings_[windowTypeDropdown_.getActiveDrop() - 1];
 		dialogActive_ = false; // close dialog
 	}
@@ -239,32 +239,32 @@ void SettingsLevel::applySettingsToWindow()
 		else if (videoModeDropdown_.getActiveDrop() != 0)  // if dropdown has one drop selected
 			videoMode = videoModes_[videoModeDropdown_.getActiveDrop() - 1]; // apply selected
 		else
-			videoMode = ngin::MainLevel::windowVideoMode_; // else use default
+			videoMode = ng::Main::windowVideoMode; // else use default
 	}
 	// --------------------------------------------------------------------------
 
 	// --- Apply changes internally and externally ------------------------------
 	// check if there is need for a dialog box
-	auto tempType = ngin::MainLevel::windowType_;
-	auto tempVideoMode = ngin::MainLevel::windowVideoMode_;
+	auto tempType = ng::Main::windowType;
+	auto tempVideoMode = ng::Main::windowVideoMode;
 
 	if (windowTypeString == windowTypeStrings_[0]) // windowed
 	{
-		ngin::MainLevel::windowType_ = ngin::WINDOW_TYPE::WINDOW_UNRESIZEABLE;
+		ng::Main::windowType = ng::WINDOW_TYPE::WINDOW_UNRESIZEABLE;
 		windowTypeDropdown_.setActiveDrop(1);
 	}
 	else if (windowTypeString == windowTypeStrings_[1]) // borderless
 	{
-		ngin::MainLevel::windowType_ = ngin::WINDOW_TYPE::WINDOW_BORDERLESS;
+		ng::Main::windowType = ng::WINDOW_TYPE::WINDOW_BORDERLESS;
 		windowTypeDropdown_.setActiveDrop(2);
 	}
 	else if (windowTypeString == windowTypeStrings_[2]) // fullscreen
 	{
-		ngin::MainLevel::windowType_ = ngin::WINDOW_TYPE::WINDOW_FULLSCREEN;
+		ng::Main::windowType = ng::WINDOW_TYPE::WINDOW_FULLSCREEN;
 		windowTypeDropdown_.setActiveDrop(3);
 	}
 
-	ngin::MainLevel::windowVideoMode_ = videoMode;
+	ng::Main::windowVideoMode = videoMode;
 
 	std::string resolutionString =
 		std::to_string(videoMode.width) + " x " + std::to_string(videoMode.height);
@@ -273,15 +273,15 @@ void SettingsLevel::applySettingsToWindow()
 
 	// only start dialog if changes have been made
 	if (changeType_ == CHANGE::CHANGE_TEMPORARY &&
-		(tempType != ngin::MainLevel::windowType_ ||
-		 tempVideoMode != ngin::MainLevel::windowVideoMode_)) {
+		(tempType != ng::Main::windowType ||
+		 tempVideoMode != ng::Main::windowVideoMode)) {
 		dialogActive_ = true; // open dialog
 		resetTimer_ = 0; // start resetTimer_ from 0
 	}
 	// --------------------------------------------------------------------------
 }
 
-void SettingsLevel::addResolutionsTo(ngin::Dropdown& dropdown)
+void SettingsLevel::addResolutionsTo(ng::Dropdown& dropdown)
 {
 	videoModes_.clear(); // clear resolution vector
 	std::vector<sf::Vector2i> importantResolutions_ = {

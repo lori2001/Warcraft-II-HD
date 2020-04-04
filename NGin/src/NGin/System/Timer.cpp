@@ -1,6 +1,6 @@
 #include "Timer.h"
 
-namespace ngin {
+namespace ng {
 	tm Timer::sysTime_; // defaults all values to 0
 	sf::Clock Timer::appClock_;
 	float Timer::deltaTime_ = 0;

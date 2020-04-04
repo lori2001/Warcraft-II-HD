@@ -2,7 +2,7 @@
 #include "../System/Console.h"
 #include "Cursor.h"
 
-namespace ngin {
+namespace ng {
 	void InputText::handleEvents(const sf::Event& event, const sf::Vector2f& mouse)
 	{
 		if (!isDisabled_) {
@@ -18,7 +18,7 @@ namespace ngin {
 			if (isSelected_ && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed
 				&& blockingException_ == -1)
 			{
-				ngin::Cursor::playSound();
+				ng::Cursor::playSound();
 
 				// adjusts (|)cursor's position
 				adjustCursor();

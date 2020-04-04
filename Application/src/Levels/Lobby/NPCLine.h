@@ -4,10 +4,10 @@
 
 class NPCLine : public sf::Drawable {
 public:
-	ngin::Dropdown raceDropdown{ { 277, 40 } };
-	ngin::Dropdown teamDropdown{ { 277, 40 } };
-	ngin::Dropdown colorDropdown{ { 277, 40 } };
-	ngin::Dropdown difficultyDropdown{ { 277, 40 } };
+	ng::Dropdown raceDropdown{ { 277, 40 } };
+	ng::Dropdown teamDropdown{ { 277, 40 } };
+	ng::Dropdown colorDropdown{ { 277, 40 } };
+	ng::Dropdown difficultyDropdown{ { 277, 40 } };
 
 	void setPosition(const sf::Vector2f& position);
 

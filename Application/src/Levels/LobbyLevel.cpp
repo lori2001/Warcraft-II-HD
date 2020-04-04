@@ -1,17 +1,17 @@
 #include "LobbyLevel.h"
 
-void LobbyLevel::setup()
+LobbyLevel::LobbyLevel()
 {
 	// --- Loading Textures ----------------
-	buttonTexture_ = ngin::Resources::AcquireTexture("images/ui/button.png");
-	dropdownTexture_ = ngin::Resources::AcquireTexture("images/ui/dropdown.png");
-	smallDropdownTexture_ = ngin::Resources::AcquireTexture("images/ui/small_dropdown.png");
-	inputTexture_ = ngin::Resources::AcquireTexture("images/ui/input_text.png");
-	switcherTexture_ = ngin::Resources::AcquireTexture("images/ui/block_switch.png");
-	confirmDialogTexture_ = ngin::Resources::AcquireTexture("images/ui/confirm_dialog.png");
-	mapContainerTexture_ = ngin::Resources::AcquireTexture("images/ui/map_container.png");
-	backgroundTexture_ = ngin::Resources::AcquireTexture("images/ui/lobby_bg.jpg");
-	warcraftFont_ = ngin::Resources::AcquireFont("fonts/warcraft.ttf");
+	buttonTexture_ = ng::Resources::AcquireTexture("images/ui/button.png");
+	dropdownTexture_ = ng::Resources::AcquireTexture("images/ui/dropdown.png");
+	smallDropdownTexture_ = ng::Resources::AcquireTexture("images/ui/small_dropdown.png");
+	inputTexture_ = ng::Resources::AcquireTexture("images/ui/input_text.png");
+	switcherTexture_ = ng::Resources::AcquireTexture("images/ui/block_switch.png");
+	confirmDialogTexture_ = ng::Resources::AcquireTexture("images/ui/confirm_dialog.png");
+	mapContainerTexture_ = ng::Resources::AcquireTexture("images/ui/map_container.png");
+	backgroundTexture_ = ng::Resources::AcquireTexture("images/ui/lobby_bg.jpg");
+	warcraftFont_ = ng::Resources::AcquireFont("fonts/warcraft.ttf");
 	// -------------------------------------
 
 	// --- Setting Textures ----------------
@@ -74,7 +74,7 @@ void LobbyLevel::setup()
 
 	mapSelector_.setPosition({ 1370, 65 });
 
-	ngin::centerTextInBounds(nameText_, playerLine_.nameInput.getGlobalBounds(), -40);
+	ng::centerTextInBounds(nameText_, playerLine_.nameInput.getGlobalBounds(), -40);
 
 	confirmDialog_.setPosition({ 960 - confirmDialog_.getGlobalBounds().width / 2,
 								540 - confirmDialog_.getGlobalBounds().height / 2 });
@@ -97,7 +97,7 @@ void LobbyLevel::handleEvents(const sf::Event& event)
 {
 	if (dialogActive_)
 	{
-		confirmDialog_.handleEvents(event, ngin::Cursor::getPosition());
+		confirmDialog_.handleEvents(event, ng::Cursor::getPosition());
 
 		if (confirmDialog_.getResponse() == ConfirmDialog::RESPONSE::OK ||
 			confirmDialog_.getResponse() == ConfirmDialog::RESPONSE::CLOSE) {
@@ -107,16 +107,16 @@ void LobbyLevel::handleEvents(const sf::Event& event)
 	else
 	{
 		// Navigation
-		backButton_.handleEvents(event, ngin::Cursor::getPosition());
-		playButton_.handleEvents(event, ngin::Cursor::getPosition());
-		relativeColorSwitcher_.handleEvents(event, ngin::Cursor::getPosition());
+		backButton_.handleEvents(event, ng::Cursor::getPosition());
+		playButton_.handleEvents(event, ng::Cursor::getPosition());
+		relativeColorSwitcher_.handleEvents(event, ng::Cursor::getPosition());
 
 		// Map Selector
-		mapSelector_.handleEvents(event, ngin::Cursor::getPosition());
+		mapSelector_.handleEvents(event, ng::Cursor::getPosition());
 
 		// Player
 		sf::Color playerColor = playerLine_.colorDropdown.getDropColor(0); // save last color
-		playerLine_.handleEvents(event, ngin::Cursor::getPosition());
+		playerLine_.handleEvents(event, ng::Cursor::getPosition());
 
 		// update settings' string for later saving
 		if(playerLine_.nameInput.getisActive()) {
@@ -124,7 +124,7 @@ void LobbyLevel::handleEvents(const sf::Event& event)
 		}
 
 		// Number of AIS
-		npcsDropdown_.handleEvents(event, ngin::Cursor::getPosition());
+		npcsDropdown_.handleEvents(event, ng::Cursor::getPosition());
 		if (npcsDropdown_.getActiveDrop() != 0) {
 			npcsNo_ = npcsDropdown_.getActiveDrop(); // change number of active NPC's
 		}
@@ -145,7 +145,7 @@ void LobbyLevel::handleEvents(const sf::Event& event)
 			sf::Color npcColor = npcLines_[i].colorDropdown.getDropColor(0);
 
 			// handle events
-			npcLines_[i].handleEvents(event, ngin::Cursor::getPosition());
+			npcLines_[i].handleEvents(event, ng::Cursor::getPosition());
 
 			// --- Color Duplicate Check -------------------------
 			if (npcLines_[i].colorDropdown.getActiveDrop() != 0 && !relativeColorSwitcher_.isActive()) {
@@ -227,14 +227,14 @@ void LobbyLevel::handleEvents(const sf::Event& event)
 		if (playButton_.isActive()) {
 			// applies options to  Player::GameDetails::players' static class
 			if (applyToPlayers()) {
-				response_ = RESPONSE::GAME;
+				Levels::event = Levels::EVENT::EVENT_GAME;
 			}
 		}
 		else if (backButton_.isActive()) {
-			response_ = RESPONSE::MAIN_MENU;
+			Levels::event = Levels::EVENT::EVENT_MENU;
 		}
 		else {
-			response_ = RESPONSE::NONE;
+			Levels::event = Levels::EVENT::EVENT_NONE;
 		}
 		// ---------------------------------------------
 	}

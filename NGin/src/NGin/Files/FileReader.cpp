@@ -1,6 +1,6 @@
 #include "FileReader.h"
 
-namespace ngin {
+namespace ng {
 	FileReader::INPUT_TYPE FileReader::cleanInput(std::string& input)
 	{
 		bool onlyspaces = true;

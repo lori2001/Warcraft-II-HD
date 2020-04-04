@@ -1,13 +1,13 @@
 #pragma once
 #include "NGin.h"
+#include "../../Levels.h"
 
 #include "GameSettings.h"
 
-class GameMenu : public ngin::Level {
+class GameMenu : public ng::Level {
 public:
 	GameMenu();
 
-	void setup();
 	void handleEvents(const sf::Event& event);
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -29,10 +29,10 @@ private:
 	
 	sf::Text menuText_;
 
-	ngin::Button continueButton_{ "Continue Playing", {430, 50} };
-	ngin::Button settingsButton_{ "Settings", {430, 50} };
-	ngin::Button mainMenuButton_{ "Back To Main Menu", {430, 50} };
-	ngin::Button exitButton_{ "Exit to Windows", {430, 50} };
+	ng::Button continueButton_{ "Continue Playing", {430, 50} };
+	ng::Button settingsButton_{ "Settings", {430, 50} };
+	ng::Button mainMenuButton_{ "Back To Main Menu", {430, 50} };
+	ng::Button exitButton_{ "Exit to Windows", {430, 50} };
 
 	GameSettings gameSettings_;
 	bool settingsIsActive; 

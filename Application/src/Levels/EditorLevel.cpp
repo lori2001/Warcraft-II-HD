@@ -1,18 +1,18 @@
 #include "EditorLevel.h"
-#include "NGin/Levels/MainLevel.h"
+#include "NGin/Levels/Main.h"
 
-void EditorLevel::setup()
+EditorLevel::EditorLevel()
 {
 	// -- Textures -----------------------------------------------------
-	headerTexture_ = ngin::Resources::AcquireTexture("images/ui/header.png");
-	dropdownTexture_ = ngin::Resources::AcquireTexture("images/ui/dropdown.png");
-	leaveButtonTexture_ = ngin::Resources::AcquireTexture("images/ui/leave_button.png");
-	gridSwitcherTexture_ = ngin::Resources::AcquireTexture("images/ui/grid_switcher.png");
-	painterSwitcherTexture_ = ngin::Resources::AcquireTexture("images/ui/paint_switcher.png");
-	font_ = ngin::Resources::AcquireFont("fonts/normal.ttf");
+	headerTexture_ = ng::Resources::AcquireTexture("images/ui/header.png");
+	dropdownTexture_ = ng::Resources::AcquireTexture("images/ui/dropdown.png");
+	leaveButtonTexture_ = ng::Resources::AcquireTexture("images/ui/leave_button.png");
+	gridSwitcherTexture_ = ng::Resources::AcquireTexture("images/ui/grid_switcher.png");
+	painterSwitcherTexture_ = ng::Resources::AcquireTexture("images/ui/paint_switcher.png");
+	font_ = ng::Resources::AcquireFont("fonts/normal.ttf");
 
 	// reset cursor to OS-Default
-	ngin::Cursor::resetToDefault();
+	ng::Cursor::resetToDefault();
 
 	tilePainterSwitcher_.setTexture(*painterSwitcherTexture_);
 	gridSwitcher_.setTexture(*gridSwitcherTexture_);
@@ -32,9 +32,9 @@ void EditorLevel::setup()
 	// ---------------------------------------------
 
 	// --- Scales ----------------------------------
-	gridSwitcher_.setScale(ngin::ftoVec(0.8F));
-	backButton_.setScale(ngin::ftoVec(0.8F));
-	tilePainterSwitcher_.setScale(ngin::ftoVec(0.8F));
+	gridSwitcher_.setScale(ng::ftovec(0.8F));
+	backButton_.setScale(ng::ftovec(0.8F));
+	tilePainterSwitcher_.setScale(ng::ftovec(0.8F));
 	// ---------------------------------------------
 
 	// --- Positions -------------------------------
@@ -55,26 +55,26 @@ void EditorLevel::setup()
 	GameDetails::mapFile.scanDir();
 
 	// change window background to a milder color
-	ngin::MainLevel::windowClearColor_ = { 50, 50, 50 };
+	ng::Main::windowClearColor = { 50, 50, 50 };
 }
 
 void EditorLevel::handleEvents(const sf::Event& event)
 {
 	// --- General events -----------------------------
-	backButton_.handleEvents(event, ngin::Cursor::getPosition());
-	fileDropdown_.handleEvents(event, ngin::Cursor::getPosition());
+	backButton_.handleEvents(event, ng::Cursor::getPosition());
+	fileDropdown_.handleEvents(event, ng::Cursor::getPosition());
 
 	if (backButton_.isActive()) {
-		ngin::MainLevel::windowClearColor_ = { 0, 0, 0 };
-		response_ = RESPONSE::MAIN_MENU;
+		ng::Main::windowClearColor = { 0, 0, 0 };
+		Levels::event = Levels::EVENT::EVENT_MENU;
 	}
 	else {
-		response_ = RESPONSE::NONE;
+		Levels::event = Levels::EVENT::EVENT_NONE;
 	}
 	// ------------------------------------------------
 
 	// --- Toolbar Focus ------------------------------
-	if (headerSprite_.getGlobalBounds().contains(ngin::Cursor::getPosition())) {
+	if (headerSprite_.getGlobalBounds().contains(ng::Cursor::getPosition())) {
 		toolbarHasFocus_ = true;
 	}
 	else {
@@ -95,7 +95,7 @@ void EditorLevel::handleEvents(const sf::Event& event)
 
 			// (re)set presumably moved map
 			editorZoom_ = 2.0F;
-			editableMap_.setScale(ngin::ftoVec(editorZoom_));
+			editableMap_.setScale(ng::ftovec(editorZoom_));
 			editableMap_.setOrigin({ editableMap_.getLocalBounds().width / 2,
 									 editableMap_.getLocalBounds().height / 2 });
 			editableMap_.setPosition({
@@ -128,10 +128,10 @@ void EditorLevel::handleEvents(const sf::Event& event)
 			}
 
 			sf::Vector2f scaleBefore = editableMap_.getScale();
-			editableMap_.setScale(ngin::ftoVec(editorZoom_));
+			editableMap_.setScale(ng::ftovec(editorZoom_));
 		}
 		// grid enable/disable logic
-		gridSwitcher_.handleEvents(event, ngin::Cursor::getPosition());
+		gridSwitcher_.handleEvents(event, ng::Cursor::getPosition());
 		if (gridSwitcher_.isActive()) {
 			editableMap_.setGridIsActive(true);
 		}
@@ -140,9 +140,9 @@ void EditorLevel::handleEvents(const sf::Event& event)
 		}
 
 		// map painter enable/disable logic
-		tilePainterSwitcher_.handleEvents(event, ngin::Cursor::getPosition());
+		tilePainterSwitcher_.handleEvents(event, ng::Cursor::getPosition());
 		if (tilePainterSwitcher_.isActive()) {
-			tilePainter_.handleEvents(event, ngin::Cursor::getPosition());
+			tilePainter_.handleEvents(event, ng::Cursor::getPosition());
 			// editable map focus
 			editableMap_.checkIfFocused(toolbarHasFocus_, tilePainter_.isFocused());
 		}
@@ -158,20 +158,20 @@ void EditorLevel::update()
 {
 	if (mapEditor_)
 	{
-		if (ngin::MainLevel::windowHasFocus())
+		if (ng::Main::windowHasFocus())
 		{
 			// "viewport" movement
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-				editableMap_.move({ editorMoveSpeed_ * ngin::Timer::getDeltaTime(), 0 });
+				editableMap_.move({ editorMoveSpeed_ * ng::Timer::getDeltaTime(), 0 });
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-				editableMap_.move({ -editorMoveSpeed_ * ngin::Timer::getDeltaTime(), 0 });
+				editableMap_.move({ -editorMoveSpeed_ * ng::Timer::getDeltaTime(), 0 });
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-				editableMap_.move({ 0, editorMoveSpeed_ * ngin::Timer::getDeltaTime() });
+				editableMap_.move({ 0, editorMoveSpeed_ * ng::Timer::getDeltaTime() });
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-				editableMap_.move({ 0, -editorMoveSpeed_ * ngin::Timer::getDeltaTime() });
+				editableMap_.move({ 0, -editorMoveSpeed_ * ng::Timer::getDeltaTime() });
 			}
 		}
 	}

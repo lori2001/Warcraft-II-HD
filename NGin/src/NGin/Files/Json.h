@@ -3,6 +3,6 @@
 #include "json.hpp"
 
 // simplify long namespace inside NGin
-namespace ngin {
-	using Json = nlohmann::json;
+namespace ng {
+	using json = nlohmann::json;
 }

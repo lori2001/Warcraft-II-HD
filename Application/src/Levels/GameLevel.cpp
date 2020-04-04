@@ -1,20 +1,20 @@
 #include "GameLevel.h"
 
-void GameLevel::setup()
+GameLevel::GameLevel()
 {
 	// --- Load Textures ------------------------
-	interfaceTexture_ = ngin::Resources::AcquireTexture("images/ui/interface.png");
-	buttonTexture_ = ngin::Resources::AcquireTexture("images/ui/button.png");
-	warcraftFont_ = ngin::Resources::AcquireFont("fonts/warcraft.ttf");
+	interfaceTexture_ = ng::Resources::AcquireTexture("images/ui/interface.png");
+	buttonTexture_ = ng::Resources::AcquireTexture("images/ui/button.png");
+	warcraftFont_ = ng::Resources::AcquireFont("fonts/warcraft.ttf");
 	// ------------------------------------------
 
 	// --- Faction Styles -----------------------
 	if (GameDetails::players[0].race_ == Player::Race::Humans) {
-		ngin::Cursor::setTexture(*ngin::Resources::AcquireTexture("images/ui/human_cursor.png"));
+		ng::Cursor::setTexture(*ng::Resources::AcquireTexture("images/ui/human_cursor.png"));
 		Music::playTheme(Music::Theme::HumanTheme);
 	}
 	else if (GameDetails::players[0].race_ == Player::Race::Orcs) {
-		ngin::Cursor::setTexture(*ngin::Resources::AcquireTexture("images/ui/orc_cursor.png"));
+		ng::Cursor::setTexture(*ng::Resources::AcquireTexture("images/ui/orc_cursor.png"));
 		Music::playTheme(Music::Theme::OrcTheme);
 	}
 	// ------------------------------------------
@@ -39,32 +39,21 @@ void GameLevel::setup()
 
 void GameLevel::handleEvents(const sf::Event& event)
 {
-	menuButton_.handleEvents(event, ngin::Cursor::getPosition());
+	Levels::event = Levels::EVENT::EVENT_NONE;
+
+	menuButton_.handleEvents(event, ng::Cursor::getPosition());
 
 	if (menuButton_.isActive())
 	{
 		menuIsActive = !menuIsActive;
 
-		if (menuIsActive) {
+		/*if (menuIsActive) {
 			menu_ = new GameMenu;
 		}
 		else {
 			delete menu_;
-		}
+		}*/
 	}
-
-	if (menuIsActive) {
-		menu_->handleEvents(event);
-
-		// --- Responses -----------------------------
-		response_ = menu_->getResponse(); // forward gameMenu's responses
-
-		if (response_ == GameMenu::CONTINUE) {
-			menuIsActive = false;
-		}
-		// -------------------------------------------
-	}
-
 }
 
 void GameLevel::update()
@@ -76,8 +65,8 @@ void GameLevel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(interface_);
 	target.draw(menuButton_);
 
-	if (menuIsActive)
-		target.draw(*menu_);
+	/*if (menuIsActive)
+		target.draw(*menu_);*/
 }
 
 void GameLevel::setupUIStyle(const sf::Font& font, const unsigned fontSize, const sf::Color& themeColor)

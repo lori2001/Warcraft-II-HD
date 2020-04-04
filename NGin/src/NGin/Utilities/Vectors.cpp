@@ -1,11 +1,11 @@
 #include "Vectors.h"
 
-namespace ngin {
-	sf::Vector2f ftoVec(const float floatingPoint)
+namespace ng {
+	sf::Vector2f ftovec(const float floatingPoint)
 	{
 		return { floatingPoint, floatingPoint };
 	}
-	sf::Vector2i itoVec(const int integer)
+	sf::Vector2i itovec(const int integer)
 	{
 		return { integer, integer };
 	}

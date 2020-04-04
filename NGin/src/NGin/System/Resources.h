@@ -3,7 +3,7 @@
 #include "SFML/Audio.hpp"
 #include <unordered_map>
 
-namespace ngin
+namespace ng
 {
 	class Resources
 	{
@@ -31,11 +31,11 @@ namespace ngin
 		static std::string location_;
 	};
 
-#define NG_TEXTURE_PTR(location) ngin::Resources::AcquireTexture(location)
-#define NG_FONT_PTR(location) ngin::Resources::AcquireFont(location)
-#define NG_SOUNDBUFFER_PTR(location) ngin::Resources::AcquireSoundBuffer(location)
+#define NG_TEXTURE_SPTR(location) ng::Resources::AcquireTexture(location)
+#define NG_FONT_SPTR(location) ng::Resources::AcquireFont(location)
+#define NG_SOUNDBUFFER_SPTR(location) ng::Resources::AcquireSoundBuffer(location)
 
-#define NG_TEXTURE(location) *ngin::Resources::AcquireTexture(location)
-#define NG_FONT(location) *ngin::Resources::AcquireFont(location)
-#define NG_SOUNDBUFFER(location) *ngin::Resources::AcquireSoundBuffer(location)
+#define NG_TEXTURE(location) *ng::Resources::AcquireTexture(location)
+#define NG_FONT(location) *ng::Resources::AcquireFont(location)
+#define NG_SOUNDBUFFER(location) *ng::Resources::AcquireSoundBuffer(location)
 }

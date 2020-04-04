@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Audio.hpp"
 
-namespace ngin {
+namespace ng {
 	class Audio {
 	public:
 		static void subscribeSound(sf::Sound* sound);
