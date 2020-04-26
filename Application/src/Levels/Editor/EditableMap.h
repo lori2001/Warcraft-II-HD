@@ -8,7 +8,7 @@ class EditableMap : public Map {
 public:
 	EditableMap();
 
-	bool setMapFile(const MapFile &mapFile);
+	bool setMapFile();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	void handleEvents(const sf::Event& event, const TilePainter& tilePainter);
 
@@ -39,6 +39,9 @@ public:
 		else {isFocused_ = false;}
 	}
 private:
+	void undoChange();
+	void redoChange();
+	
 	void updateGrid();
 	void adjustSelectedTile();
 
@@ -61,7 +64,9 @@ private:
 	std::vector<Line> gridLines_;
 
 	sf::RectangleShape selectedTile_;
+	sf::Vector2i selectedTileCoords_; // the coordinates of a given tile when added in matrix
 	bool drawSelected_ = true;
+	bool mouseHeld_ = false; // true if tiles need to be placed
 
 	// properties
 	sf::Vector2f topLeft_ ;
@@ -70,4 +75,9 @@ private:
 	sf::Vector2f numOfTiles_;
 	sf::Vector2f distFromStart_;
 
+	// change logging
+	// 3 element vector representing changes x,y = coordinates, z = tileNumber
+	std::vector<sf::Vector3i> logs_;
+	// index representing last change
+	int lastChange_;
 };

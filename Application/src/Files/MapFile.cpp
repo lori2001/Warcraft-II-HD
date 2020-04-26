@@ -123,6 +123,7 @@ void MapFile::load(const std::string& path)
 
 void MapFile::save()
 {
+	// should trim down unnecessary 0-s
 }
 
 int MapFile::getMaxNColums() const
@@ -136,6 +137,34 @@ int MapFile::getMaxNColums() const
 	}
 
 	return static_cast<int>(maxSize);
+}
+
+void MapFile::addNewTile(const unsigned tileIndex, const sf::Vector2i& vectorPos)
+{
+	if (tileIndex != -1) {
+		if (vectorPos.x >= 0 && vectorPos.x < getMaxNColums() &&
+			vectorPos.y >= 0 && vectorPos.y < getNRows())
+		{
+			tiles_[vectorPos.y].at(vectorPos.x) = tileIndex;
+		}
+	}
+
+	/*
+	// x=-1 y=-1
+	if (vectorPos.x == -1 && vectorPos.y == -1) {
+		tiles_.size(); // y
+		tiles_[0].size(); // x
+	}
+	
+	// x=i  y=-1
+	if(vectorPos.x >= 0 && vectorPos.x < tiles_[0].size() && vectorPos.y == -1)
+	// x=n  y=-1
+	// x=-1 y=i
+	// x=-1 y=n
+	// x=n  y=i
+	// x=n  y=n
+	// x=i  y=n
+*/
 }
 
 void MapFile::offsetIndexBy(const int indexOffset)

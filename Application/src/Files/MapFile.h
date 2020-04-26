@@ -22,7 +22,10 @@ public:
 	int getNRows() const { return static_cast<int>(tiles_.size()); }
 	int getNColumns(int row) const { return static_cast<int>(tiles_[row].size());}
 	int getMaxNColums() const;
+	// WARNING TAKES THE Y COORDINATE FIRST (FROM VECTORS)
 	unsigned getTileNum(const int row, const int col) const { return tiles_[row][col]; }
+
+	void addNewTile(const unsigned tileIndex, const sf::Vector2i& vectorPos);
 
 	void offsetIndexBy(const int indexOffset);
 

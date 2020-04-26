@@ -85,8 +85,8 @@ void EditorLevel::handleEvents(const sf::Event& event)
 	// --- Loading events -----------------------------
 	if (fileDropdown_.getActiveDrop() == 2)
 	{
-		// select and load file, if successful return true
-		if (editableMap_.setMapFile(GameDetails::mapFile))
+		// select and load map file, if successful return true
+		if (editableMap_.setMapFile())
 		{
 			mapEditor_ = true;
 
