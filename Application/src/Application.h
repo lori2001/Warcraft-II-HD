@@ -3,7 +3,7 @@
 
 #include "NGin.h"
 
-// File input
+#include "Style.h"
 #include "Files/SettingsFile.h"
 
 // Levels
@@ -15,9 +15,11 @@
 #include "Levels/GameLevel.h"
 
 // Do not print on release(closed) console
+/*
 #ifndef _DEBUG
 	#define NG_CONSOLE_NOPRINT
 #endif
+*/
 
 class Application : public ng::Main
 {
@@ -31,19 +33,15 @@ public:
 private:
 	void drawLoadingScreen();
 
-	// window icon
+	// --- window icon ---
 	sf::Image icon_;
 
-	std::shared_ptr<sf::SoundBuffer> cursorSound_;
-	std::shared_ptr<sf::Texture> orcCursorTexture_;
-	std::shared_ptr<sf::Texture> humanCursorTexture_;
-
+	// --- loading screen ---
 	std::shared_ptr<sf::Texture> loadingScreenTexture_;
 	sf::Sprite loadingScreen_;
 
+	// --- level ---
 	ng::Level* currentLevel_ = 0;
-	SettingsFile settingsFile_; // loads and saves settings to json
-
 };
 
 ng::Main* setMainLevel() {

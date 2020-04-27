@@ -1,162 +1,182 @@
 #include "NPCLine.h"
-#include "../Common/GameDetails.h"
 #include <chrono>
 #include <random>
 
 void NPCLine::setPosition(const sf::Vector2f& position)
 {
-	difficultyDropdown.setPosition(position);
+	difficultyDropdown_.setPosition(position);
 
-	raceDropdown.setPosition(
-		{ difficultyDropdown.getPosition().x + difficultyDropdown.getClosedGlobalBounds().width + 50,
-		  difficultyDropdown.getPosition().y });
+	raceDropdown_.setPosition(
+		{ difficultyDropdown_.getPosition().x + difficultyDropdown_.getClosedGlobalBounds().width + dropdownXOffset_,
+		  difficultyDropdown_.getPosition().y });
 
-	teamDropdown.setPosition(
-		{ raceDropdown.getPosition().x + raceDropdown.getClosedGlobalBounds().width + 50,
-		  raceDropdown.getPosition().y });
+	teamDropdown_.setPosition(
+		{ raceDropdown_.getPosition().x + raceDropdown_.getClosedGlobalBounds().width + dropdownXOffset_,
+		  raceDropdown_.getPosition().y });
 
-	colorDropdown.setPosition(
-		{ teamDropdown.getPosition().x + teamDropdown.getClosedGlobalBounds().width + 50,
-		  teamDropdown.getPosition().y });
+	colorDropdown_.setPosition(
+		{ teamDropdown_.getPosition().x + teamDropdown_.getClosedGlobalBounds().width + dropdownXOffset_,
+		  teamDropdown_.getPosition().y });
 }
 
-void NPCLine::setTheme(const sf::Font& font, const unsigned fontSize,
-	const sf::Color& themeColor, const sf::Vector2f& scale)
+void NPCLine::setupValuesWithIndex(const int index)
 {
-	raceDropdown.setFont(font);
-	raceDropdown.setSelectColor(themeColor);
-	raceDropdown.setHighlightColor({ themeColor.r, themeColor.g, themeColor.b, 80 });
-	raceDropdown.setCharacterSize(fontSize - 8);
-	raceDropdown.setScale(scale);
-
-	difficultyDropdown.setFont(font);
-	difficultyDropdown.setSelectColor(themeColor);
-	difficultyDropdown.setHighlightColor({ themeColor.r, themeColor.g, themeColor.b, 80 });
-	difficultyDropdown.setCharacterSize(fontSize - 8);
-	difficultyDropdown.setTextColor(themeColor);
-	difficultyDropdown.setScale(scale);
-
-	teamDropdown.setFont(font);
-	teamDropdown.setSelectColor(themeColor);
-	teamDropdown.setHighlightColor({ themeColor.r, themeColor.g, themeColor.b, 80 });
-	teamDropdown.setCharacterSize(fontSize - 8);
-	teamDropdown.setTextColor(themeColor);
-	teamDropdown.setScale(scale);
-
-	colorDropdown.setSelectColor(themeColor);
-	colorDropdown.setHighlightColor({ themeColor.r, themeColor.g, themeColor.b, 80 });
-	colorDropdown.setCharacterSize(fontSize - 8);
-	colorDropdown.setScale(scale);
-	colorDropdown.setHighlightColor(sf::Color(240, 230, 140, 180));
-}
-
-void NPCLine::setTexture(sf::Texture& dropdown)
-{
-	raceDropdown.setTexture(dropdown);
-	difficultyDropdown.setTexture(dropdown);
-	teamDropdown.setTexture(dropdown);
-	colorDropdown.setTexture(dropdown);
-}
-
-void NPCLine::setupStrings(const std::vector<ColoredString>& races,
-	const std::vector<std::string>& teams,
-	const std::vector<sf::Color>& colors,
-	const std::vector<std::string>& difficulties)
-{
-	raceDropdown.setDropString(0, races[0].name);
-	raceDropdown.setDropTextColor(0, races[0].color);
-
-	for (int j = 0; j < int(races.size()); j++) {
-		raceDropdown.addDropString(races[j].name);
-		raceDropdown.setDropTextColor(j + 1, races[j].color);
-	}
-
-	difficultyDropdown.setDropString(0, difficulties[0]);
-
-	for (int j = 0; j < int(difficulties.size()); j++) {
-		difficultyDropdown.addDropString(difficulties[j]);
-	}
-
-	teamDropdown.setDropString(0, teams[0]);
-
-	for (int j = 0; j < int(teams.size()); j++) {
-		teamDropdown.addDropString(teams[j]);
-	}
-
-	colorDropdown.setDropColor(0, colors[0]);
-
-	for (int j = 0; j < int(colors.size()); j++) {
-		colorDropdown.addDropColor(colors[j]);
-	}
-}
-
-void NPCLine::addToPlayers(const std::vector<ColoredString>& races,
-	const std::vector<std::string>& teams,
-	const std::vector<sf::Color>& colors,
-	const std::vector<std::string>& difficulties)
-{
-	GameDetails::players.push_back(Player{});
-	int i = GameDetails::players.size() - 1;
-
-	GameDetails::players[i].title_ = "NPC";
-
-	// Race
-	if (raceDropdown.getDropString(0) == races[0].name) {
-		int seed = static_cast<int>(std::chrono::system_clock::now().time_since_epoch().count());
-		std::minstd_rand0 generator(seed);
-
-		if (generator() % 2)
-			GameDetails::players[i].race_ = Player::Race::Orcs;
-		else
-			GameDetails::players[i].race_ = Player::Race::Humans;
-	}
-	else if (raceDropdown.getDropString(0) == races[1].name) {
-		GameDetails::players[i].race_ = Player::Race::Orcs;
-	}
-	else if (raceDropdown.getDropString(0) == races[2].name) {
-		GameDetails::players[i].race_ = Player::Race::Humans;
-	}
-	else {
-		NG_LOG_ERROR("Error setting up npc (", i, ") race! race ",
-			raceDropdown.getDropString(0), "does not exist!");
-	}
-
-	// Team
-	for (int j = 0; j < int(teams.size()); j++) {
-		if (teamDropdown.getDropString(0) == teams[j]) {
-			GameDetails::players[i].team_ = static_cast<Player::Team>(j);
+	bool found = false;
+	for (auto& it : races_)
+		if (it.string == GameDetailsFile::getNPCRace(index)) {
+			raceDropdown_.setDropString(0, it.string);
+			raceDropdown_.setDropTextColor(0, it.color);
+			found = true;
 			break;
 		}
-	}
+	if (!found) throw ("Error setting player race! Race in file does not exist!");
 
-	// Color
-	for (int j = 0; j < int(colors.size()); j++) {
-		if (colorDropdown.getDropColor(0) == colors[j]) {
-			GameDetails::players[i].color_ = colors[j];
-		}
-	}
+	difficultyDropdown_.setDropString(0, GameDetailsFile::getNPCDifficulty(index));
+	teamDropdown_.setDropString(0, GameDetailsFile::getNPCTeam(index));
+	
+	if (GameDetailsFile::getTeamRelativeColors())
+	{
+		colorDropdown_.setDisabled(true);
+		// search for an index number
+		auto teamIndex =
+			std::find(GameDetailsFile::teams_.begin(),
+				GameDetailsFile::teams_.end(),
+				teamDropdown_.getDropString(0));
 
-	// Difficulty
-	for (int j = 0; j < int(difficulties.size()); j++) {
-		if (difficultyDropdown.getDropString(0) == difficulties[j]) {
-			GameDetails::players[i].difficulty_ = static_cast<Player::Difficulty>(j);
-			break;
+		int teamIndexInt = std::distance(GameDetailsFile::teams_.begin(), teamIndex);
+		GameDetailsFile::setNPCColor(index, GameDetailsFile::colors_[teamIndexInt].toInteger());
+	}
+	else // if colors are not team relative
+	{
+		colorDropdown_.setDisabled(false);
+		int indexOfColor = 0;
+		unsigned choosenColor = GameDetailsFile::colors_[indexOfColor].toInteger();
+
+		// see if the color has been already used
+		bool alreadyUsed;
+		do {
+			alreadyUsed = GameDetailsFile::getPlayerColor() == choosenColor;
+			if (!alreadyUsed)
+			{
+				for (int i = 0; i < static_cast<int>(GameDetailsFile::getNumberOfNPCs()); i++)
+				{
+					if (index != i && choosenColor == getNPCColor(i))
+					{
+						alreadyUsed = true;
+						break;
+					}
+				}
+			}
+
+			if (!alreadyUsed)
+				GameDetailsFile::setNPCColor(index, choosenColor);
+			else // try next color
+				choosenColor = GameDetailsFile::colors_[++indexOfColor].toInteger();
 		}
+		while (alreadyUsed);
+	}
+	colorDropdown_.setDropColor(0, sf::Color{ GameDetailsFile::getNPCColor(index) });
+}
+
+NPCLine::NPCLine(const sf::Vector2f& position)
+{
+	setPosition(position);
+
+	for (int j = 0; j < int(races_.size()); j++) {
+		raceDropdown_.addDropString(races_[j].string);
+		raceDropdown_.setDropTextColor(j + 1, races_[j].color);
+	}
+	for (int j = 0; j < int(difficulties_.size()); j++) {
+		difficultyDropdown_.addDropString(difficulties_[j]);
+	}
+	for (int j = 0; j < int(teams_.size()); j++) {
+		teamDropdown_.addDropString(teams_[j]);
+	}
+	for (int j = 0; j < int(colors_.size()); j++) {
+		colorDropdown_.addDropColor(colors_[j]);
 	}
 }
 
-void NPCLine::handleEvents(const sf::Event& event, const sf::Vector2f& mouse)
+void NPCLine::handleEvents(const sf::Event& event, const sf::Vector2f& mouse, const int index)
 {
-	difficultyDropdown.handleEvents(event, mouse);
-	raceDropdown.handleEvents(event, mouse);
-	teamDropdown.handleEvents(event, mouse);
-	colorDropdown.handleEvents(event, mouse);
+	difficultyDropdown_.handleEvents(event, mouse);
+	raceDropdown_.handleEvents(event, mouse);
+	teamDropdown_.handleEvents(event, mouse);
+	colorDropdown_.handleEvents(event, mouse);
+
+	if (difficultyDropdown_.hasChanged()) {
+		GameDetailsFile::setNPCDifficulty(index, difficultyDropdown_.getDropString(0));
+	}
+	if (raceDropdown_.hasChanged()) {
+		GameDetailsFile::setNPCRace(index, raceDropdown_.getDropString(0));
+	}
+	else if (teamDropdown_.hasChanged()) {
+		const std::string teamBefore = GameDetailsFile::getNPCTeam(index);
+		GameDetailsFile::setNPCTeam(index, teamDropdown_.getDropString(0));
+
+		// set only if there are at least two active teams
+		bool atLeastTwo = false;
+		for (int i = 0; i < static_cast<int>(GameDetailsFile::getNumberOfNPCs()); i++) {
+			if (getNPCTeam(i) != getPlayerTeam())
+			{
+				atLeastTwo = true;
+				break;
+			}
+		}
+
+		if (!atLeastTwo) // set the team back
+		{
+			GameDetailsFile::setNPCTeam(index, teamBefore);
+			teamDropdown_.setDropString(0, teamBefore);
+		}
+
+		if (GameDetailsFile::getTeamRelativeColors())
+		{
+			// search for an index number
+			auto teamIndex =
+				std::find(GameDetailsFile::teams_.begin(),
+					GameDetailsFile::teams_.end(),
+					teamDropdown_.getDropString(0));
+
+			int teamIndexInt = std::distance(GameDetailsFile::teams_.begin(), teamIndex);
+			GameDetailsFile::setNPCColor(index, GameDetailsFile::colors_[teamIndexInt].toInteger());
+			colorDropdown_.setDropColor(0, sf::Color{ GameDetailsFile::getNPCColor(index) });
+		}
+	}
+	else if(colorDropdown_.hasChanged())
+	{
+		// if colors are NOT relative to the team
+		if (!GameDetailsFile::getTeamRelativeColors())
+		{
+			const unsigned oldColor = GameDetailsFile::getNPCColor(index);
+			const unsigned newColor = colorDropdown_.getDropColor(0).toInteger();
+
+			// see if the new color has been already used
+			bool alreadyUsed = GameDetailsFile::getPlayerColor() == newColor;
+			if (!alreadyUsed)
+			{
+				for (int i = 0; i < static_cast<int>(GameDetailsFile::getNumberOfNPCs()); i++)
+				{
+					if (index != i && newColor == getNPCColor(i))
+					{
+						alreadyUsed = true;
+						break;
+					}
+				}
+			}
+
+			if (alreadyUsed) // if already used then revert to the one before
+				colorDropdown_.setDropColor(0, sf::Color{ oldColor });
+			else // if not used just use the new one
+				GameDetailsFile::setNPCColor(index, newColor);
+		}
+	}
 }
 
 void NPCLine::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(difficultyDropdown);
-	target.draw(raceDropdown);
-	target.draw(teamDropdown);
-	target.draw(colorDropdown);
+	target.draw(difficultyDropdown_);
+	target.draw(raceDropdown_);
+	target.draw(teamDropdown_);
+	target.draw(colorDropdown_);
 }

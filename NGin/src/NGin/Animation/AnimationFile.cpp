@@ -1,7 +1,7 @@
 #include "AnimationFile.h"
 
 namespace ng {
-	void AnimationFile::update(const std::vector<std::shared_ptr<sf::Texture>>& textureVector)
+	void AnimationFile::update(const std::vector<ng::TexturePtr>& textureVector)
 	{
 		secsPassed_ += Timer::getDeltaTime();
 

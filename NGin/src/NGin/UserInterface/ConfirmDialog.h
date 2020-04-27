@@ -14,11 +14,23 @@ namespace ng {
 		ConfirmDialog(DIALOG_TYPE type,
 			const std::string& text,
 			const sf::Vector2f& size,
-			const sf::Vector2f& position)
+			ng::TexturePtr shapeTexture,
+			ng::TexturePtr buttonTexture,
+			sf::Vector2f buttonSize,
+			ng::FontPtr font,
+			const sf::Vector2f& position = {0, 0},
+			const sf::Color& textColor = sf::Color::White,
+			const sf::Color& selectColor = sf::Color::White
+		) : ConfirmDialog(type)
 		{
+			setTextures(buttonTexture, shapeTexture);
+			setFont(font);
+			setButtonSize(buttonSize);
 			setString(text);
 			setSize(size);
 			setPosition(position);
+			setTextColor(textColor);
+			setSelectColor(selectColor);
 		}
 		ConfirmDialog(DIALOG_TYPE type) : UIElement()
 		{
@@ -28,7 +40,11 @@ namespace ng {
 			isActive_ = false;
 			setCharacterSize(30);
 
-			if (type == DIALOG_TYPE::DIALOG_YES_OR_CLOSE) {
+			closeButton_.setString("close");
+
+			if (type == DIALOG_TYPE::DIALOG_YES_OR_CLOSE)
+			{
+				okButton_.setString("ok");
 				setButtonScale({ 0.5F, 0.8F });
 			}
 		}
@@ -41,18 +57,22 @@ namespace ng {
 		void drawInWindow(const std::string& windowName);
 
 		void setPosition(const sf::Vector2f& position);
+		void setButtonSize(const sf::Vector2f& size);
 		void setSize(const sf::Vector2f& size);
-		void setButtonTexture(const sf::Texture& texture);
+		void setButtonTexture(const ng::TexturePtr texture);
 		void setShapeColor(const sf::Color& color) { shape_.setFillColor(color); }
-		void setShapeTexture(const sf::Texture& texture);
-		void setTextures(const sf::Texture& buttonTexture, const sf::Texture& shapeTexture);
-		void setFont(const sf::Font& font);
+		void setShapeTexture(const ng::TexturePtr texture);
+		void setTextures(const ng::TexturePtr buttonTexture,
+			const ng::TexturePtr shapeTexture);
+		void setFont(const ng::FontPtr font);
 		void setButtonTextColor(const sf::Color color);
 		void setMessageColor(const sf::Color color) { text_.setFillColor(color); }
 		void setAllTextColor(const sf::Color color) { setButtonTextColor(color); setMessageColor(color);}
 		void setCharacterSize(const unsigned characterSize);
 		void setShapeScale(const sf::Vector2f& scale);
 		void setButtonScale(const sf::Vector2f& buttonScale);
+		void setTextColor(const sf::Color& color);
+		void setSelectColor(const sf::Color& color);
 		// sets buttons offset relative to the edge of window
 		// in case of 1 button only Y offset is available
 		// unsigned values expected
@@ -76,6 +96,10 @@ namespace ng {
 		void setIsActive(const bool isActive) { isActive_ = isActive; }
 
 	private:
+		ng::FontPtr font_;
+		ng::TexturePtr shapeTexture_;
+		ng::TexturePtr buttonTexture_;
+
 		bool isActive_;
 		DIALOG_TYPE type_ = DIALOG_TYPE::DIALOG_YES_OR_CLOSE;
 		RESPONSE response_ = RESPONSE::RESPONSE_NONE;
@@ -85,7 +109,7 @@ namespace ng {
 		float textYOffset_ = 0; // y ofsset of text from center
 
 		sf::Vector2f buttonOffset_;
-		Button okButton_{"ok"};
-		Button closeButton_{"close"};
+		Button okButton_;
+		Button closeButton_;
 	};
 }

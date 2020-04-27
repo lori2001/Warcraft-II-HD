@@ -1,11 +1,10 @@
 {
-    "Music_Volume": 0.0,
-    "Player_Name": "[For The Horde]",
-    "Sound_Volume": 0.08874932676553726,
-    "Video_Mode": {
-        "BitsPerPixel": 32,
-        "Height": 768,
-        "Width": 1366
+    "musicVolume": 0.0,
+    "soundVolume": 0.0,
+    "videoMode": {
+        "bitsPerPixel": 32,
+        "height": 600,
+        "width": 1280
     },
-    "Window_Type": 1
+    "windowType": 1
 }

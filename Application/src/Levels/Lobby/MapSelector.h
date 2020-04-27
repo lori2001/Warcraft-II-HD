@@ -1,44 +1,41 @@
 #pragma once
 #include "NGin.h"
+
+#include "../../Style.h"
+
 #include "../Common/Map.h"
-#include "../Common/GameDetails.h"
+#include "../../Files/GameDetailsFile.h"
 
-class MapSelector : public sf::Drawable {
+class MapSelector : private GameDetailsFile, public sf::Drawable {
 public:
-	MapSelector() : MapSelector({ 39, 297 }, { 340, 297 }) {}
-	MapSelector(const sf::Vector2f& buttonSize, const sf::Vector2f& containerSize) {
-		setSize(buttonSize, containerSize);
-		setCharacterSize(30);
-
-		GameDetails::mapFile.scanDir();
-		GameDetails::mapFile.load();
-		setTitle(GameDetails::mapFile.getMapName());
-		map_.setMapFile(GameDetails::mapFile);
-		updateMapTransform();
-	}
+	MapSelector(const sf::Vector2f& position, const sf::Vector2f& scale);
 
 	void handleEvents(const sf::Event& event, const sf::Vector2f& mouse);
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
-	void setTexture(const sf::Texture& texture);
-	void setTextColor(const sf::Color& color) { mapTitle_.setFillColor(color); }
-	void setFont(const sf::Font& font) { mapTitle_.setFont(font); }
-	void setCharacterSize(const unsigned characterSize) { mapTitle_.setCharacterSize(characterSize); }
-	void setPosition(const sf::Vector2f& position);
-	void setSize(const sf::Vector2f& buttonSize, const sf::Vector2f& containerSize);
-	void setTitle(const std::string& titleString);
-	void setSelectColor(const sf::Color& color);
-	void setSelectThickness(const float thickness);
 	
 private:
-	void updateMapTransform();
+	void setupNewMap();
 
-	std::shared_ptr<sf::Texture> texture_;
+	const ng::FontPtr primaryFont_ = NG_FONT_SPTR(location::PRIMARY_FONT);
+	const unsigned fontSize_ = 30;
+
+	const ng::TexturePtr texture_ = NG_TEXTURE_SPTR( location::MAP_SELECTOR );
 	sf::RectangleShape container_;
-	ng::Button leftButton_;
-	ng::Button rightButton_;
 
-	sf::Text mapTitle_;
+	ng::Button leftButton_{
+		{},{},{},{},
+		{ size::MAP_SELECTOR_BUTTON_WIDTH, size::MAP_SELECTOR_BUTTON_HEIGHT },
+			texture_,
+		{ color::SELECT_COLOR_R, color::SELECT_COLOR_G, color::SELECT_COLOR_B },
+		{ 0, 0 } // position depends on constructor
+	};
+	ng::Button rightButton_{
+		"Settings",
+		leftButton_,
+		{ 0, 0 } // position depends on constructor
+	};
+
+	sf::Text mapTitle_{ "Unknown" , *primaryFont_, fontSize_ };
+
 	sf::Vector2f mapPosition_;
-	Map map_;
 };

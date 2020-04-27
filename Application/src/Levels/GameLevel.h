@@ -1,11 +1,15 @@
 #pragma once
+/*
 #include "NGin.h"
+
 #include "Levels.h"
+#include "Music/Music.h"
 
 // external
 #include "Common/GameDetails.h"
 
-#include "Music/Music.h"
+// internal
+#include "Game/Units/Unit.h"
 #include "Game/GameMenu/GameMenu.h"
 
 class GameLevel : public ng::Level {
@@ -28,5 +32,6 @@ private:
 	ng::Button menuButton_{ "Menu", {430, 50} };
 	bool menuIsActive = false;
 
-	// ng::Level* menu_;
+	Unit unit{ {500, 300} };
 };
+*/

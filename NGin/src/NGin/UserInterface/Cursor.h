@@ -1,6 +1,8 @@
 #pragma once
-#include "SFML\Audio.hpp"
-#include "SFML\Graphics.hpp"
+#include "../System/Resources.h"
+
+#include "SFML/Audio.hpp"
+#include "SFML/Graphics.hpp"
 
 namespace ng {
 	class Cursor
@@ -9,7 +11,7 @@ namespace ng {
 		static void draw(sf::RenderWindow& window);
 
 		// texture of the mouse displayed
-		static void setTexture(const sf::Texture& texture);
+		static void setTexture(const ng::TexturePtr texture);
 
 		// this function returns the position of an element relative to the window
 		// the cursor is set to. (needs void followMouse)
@@ -21,10 +23,12 @@ namespace ng {
 		static void followMouse(sf::RenderWindow& window);
 
 		// resets mouse to the default OS Look
-		static void resetToDefault();
+		static void showDefault();
+		// shows textured version of the mouse (if set)
+		static void showTextured();
 
 		// sets the sound the cursor makes ex. when pressing a button 
-		static void setBuffer(sf::SoundBuffer& soundBuffer);
+		static void setBuffer(const ng::SoundBufferPtr soundBuffer);
 
 		static sf::Sound* getSoundPtr() { return &sound_; }
 
@@ -32,6 +36,9 @@ namespace ng {
 		static void playSound();
 
 	private:
+		static ng::SoundBufferPtr soundBuffer_;
+		static ng::TexturePtr texture_;
+
 		static sf::Sprite sprite_;
 		static sf::Sound sound_;
 

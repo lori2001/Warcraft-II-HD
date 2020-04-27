@@ -1,0 +1,79 @@
+{
+    "NPCs": {
+        "0": {
+            "color": 4278190335,
+            "difficulty": "Easy",
+            "race": "Random",
+            "team": "Team 2"
+        },
+        "1": {
+            "color": 16711935,
+            "difficulty": "Easy",
+            "race": "Random",
+            "team": "Team 3"
+        },
+        "10": {
+            "color": 255,
+            "difficulty": "Easy",
+            "race": "Random",
+            "team": "Team 12"
+        },
+        "2": {
+            "color": 65535,
+            "difficulty": "Easy",
+            "race": "Random",
+            "team": "Team 4"
+        },
+        "3": {
+            "color": 4282712319,
+            "difficulty": "Easy",
+            "race": "Random",
+            "team": "Team 5"
+        },
+        "4": {
+            "color": 16777215,
+            "difficulty": "Easy",
+            "race": "Random",
+            "team": "Team 6"
+        },
+        "5": {
+            "color": 2147516671,
+            "difficulty": "Easy",
+            "race": "Random",
+            "team": "Team 7"
+        },
+        "6": {
+            "color": 4294967295,
+            "difficulty": "Easy",
+            "race": "Random",
+            "team": "Team 8"
+        },
+        "7": {
+            "color": 2336560127,
+            "difficulty": "Easy",
+            "race": "Random",
+            "team": "Team 9"
+        },
+        "8": {
+            "color": 2155905279,
+            "difficulty": "Easy",
+            "race": "Random",
+            "team": "Team 10"
+        },
+        "9": {
+            "color": 4279538687,
+            "difficulty": "Easy",
+            "race": "Random",
+            "team": "Team 11"
+        }
+    },
+    "mapIndex": 0,
+    "numberOfNPCs": 1,
+    "player": {
+        "color": 4294902015,
+        "playerName": "[Enter Name]",
+        "race": "Random",
+        "team": "Team 5"
+    },
+    "teamRelativeColors": false
+}

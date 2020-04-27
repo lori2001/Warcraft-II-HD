@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "SFML/Graphics.hpp"
+#include "../System/Resources.h"
 
 namespace ng
 {
@@ -48,7 +49,10 @@ namespace ng
 		// blocks the simultaneous pressing of different overlapping UIElements
 		// by holding the only exception to it (-1 means none)
 		static int blockingException_;
-	
+
+		static constexpr const char* DEFAULT_FONT_LOC = "font.ttf";
+		static constexpr const unsigned DEFAULT_CHAR_SIZE = 30;
+		static constexpr const float DEFAULT_SELECT_THICKNESS = 2.5F;
 	private:
 		// helps count number of UIElements for debugging purposes
 		static std::vector<size_t> elements_;

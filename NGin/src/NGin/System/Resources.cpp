@@ -2,12 +2,12 @@
 
 namespace ng {
 
-	std::unordered_map<std::string, std::shared_ptr<sf::Texture>> Resources::textures_;
-	std::unordered_map<std::string, std::shared_ptr<sf::Font>> Resources::fonts_;
-	std::unordered_map<std::string, std::shared_ptr<sf::SoundBuffer>> Resources::soundBuffers_;
+	std::unordered_map<std::string, ng::TexturePtr> Resources::textures_;
+	std::unordered_map<std::string, ng::FontPtr> Resources::fonts_;
+	std::unordered_map<std::string, ng::SoundBufferPtr> Resources::soundBuffers_;
 	std::string Resources::location_ = "assets/";
 
-	std::shared_ptr<sf::Texture> Resources::AcquireTexture(const std::string& name)
+	ng::TexturePtr Resources::AcquireTexture(const std::string& name)
 	{
 		const auto search = textures_.find(location_ + name); // search
 
@@ -27,7 +27,7 @@ namespace ng {
 		}
 	}
 
-	std::shared_ptr<sf::Font> Resources::AcquireFont(const std::string& name)
+	ng::FontPtr Resources::AcquireFont(const std::string& name)
 	{
 		const auto search = fonts_.find(location_ + name); // search
 
@@ -47,7 +47,7 @@ namespace ng {
 		}
 	}
 
-	std::shared_ptr<sf::SoundBuffer> Resources::AcquireSoundBuffer(const std::string& name)
+	ng::SoundBufferPtr Resources::AcquireSoundBuffer(const std::string& name)
 	{
 		const auto search = soundBuffers_.find(location_ + name); // search
 

@@ -3,9 +3,8 @@
 namespace ng {
 	void Switcher::handleEvents(const sf::Event& event, const sf::Vector2f& mouse)
 	{
-		if (!UIElement::hasBlockingException()) {
-			hasChanged_ = false;
-
+		if (!UIElement::hasBlockingException())
+		{
 			button_.handleEvents(event, mouse);
 
 			if (button_.isPressed()) {
@@ -34,10 +33,15 @@ namespace ng {
 		if (isActive_)	
 			target.draw(mark_);
 	}
-	void Switcher::setTexture(const sf::Texture& texture)
+	void Switcher::setTexture(const ng::TexturePtr texture)
 	{
-		button_.setTexture(texture);
-		mark_.setTexture(&texture);
+		texture_ = texture;
+		button_.setTexture(texture_);
+		mark_.setTexture(&*texture_);
+
+		mark_.setTextureRect({
+			int(2 * button_.getSize().x), 0,
+			int(mark_.getSize().x), int(mark_.getSize().y) });
 	}
 	void Switcher::setPosition(const sf::Vector2f& position)
 	{

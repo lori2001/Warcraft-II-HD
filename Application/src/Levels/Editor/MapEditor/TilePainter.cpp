@@ -1,26 +1,21 @@
 #include "TilePainter.h"
-#include "../Common/GameDetails.h"
 
-void TilePainter::setup()
+TilePainter::TilePainter()
 {
-	// --- Load Textures -------------------------
-	scrollBoxTexture_ = NG_TEXTURE_SPTR("images/ui/scrollbox.png");
-	themeTexture_ = NG_TEXTURE_SPTR(GameDetails::mapFile.getThemeLocation());
-	// -------------------------------------------
+	scrollBox_.setPosition(scrollBoxPosition);
+	title_.setFillColor({ color::FONT_COLOR_R,color::FONT_COLOR_G ,color::FONT_COLOR_B });
 
-	// --- Set Textures And Fonts ----------------
-	scrollBox_.setTexture(*scrollBoxTexture_);
-	// -------------------------------------------
-
+	scrollBox_.setSelectColor({ color::SELECT_COLOR_R, color::SELECT_COLOR_G, color::SELECT_COLOR_B });
+	
 	//--- Break texture into tiles ---------------
 	sf::Image analyzer; // makes sure no empty tiles are read
-	analyzer.loadFromFile(ng::Resources::getLocation() + GameDetails::mapFile.getThemeLocation());
-
+	analyzer.loadFromFile(ng::Resources::getLocation() + MapFile::getThemeLocation());
+	
 	// make sure tiles' vectors are empty
 	tiles_.clear();
 	tileIndexes_.clear();
 	tileIndexTexts_.clear(); // clear display index texts
-	const sf::Vector2f tileSize = GameDetails::mapFile.getTileSize();
+	const sf::Vector2f tileSize = MapFile::getTileSize();
 	int i = 0;
 	for (float y = 0; y <= themeTexture_->getSize().y - tileSize.y; y += tileSize.y + 1)
 	{
@@ -55,12 +50,12 @@ void TilePainter::setup()
 	// -------------------------------------------
 
 	// WARNING: overwrites positon properties
-	// WARNING: makes scrollbox responsible for drawing tiles-vector*/
+	// WARNING: makes scrollbox responsible for drawing tiles-vector
 	scrollBox_.clearElements(); // clear non-valid pointers
 
 	// -- Add elements to ScrollBox ------------
 	const float tilesHeight = tilesTopGap_ + tilesOffset_.y * ((tiles_.size() - 1) / tilesRows_) +
-		(GameDetails::mapFile.getTileSize().y * tilesScale_);
+		(MapFile::getTileSize().y * tilesScale_);
 
 	scrollBox_.setInsideSize({ scrollBox_.getOutsideSize().x, tilesHeight + 50 });
 
@@ -69,12 +64,12 @@ void TilePainter::setup()
 	ng::centerTextInBounds(title_, scrollBox_.getGlobalBounds(),
 		50 - scrollBox_.getGlobalBounds().height / 2);
 	scrollBox_.addElement(title_);
-	
+
 	for (int i = 0; i < int(tiles_.size()); i++)
 	{
 		sf::Vector2f currTilePosition =
-			   { tilesLeftGap_ + tilesOffset_.x * (i % tilesRows_),
-				 tilesTopGap_  + tilesOffset_.y * (i / tilesRows_) };
+		{ tilesLeftGap_ + tilesOffset_.x * (i % tilesRows_),
+		  tilesTopGap_ + tilesOffset_.y * (i / tilesRows_) };
 
 		scrollBox_.addElement(tiles_[i], currTilePosition); // add tile
 		scrollBox_.addElement(tileIndexTexts_[i], { currTilePosition.x, currTilePosition.y - 18 }); // add tile text
@@ -86,32 +81,17 @@ void TilePainter::setup()
 	// -----------------------------------
 }
 
-void TilePainter::setupUIStyle(const sf::Font& font, const unsigned fontSize, const sf::Color& themeColor)
+void TilePainter::handleEvents(const sf::Event& event)
 {
-	scrollBox_.setSelectColor(themeColor);
-	selectionColor_ = themeColor;
-
-	title_.setFont(font);
-	title_.setCharacterSize(fontSize);
-	title_.setFillColor(themeColor);
-}
-
-void TilePainter::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-	target.draw(scrollBox_);
-}
-
-void TilePainter::handleEvents(const sf::Event& event, const sf::Vector2f& mouse)
-{
-	scrollBox_.handleEvents(event, mouse);
+	scrollBox_.handleEvents(event, ng::Cursor::getPosition());
 	
 	for (int i = 0; i < static_cast<int>(tiles_.size()); i++) {
-		if (tiles_[i].getGlobalBounds().intersects(sf::FloatRect(mouse, { 1,1 }))) {
+		if (tiles_[i].getGlobalBounds().intersects(sf::FloatRect(ng::Cursor::getPosition(), { 1,1 }))) {
 			tiles_[i].setOutlineThickness(selectionThickness_);
 
 			if (event.mouseButton.button == sf::Mouse::Left &&
 				event.type == sf::Event::MouseButtonReleased) {
-				usingTile_ = tileIndexes_[i];
+				selectedTile_ = tileIndexes_[i];
 			}
 		}
 		else {
@@ -119,7 +99,7 @@ void TilePainter::handleEvents(const sf::Event& event, const sf::Vector2f& mouse
 		}
 
 		// using tiles
-		if (tileIndexes_[i] == usingTile_) {
+		if (tileIndexes_[i] == selectedTile_) {
 			tiles_[i].setFillColor({ 255, 255, 0, 255 });
 		}
 		else {
@@ -128,7 +108,11 @@ void TilePainter::handleEvents(const sf::Event& event, const sf::Vector2f& mouse
 	}
 }
 
-void TilePainter::setPosition(const sf::Vector2f& position)
+void TilePainter::update()
 {
-	scrollBox_.setPosition(position);
+}
+
+void TilePainter::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	target.draw(scrollBox_);
 }

@@ -1,43 +1,38 @@
 #include "Application.h"
 
-Levels::EVENT Levels::event = Levels::EVENT::EVENT_NONE;
+Levels::LEVEL_TYPES Levels::currentLevel = Levels::LEVEL_TYPES::EDITOR; // TODO: Change to menu
 
 Application::Application()
 {
-	settingsFile_.load();
+	// load settings
+	SettingsFile::load();
 
 	// Names of windows
-	windowName = "Warcraft II HD"; // render window
-	ng::Console::setName("Warcraft II HD"); // console window
+	windowName = WINDOW_NAME; // render window
+	ng::Console::setName(WINDOW_NAME); // console window
 
-	// Load in settings
-	windowVideoMode = settingsFile_.getVideoMode();
-	windowType = settingsFile_.getWindowType();
-
-	ng::Audio::setMusicVolume(settingsFile_.getMusicVolume());
-	ng::Audio::setSoundVolume(settingsFile_.getSoundVolume());
-
-	// there is no reason to go above 60fps
-	// window_.setFramerateLimit(60);
+	// apply file settings
+	windowVideoMode = SettingsFile::getVideoMode();
+	windowType = SettingsFile::getWindowType();
+	ng::Audio::setMusicVolume(SettingsFile::getMusicVolume());
+	ng::Audio::setSoundVolume(SettingsFile::getSoundVolume());
 
 	// load and set icon file
-	setWindowIcon("icon.png");
+	setWindowIcon(location::ICON);
 
 	// set default resource folder
-	ng::Resources::setLocation("assets/");
+	ng::Resources::setLocation(location::ASSETS);
 
 	// load and draw loadingscreen
-	loadingScreenTexture_ = ng::Resources::AcquireTexture("images/ui/loadingscreen.jpg");
+	loadingScreenTexture_ = NG_TEXTURE_SPTR(location::LOADING_SCREEN);
 	loadingScreen_.setTexture(*loadingScreenTexture_);
 	drawLoadingScreen();
 
 	// set up cursor sound
-	cursorSound_ = ng::Resources::AcquireSoundBuffer("audio/click.wav");
-	ng::Cursor::setBuffer(*cursorSound_);
+	ng::Cursor::setBuffer(NG_SOUNDBUFFER_SPTR(location::CLICK_SOUND));
 
 	// load textures and make sure they never delete
-	orcCursorTexture_ = ng::Resources::AcquireTexture("images/ui/orc_cursor.png");
-	humanCursorTexture_ = ng::Resources::AcquireTexture("images/ui/human_cursor.png");
+	ng::Cursor::setTexture(NG_TEXTURE_SPTR(location::ORC_CURSOR));
 
 	// subscribe already loaded sounds to their types
 	ng::Audio::subscribeSound(ng::Cursor::getSoundPtr());
@@ -50,13 +45,7 @@ Application::Application()
 // called when closing window
 Application::~Application()
 {
-	// update settings before saving
-	settingsFile_.setVideoMode(windowVideoMode);
-	settingsFile_.setWindowType(windowType);
-	settingsFile_.setMusicVolume(ng::Audio::getMusicVolume());
-	settingsFile_.setSoundVolume(ng::Audio::getSoundVolume());
-
-	settingsFile_.save(); // save settings
+	SettingsFile::save(); // save settings
 	delete currentLevel_; // delete current level responsibly
 }
 
@@ -67,45 +56,45 @@ void Application::handleEvents()
 		// handle the events of whatever the current level
 		currentLevel_->handleEvents(event_);
 
-		switch (Levels::event)
+		Levels::checkForChanges();
+		// if there is a level-event
+		if (Levels::hasChanged())
 		{
-		case Levels::EVENT::EVENT_LOBBY:
-			delete currentLevel_;
-			currentLevel_ = new LobbyLevel;
-			break;
+			drawLoadingScreen();
 
-		case Levels::EVENT::EVENT_SETTINGS:
-			delete currentLevel_;
-			currentLevel_ = new SettingsLevel;
-			break;
-		case Levels::EVENT::EVENT_EDITOR:
-			drawLoadingScreen(); // slower loading expected
+			if (Levels::changeComesFrom() == Levels::LEVEL_TYPES::EDITOR)
+			{
+				// show in-game cursor
+				ng::Cursor::showTextured();
+			}
 
-			delete currentLevel_;
-			currentLevel_ = new EditorLevel;
+			delete currentLevel_; // delete old level resources like a good boi
+			switch (Levels::currentLevel) // assigne new level
+			{
+			case Levels::LEVEL_TYPES::LOBBY:
+				GameDetailsFile::load();
+				currentLevel_ = new LobbyLevel;
+				break;
+			case Levels::LEVEL_TYPES::SETTINGS:
+				currentLevel_ = new SettingsLevel;
+				break;
+			case Levels::LEVEL_TYPES::EDITOR:
+				currentLevel_ = new EditorLevel;
+				break;
+			/*case Levels::EVENT::EVENT_GAME:
+				currentLevel_ = new GameLevel;
+				break;*/
+			case Levels::LEVEL_TYPES::MENU:
+				currentLevel_ = new MenuLevel;
+				break;
+			default:
+				std::string error = "Level defined but no actual level connected to it in Application.cpp";
+				NG_LOG_ERROR(error);
+				throw(error);
+				ng::Main::closeWindow();
+			}
 
-			ng::Resources::destroyUnused(); // destroy menu resources
-			break;
-
-		case Levels::EVENT::EVENT_GAME:
-			drawLoadingScreen(); // slower loading expected
-
-			delete currentLevel_;
-			currentLevel_ = new GameLevel;
-
-			ng::Resources::destroyUnused(); // destroy menu resources
-			break;
-
-			// smooth menu loading
-		case Levels::EVENT::EVENT_MENU:
-			drawLoadingScreen(); // slower loading expected
-
-			delete currentLevel_;
-			// compromise: loads menu slower but later settings faster
-			ng::Resources::destroyUnused();
-
-			currentLevel_ = new MenuLevel;
-			break;
+			ng::Resources::destroyUnused(); // destroy unused resources
 		}
 	}
 }
@@ -123,8 +112,9 @@ void Application::draw(sf::RenderTarget& target, sf::RenderStates states) const
 void Application::drawLoadingScreen()
 {
 	// make sure view focuses on loading screen
-	ng::Main::view.reset(sf::FloatRect{ 0, 0, 1920, 1080 }); // reset moved view
-	ng::Main::applyViewToWindow();
+	ng::Main::nginView_.reset(
+		sf::FloatRect{ 0, 0, MAIN_VIEW_WIDTH, MAIN_VIEW_HEIGHT }); // reset moved view
+	ng::Main::applyDefaultViewToWindow();
 
 	window.draw(loadingScreen_);
 	window.display();

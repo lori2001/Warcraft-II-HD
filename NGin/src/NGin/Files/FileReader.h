@@ -15,10 +15,10 @@ namespace ng {
 
 		// cleans input from comments (//)
 		// and empty lines
-		INPUT_TYPE cleanInput(std::string& input);
+		static INPUT_TYPE cleanInput(std::string& input);
 
 		// finds toFind in input and erases it
 		// returns false if string not found
-		bool findAndClear(std::string& input, const std::string& toFind);
+		static bool findAndClear(std::string& input, const std::string& toFind);
 	};
 }

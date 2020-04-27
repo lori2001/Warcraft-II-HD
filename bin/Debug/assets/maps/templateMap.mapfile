@@ -2,12 +2,12 @@
 // : - types are read with a space after ex. (Title: )
 // <> - types are expected to contain integer values
 
-Title: Serious Map1 // name of the map
-Theme: Summer // the tilemap texture type used
+Title: Template Map3 // name of the map
+Theme: Summer // Can be: "Winter" or "Wastelands" - signifies the tilemap texture type used
 TileWidth: 32 // the width of one tile in texture
 TileHeight: 32 // the height of one tile in texture
 
-// tiles' type and position
+// tiles' type and (relative) position
 <tiles>
  250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250
  250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250

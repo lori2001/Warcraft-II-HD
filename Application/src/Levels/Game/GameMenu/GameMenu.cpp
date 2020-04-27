@@ -1,4 +1,4 @@
-#include "GameMenu.h"
+/*#include "GameMenu.h"
 
 GameMenu::GameMenu()
 {
@@ -135,3 +135,4 @@ void GameMenu::setupUIStyle(const sf::Font& font, const unsigned fontSize, const
 
 	gameSettings_.setupUIStyle(font , fontSize, themeColor);
 }
+*/

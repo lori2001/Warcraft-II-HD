@@ -1,4 +1,4 @@
-#include "GameLevel.h"
+/*#include "GameLevel.h"
 
 GameLevel::GameLevel()
 {
@@ -47,12 +47,12 @@ void GameLevel::handleEvents(const sf::Event& event)
 	{
 		menuIsActive = !menuIsActive;
 
-		/*if (menuIsActive) {
-			menu_ = new GameMenu;
-		}
-		else {
-			delete menu_;
-		}*/
+		//if (menuIsActive) {
+		//	menu_ = new GameMenu;
+		//}
+		//else {
+		//	delete menu_;
+		//}
 	}
 }
 
@@ -65,8 +65,10 @@ void GameLevel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(interface_);
 	target.draw(menuButton_);
 
-	/*if (menuIsActive)
-		target.draw(*menu_);*/
+	target.draw(unit);
+
+	//if (menuIsActive)
+	//	target.draw(*menu_);
 }
 
 void GameLevel::setupUIStyle(const sf::Font& font, const unsigned fontSize, const sf::Color& themeColor)
@@ -75,4 +77,4 @@ void GameLevel::setupUIStyle(const sf::Font& font, const unsigned fontSize, cons
 	menuButton_.setCharacterSize(fontSize);
 	menuButton_.setTextColor(themeColor);
 	menuButton_.setSelectColor(themeColor);
-}
+}*/

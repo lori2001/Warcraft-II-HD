@@ -1,6 +1,10 @@
 #include "Cursor.h"
+#include "../System/Console.h"
 
 namespace ng {
+
+	ng::SoundBufferPtr Cursor::soundBuffer_;
+	ng::TexturePtr Cursor::texture_;
 
 	sf::Sprite Cursor::sprite_;
 	sf::Sound Cursor::sound_;
@@ -12,9 +16,10 @@ namespace ng {
 			window.draw(sprite_);
 	}
 
-	void Cursor::setTexture(const sf::Texture& texture)
+	void Cursor::setTexture(const ng::TexturePtr texture)
 	{
-		sprite_.setTexture(texture);
+		texture_ = texture;
+		sprite_.setTexture(*texture_);
 		hasTexture_ = true;
 	}
 
@@ -32,14 +37,22 @@ namespace ng {
 		}
 	}
 
-	void Cursor::resetToDefault()
+	void Cursor::showDefault()
 	{
 		hasTexture_ = false;
 	}
 
-	void Cursor::setBuffer(sf::SoundBuffer& soundBuffer)
+	void Cursor::showTextured()
 	{
-		sound_.setBuffer(soundBuffer);
+		if (sprite_.getTexture() != nullptr) {
+			hasTexture_ = true;
+		}
+	}
+
+	void Cursor::setBuffer(const ng::SoundBufferPtr soundBuffer)
+	{
+		soundBuffer_ = soundBuffer;
+		sound_.setBuffer(*soundBuffer_);
 	}
 
 	void Cursor::playSound()

@@ -51,7 +51,7 @@ namespace ng
 		static void setSize(const sf::Vector2u &size);
 		// !!! Changes all fonts (even those alredy printed)
 		static void setFontStyle(const sf::Vector2i& size, const bool isBold = false);
-		static void setName(const LPCSTR name);
+		static void setName(const char* name);
 		static bool isActive();
 
 	private:

@@ -1,12 +1,13 @@
 #pragma once
 #include "NGin.h"
+#include "../Style.h"
+
+#include "../Files/MapFile.h"
+#include "../Files/SettingsFile.h"
 #include "Levels.h"
 
-#include "Common/GameDetails.h"
-#include "Common/Map.h"
-
-#include "Editor/EditableMap.h"
-#include "Editor/TilePainter.h"
+#include "Editor/EditorMenu.h"
+#include "Editor/MapEditor.h"
 
 class EditorLevel : public ng::Level {
 public:
@@ -16,41 +17,23 @@ public:
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+	// event that triggers change of STATE
+	enum class EVENT {
+		NONE = 0, // there is no event
+		LOAD
+	};
+	inline static EVENT editorEvent = EVENT::NONE;
+
 private:
+	// current state of editor
+	enum class STATE {
+		EMPTY,
+		MAP_EDITOR
+	};
+	STATE editorState_ = STATE::EMPTY;
 
-	void setupUIStyle(const sf::Font& font,
-				      const unsigned fontSize,
-					  const sf::Color& themeColor);
-
-	std::shared_ptr<sf::Texture> headerTexture_;
-	std::shared_ptr<sf::Texture> dropdownTexture_;
-	std::shared_ptr<sf::Texture> leaveButtonTexture_;
-	std::shared_ptr<sf::Texture> gridSwitcherTexture_;
-	std::shared_ptr<sf::Texture> painterSwitcherTexture_;
-	std::shared_ptr<sf::Font> font_;
-
-	// Toolbar
-	sf::Sprite headerSprite_;
-	ng::Dropdown fileDropdown_{ { 277, 40 } };
-	bool toolbarHasFocus_ = false;
-
-	// Navigation
-	float editorMoveSpeed_ = 225.0F;
-	float editorZoomSpeed_ = 0.2F;
-	float editorZoom_ = 2.0F;
-	float editorMaxZoom_ = 5.0F;
-	float editorMinZoom_ = 0.5F;
-
-	// Editables
-	bool mapEditor_;
-	EditableMap editableMap_;
-		// Tools
-		TilePainter tilePainter_;
-
-	// goes back to main menu
-	ng::Button backButton_{ "", { 75, 75 } };
-	// grid enable/disable
-	ng::Switcher gridSwitcher_ { { 75, 75 } };
-	// tilePainter enable/disable
-	ng::Switcher tilePainterSwitcher_{ { 75, 75 } };
+	EditorMenu editorMenu_;
+	
+	// editors behave just like levels even though technically they are not levels
+	ng::Level* activeEditor_ = nullptr;
 };

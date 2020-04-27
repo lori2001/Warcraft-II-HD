@@ -1,24 +1,13 @@
-#pragma once
+/*#pragma once
 #include "NGin.h"
 
 class Unit : public sf::Drawable
 {
 public:
-	virtual void setup(const sf::Vector2f& position) = 0;
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
-	virtual void handleEvents(const sf::Event& event, const sf::Vector2f& mouse) = 0;
-	virtual void animate(const float deltaTime) = 0;
+	Unit(sf::Vector2f position);
 
-protected:
-	Unit();
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-	void findPathTo(const sf::Vector2i& position);
-
-	sf::Vector2i position_;
-	sf::Vector2i test;
-	std::vector <sf::Vector2i> tests;
-	
 private:
-
-	ng::AStar::Generator generator;
-};
+	sf::RectangleShape shape_;
+};*/

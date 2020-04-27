@@ -2,46 +2,45 @@
 #include <iostream>
 #include <filesystem>
 
-void MapFile::scanDir()
+bool MapFile::scanDir()
 {
-	// Secure cleanup
+	// Securely clean up possible previous paths
 	paths_.clear();
 
 	char buffer[MAX_PATH];
+	// get .exe file path in buffer
 	GetModuleFileName(NULL, buffer, sizeof(buffer));
-
+	// mark the buffer at position before executable file name 
+	// ex. C:\\example\\application.exe
+	//                 ^ pos
 	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
-	folderPath_ = std::string(buffer).substr(0, pos) + "\\assets\\maps";
+
+	// generate absolute folder path from relative
+	folderPath_ = std::string(buffer).substr(0, pos) + std::string(RELATIVE_FOLDER_PATH);
 
 	try {
-		for (const auto& entry : std::filesystem::directory_iterator(folderPath_)) {
-			std::string temp = entry.path().u8string();
+		// add all valid paths to their vector
+		for (const auto& entry : std::filesystem::directory_iterator(folderPath_))
+		{
+			const std::string filePath = entry.path().u8string();
 
-			// only load .txt files
-			std::size_t found = temp.find_last_of(".");
-			if (temp.substr(found) == ".mapfile") {
-				paths_.push_back(entry.path().u8string());
-			}
+			// only load files with the right extension
+			std::size_t found = filePath.find_last_of(".");
+			if (filePath.substr(found + 1) == MAP_FILE_EXTENSION)
+				paths_.push_back(filePath); // add path to vec
 		}
 	}
-	catch (...) {
-
-		NG_LOG_WARN("Directory expected to contain .mapfile files has not been found: \n ",
-			folderPath_ , " -- Please create directory!");
-
-		folderPath_ = std::string(buffer).substr(0, pos);
+	catch (...)
+	{
+		NG_LOG_WARN(folderPath_);
+		NG_LOG_WARN("Directory not found! Empty directory created. This might cause unexpected behaviour!");
+		
+		CreateDirectory(folderPath_.c_str(), NULL);
+		
+		return false;
 	}
-}
-
-void MapFile::load()
-{
-	if (paths_.size() > 0) {
-		load(paths_[index_]);
-	}
-	else {
-		NG_LOG_ERROR("No maps found in ./assets/maps/ !");
-		std::abort();
-	}
+	
+	return paths_.size() != 0; // if no maps found return false else retrun true
 }
 
 void MapFile::load(const std::string& path)
@@ -118,6 +117,11 @@ void MapFile::load(const std::string& path)
 	else {
 		NG_LOG_ERROR("Unable To open file: ", path);
 	}
+
+	if (tiles_.size() <= 0) {
+		NG_LOG_ERROR("No tiles specified in faulty mapfile:", path);
+	}
+
 	in.close();
 }
 
@@ -126,7 +130,7 @@ void MapFile::save()
 	// should trim down unnecessary 0-s
 }
 
-int MapFile::getMaxNColums() const
+int MapFile::getMaxNumOfColumns()
 {
 	unsigned maxSize = 0;
 
@@ -139,37 +143,9 @@ int MapFile::getMaxNColums() const
 	return static_cast<int>(maxSize);
 }
 
-void MapFile::addNewTile(const unsigned tileIndex, const sf::Vector2i& vectorPos)
+void MapFile::offsetIndexBy(const int amount)
 {
-	if (tileIndex != -1) {
-		if (vectorPos.x >= 0 && vectorPos.x < getMaxNColums() &&
-			vectorPos.y >= 0 && vectorPos.y < getNRows())
-		{
-			tiles_[vectorPos.y].at(vectorPos.x) = tileIndex;
-		}
-	}
-
-	/*
-	// x=-1 y=-1
-	if (vectorPos.x == -1 && vectorPos.y == -1) {
-		tiles_.size(); // y
-		tiles_[0].size(); // x
-	}
-	
-	// x=i  y=-1
-	if(vectorPos.x >= 0 && vectorPos.x < tiles_[0].size() && vectorPos.y == -1)
-	// x=n  y=-1
-	// x=-1 y=i
-	// x=-1 y=n
-	// x=n  y=i
-	// x=n  y=n
-	// x=i  y=n
-*/
-}
-
-void MapFile::offsetIndexBy(const int indexOffset)
-{
-	index_ += indexOffset;
+	index_ += amount;
 
 	// circulate
 	if (index_ < 0)
@@ -177,6 +153,21 @@ void MapFile::offsetIndexBy(const int indexOffset)
 	else if (index_ >= static_cast<int>(paths_.size()))
 		index_ = 0;
 
-	// Re-read map
-	load();
+	// read map with new index
+	load(paths_[index_]);
+}
+
+void MapFile::insertTile(const unsigned Yrow, const unsigned Xcol, const int tileIndex)
+{
+	if (Yrow < tiles_.size())
+	{
+		if (Xcol < tiles_[Yrow].size())
+		{
+			tiles_[Yrow][Xcol] = tileIndex;
+		}
+	}
+	// TODO the rest
+
+
+	
 }

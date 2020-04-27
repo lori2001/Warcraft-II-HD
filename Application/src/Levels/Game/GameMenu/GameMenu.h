@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include "NGin.h"
 #include "../../Levels.h"
 
@@ -38,4 +38,4 @@ private:
 	bool settingsIsActive; 
 
 	sf::Sprite background_;
-};
+};*/

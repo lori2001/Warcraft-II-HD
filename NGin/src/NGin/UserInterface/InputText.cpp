@@ -88,10 +88,11 @@ namespace ng {
 		shape_.setPosition(position);
 		centerTextInShape(text_, shape_);
 	}
-	void InputText::setFont(const sf::Font& font)
+	void InputText::setFont(const ng::FontPtr font)
 	{
-		text_.setFont(font);
-		cursor_.setFont(font);
+		font_ = font;
+		text_.setFont(*font_);
+		cursor_.setFont(*font_);
 
 		centerTextInShape(text_, shape_);
 	}

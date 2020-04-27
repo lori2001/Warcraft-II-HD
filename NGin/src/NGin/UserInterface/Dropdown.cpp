@@ -9,14 +9,8 @@ namespace ng
 	{
 		if (!isDisabled_)
 		{
-			sf::FloatRect mainrect(shape_.getGlobalBounds().left,
-								   shape_.getGlobalBounds().top,
-								   size_.x * shape_.getScale().x,
-								   size_.y * shape_.getScale().y);
-
-			sf::FloatRect mouseRect = { mouse, { 1,1 } };
-
-			isSelecteds_[0] = mainrect.intersects(mouseRect);
+			wasActive_ = isActive_;
+			isSelecteds_[0] = closedGlobalBounds_.contains(mouse);
 
 			// if the main element has been pressed
 			if (isActive_)
@@ -32,11 +26,11 @@ namespace ng
 					);
 
 					// checks intersection with mouse for each element
-					isSelecteds_[i] = thisrect.intersects(mouseRect);
+					isSelecteds_[i] = thisrect.contains(mouse);
 				}
 			}
 
-			// if the leftmousebutton is enabled
+			// if the leftmousebutton is enabled and there's no element blocking
 			if (event.mouseButton.button == sf::Mouse::Left &&
 				(blockingException_== getUIElementIndex() || blockingException_ == -1))
 			{
@@ -66,7 +60,7 @@ namespace ng
 							Cursor::playSound();
 
 							// make button active
-							activeDrop = i;
+							activeDrop_ = i;
 
 							// if the dropdown's displayed information should change
 							if (!isStatic_)
@@ -92,16 +86,11 @@ namespace ng
 				}
 			}
 
-			// if dropped down or first element is selected
-			if (isActive_ || isSelecteds_[0])
-				shape_.setOutlineThickness(selectThickness_);
-			else
-				shape_.setOutlineThickness(0);
-
 			drawHighlight_ = false; // do not draw highlight by default
 
 			if (isActive_) // if dropped down
 			{
+				shape_.setOutlineThickness(selectThickness_);
 				for (int i = 1; i < int(isSelecteds_.size()); i++) // for every element
 				{
 					if (isSelecteds_[i]) // if the element is selected
@@ -115,6 +104,10 @@ namespace ng
 					}
 				}
 			}
+			else if(isSelecteds_[0])
+				shape_.setOutlineThickness(selectThickness_);
+			else
+				shape_.setOutlineThickness(0);
 		}
 	}
 	void Dropdown::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -147,18 +140,18 @@ namespace ng
 			target.draw(highlight_);
 		}
 	}
-	void Dropdown::addDropString(const sf::String& text)
+	void Dropdown::addDropString(const std::string& string)
 	{
 			isSelecteds_.push_back(false);
 			int i = drops_.size();
 
 			if (drops_[0].text.getFont() != 0) {
-				drops_.push_back(sf::Text{ text, *drops_[0].text.getFont(), characterSize_ });
+				drops_.push_back(sf::Text{ string, *drops_[0].text.getFont(), characterSize_ });
 				drops_[i].text.setFillColor(drops_[0].text.getFillColor());
 			}
 			else {
 				sf::Text tmp;
-				tmp.setString(text);
+				tmp.setString(string);
 				tmp.setCharacterSize(characterSize_);
 				tmp.setFillColor(drops_[0].text.getFillColor());
 				drops_.push_back(tmp);
@@ -166,6 +159,25 @@ namespace ng
 
 			// puts added element's text inside its container
 			centerTextInBounds(drops_[i].text, closedGlobalBounds_, closedGlobalBounds_.height * i);
+	}
+	void Dropdown::addDropText(const sf::Text& text)
+	{
+		isSelecteds_.push_back(false);
+		int i = drops_.size();
+
+		drops_.push_back(text);
+
+		// puts added element's text inside its container
+		centerTextInBounds(drops_.back().text, closedGlobalBounds_, closedGlobalBounds_.height * i);
+	}
+	void Dropdown::setDropTextVec(const std::vector<sf::Text>& textVector)
+	{
+		drops_.clear();
+		isSelecteds_.clear();
+
+		for (auto &it: textVector) {
+			drops_.push_back(it);
+		}
 	}
 	void Dropdown::addDropColor(const sf::Color& color)
 	{
@@ -180,7 +192,7 @@ namespace ng
 
 		drops_.push_back(temp);
 	}
-	void Dropdown::deleteDropString(const int index)
+	void Dropdown::deleteDrop(const int index)
 	{
 		if (index < int(isSelecteds_.size()) ) {
 			isSelecteds_.erase(isSelecteds_.begin() + index);
@@ -197,18 +209,26 @@ namespace ng
 				index, " (vector size is ", isSelecteds_.size(), ") -> COMMAND IGNORED");
 		}
 	}
-	void Dropdown::setTexture(sf::Texture& texture)
+	void Dropdown::deleteDrops()
 	{
-		texture.setRepeated(true);
+		isSelecteds_.clear();
+		drops_.clear();
+	}
+	void Dropdown::setTexture(const ng::TexturePtr texture)
+	{
+		texture_ = texture;
+		texture_->setRepeated(true);
 
-		shape_.setTexture(&texture);
+		shape_.setTexture(&*texture_);
 		if(!isDisabled_) shape_.setTextureRect({ 0, 0, int(size_.x), int(size_.y) });
 	}
-	void Dropdown::setFont(const sf::Font& font)
+	void Dropdown::setFont(const ng::FontPtr font)
 	{
+		font_ = font;
+
 		for (int i = 0; i < int(drops_.size()); i++)
 		{
-			drops_[i].text.setFont(font);
+			drops_[i].text.setFont(*font_);
 
 			centerTextInBounds(drops_[i].text, closedGlobalBounds_, closedGlobalBounds_.height * i);
 		}
@@ -251,8 +271,8 @@ namespace ng
 		shape_.setSize(size);
 		highlight_.setSize(size);
 
-		closedGlobalBounds_.width = shape_.getGlobalBounds().width;
-		closedGlobalBounds_.height = shape_.getGlobalBounds().height;
+		closedGlobalBounds_.width = size_.x * shape_.getScale().x;
+		closedGlobalBounds_.height = size_.y * shape_.getScale().y;
 
 		for (int i = 0; i < int(drops_.size()); i++) {
 			centerTextInBounds(drops_[i].text, closedGlobalBounds_, closedGlobalBounds_.height * i);
@@ -267,8 +287,8 @@ namespace ng
 		shape_.setScale(scale);
 		highlight_.setScale(scale);
 
-		closedGlobalBounds_.width = shape_.getGlobalBounds().width;
-		closedGlobalBounds_.height = shape_.getGlobalBounds().height;
+		closedGlobalBounds_.width = size_.x * shape_.getScale().x;
+		closedGlobalBounds_.height = size_.y * shape_.getScale().y;
 
 		for (int i = 0; i < int(drops_.size()); i++) {
 			centerTextInBounds(drops_[i].text, closedGlobalBounds_, closedGlobalBounds_.height * i);
@@ -299,13 +319,13 @@ namespace ng
 			centerTextInBounds(drops_[i].text, closedGlobalBounds_, closedGlobalBounds_.height * i);
 		}
 	}
-	void Dropdown::setDropString(const int i, const sf::String& text)
+	void Dropdown::setDropString(const int i, const std::string& text)
 	{
 		drops_[i].text.setString(text);
 		centerTextInBounds(drops_[i].text, closedGlobalBounds_, closedGlobalBounds_.height * i);
 
 		// if the main drop is getting set make sure activeDrop doesn't return anything weird
-		if (i == 0) activeDrop = 0;
+		if (i == 0) activeDrop_ = 0;
 	}
 	void Dropdown::setDisabled(const bool isDisabled)
 	{
@@ -327,7 +347,7 @@ namespace ng
 	}
 	void Dropdown::setActiveDrop(const int i)
 	{
-		activeDrop = i;
+		activeDrop_ = i;
 
 		// if the dropdown's displayed information should change
 		if (!isStatic_)

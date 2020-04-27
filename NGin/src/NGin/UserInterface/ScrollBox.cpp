@@ -302,11 +302,12 @@ namespace ng {
 		return -1; // not found
 	}
 
-	void ScrollBox::setTexture(const sf::Texture& texture)
+	void ScrollBox::setTexture(const ng::TexturePtr texture)
 	{
-		container_.setTexture(&texture);
-		Xscroller_.setTexture(&texture);
-		Yscroller_.setTexture(&texture);
+		texture_ = texture;
+		container_.setTexture(&*texture_);
+		Xscroller_.setTexture(&*texture_);
+		Yscroller_.setTexture(&*texture_);
 
 		container_.setTextureRect({
 			0,

@@ -2,7 +2,7 @@
 // : - types are read with a space after ex. (Title: )
 // <> - types are expected to contain integer values
 
-Title: Serious Map3 // name of the map
+Title: Template Map2 // name of the map
 Theme: Summer // the tilemap texture type used
 TileWidth: 32 // the width of one tile in texture
 TileHeight: 32 // the height of one tile in texture

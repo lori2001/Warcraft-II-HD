@@ -97,7 +97,7 @@ namespace ng {
 
 		SetCurrentConsoleFontEx(HConsole_, false, &font);
 	}
-	void Console::setName(const LPCSTR name)
+	void Console::setName(const char* name)
 	{
 		SetConsoleTitle(name);
 	}

@@ -1,4 +1,4 @@
-#include "GameSettings.h"
+/*#include "GameSettings.h"
 
 void GameSettings::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
@@ -100,3 +100,4 @@ void GameSettings::setupUIStyle(const sf::Font& font, const unsigned fontSize, c
 	soundSlider_.setSelectThickness(2.5F);
 	soundSlider_.setSelectColor(themeColor);
 }
+*/

@@ -5,13 +5,17 @@
 
 namespace ng
 {
+	typedef std::shared_ptr<sf::Texture> TexturePtr;
+	typedef std::shared_ptr<sf::Font> FontPtr;
+	typedef std::shared_ptr<sf::SoundBuffer> SoundBufferPtr;
+
 	class Resources
 	{
 	public:
 		// acquires resources either by loading from file or by linking to existing pointer
-		static std::shared_ptr<sf::Texture> AcquireTexture(const std::string& name);
-		static std::shared_ptr<sf::Font> AcquireFont(const std::string& name);
-		static std::shared_ptr<sf::SoundBuffer> AcquireSoundBuffer(const std::string& name);
+		static ng::TexturePtr AcquireTexture(const std::string& name);
+		static ng::FontPtr AcquireFont(const std::string& name);
+		static ng::SoundBufferPtr AcquireSoundBuffer(const std::string& name);
 
 		static void destroyUnusedTextures();
 		static void destroyUnusedFonts();
@@ -25,17 +29,13 @@ namespace ng
 		static std::string getLocation() { return location_; }
 
 	private:
-		static std::unordered_map<std::string, std::shared_ptr<sf::Texture>> textures_;
-		static std::unordered_map<std::string, std::shared_ptr<sf::Font>> fonts_;
-		static std::unordered_map<std::string, std::shared_ptr<sf::SoundBuffer>> soundBuffers_;
+		static std::unordered_map<std::string, ng::TexturePtr> textures_;
+		static std::unordered_map<std::string, ng::FontPtr> fonts_;
+		static std::unordered_map<std::string, ng::SoundBufferPtr> soundBuffers_;
 		static std::string location_;
 	};
 
 #define NG_TEXTURE_SPTR(location) ng::Resources::AcquireTexture(location)
 #define NG_FONT_SPTR(location) ng::Resources::AcquireFont(location)
 #define NG_SOUNDBUFFER_SPTR(location) ng::Resources::AcquireSoundBuffer(location)
-
-#define NG_TEXTURE(location) *ng::Resources::AcquireTexture(location)
-#define NG_FONT(location) *ng::Resources::AcquireFont(location)
-#define NG_SOUNDBUFFER(location) *ng::Resources::AcquireSoundBuffer(location)
 }

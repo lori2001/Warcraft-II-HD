@@ -2,7 +2,7 @@
 #include <Windows.h>
 
 namespace ng {
-	sf::View Main::view = sf::View{ sf::FloatRect{0, 0, 1920, 1080} }; // default view is full HD
+	sf::View Main::nginView_ = sf::View{ sf::FloatRect{0, 0, 1920, 1080} }; // default view is full HD
 	sf::VideoMode Main::windowVideoMode{ 1000, 600 }; // default window size fits all modern screens
 	sf::String Main::windowName = "My Application"; // defualt name
 	sf::Color Main::windowClearColor = sf::Color(0, 0, 0); // default screen clear color
@@ -25,7 +25,8 @@ namespace ng {
 
 	void Main::run()
 	{
-		// creates window with defined preperties
+		applyDefaultViewToWindow();
+		// creates window with defined properties
 		applySettingsToWindow();
 
 		while (window.isOpen() && !closeWindow_)
@@ -71,9 +72,6 @@ namespace ng {
 				applySettingsToWindow();
 			}
 
-			// make sure view is applied to window
-			window.setView(view);
-
 			// draw client's main level
 			window.draw(*this);
 
@@ -102,13 +100,19 @@ namespace ng {
 		}
 	}
 
-	void Main::applyViewToWindow()
+	void Main::setWindowView(const sf::View& secondView)
 	{
-		window.setView(view);
+		window.setView(secondView);
+	}
+
+	void Main::applyDefaultViewToWindow()
+	{
+		window.setView(nginView_);
 	}
 
 	void Main::applySettingsToWindow()
 	{
+		sf::View windowView = window.getView();
 		sf::Uint32 windowStyle = sf::Style::Titlebar;
 		bool isBorderless = false;
 
@@ -139,7 +143,7 @@ namespace ng {
 		}
 		
 		// set view (back)
-		window.setView(view);
+		window.setView(windowView);
 
 		// set icon back
 		if(hasIcon_)

@@ -2,94 +2,94 @@
 #include "NGin.h"
 #include "Levels.h"
 
-#include "../Files/SettingsFile.h"
+#include <array>
 
-#include "Lobby/ColoredString.h"
+#include "../Style.h"
+
+#include "../Files/MapFile.h"
+#include "../Files/SettingsFile.h"
+#include "../Files/GameDetailsFile.h"
+
 #include "Lobby/PlayerLine.h"
 #include "Lobby/NPCLine.h"
 #include "Lobby/MapSelector.h"
 
-#include "Common/ConfirmDialog.h"
-#include "Common/GameDetails.h"
-
-class LobbyLevel : public ng::Level {
+class LobbyLevel : private GameDetailsFile, public ng::Level {
 public:
 	LobbyLevel();
+	~LobbyLevel();
 	
 	void handleEvents(const sf::Event& event);
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
-	void setupUIStyle(const sf::Font& font, const unsigned fontSize, const sf::Color& themeColor);
-	bool applyToPlayers();
-
 	// Resources
-	std::shared_ptr<sf::Font> warcraftFont_;
-	std::shared_ptr<sf::Texture> buttonTexture_;
-	std::shared_ptr<sf::Texture> dropdownTexture_;
-	std::shared_ptr<sf::Texture> smallDropdownTexture_;
-	std::shared_ptr<sf::Texture> backgroundTexture_;
-	std::shared_ptr<sf::Texture> inputTexture_;
-	std::shared_ptr<sf::Texture> switcherTexture_;
-	std::shared_ptr<sf::Texture> confirmDialogTexture_;
-	std::shared_ptr<sf::Texture> mapContainerTexture_;
+	ng::FontPtr primaryFont_ = NG_FONT_SPTR(location::PRIMARY_FONT);
+	ng::TexturePtr backgroundTexture_ = NG_TEXTURE_SPTR(location::LOBBY_BG);
 
 	// Background
-	sf::Sprite background_;
+	sf::Sprite background_{ *backgroundTexture_ };
 
 	// Navigation buttons 
-	ng::Button backButton_{ "Back", {430, 50} };
-	ng::Button playButton_ { "Play", {430, 50} };
+	ng::Button backButton_{
+		primaryFont_,
+		"Back",
+		size::MEDIUM_FONT_SIZE,
+		{ color::FONT_COLOR_R, color::FONT_COLOR_G, color::FONT_COLOR_B},
+		{ size::BUTTON_WIDTH, size::BUTTON_HEIGHT},
+		NG_TEXTURE_SPTR(location::BUTTON),
+		{ color::SELECT_COLOR_R, color::SELECT_COLOR_G, color::SELECT_COLOR_B },
+		{ 105, 965 } // position
+	};
+	
+	ng::Button playButton_{
+		"Play",
+		backButton_,
+		{ 735.0F, 965.0F } // position
+	};
 
-	// Static stuff
-	sf::Text playerText_;
-	sf::Text nameText_;
-	sf::Text relativeColorText_;
+	sf::Text playerText_{
+		"Player:",
+		*primaryFont_,
+		size::MEDIUM_FONT_SIZE
+	};
+
+	sf::Text relativeColorText_{
+		"Team Relative Colors",
+		*primaryFont_,
+		size::MEDIUM_FONT_SIZE
+	};
 
 	// Input Lines
-	PlayerLine playerLine_; // object for player
-	std::vector<NPCLine> npcLines_{ 11, NPCLine{} }; // objects for NPC's
+	PlayerLine playerLine_{ { 60.0F, 95.0F } }; // object for player
 
-	// Confirm Dialog to block invalid situations
-	ConfirmDialog confirmDialog_;
-	bool dialogActive_ = false;
+	std::array<NPCLine, GameDetailsFile::maxNumberOfNPCs> npcLines_; // objects for NPC's
+	const float npcLineYOffset_ = 195.0F;
 
 	// Map Selector
-	MapSelector mapSelector_;
-
+	MapSelector mapSelector_{ { 1370.0F, 65.0F }, {1.0F, 1.0F} };
+	 
 	// Nr of NPC's dropdown
-	ng::Dropdown npcsDropdown_{ {69, 54} };
-	int npcsNo_ = 1; 
+	ng::Dropdown npcsDropdown_{
+		primaryFont_,
+		{ color::FONT_COLOR_R, color::FONT_COLOR_G, color::FONT_COLOR_B },
+			size::MEDIUM_FONT_SIZE,
+		{ color::HIGHLIGHT_COLOR_R, color::HIGHLIGHT_COLOR_G,
+		  color::HIGHLIGHT_COLOR_B, color::HIGHLIGHT_COLOR_A },
+		{ color::SELECT_COLOR_R, color::SELECT_COLOR_G, color::SELECT_COLOR_B },
+		{ size::SMALL_DROPDOWN_WIDTH, size::SMALL_DROPDOWN_HEIGHT },
+		NG_TEXTURE_SPTR(location::SMALL_DROPDOWN),
+		{ 45.0F, 175.0F } // position
+	};
 
 	// To toggle team-relative color mode
-	ng::Switcher relativeColorSwitcher_{ { 59 , 54 }, { 71, 80 } };
-
-	// Selectables' Content
-	const std::vector<ColoredString> races_
-	{	{ "Random" , sf::Color::Yellow},
-		{ "Orcs[" , sf::Color::Red},
-		{ "Humans]" , sf::Color::Blue}};
-
-	const std::vector<std::string> difficulties_ { "Easy", "Medium", "Hard"};
-
-	const std::vector<std::string> teams_{ "Team 1",  "Team 2",  "Team 3",
-				   						   "Team 4",  "Team 5",  "Team 6",
-										   "Team 7",  "Team 8",  "Team 9",
-										   "Team 10", "Team 11", "Team 12",};
-	const std::vector<sf::Color> colors_
-	{
-		sf::Color(255,   0,   0), // 1.red 
-		sf::Color(0, 255,   0), // 2.green
-		sf::Color(0,   0, 255), // 3.blue
-		sf::Color(255,  69,   0), // 4.orange
-		sf::Color(255, 255,   0), // 5.yellow
-		sf::Color(0, 255, 255), // 6.cyan
-		sf::Color(128,   0, 128), // 7.purple
-		sf::Color(255, 255, 255), // 8.white
-		sf::Color(139,  69,  19), // 9.brown
-		sf::Color(128, 128, 128), // 10.grey
-		sf::Color(255,  20, 147), // 11.pink
-		sf::Color(0,   0,   0)  // 12.black
+	ng::Switcher relativeColorSwitcher_ {
+		{ 59.0F , 54.0F }, // button size
+		{ 71.0F, 80.0F }, // mark size
+		NG_TEXTURE_SPTR(location::BLOCK_SWTICH),
+		{ 95.0F , 800.0F }, // position
+		{ 1.0F, 1.0F }, // scale
+		{ color::SELECT_COLOR_R, color::SELECT_COLOR_G, color::SELECT_COLOR_B }
 	};
 };

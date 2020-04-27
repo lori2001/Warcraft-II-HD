@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 
+#include "../System/Resources.h"
 #include "../System/Timer.h"
 // TODO: Complete and test this shit!
 
@@ -12,7 +13,7 @@ namespace ng {
 		AnimationFile(const float secPerFrame) {
 			secPerFrame_ = secPerFrame;
 		}
-		void update(const std::vector<std::shared_ptr<sf::Texture>>& textureVector);
+		void update(const std::vector<ng::TexturePtr>& textureVector);
 
 		void setSecondsPerFrame(const float secPerFrame) { secPerFrame_ = secPerFrame; }
 

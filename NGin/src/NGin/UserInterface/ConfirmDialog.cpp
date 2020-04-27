@@ -54,9 +54,9 @@ namespace ng
 	{
 		sf::Vector2f proportions = {
 			static_cast<float>(sf::VideoMode::getDesktopMode().width)
-			/ ng::Main::view.getSize().x,
+			/ ng::Main::getWindowView().getSize().x,
 			static_cast<float>(sf::VideoMode::getDesktopMode().height)
-			/ ng::Main::view.getSize().y
+			/ ng::Main::getWindowView().getSize().y
 		};
 
 		sf::View view{ {0.0F, 0.0F,
@@ -129,21 +129,29 @@ namespace ng
 
 		ng::centerTextInShape(text_, shape_, textYOffset_);
 	}
+	void ConfirmDialog::setButtonSize(const sf::Vector2f& size)
+	{
+		okButton_.setSize(size);
+		closeButton_.setSize(size);
+	}
 	void ConfirmDialog::setSize(const sf::Vector2f& size)
 	{
 		shape_.setSize(size);
 		ng::centerTextInShape(text_, shape_, textYOffset_);
 	}
-	void ConfirmDialog::setButtonTexture(const sf::Texture& texture)
+	void ConfirmDialog::setButtonTexture(const ng::TexturePtr texture)
 	{
-		okButton_.setTexture(texture);
-		closeButton_.setTexture(texture);
+		buttonTexture_ = texture;
+		okButton_.setTexture(buttonTexture_);
+		closeButton_.setTexture(buttonTexture_);
 	}
-	void ConfirmDialog::setShapeTexture(const sf::Texture& texture)
+	void ConfirmDialog::setShapeTexture(const ng::TexturePtr texture)
 	{
-		shape_.setTexture(&texture);
+		shapeTexture_ = texture;
+		shape_.setTexture(&*shapeTexture_);
 	}
-	void ConfirmDialog::setTextures(const sf::Texture& buttonTexture, const sf::Texture& shapeTexture)
+	void ConfirmDialog::setTextures(const ng::TexturePtr buttonTexture,
+		const ng::TexturePtr shapeTexture)
 	{
 		setButtonTexture(buttonTexture);
 		setShapeTexture(shapeTexture);
@@ -163,11 +171,12 @@ namespace ng
 		textYOffset_ = textYOffset;
 		ng::centerTextInShape(text_, shape_, textYOffset_);
 	}
-	void ConfirmDialog::setFont(const sf::Font& font)
+	void ConfirmDialog::setFont(const ng::FontPtr font)
 	{
-		okButton_.setFont(font);
-		closeButton_.setFont(font);
-		text_.setFont(font);
+		font_ = font;
+		okButton_.setFont(font_);
+		closeButton_.setFont(font_);
+		text_.setFont(*font_);
 		ng::centerTextInShape(text_, shape_, textYOffset_);
 	}
 	void ConfirmDialog::setButtonTextColor(const sf::Color color)
@@ -190,5 +199,14 @@ namespace ng
 	{
 		okButton_.setScale(buttonScale);
 		closeButton_.setScale(buttonScale);
+	}
+	void ConfirmDialog::setTextColor(const sf::Color& color) {
+		okButton_.setTextColor(color);
+		closeButton_.setTextColor(color);
+		text_.setFillColor(color);
+	}
+	void ConfirmDialog::setSelectColor(const sf::Color& color) {
+		okButton_.setSelectColor(color);
+		closeButton_.setSelectColor(color);
 	}
 }

@@ -1,58 +1,60 @@
 #include "Button.h"
 #include "Cursor.h"
 
+#include "../System/Console.h"
+
 namespace ng
 {
 	void Button::handleEvents(const sf::Event & event, const sf::Vector2f& mouse)
 	{
-		if (!isDisabled_)
+		if (state_ != STATES::DISABLED )
 		{
-			isActive_ = false;
+			if ((UIElement::blockingException_ == -1 || blockingException_ == getUIElementIndex())
+				&& shape_.getGlobalBounds().contains(mouse))
+			{
+				if(state_ != STATES::PRESSED)
+					state_ = STATES::SELECTED;
+			}
+			else if (state_ != STATES::UNSELECTED) // if !SELECTED
+			{
+				state_ = STATES::UNSELECTED;
 
-			// considers mouse to be 1x1 pixels
-			if (UIElement::blockingException_ == -1) {
-				isSelected_ = shape_.getGlobalBounds().intersects(sf::FloatRect(mouse, { 1,1 }));
+				shape_.setOutlineThickness(0);
+				setTexturePos(texturePos_);
+				text_.setPosition(textPos_);
 			}
 
-			if (isSelected_) {
+			if (state_ == STATES::SELECTED)
+			{
 				shape_.setOutlineThickness(selectThickness_);
 
 				if (event.mouseButton.button == sf::Mouse::Left) {
-					if (event.type == sf::Event::MouseButtonPressed && !isPressed_)
+					if (event.type == sf::Event::MouseButtonPressed && state_ != STATES::PRESSED)
 					{
-						isPressed_ = true;
+						state_ = STATES::PRESSED;
 
 						// audio feedback for pressing
 						ng::Cursor::playSound();
 
 						// create the "pressed in" visual feedback
 						shape_.setTextureRect(sf::IntRect{
-							 texturePos_.x + static_cast<int>(shape_.getSize().x),
-											 static_cast<int>(texturePos_.y),
-											 static_cast<int>(shape_.getSize().x),
-											 static_cast<int>(shape_.getSize().y)});
+						static_cast<int>(texturePos_.x) + static_cast<int>(shape_.getSize().x),
+						static_cast<int>(texturePos_.y),
+						static_cast<int>(shape_.getSize().x),
+						static_cast<int>(shape_.getSize().y)});
 
 						text_.setPosition(sf::Vector2f(textPos_.x + (3 * shape_.getScale().x),
 													   textPos_.y + (3 * shape_.getScale().y)));
 					}
-					else if (isPressed_ && event.type == sf::Event::MouseButtonReleased
-						     && blockingException_ == -1)
-					{
-						isActive_ = true;
-					}
 				}
 			}
-			else { // if !isSelected_
-				shape_.setOutlineThickness(0);
-			}
-
-			// If left mouse button released or unselected...
+			// If left mouse button released after pressed...
 			if ((event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased)
-				|| !isSelected_)
+				&& state_ == STATES::PRESSED)
 			{
-				isPressed_ = false;
+				state_ = STATES::ACTIVE;
 
-				shape_.setTextureRect(sf::IntRect(texturePos_.x, texturePos_.y, (int)shape_.getSize().x, (int)shape_.getSize().y));
+				setTexturePos(texturePos_);
 				text_.setPosition(textPos_);
 			}
 		}
@@ -62,9 +64,10 @@ namespace ng
 		target.draw(shape_);
 		target.draw(text_);
 	}
-	void Button::setFont(const sf::Font & font)
+	void Button::setFont(const ng::FontPtr font)
 	{
-		text_.setFont(font);
+		font_ = font;
+		text_.setFont(*font_);
 
 		// centers text with the new font in mind
 		centerTextInShape(text_, shape_);
@@ -74,13 +77,12 @@ namespace ng
 	{
 		text_.setFillColor(color);
 	}
-	void Button::setTexture(const sf::Texture & texture)
+	void Button::setTexture(const ng::TexturePtr texture)
 	{
-		shape_.setTexture(&texture);
-		shape_.setTextureRect(sf::IntRect(texturePos_.x,
-										  texturePos_.y,
-										  static_cast<int>(shape_.getSize().x),
-										  static_cast<int>(shape_.getSize().y)));
+		texture_ = texture;
+
+		shape_.setTexture(&*texture_);
+		setTexturePos(texturePos_);
 	}
 	void Button::setTexturePos(const sf::Vector2i position)
 	{
@@ -119,8 +121,6 @@ namespace ng
 	{
 		shape_.setScale(scale);
 
-		text_.setCharacterSize(int(38 * scale.y));
-
 		centerTextInShape(text_, shape_);
 		textPos_ = text_.getPosition();
 	}
@@ -137,13 +137,13 @@ namespace ng
 	}
 	void Button::setDisabled(const bool isDisabled)
 	{
-		isDisabled_ = isDisabled;
 
 		if (isDisabled) {
+			state_ = STATES::DISABLED;
 			shape_.setFillColor(shapeColor_);
 		}
 		else if (!isDisabled) {
-			isSelected_ = false;
+			state_ = STATES::NONE;
 			shape_.setOutlineThickness(0);
 
 			shape_.setFillColor({ 150, 150, 150 });
@@ -154,7 +154,6 @@ namespace ng
 		this->text_.setString(text);
 
 		centerTextInShape(text_, shape_);
-
 		textPos_ = text_.getPosition();
 	}
 }

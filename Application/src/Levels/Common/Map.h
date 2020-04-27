@@ -2,37 +2,34 @@
 #include "NGin.h"
 #include "../../Files/MapFile.h"
 
-class Map : public sf::Drawable {
+class Map : private MapFile, public sf::Drawable {
 public:
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	// needs MapFile's scanDir then load to be called
+	static void setup(const sf::Vector2f& position, const sf::Vector2f& scale = {1, 1});
+	static void draw(sf::RenderTarget& target, sf::RenderStates states);
 
-	void setMapFile(const MapFile& mapFile);
-	
-	void setOrigin(const sf::Vector2f& origin);
-	void setPosition(const sf::Vector2f& position);
-	void setScale(const sf::Vector2f& scale);
-	// uses setScale()
-	void setSize(const sf::Vector2f& size);
-	void move(const sf::Vector2f& offset);
+	static void setPosition(const sf::Vector2f& position);
+	static void setScale(const sf::Vector2f& scale);
 
-	sf::FloatRect getLocalBounds() const { return vertexArray_.getBounds(); }
-	sf::Vector2f getPosition() const { return transformable_.getPosition(); }
-	sf::Vector2f getScaledSize() const; // returns 'global bounds' size
-	sf::Vector2f getScale() const { return transformable_.getScale(); }
-	sf::Vector2f getOrigin() const { return transformable_.getOrigin(); }
+	static sf::FloatRect getLocalBounds() { return vertexArray_.getBounds(); }
+	static sf::Vector2f getPosition() { return transformable_.getPosition(); }
+	static sf::Vector2f getScaledSize(); // returns 'global bounds' size
+	static sf::Vector2f getScale() { return transformable_.getScale(); }
+	static sf::Vector2f getOrigin() { return transformable_.getOrigin(); }
+	 
+	static sf::Vector2f getScaledTileSize() {
+		return ng::multiplyVec(MapFile::getTileSize() ,transformable_.getScale());
+	}
 
-protected:
-	sf::Vector2f getScaledTileSize() const {
-		return ngin::multiplyVec(tileSize_,transformable_.getScale());
-	} // defaults to none
-	sf::Vector2f getTileSize() const { return tileSize_; } // defaults to none
-	
+	// WARNING adds tile to MapFile too
+	static void insertTile(const int Xcol, const int Yrow, const int tileIndex);
+
 private:
-	std::shared_ptr<sf::Texture> mapTexture_; // singlas resources not to delete map by mistake
+	static void updateBasedOnFile(const int x, const int y);
 
-	sf::Vector2f tileSize_ = { 0, 0 }; // defaults to none
+	inline static std::shared_ptr<sf::Texture> mapTexture_; // singlas resources not to delete map by mistake
 
-	sf::Transformable transformable_;
-	sf::VertexArray vertexArray_;
+	inline static sf::Transformable transformable_;
+	inline static sf::VertexArray vertexArray_;
 };

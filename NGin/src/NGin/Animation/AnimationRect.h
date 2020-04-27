@@ -23,7 +23,7 @@ namespace ng {
 
 	private:
 		float secPerFrame_ = 0.0F;
-		std::shared_ptr<sf::Texture> texture_;
+		ng::Texture texture_;
 		std::vector<sf::IntRect> frames_;
 		sf::Vector2i iFrame = {0, 0};
 	};

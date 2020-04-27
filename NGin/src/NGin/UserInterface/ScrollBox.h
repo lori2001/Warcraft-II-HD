@@ -8,29 +8,30 @@ namespace ng {
 
 	class ScrollBox : public ng::UIElement {
 	public:
-		ScrollBox() : ScrollBox({ 1000, 1000 }, { 500, 500 }, { 150, 30 }, { 30, 150 }) {}
-		// flips the X scroller size coordinates to read in the Y scroller
-		ScrollBox(const sf::Vector2f& insideSize, const sf::Vector2f& outsideSize, const sf::Vector2f& XscrollerSize)
-			: ScrollBox(insideSize, outsideSize, { XscrollerSize.x, XscrollerSize.y }, { XscrollerSize.y, XscrollerSize.x }){}
-		ScrollBox(const sf::Vector2f& insideSize, const sf::Vector2f& outsideSize,
-			const sf::Vector2f& XscrollerSize, const sf::Vector2f& YscrollerSize)
+		ScrollBox(
+			const sf::Vector2f& insideSize = { DEFAULT_OUTSIDE_WIDTH * 2, DEFAULT_OUTSIDE_HEIGHT * 2 },
+			const ng::TexturePtr texture = NG_TEXTURE_SPTR(DEFAULT_TEXTURE_LOC),
+			const sf::Vector2f& outsideSize = { DEFAULT_OUTSIDE_WIDTH, DEFAULT_OUTSIDE_HEIGHT },
+			const sf::Vector2f& XscrollerSize = { DEFAULT_SCROLLER_LSIZE, DEFAULT_SCROLLER_SSIZE },
+			const sf::Vector2f& YscrollerSize = { DEFAULT_SCROLLER_SSIZE, DEFAULT_SCROLLER_LSIZE })
 		{
-			setInsideSize(insideSize);
 			setOutsideSize(outsideSize);
+			setTexture(texture);
+			setInsideSize(insideSize);
 			setXScrollerSize(XscrollerSize);
 			setYScrollerSize(YscrollerSize);
-			setPosition({0, 0});
-		
+			setPosition({ 0, 0 });
+
 			if (outsideSize.x > insideSize.x) {
 				NG_LOG_WARN("Scrollbox nr.", getUIElementIndex(),
 					" -- outsideSize.x should be smaller or equal to insideSize.x!");
-			} 
+			}
 			if (outsideSize.y > insideSize.y) {
 				NG_LOG_WARN("Scrollbox nr.", getUIElementIndex(),
 					" -- outsideSize.x should be smaller or equal to insideSize.x!");
 			}
 			if (outsideSize.x == insideSize.x) {
-				XisUsed_ = false;  
+				XisUsed_ = false;
 			}
 			if (outsideSize.y == insideSize.y) {
 				YisUsed_ = false;
@@ -89,7 +90,7 @@ namespace ng {
 		// background of outsideSize
 		// scrollbar of Yscrollersize(next to background)
 		// scrollbar of Xscrollersize(under background)
-		void setTexture(const sf::Texture& texture);
+		void setTexture(const ng::TexturePtr texture);
 		void setPosition(const sf::Vector2f& position);
 		void setScrollSpeed(const float speedPercent) { scrollSpeed_ = speedPercent; }
 		void setSelectColor(const sf::Color& color) {
@@ -108,6 +109,14 @@ namespace ng {
 		sf::FloatRect getGlobalBounds() const { return container_.getGlobalBounds(); }
 
 	private:
+		static constexpr const char* DEFAULT_TEXTURE_LOC = "scrollbox.png";
+		static constexpr const int DEFAULT_OUTSIDE_WIDTH = 500;
+		static constexpr const int DEFAULT_OUTSIDE_HEIGHT = 500;
+		static constexpr const int DEFAULT_SCROLLER_SSIZE = 30;
+		static constexpr const int DEFAULT_SCROLLER_LSIZE = 150;
+
+		ng::TexturePtr texture_;
+
 		// outsideSize_ < insideSize_
 		sf::Vector2f insideSize_; // the hidden size of container
 		sf::Vector2f outsideSize_; // the size of the container seen by user

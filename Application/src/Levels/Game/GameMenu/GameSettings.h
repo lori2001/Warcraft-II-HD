@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include "NGin.h"
 
 class GameSettings : public sf::Drawable {
@@ -29,4 +29,4 @@ private:
 	sf::Text musicText_;
 
 	RESPONSE response_;
-};
+};*/
