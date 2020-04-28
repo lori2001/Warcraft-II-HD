@@ -77,8 +77,7 @@ void MapEditor::handleEvents(const sf::Event& event)
 			if (currentPainter_->isFocused()) {
 				canPlace_ = false;
 			}
-			if (canPlace_ && event.mouseButton.button == sf::Mouse::Left &&
-				event.type == sf::Event::MouseButtonPressed)
+			if (canPlace_ && tilePlaceFunction(event))
 			{
 				placeTile(currentPainter_->getSelectedTile());
 			}
@@ -137,6 +136,13 @@ void MapEditor::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	if (currentPainter_ != nullptr)
 		target.draw(*currentPainter_);
+}
+
+MapEditor::~MapEditor()
+{
+	// TODO: confirm dialog!!!
+	NG_LOG_INFO("Map file has been saved !");
+	MapFile::save();
 }
 
 void MapEditor::updateGrid()
@@ -223,5 +229,10 @@ void MapEditor::updateSelectionPos()
 void MapEditor::placeTile(const int tileIndex)
 {
 	// TODO: Fill
-	Map::insertTile(0, 0, tileIndex);
+	sf::Vector2i tilePos = {
+		static_cast<int>(selectionRect_.getPosition().x / Map::getScaledTileSize().x),
+		static_cast<int>(selectionRect_.getPosition().y / Map::getScaledTileSize().y)
+	};
+
+	Map::insertTile(tilePos.x, tilePos.y, tileIndex);
 }

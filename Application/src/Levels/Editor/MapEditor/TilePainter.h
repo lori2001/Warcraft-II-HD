@@ -41,7 +41,6 @@ private:
 
 	// Selection 
 	const float selectionThickness_ = 2.2F;
-	const sf::Color selectionColor_{ color::SELECT_COLOR_R, color::SELECT_COLOR_G, color::SELECT_COLOR_B};
 
 	// Usage
 	int selectedTile_ = -1;

@@ -40,7 +40,19 @@ public:
 	static void offsetIndexBy(const int amount);
 
 protected:
-	static void insertTile(const unsigned Xcol, const unsigned Yrow, const int tileIndex);
+	enum class INSERT_RET {
+		NOT_OK,
+		ALL_OK,
+		X_NEGATIVE_Y_NEGATIVE,
+		X_NEGATIVE_Y_OK,
+		X_NEGATIVE_Y_TOO_BIG,
+		X_OK_Y_NEGATIVE,
+		X_TOO_BIG_Y_NEGATIVE,
+		X_TOO_BIG_Y_OK,
+		X_TOO_BIG_Y_TOO_BIG,
+		X_OK_Y_TOO_BIG
+	};
+	static INSERT_RET insertTile(const unsigned Xcol, const unsigned Yrow, const int tileIndex);
 
 private:
 	static inline std::vector<std::string> paths_; // paths of all map files

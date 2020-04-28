@@ -2,22 +2,9 @@
 
 void Map::setup(const sf::Vector2f& position, const sf::Vector2f& scale)
 {
-	// clear map
-	vertexArray_ = sf::VertexArray{};
-
 	mapTexture_ = ng::Resources::AcquireTexture(MapFile::getThemeLocation());
 
-	vertexArray_.setPrimitiveType(sf::Quads);
-	vertexArray_.resize(MapFile::getNumOfRows() * MapFile::getMaxNumOfColumns() * 4);
-
-	// size of one tile in texture file
-	for (int y = 0; y < MapFile::getNumOfRows(); ++y)
-	{
-		for (int x = 0; x < MapFile::getNumOfColumns(y); ++x)
-		{
-			updateBasedOnFile(x, y);
-		}
-	}
+	updateAllTiles();
 
 	setPosition(position);
 	setScale(scale);
@@ -32,7 +19,8 @@ void Map::draw(sf::RenderTarget& target, sf::RenderStates states)
 
 void Map::setPosition(const sf::Vector2f& position)
 {
-	transformable_.setPosition(position);
+	position_ = position;
+	transformable_.setPosition(position_);
 }
 
 void Map::setScale(const sf::Vector2f& scale)
@@ -46,21 +34,68 @@ sf::Vector2f Map::getScaledSize()
 			 vertexArray_.getBounds().height * transformable_.getScale().y };
 }
 
-void Map::insertTile(const int Xcol, const int Yrow, const int tileIndex)
+void Map::insertTile(int Xcol, int Yrow, const int tileIndex)
 {
-	MapFile::insertTile(Xcol, Yrow, tileIndex);
+	Yrow += insertedTilesNum_.y;
+	Xcol += insertedTilesNum_.x;
 
-	if (Yrow < MapFile::getNumOfRows())
+	const MapFile::INSERT_RET returnVal = MapFile::insertTile(Xcol, Yrow, tileIndex);
+	if (returnVal == MapFile::INSERT_RET::X_NEGATIVE_Y_NEGATIVE)
 	{
-		if (Xcol < MapFile::getNumOfColumns(Yrow))
+		insertedTilesNum_.x++;
+		insertedTilesNum_.y++;
+		updateAllTiles();
+	}
+	else if (returnVal == MapFile::INSERT_RET::X_TOO_BIG_Y_NEGATIVE ||
+			 returnVal == MapFile::INSERT_RET::X_OK_Y_NEGATIVE)
+	{
+		insertedTilesNum_.y++;
+		updateAllTiles();
+	}
+	else if (returnVal == MapFile::INSERT_RET::X_NEGATIVE_Y_OK ||
+		     returnVal == MapFile::INSERT_RET::X_NEGATIVE_Y_TOO_BIG)
+	{
+		insertedTilesNum_.x++;
+		updateAllTiles();
+	}
+	else if (returnVal == MapFile::INSERT_RET::X_TOO_BIG_Y_OK ||
+			 returnVal == MapFile::INSERT_RET::X_OK_Y_TOO_BIG ||
+			 returnVal == MapFile::INSERT_RET::X_TOO_BIG_Y_TOO_BIG)
+	{
+		updateAllTiles();
+	}
+	else if (returnVal == MapFile::INSERT_RET::ALL_OK)
+	{
+		updateTile(Xcol, Yrow, tileIndex);
+	}
+}
+
+void Map::correctForPositionChanges()
+{
+	transformable_.setPosition(ng::subsVec(position_, ng::multiplyVec(insertedTilesNum_, getScaledTileSize())) );
+}
+
+void Map::updateAllTiles()
+{
+	vertexArray_ = sf::VertexArray{}; // clear map
+	vertexArray_.setPrimitiveType(sf::Quads);
+	vertexArray_.resize(MapFile::getNumOfRows() * MapFile::getMaxNumOfColumns() * 4);
+
+	// correct change in pos
+	transformable_.setPosition(ng::subsVec(position_, ng::multiplyVec(insertedTilesNum_, getScaledTileSize())));
+
+	for (int y = 0; y < MapFile::getNumOfRows(); ++y)
+	{
+		for (int x = 0; x < MapFile::getNumOfColumns(y); ++x)
 		{
-			updateBasedOnFile(Xcol, Yrow);
+			updateTile(x, y, MapFile::getTileNum(x, y));
 		}
 	}
 }
 
-void Map::updateBasedOnFile(const int x, const int y)
+void Map::updateTile(const int x, const int y, const int tileIndex)
 {
+	// size of one tile in texture file
 	const sf::Vector2f tileSize = MapFile::getTileSize();
 
 	// get a pointer to the current tile's quad
@@ -72,8 +107,8 @@ void Map::updateBasedOnFile(const int x, const int y)
 	quad[2].position = sf::Vector2f(float((x + 1) * tileSize.x), float((y + 1) * tileSize.y));
 	quad[3].position = sf::Vector2f(float(x * tileSize.x), float((y + 1) * tileSize.y));
 
-	int tu = MapFile::getTileNum(x, y) % (mapTexture_->getSize().x / static_cast<int>(tileSize.x));
-	int tv = MapFile::getTileNum(x, y) / (mapTexture_->getSize().x / static_cast<int>(tileSize.x));
+	int tu = tileIndex % (mapTexture_->getSize().x / static_cast<int>(tileSize.x));
+	int tv = tileIndex / (mapTexture_->getSize().x / static_cast<int>(tileSize.x));
 
 	quad[0].texCoords = sf::Vector2f(float(tu * (tileSize.x + 1)), float(tv * (tileSize.y + 1)));
 	quad[1].texCoords = sf::Vector2f(float(tu * (tileSize.x + 1) + tileSize.x), float(tv * (tileSize.y + 1)));

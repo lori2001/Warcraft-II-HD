@@ -36,7 +36,6 @@ TilePainter::TilePainter()
 					static_cast<int>(tileSize.y) });
 				tiles_.back().setSize(tileSize);
 				tiles_.back().setScale({ ng::ftovec(tilesScale_) });
-				tiles_.back().setOutlineColor(selectionColor_);
 
 				// inherit text style from title
 				tileIndexTexts_.back().setFont(*title_.getFont());
@@ -85,25 +84,34 @@ void TilePainter::handleEvents(const sf::Event& event)
 {
 	scrollBox_.handleEvents(event, ng::Cursor::getPosition());
 	
-	for (int i = 0; i < static_cast<int>(tiles_.size()); i++) {
-		if (tiles_[i].getGlobalBounds().intersects(sf::FloatRect(ng::Cursor::getPosition(), { 1,1 }))) {
+	for (int i = 0; i < static_cast<int>(tiles_.size()); i++)
+	{
+		if (tileIndexes_[i] == selectedTile_) {
+			tiles_[i].setOutlineColor({
+				color::SECONDARY_SELECT_COLOR_R,
+				color::SECONDARY_SELECT_COLOR_G,
+				color::SECONDARY_SELECT_COLOR_B });
+			tiles_[i].setOutlineThickness(selectionThickness_);
+		}
+		else if (tiles_[i].getGlobalBounds().intersects(sf::FloatRect(ng::Cursor::getPosition(), { 1,1 })))
+		{
+			tiles_[i].setOutlineColor({ color::SELECT_COLOR_R, color::SELECT_COLOR_G, color::SELECT_COLOR_B });
 			tiles_[i].setOutlineThickness(selectionThickness_);
 
 			if (event.mouseButton.button == sf::Mouse::Left &&
-				event.type == sf::Event::MouseButtonReleased) {
+				event.type == sf::Event::MouseButtonReleased)
+			{
 				selectedTile_ = tileIndexes_[i];
+				tiles_[i].setOutlineColor({
+					color::SECONDARY_SELECT_COLOR_R,
+					color::SECONDARY_SELECT_COLOR_G,
+					color::SECONDARY_SELECT_COLOR_B });
+				tiles_[i].setOutlineThickness(selectionThickness_);
 			}
 		}
 		else {
+			tiles_[i].setOutlineColor({ 255, 255, 255 });
 			tiles_[i].setOutlineThickness(0);
-		}
-
-		// using tiles
-		if (tileIndexes_[i] == selectedTile_) {
-			tiles_[i].setFillColor({ 255, 255, 0, 255 });
-		}
-		else {
-			tiles_[i].setFillColor({ 255, 255, 255, 255 });
 		}
 	}
 }

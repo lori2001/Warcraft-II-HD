@@ -127,7 +127,7 @@ void MapFile::load(const std::string& path)
 
 void MapFile::save()
 {
-	// should trim down unnecessary 0-s
+	// TODO: this sHIIIET
 }
 
 int MapFile::getMaxNumOfColumns()
@@ -157,17 +157,83 @@ void MapFile::offsetIndexBy(const int amount)
 	load(paths_[index_]);
 }
 
-void MapFile::insertTile(const unsigned Yrow, const unsigned Xcol, const int tileIndex)
+MapFile::INSERT_RET MapFile::insertTile(const unsigned Xcol, const unsigned Yrow, const int tileIndex)
 {
-	if (Yrow < tiles_.size())
+	if (Yrow == -1)
 	{
-		if (Xcol < tiles_[Yrow].size())
+		if (Xcol == -1)
 		{
-			tiles_[Yrow][Xcol] = tileIndex;
+			for (int i = 0; i < tiles_.size(); i++) // create "empty col"
+				tiles_[i].insert(tiles_[i].begin(), 0);
+			
+			std::vector<unsigned> temp; // create an empty new line
+			temp.push_back(tileIndex); // add to first index
+			tiles_.insert(tiles_.begin(), temp); // add temp as first row
+			return INSERT_RET::X_NEGATIVE_Y_NEGATIVE;
+		}
+		else if (Xcol < tiles_[0].size())
+		{
+			std::vector<unsigned> temp(Xcol, 0); // create an empty new line with size of X-pos
+			temp.push_back(tileIndex); // push back tile index to temp 
+			tiles_.insert(tiles_.begin(), temp); // add temp as first row
+			return INSERT_RET::X_OK_Y_NEGATIVE;
+		}
+		else if (Xcol == tiles_[0].size())
+		{
+			std::vector<unsigned> temp(Xcol, 0); // create an empty new line with size of X-pos
+			temp.push_back(tileIndex); // push back tile index to temp 
+			tiles_.insert(tiles_.begin(), temp); // add temp as first row
+			return INSERT_RET::X_TOO_BIG_Y_NEGATIVE;
 		}
 	}
-	// TODO the rest
+	else if (Yrow < tiles_.size())
+	{
+		if (Xcol == -1)
+		{
+			for (int i = 0; i < tiles_.size(); i++) {
+				tiles_[i].insert(tiles_[i].begin(), 0);
+			}
+			tiles_[Yrow][0] = tileIndex;
+			return INSERT_RET::X_NEGATIVE_Y_OK;
+		}
+		else if (Xcol < tiles_[Yrow].size())
+		{
+			tiles_[Yrow][Xcol] = tileIndex;
+			return INSERT_RET::ALL_OK;
+		}
+		else if (Xcol == tiles_[Yrow].size())
+		{
+			tiles_[Yrow].push_back(tileIndex);
+			return INSERT_RET::X_TOO_BIG_Y_OK;
+		}
+	}
+	else if (Yrow == tiles_.size())
+	{
+		if (Xcol == -1)
+		{
+			for (int i = 0; i < tiles_.size(); i++)
+				tiles_[i].insert(tiles_[i].begin(), 0);
 
+			std::vector<unsigned> temp;
+			temp.push_back(tileIndex);
+			tiles_.push_back(temp);
+			return INSERT_RET::X_NEGATIVE_Y_TOO_BIG;
+		}
+		else if (Xcol < tiles_[Yrow - 1].size())
+		{
+			std::vector<unsigned> temp(Xcol, 0);
+			temp.push_back(tileIndex);
+			tiles_.push_back(temp);
+			return INSERT_RET::X_OK_Y_TOO_BIG;
+		}
+		else if (Xcol == tiles_[Yrow - 1].size())
+		{
+			std::vector<unsigned> temp(Xcol, 0);
+			temp.push_back(tileIndex);
+			tiles_.push_back(temp);
+			return INSERT_RET::X_TOO_BIG_Y_TOO_BIG;
+		}
+	}
 
-	
+	return INSERT_RET::NOT_OK;
 }

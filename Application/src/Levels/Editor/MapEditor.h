@@ -17,6 +17,8 @@ public:
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+	~MapEditor();
+
 private:
 	// called whenever the view changes state
 	void updateGrid();
@@ -25,7 +27,9 @@ private:
 
 	// sets the center of view to the center of map
 	void centerEditorOnMap() {
-		editorView_.setCenter({ Map::getScaledSize().x / 2, Map::getScaledSize().y / 2 });
+		editorView_.setCenter({
+			Map::getPosition().x + Map::getScaledSize().x / 2,
+			Map::getPosition().y + Map::getScaledSize().y / 2 });
 	}
 
 	// get the saign of a float value (-1 if negative and +1 if positive)
@@ -54,6 +58,11 @@ private:
 	bool zoomOutFunction(const sf::Event& event)
 	{
 		return event.type == sf::Event::MouseWheelMoved && event.mouseWheel.delta > 0 && editorCurrentZoomFactor_ > editorMinZoomFactor_ ;
+	}
+
+	bool tilePlaceFunction(const sf::Event& event) {
+		return (/*event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed) 
+			|| (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) &&*/ sf::Mouse::isButtonPressed(sf::Mouse::Left));
 	}
 	// ----- Navigation Properties ENDD ----------------
 

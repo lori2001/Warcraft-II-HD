@@ -23,13 +23,19 @@ public:
 	}
 
 	// WARNING adds tile to MapFile too
-	static void insertTile(const int Xcol, const int Yrow, const int tileIndex);
+	static void insertTile(int Xcol, int Yrow, const int tileIndex);
 
 private:
-	static void updateBasedOnFile(const int x, const int y);
+	static void updateAllTiles();
+	static void updateTile(const int x, const int y, const int tileIndex);
 
+	static void correctForPositionChanges();
+	
 	inline static std::shared_ptr<sf::Texture> mapTexture_; // singlas resources not to delete map by mistake
 
 	inline static sf::Transformable transformable_;
 	inline static sf::VertexArray vertexArray_;
+	
+	inline static sf::Vector2f position_;
+	inline static sf::Vector2f insertedTilesNum_; // number of tiles inserted in -1 positions (actually integer)
 };
