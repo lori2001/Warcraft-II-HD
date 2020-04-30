@@ -12,7 +12,10 @@ public:
 	static void load(const unsigned index = 0) {
 		load(paths_[index]);
 	}
-	static void save();
+	static void saveAs(const std::string& path);
+	static void save() {
+		saveAs(mapPath_);
+	}
 
 	static constexpr const char* RELATIVE_FOLDER_PATH = "\\assets\\maps";
 	static constexpr const char* MAP_FILE_EXTENSION = "mapfile"; // WARNING NO POINT AT BEGINNING!
@@ -53,6 +56,7 @@ protected:
 		X_OK_Y_TOO_BIG
 	};
 	static INSERT_RET insertTile(const unsigned Xcol, const unsigned Yrow, const int tileIndex);
+	static constexpr const int placeholderTileNum_ = 0;
 
 private:
 	static inline std::vector<std::string> paths_; // paths of all map files
@@ -62,7 +66,18 @@ private:
 	static inline std::string themeLocation_ = "";
 	static inline std::string folderPath_ = ""; // the folder in which mapfiles are located ()
 
+	static inline std::string mapPath_ = ""; // path of current map (can be ouside index or folderPath)
+
 	static inline sf::Vector2f tileSize_ = { 0.0F, 0.0F }; // size of one tile
+
+	#define KEY static constexpr const char*
+		KEY	titleKey_ = "Title: ";
+		KEY tileWidthKey_ = "TileWidth: ";
+		KEY tileHeightKey_ = "TileHeight: ";
+		KEY themeLocationKey_ = "ThemeLocation: ";
+		KEY tileStartKey_ = "<tiles>";
+		KEY tileEndKey_ = "</tiles>";
+	#undef KEY
 
 	// 2D matrix of tiles
 	// each number represents index in tile-file (numbered from left to right and beginning at newline)

@@ -1,13 +1,15 @@
 #include "Map.h"
 
-void Map::setup(const sf::Vector2f& position, const sf::Vector2f& scale)
+void Map::setup(const sf::Vector2f& position, const MAP_TYPE mapType, const sf::Vector2f& scale)
 {
 	mapTexture_ = ng::Resources::AcquireTexture(MapFile::getThemeLocation());
+	currentMapType_ = mapType;
 
+	insertedTilesNum_ = { 0,0 }; // reset
 	updateAllTiles();
 
-	setPosition(position);
 	setScale(scale);
+	setPosition(position);
 }
 
 void Map::draw(sf::RenderTarget& target, sf::RenderStates states)
@@ -20,7 +22,7 @@ void Map::draw(sf::RenderTarget& target, sf::RenderStates states)
 void Map::setPosition(const sf::Vector2f& position)
 {
 	position_ = position;
-	transformable_.setPosition(position_);
+	correctForPositionChanges();
 }
 
 void Map::setScale(const sf::Vector2f& scale)
@@ -66,40 +68,78 @@ void Map::insertTile(int Xcol, int Yrow, const int tileIndex)
 	}
 	else if (returnVal == MapFile::INSERT_RET::ALL_OK)
 	{
-		updateTile(Xcol, Yrow, tileIndex);
+		if (currentMapType_ == MAP_TYPE::EDITABLE) {
+			Xcol++; Yrow++;
+		}
+		
+		if (currentMapType_ == MAP_TYPE::EDITABLE) {
+			setDisplayTile(Xcol, Yrow, tileIndex, MapFile::getMaxNumOfColumns() + 2);
+		}
+		else if (currentMapType_ == MAP_TYPE::NORMAL) {
+			setDisplayTile(Xcol, Yrow, tileIndex);
+		}
 	}
 }
 
 void Map::correctForPositionChanges()
 {
-	transformable_.setPosition(ng::subsVec(position_, ng::multiplyVec(insertedTilesNum_, getScaledTileSize())) );
+	sf::Vector2f shiftByTilesNum{ insertedTilesNum_.x, insertedTilesNum_.y };
+	if (currentMapType_ == MAP_TYPE::EDITABLE) {
+		shiftByTilesNum.x+=1;
+		shiftByTilesNum.y+=1;
+	}
+	transformable_.setPosition(ng::subsVec(position_, ng::multiplyVec(shiftByTilesNum, getScaledTileSize())) );
 }
 
 void Map::updateAllTiles()
 {
 	vertexArray_ = sf::VertexArray{}; // clear map
 	vertexArray_.setPrimitiveType(sf::Quads);
-	vertexArray_.resize(MapFile::getNumOfRows() * MapFile::getMaxNumOfColumns() * 4);
 
-	// correct change in pos
-	transformable_.setPosition(ng::subsVec(position_, ng::multiplyVec(insertedTilesNum_, getScaledTileSize())));
+	correctForPositionChanges();
 
-	for (int y = 0; y < MapFile::getNumOfRows(); ++y)
-	{
-		for (int x = 0; x < MapFile::getNumOfColumns(y); ++x)
+	if (currentMapType_ == MAP_TYPE::NORMAL) {
+		vertexArray_.resize(MapFile::getNumOfRows() * MapFile::getMaxNumOfColumns() * 4);
+		for (int y = 0; y < MapFile::getNumOfRows(); ++y)
 		{
-			updateTile(x, y, MapFile::getTileNum(x, y));
+			for (int x = 0; x < MapFile::getNumOfColumns(y); ++x)
+			{
+				setDisplayTile(x, y, MapFile::getTileNum(x, y));
+			}
+		}
+	}
+	else if (currentMapType_ == MAP_TYPE::EDITABLE)
+	{
+		const int maxNumOfCols = MapFile::getMaxNumOfColumns() + 2;
+		vertexArray_.resize((MapFile::getNumOfRows() + 2) * maxNumOfCols * 4);
+
+		for (int x = 0; x < MapFile::getNumOfColumns(0) + 2; ++x)
+		{
+			setDisplayTile(x, 0, MapFile::placeholderTileNum_, maxNumOfCols);
+		}
+		for (int y = 1; y <= MapFile::getNumOfRows(); ++y)
+		{
+			setDisplayTile(0, y, MapFile::placeholderTileNum_, maxNumOfCols);
+			for (int x = 1; x <= MapFile::getNumOfColumns(y - 1); ++x)
+			{
+				setDisplayTile(x, y, MapFile::getTileNum(x - 1, y - 1), maxNumOfCols);
+			}
+			setDisplayTile(MapFile::getNumOfColumns(y - 1) + 1, y, MapFile::placeholderTileNum_, maxNumOfCols);
+		}
+		for (int x = 0; x < MapFile::getNumOfColumns(MapFile::getNumOfRows()-1) + 2; ++x)
+		{
+			setDisplayTile(x, MapFile::getNumOfRows() + 1, MapFile::placeholderTileNum_, maxNumOfCols);
 		}
 	}
 }
 
-void Map::updateTile(const int x, const int y, const int tileIndex)
+void Map::setDisplayTile(const int x, const int y, const int tileIndex, const int maxColumns)
 {
 	// size of one tile in texture file
 	const sf::Vector2f tileSize = MapFile::getTileSize();
 
 	// get a pointer to the current tile's quad
-	sf::Vertex* quad = &(vertexArray_)[(x + y * MapFile::getMaxNumOfColumns()) * 4];
+	sf::Vertex* quad = &(vertexArray_)[(x + y * maxColumns) * 4];
 
 	// define its 4 corners
 	quad[0].position = sf::Vector2f(float(x * tileSize.x), float(y * tileSize.y));

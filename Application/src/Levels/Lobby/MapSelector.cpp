@@ -75,7 +75,7 @@ void MapSelector::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void MapSelector::setupNewMap()
 {
-	Map::setup(mapPosition_);
+	Map::setup(mapPosition_, Map::MAP_TYPE::NORMAL);
 
 	const sf::Vector2f intendedSize = {
 		size::MAP_SELECTOR_CONTAINER_WIDTH - 10,

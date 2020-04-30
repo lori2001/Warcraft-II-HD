@@ -7,6 +7,24 @@ namespace ng
 	class Dropdown : public UIElement
 	{
 	public:
+		Dropdown(UIElement::CONSTRUCTOR construct) : UIElement() {
+			// --- declaration of MANDATORY first element --------
+			isSelecteds_.push_back(false);
+			drops_.push_back(TextAndShape{});
+			drops_[0].shape.setSize({ size_.x * 0.85F - 6, size_.y - 6 });
+			// ---------------------------------------------------
+			setPosition({0, 0});
+			setSelectThickness(DEFAULT_SELECT_THICKNESS);
+
+			shapeColor_ = sf::Color::White;
+			highlight_.setFillColor({
+				DEFAULT_HIGHLIGHT_COLOR_R,
+				DEFAULT_HIGHLIGHT_COLOR_G,
+				DEFAULT_HIGHLIGHT_COLOR_B,
+				DEFAULT_HIGHLIGHT_COLOR_A });
+
+			setCharacterSize(DEFAULT_CHAR_SIZE);
+		}
 		Dropdown(const sf::Vector2f& position = {0, 0}) :
 			Dropdown(position,
 				{ DEFAULT_SHAPE_WIDTH, DEFAULT_SHAPE_HEIGHT },
@@ -49,6 +67,7 @@ namespace ng
 			isSelecteds_.push_back(false);
 			drops_.push_back(TextAndShape{});
 			drops_[0].shape.setSize({ size_.x * 0.85F - 6, size_.y - 6 });
+			// ---------------------------------------------------
 
 			setSize(size);
 			setTexture(texture);

@@ -1,6 +1,6 @@
 #include "Application.h"
 
-Levels::LEVEL_TYPES Levels::currentLevel = Levels::LEVEL_TYPES::EDITOR; // TODO: Change to menu
+Levels::LEVEL_TYPES Levels::currentLevel = Levels::LEVEL_TYPES::MENU;
 
 Application::Application()
 {
@@ -81,9 +81,9 @@ void Application::handleEvents()
 			case Levels::LEVEL_TYPES::EDITOR:
 				currentLevel_ = new EditorLevel;
 				break;
-			/*case Levels::EVENT::EVENT_GAME:
+			case Levels::LEVEL_TYPES::GAME:
 				currentLevel_ = new GameLevel;
-				break;*/
+				break;
 			case Levels::LEVEL_TYPES::MENU:
 				currentLevel_ = new MenuLevel;
 				break;

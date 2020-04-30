@@ -1,10 +1,9 @@
 #include "MapEditor.h"
-#include <cmath>
 
 MapEditor::MapEditor(const std::string& filePath)
 {
 	MapFile::load(filePath);
-	Map::setup({ 0, 0 });
+	Map::setup({ 0, 0 }, Map::MAP_TYPE::EDITABLE);
 
 	// sets the part of window the editor renders on
 	editorView_.setViewport(sf::FloatRect(0.0F, EditorMenu::menuHeightPer, 1.0F, 1.0F));
@@ -15,12 +14,13 @@ MapEditor::MapEditor(const std::string& filePath)
 	gridSwitcher_.setIsActive(true);
 	updateGrid();
 
+	selectionRectTexture_ = NG_TEXTURE_SPTR(MapFile::getThemeLocation());
+	selectionRect_.setTexture(&*selectionRectTexture_);
 	selectionRect_.setSize(Map::getScaledTileSize());
-	selectionRect_.setFillColor({
-		color::HIGHLIGHT_COLOR_R,
-		color::HIGHLIGHT_COLOR_G,
-		color::HIGHLIGHT_COLOR_B,
-		color::HIGHLIGHT_COLOR_A});
+	selectionRect_.setFillColor({255,255,255, selectionRectAlpha_ });
+	selectionRect_.setTextureRect({ 0 , 0, 
+		static_cast<int>(MapFile::getTileSize().x),
+		static_cast<int>(MapFile::getTileSize().y) });
 }
 
 void MapEditor::handleEvents(const sf::Event& event)
@@ -40,8 +40,8 @@ void MapEditor::handleEvents(const sf::Event& event)
 		updateGrid(); //update grid when first acitvated
 	}
 
-	bool zoomIn = zoomInFunction(event);
-	bool zoomOut = zoomOutFunction(event);
+	bool zoomIn = zoomInEvent(event);
+	bool zoomOut = zoomOutEvent(event);
 	if ((zoomIn || zoomOut) && // if zoom is triggered and either
 		(currentPainter_ == nullptr || // no editor
 		(currentPainter_ != nullptr && !currentPainter_->isFocused()))) // editor is not focused by mouse
@@ -73,13 +73,19 @@ void MapEditor::handleEvents(const sf::Event& event)
 
 	if (currentPainter_ != nullptr) {
 		currentPainter_->handleEvents(event);
-		if (tilePainterSwitcher_.isActive()) {
-			if (currentPainter_->isFocused()) {
-				canPlace_ = false;
-			}
-			if (canPlace_ && tilePlaceFunction(event))
+		if (tilePainterSwitcher_.isActive())
+		{
+			if (currentPainter_->isFocused())
 			{
-				placeTile(currentPainter_->getSelectedTile());
+				canPlace_ = false;
+				if (currentPainter_->getChoosenHasChanged())
+				{
+					selectionRect_.setTextureRect(currentPainter_->getChoosenTextureRect());
+				}
+			}
+			if (canPlace_ && tilePlaceEvent(event))
+			{
+				placeTile(currentPainter_->getChoosen());
 			}
 		}
 	}
@@ -93,19 +99,18 @@ void MapEditor::update()
 		const sf::Vector2f posBefore = editorView_.getCenter();
 		if (sf::Keyboard::isKeyPressed(keyNavigateLeft_)) {
 			editorView_.move({ -editorMoveSpeed_ * editorCurrentZoomFactor_ * ng::Timer::getDeltaTime(), 0 });
+			updateGrid();
 		}
 		if (sf::Keyboard::isKeyPressed(keyNavigateRight_)) {
 			editorView_.move({ editorMoveSpeed_ * editorCurrentZoomFactor_ * ng::Timer::getDeltaTime(), 0 });
+			updateGrid();
 		}
 		if (sf::Keyboard::isKeyPressed(keyNavigateUp_)) {
 			editorView_.move({ 0, -editorMoveSpeed_ * editorCurrentZoomFactor_ * ng::Timer::getDeltaTime() });
+			updateGrid();
 		}
 		if (sf::Keyboard::isKeyPressed(keyNavigateDown_)) {
 			editorView_.move({ 0, editorMoveSpeed_ * editorCurrentZoomFactor_ * ng::Timer::getDeltaTime() });
-		}
-
-		// if position has changed
-		if (posBefore.x != editorView_.getCenter().x || posBefore.y != editorView_.getCenter().y) {
 			updateGrid();
 		}
 		// --------------------------------------------------------------------
@@ -140,9 +145,9 @@ void MapEditor::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 MapEditor::~MapEditor()
 {
-	// TODO: confirm dialog!!!
-	NG_LOG_INFO("Map file has been saved !");
+	// TODO: confirm dialog!!!!!!
 	MapFile::save();
+	NG_LOG_INFO("Map file has been saved !");
 }
 
 void MapEditor::updateGrid()

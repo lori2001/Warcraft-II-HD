@@ -6,7 +6,11 @@ class Map : private MapFile, public sf::Drawable {
 public:
 
 	// needs MapFile's scanDir then load to be called
-	static void setup(const sf::Vector2f& position, const sf::Vector2f& scale = {1, 1});
+	enum class MAP_TYPE {
+		NORMAL,
+		EDITABLE
+	};
+	static void setup(const sf::Vector2f& position, const MAP_TYPE mapType, const sf::Vector2f& scale = {1, 1});
 	static void draw(sf::RenderTarget& target, sf::RenderStates states);
 
 	static void setPosition(const sf::Vector2f& position);
@@ -27,11 +31,13 @@ public:
 
 private:
 	static void updateAllTiles();
-	static void updateTile(const int x, const int y, const int tileIndex);
+
+	static void setDisplayTile(const int x, const int y, const int tileIndex, const int maxColumns = MapFile::getMaxNumOfColumns());
 
 	static void correctForPositionChanges();
 	
-	inline static std::shared_ptr<sf::Texture> mapTexture_; // singlas resources not to delete map by mistake
+	inline static std::shared_ptr<sf::Texture> mapTexture_; // signals resources not to delete map by mistake
+	inline static MAP_TYPE currentMapType_;
 
 	inline static sf::Transformable transformable_;
 	inline static sf::VertexArray vertexArray_;

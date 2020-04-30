@@ -51,16 +51,16 @@ private:
 	sf::Keyboard::Key keyNavigateRight_ = sf::Keyboard::D;
 
 	// if these functions are true the view will zoom in/out
-	bool zoomInFunction(const sf::Event& event)
+	bool zoomInEvent(const sf::Event& event)
 	{
 		return event.type == sf::Event::MouseWheelMoved && event.mouseWheel.delta < 0 && editorCurrentZoomFactor_ < editorMaxZoomFactor_;
 	}
-	bool zoomOutFunction(const sf::Event& event)
+	bool zoomOutEvent(const sf::Event& event)
 	{
 		return event.type == sf::Event::MouseWheelMoved && event.mouseWheel.delta > 0 && editorCurrentZoomFactor_ > editorMinZoomFactor_ ;
 	}
 
-	bool tilePlaceFunction(const sf::Event& event) {
+	bool tilePlaceEvent(const sf::Event& event) {
 		return (/*event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed) 
 			|| (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) &&*/ sf::Mouse::isButtonPressed(sf::Mouse::Left));
 	}
@@ -93,7 +93,9 @@ private:
 	const sf::Color gridColor_{100, 100, 100};
 	sf::VertexArray gridLines_{sf::Lines};
 
+	ng::TexturePtr selectionRectTexture_;
 	sf::RectangleShape selectionRect_; // colors the rectangle currently selected by mouse
+	const sf::Uint8 selectionRectAlpha_ = 190;
 	bool canPlace_ = false; // if false do not draw selectionRect_ to signal the user that placing tiles isn't possible
 	// -- Grid and Mouse selection END ------------------
 

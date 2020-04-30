@@ -46,6 +46,7 @@ bool MapFile::scanDir()
 void MapFile::load(const std::string& path)
 {
 	std::ifstream in(path);
+	mapPath_ = path;
 
 	if (in.is_open()) {
 		std::string input;
@@ -64,33 +65,28 @@ void MapFile::load(const std::string& path)
 			if (inputType == ng::FileReader::INPUT_TYPE::OK)
 			{
 				// --- Map Name -----------------------------------
-				if (findAndClear(input, "Title: "))
+				if (findAndClear(input, titleKey_))
 					title_ = input;
 				// ------------------------------------------------
 
 				// --- Size of one tile ---------------------------
-				if (findAndClear(input, "TileWidth:"))
+				if (findAndClear(input, tileWidthKey_))
 					tileSize_.x = std::stof(input);
-				if (findAndClear(input, "TileHeight:"))
+				if (findAndClear(input, tileHeightKey_))
 					tileSize_.y = std::stof(input);
 				// ------------------------------------------------
 
 				// --- Theme --------------------------------------
-				if (findAndClear(input, "Theme: ")) {
-					if (input.find("Summer") != std::string::npos)
-						themeLocation_ = "images/tiles/summer.png";
-					else if (input.find("Wastelands") != std::string::npos)
-						themeLocation_ = "images/tiles/wastelands.png";
-					else if (input.find("Winter") != std::string::npos)
-						themeLocation_ = "images/tiles/winter.png";
+				if (findAndClear(input, themeLocationKey_)) {
+					themeLocation_ = input;
 				}
 				// ------------------------------------------------
 
 				// --- Tiles --------------------------------------
-				if (findAndClear(input, "<tiles>")) {
+				if (findAndClear(input, tileStartKey_)) {
 					bool goOn = true;
 					do {
-						goOn = !findAndClear(input, "</tiles>");
+						goOn = !findAndClear(input, tileEndKey_);
 						inputType = cleanInput(input);
 
 						if (inputType == ng::FileReader::INPUT_TYPE::OK)
@@ -125,9 +121,35 @@ void MapFile::load(const std::string& path)
 	in.close();
 }
 
-void MapFile::save()
+void MapFile::saveAs(const std::string& path)
 {
 	// TODO: this sHIIIET
+	std::ofstream out(path);
+
+	if (tiles_.size() <= 0) {
+		NG_LOG_ERROR("No tiles specified in faulty mapfile:", path);
+	}
+
+	if (out.is_open()) {
+		out << titleKey_ << title_ << std::endl;
+		out << themeLocationKey_ << themeLocation_ << std::endl;
+		out << tileWidthKey_ << tileSize_.x << std::endl;
+		out << tileHeightKey_ << tileSize_.y << std::endl;
+
+		out << tileStartKey_ << std::endl;
+		for (int y = 0; y < static_cast<int>(tiles_.size()); y++) {
+			for (int x = 0; x < static_cast<int>(tiles_[y].size()); x++) {
+				out << tiles_[y][x] << " ";
+			}
+			out << std::endl;
+		}
+		out << tileEndKey_ << std::endl;
+	}
+	else {
+		NG_LOG_ERROR("Unable To save file: ", path);
+	}
+
+	out.close();
 }
 
 int MapFile::getMaxNumOfColumns()
@@ -159,12 +181,15 @@ void MapFile::offsetIndexBy(const int amount)
 
 MapFile::INSERT_RET MapFile::insertTile(const unsigned Xcol, const unsigned Yrow, const int tileIndex)
 {
+	if(tileIndex == 0)
+		return INSERT_RET::NOT_OK;
+
 	if (Yrow == -1)
 	{
 		if (Xcol == -1)
 		{
-			for (int i = 0; i < tiles_.size(); i++) // create "empty col"
-				tiles_[i].insert(tiles_[i].begin(), 0);
+			for (int i = 0; i < static_cast<int>(tiles_.size()); i++) // create "empty col"
+				tiles_[i].insert(tiles_[i].begin(), placeholderTileNum_);
 			
 			std::vector<unsigned> temp; // create an empty new line
 			temp.push_back(tileIndex); // add to first index
@@ -173,14 +198,14 @@ MapFile::INSERT_RET MapFile::insertTile(const unsigned Xcol, const unsigned Yrow
 		}
 		else if (Xcol < tiles_[0].size())
 		{
-			std::vector<unsigned> temp(Xcol, 0); // create an empty new line with size of X-pos
+			std::vector<unsigned> temp(Xcol, placeholderTileNum_); // create an empty new line with size of X-pos
 			temp.push_back(tileIndex); // push back tile index to temp 
 			tiles_.insert(tiles_.begin(), temp); // add temp as first row
 			return INSERT_RET::X_OK_Y_NEGATIVE;
 		}
 		else if (Xcol == tiles_[0].size())
 		{
-			std::vector<unsigned> temp(Xcol, 0); // create an empty new line with size of X-pos
+			std::vector<unsigned> temp(Xcol, placeholderTileNum_); // create an empty new line with size of X-pos
 			temp.push_back(tileIndex); // push back tile index to temp 
 			tiles_.insert(tiles_.begin(), temp); // add temp as first row
 			return INSERT_RET::X_TOO_BIG_Y_NEGATIVE;
@@ -190,8 +215,8 @@ MapFile::INSERT_RET MapFile::insertTile(const unsigned Xcol, const unsigned Yrow
 	{
 		if (Xcol == -1)
 		{
-			for (int i = 0; i < tiles_.size(); i++) {
-				tiles_[i].insert(tiles_[i].begin(), 0);
+			for (int i = 0; i < static_cast<int>(tiles_.size()); i++) {
+				tiles_[i].insert(tiles_[i].begin(), placeholderTileNum_);
 			}
 			tiles_[Yrow][0] = tileIndex;
 			return INSERT_RET::X_NEGATIVE_Y_OK;
@@ -211,8 +236,8 @@ MapFile::INSERT_RET MapFile::insertTile(const unsigned Xcol, const unsigned Yrow
 	{
 		if (Xcol == -1)
 		{
-			for (int i = 0; i < tiles_.size(); i++)
-				tiles_[i].insert(tiles_[i].begin(), 0);
+			for (int i = 0; i < static_cast<int>(tiles_.size()); i++)
+				tiles_[i].insert(tiles_[i].begin(), placeholderTileNum_);
 
 			std::vector<unsigned> temp;
 			temp.push_back(tileIndex);
@@ -221,19 +246,19 @@ MapFile::INSERT_RET MapFile::insertTile(const unsigned Xcol, const unsigned Yrow
 		}
 		else if (Xcol < tiles_[Yrow - 1].size())
 		{
-			std::vector<unsigned> temp(Xcol, 0);
+			std::vector<unsigned> temp(Xcol, placeholderTileNum_);
 			temp.push_back(tileIndex);
 			tiles_.push_back(temp);
 			return INSERT_RET::X_OK_Y_TOO_BIG;
 		}
 		else if (Xcol == tiles_[Yrow - 1].size())
 		{
-			std::vector<unsigned> temp(Xcol, 0);
+			std::vector<unsigned> temp(Xcol, placeholderTileNum_);
 			temp.push_back(tileIndex);
 			tiles_.push_back(temp);
 			return INSERT_RET::X_TOO_BIG_Y_TOO_BIG;
 		}
 	}
-
+	
 	return INSERT_RET::NOT_OK;
 }

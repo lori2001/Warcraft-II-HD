@@ -50,6 +50,10 @@ namespace ng
 		// by holding the only exception to it (-1 means none)
 		static int blockingException_;
 
+		enum class CONSTRUCTOR {
+			MINIMAL
+		};
+
 		static constexpr const char* DEFAULT_FONT_LOC = "font.ttf";
 		static constexpr const unsigned DEFAULT_CHAR_SIZE = 30;
 		static constexpr const float DEFAULT_SELECT_THICKNESS = 2.5F;

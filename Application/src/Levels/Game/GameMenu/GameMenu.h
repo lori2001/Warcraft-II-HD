@@ -1,5 +1,6 @@
-/*#pragma once
+#pragma once
 #include "NGin.h"
+#include "../../../Style.h"
 #include "../../Levels.h"
 
 #include "GameSettings.h"
@@ -12,30 +13,46 @@ public:
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-	enum RESPONSE {
-		NONE = 50, // avoid response collision
-		CONTINUE,
-		MAIN_MENU,
-		EXIT,
-	};
+	bool shouldClose() { return continueButton_.isActive(); }
 
 private:
-	void setupUIStyle(const sf::Font& font, const unsigned fontSize, const sf::Color& themeColor);
+	ng::FontPtr primaryFont_ = NG_FONT_SPTR(location::PRIMARY_FONT);
+	sf::Text menuText_{ "In-Game Menu", *primaryFont_, 40 };
 
-	std::shared_ptr<sf::Texture> buttonTexture_;
-	std::shared_ptr<sf::Texture> sliderTexture_;
-	std::shared_ptr<sf::Texture> backgroundTexture_;
-	std::shared_ptr<sf::Font>    warcraftFont_;
-	
-	sf::Text menuText_;
+	ng::TexturePtr backgroundTexture_ = NG_TEXTURE_SPTR(location::IN_GAME_MENU_BG);
+	sf::Sprite background_{ *backgroundTexture_ };
 
-	ng::Button continueButton_{ "Continue Playing", {430, 50} };
-	ng::Button settingsButton_{ "Settings", {430, 50} };
-	ng::Button mainMenuButton_{ "Back To Main Menu", {430, 50} };
-	ng::Button exitButton_{ "Exit to Windows", {430, 50} };
+	ng::Button continueButton_
+	{
+		primaryFont_,
+		"Continue Playing",
+		size::MEDIUM_FONT_SIZE,
+		{ color::FONT_COLOR_R, color::FONT_COLOR_G, color::FONT_COLOR_B},
+		{ size::BUTTON_WIDTH, size::BUTTON_HEIGHT},
+		NG_TEXTURE_SPTR(location::BUTTON),
+		{ color::SELECT_COLOR_R, color::SELECT_COLOR_G, color::SELECT_COLOR_B },
+		{ 745.0F, 330.0F }, // pos
+		{ 1.0F, 1.25F } // scale
+	};
 
-	GameSettings gameSettings_;
-	bool settingsIsActive; 
+	ng::Button settingsButton_{
+		"Settings",
+		continueButton_,
+		{ 745, 430 }
+	};
 
-	sf::Sprite background_;
-};*/
+	ng::Button mainMenuButton_{
+		"Back To Main Menu",
+		continueButton_,
+		{ 745, 730 }
+	};
+
+	ng::Button exitButton_{
+		"Exit to Windows",
+		continueButton_,
+		{ 745, 830 }
+	};
+
+	//GameSettings gameSettings_;
+	//bool settingsIsActive; 
+};

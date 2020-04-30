@@ -25,6 +25,7 @@
     <ClCompile Include="src\NGin\UserInterface\Cursor.cpp" />
     <ClCompile Include="src\NGin\UserInterface\Dropdown.cpp" />
     <ClCompile Include="src\NGin\UserInterface\InputText.cpp" />
+    <ClCompile Include="src\NGin\UserInterface\Notification.cpp" />
     <ClCompile Include="src\NGin\UserInterface\ScrollBox.cpp" />
     <ClCompile Include="src\NGin\UserInterface\Slider.cpp" />
     <ClCompile Include="src\NGin\UserInterface\Switcher.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="src\NGin\UserInterface\Cursor.h" />
     <ClInclude Include="src\NGin\UserInterface\Dropdown.h" />
     <ClInclude Include="src\NGin\UserInterface\InputText.h" />
+    <ClInclude Include="src\NGin\UserInterface\Notification.h" />
     <ClInclude Include="src\NGin\UserInterface\ScrollBox.h" />
     <ClInclude Include="src\NGin\UserInterface\Slider.h" />
     <ClInclude Include="src\NGin\UserInterface\Switcher.h" />

@@ -5,6 +5,14 @@
 namespace ng {
 	class InputText : public UIElement {
 	public:
+		InputText(UIElement::CONSTRUCTOR construct) : UIElement() {
+			cursor_.setFillColor(sf::Color::Transparent);
+			cursor_.setString("|");
+			setSelectThickness(DEFAULT_SELECT_THICKNESS);
+			setMaxCharacterNo(20);
+			setCharacterSize(25);
+			setPosition({0, 0});
+		}
 		InputText(
 			const ng::TexturePtr texture = NG_TEXTURE_SPTR(DEFAULT_TEXTURE_LOC),
 			const sf::Vector2f size = { DEFAULT_SHAPE_WIDTH, DEFAULT_SHAPE_HEIGHT},

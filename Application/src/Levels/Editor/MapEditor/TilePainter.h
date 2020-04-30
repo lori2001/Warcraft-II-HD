@@ -19,18 +19,19 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	bool isFocused() const { return scrollBox_.isFocused(); }
-	int getSelectedTile() const { return selectedTile_; }
+	int getChoosen() const { return tileNumbers_[choosenTileIndex_]; }
+	bool getChoosenHasChanged() const { return choosenHasChanged_; }
+	sf::IntRect getChoosenTextureRect() const;
 private:
 
 	ng::TexturePtr themeTexture_ = NG_TEXTURE_SPTR(MapFile::getThemeLocation()); // textue of map theme
-	ng::FontPtr primaryFont_ = NG_FONT_SPTR(location::PRIMARY_FONT);
 	ng::FontPtr secondaryFont_ = NG_FONT_SPTR(location::SECONDARY_FONT);
 
-	sf::Text title_;
+	sf::Text title_{ "Tile Painter", *secondaryFont_, 40 };
 
 	// counts the number of empty tiles before the first
 	// and helps at indexing the ones used
-	std::vector<int> tileIndexes_;
+	std::vector<int> tileNumbers_;
 	std::vector<sf::Text> tileIndexTexts_;
 	std::vector<sf::RectangleShape> tiles_;
 	const float tilesScale_ = 2.15F;
@@ -43,7 +44,10 @@ private:
 	const float selectionThickness_ = 2.2F;
 
 	// Usage
-	int selectedTile_ = -1;
+	int choosenTileIndex_ = 0; // the one that you paint with
+	bool choosenHasChanged_ = false;
+
+	int selectedTileIndex_ = 0; // the one that is selected
 
 	const sf::IntRect backgroundTextureRect_ = { 0, 0, 312, 780 };
 	ng::ScrollBox scrollBox_{

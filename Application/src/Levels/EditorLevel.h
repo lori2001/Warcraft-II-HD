@@ -24,6 +24,7 @@ public:
 	};
 	inline static EVENT editorEvent = EVENT::NONE;
 
+	~EditorLevel();
 private:
 	// current state of editor
 	enum class STATE {

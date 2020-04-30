@@ -78,6 +78,9 @@
     <ClCompile Include="src\NGin\UserInterface\UIElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\NGin\UserInterface\Notification.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\NGin\System\Console.h">
@@ -156,6 +159,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\NGin\UserInterface\UIElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\NGin\UserInterface\Notification.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

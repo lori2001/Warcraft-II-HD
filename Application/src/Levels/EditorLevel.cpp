@@ -72,3 +72,9 @@ void EditorLevel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	target.draw(editorMenu_);
 }
+
+EditorLevel::~EditorLevel()
+{
+	ng::Main::windowClearColor = { 0, 0, 0 };
+	delete activeEditor_;
+}

@@ -70,12 +70,7 @@ void LobbyLevel::handleEvents(const sf::Event& event)
 		Levels::currentLevel = Levels::LEVEL_TYPES::MENU;
 	}
 	else if (playButton_.isActive()) {
-		NG_LOG_ERROR("Nothin' here!");
-		// Levels::currentLevel = Levels::LEVEL_TYPES::GAME;
-		GameDetailsFile::getActualNPCRace(0);
-		GameDetailsFile::getActualNPCRace(1);
-		GameDetailsFile::getActualNPCRace(2);
-		GameDetailsFile::getActualNPCRace(3);
+		Levels::currentLevel = Levels::LEVEL_TYPES::GAME;
 	}
 	// ----------------------------------------
 }

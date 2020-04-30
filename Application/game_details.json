@@ -1,7 +1,7 @@
 {
     "NPCs": {
         "0": {
-            "color": 4278190335,
+            "color": 16711935,
             "difficulty": "Easy",
             "race": "Random",
             "team": "Team 2"
@@ -70,10 +70,10 @@
     "mapIndex": 0,
     "numberOfNPCs": 1,
     "player": {
-        "color": 4294902015,
+        "color": 4278190335,
         "playerName": "[Enter Name]",
         "race": "Random",
-        "team": "Team 5"
+        "team": "Team 1"
     },
     "teamRelativeColors": false
 }

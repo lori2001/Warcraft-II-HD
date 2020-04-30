@@ -7,6 +7,7 @@
 namespace ng {
 	class Switcher : public UIElement {
 	public:
+		Switcher(UIElement::CONSTRUCTOR construct) : UIElement() {}
 		Switcher(const sf::Vector2f& position,
 			const sf::Vector2f& size,
 			const ng::TexturePtr texture) : Switcher(size, size, texture, position){}

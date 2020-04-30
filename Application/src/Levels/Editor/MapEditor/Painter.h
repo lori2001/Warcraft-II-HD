@@ -10,5 +10,7 @@ public:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
 	virtual bool isFocused() const = 0;
-	virtual int getSelectedTile() const = 0;
+	virtual int getChoosen() const = 0;
+	virtual sf::IntRect getChoosenTextureRect() const = 0;
+	virtual bool getChoosenHasChanged() const = 0;
 };

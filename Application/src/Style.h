@@ -103,6 +103,8 @@ namespace location {
 	LOCATION RECENTER_BUTTON = "images/ui/recenter_button.png";
 	LOCATION SCROLLBOX = "images/ui/scrollbox.png";
 	LOCATION PAINT_SWITCHER = "images/ui/paint_switcher.png";
+	LOCATION IN_GAME_INTERFACE = "images/ui/interface.png";
+	LOCATION IN_GAME_MENU_BG = "images/ui/orc_clay_bg.png";
 
 	// sound locations
 	LOCATION CLICK_SOUND = "audio/click.wav";

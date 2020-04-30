@@ -13,7 +13,7 @@ TilePainter::TilePainter()
 	
 	// make sure tiles' vectors are empty
 	tiles_.clear();
-	tileIndexes_.clear();
+	tileNumbers_.clear();
 	tileIndexTexts_.clear(); // clear display index texts
 	const sf::Vector2f tileSize = MapFile::getTileSize();
 	int i = 0;
@@ -26,7 +26,7 @@ TilePainter::TilePainter()
 			{
 				tiles_.push_back(sf::RectangleShape{});
 				tileIndexTexts_.push_back(sf::Text{});
-				tileIndexes_.push_back(i);
+				tileNumbers_.push_back(i);
 
 				tiles_.back().setTexture(&*themeTexture_);
 				tiles_.back().setTextureRect({
@@ -59,7 +59,6 @@ TilePainter::TilePainter()
 	scrollBox_.setInsideSize({ scrollBox_.getOutsideSize().x, tilesHeight + 50 });
 
 	// Add Title
-	title_.setString("Tile Painter");
 	ng::centerTextInBounds(title_, scrollBox_.getGlobalBounds(),
 		50 - scrollBox_.getGlobalBounds().height / 2);
 	scrollBox_.addElement(title_);
@@ -84,35 +83,49 @@ void TilePainter::handleEvents(const sf::Event& event)
 {
 	scrollBox_.handleEvents(event, ng::Cursor::getPosition());
 	
+	bool somethingSelected = false;
+	choosenHasChanged_ = false;
 	for (int i = 0; i < static_cast<int>(tiles_.size()); i++)
 	{
-		if (tileIndexes_[i] == selectedTile_) {
-			tiles_[i].setOutlineColor({
-				color::SECONDARY_SELECT_COLOR_R,
-				color::SECONDARY_SELECT_COLOR_G,
-				color::SECONDARY_SELECT_COLOR_B });
-			tiles_[i].setOutlineThickness(selectionThickness_);
-		}
-		else if (tiles_[i].getGlobalBounds().intersects(sf::FloatRect(ng::Cursor::getPosition(), { 1,1 })))
+		if (tiles_[i].getGlobalBounds().contains(ng::Cursor::getPosition()))
 		{
-			tiles_[i].setOutlineColor({ color::SELECT_COLOR_R, color::SELECT_COLOR_G, color::SELECT_COLOR_B });
-			tiles_[i].setOutlineThickness(selectionThickness_);
+			somethingSelected = true;
+
+			if (i != selectedTileIndex_)
+			{
+				tiles_[selectedTileIndex_].setOutlineThickness(0); // reset previous
+
+				selectedTileIndex_ = i;
+			}
 
 			if (event.mouseButton.button == sf::Mouse::Left &&
-				event.type == sf::Event::MouseButtonReleased)
+				event.type == sf::Event::MouseButtonPressed)
 			{
-				selectedTile_ = tileIndexes_[i];
-				tiles_[i].setOutlineColor({
-					color::SECONDARY_SELECT_COLOR_R,
-					color::SECONDARY_SELECT_COLOR_G,
-					color::SECONDARY_SELECT_COLOR_B });
-				tiles_[i].setOutlineThickness(selectionThickness_);
+				tiles_[choosenTileIndex_].setOutlineThickness(0); // reset previous
+
+				choosenTileIndex_ = i;
+				choosenHasChanged_ = true;
 			}
 		}
-		else {
-			tiles_[i].setOutlineColor({ 255, 255, 255 });
-			tiles_[i].setOutlineThickness(0);
-		}
+	}
+
+	tiles_[choosenTileIndex_].setOutlineColor({
+		color::SECONDARY_SELECT_COLOR_R,
+		color::SECONDARY_SELECT_COLOR_G,
+		color::SECONDARY_SELECT_COLOR_B });
+	tiles_[choosenTileIndex_].setOutlineThickness(selectionThickness_);
+
+	if (!somethingSelected && choosenTileIndex_ != selectedTileIndex_)
+	{
+		tiles_[selectedTileIndex_].setOutlineThickness(0);
+	}
+	else if (somethingSelected)
+	{
+		tiles_[selectedTileIndex_].setOutlineColor({
+			color::SELECT_COLOR_R,
+			color::SELECT_COLOR_G,
+			color::SELECT_COLOR_B });
+		tiles_[selectedTileIndex_].setOutlineThickness(selectionThickness_);
 	}
 }
 
@@ -123,4 +136,9 @@ void TilePainter::update()
 void TilePainter::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(scrollBox_);
+}
+
+sf::IntRect TilePainter::getChoosenTextureRect() const
+{
+	return tiles_[choosenTileIndex_].getTextureRect();
 }

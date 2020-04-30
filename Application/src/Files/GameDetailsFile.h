@@ -45,7 +45,40 @@ public:
 	static std::string getActualNPCRace(const unsigned npcIndex);
 
 	static constexpr const unsigned maxNumberOfNPCs = 11;
+	// --- Selectables' content --------------------
+	struct ColoredString {
+		sf::String string;
+		sf::Color color;
+	};
 
+	inline static const std::array<ColoredString, 3> races_
+	{ {{ "Random" , sf::Color::Yellow }, // DO NOT CHANGE POSITION
+	  { "Orcs[" , sf::Color::Red },
+	  { "Humans]" , sf::Color::Blue }} };
+
+	inline static const std::array<std::string, 3> difficulties_
+	{ "Easy", "Medium", "Hard" };
+
+	inline static const std::array<std::string, maxNumberOfNPCs + 1> teams_
+	{ "Team 1",  "Team 2",  "Team 3", //        +1 for the player ^ 
+	  "Team 4",  "Team 5",  "Team 6",
+	  "Team 7",  "Team 8",  "Team 9",
+	  "Team 10", "Team 11", "Team 12", };
+
+	inline static const std::array<sf::Color, maxNumberOfNPCs + 1> colors_
+	{ sf::Color(255,   0,   0), // 1.red    +1 for the player ^
+		sf::Color(0, 255,   0), // 2.green
+		sf::Color(0,   0, 255), // 3.blue
+		sf::Color(255,  69,   0), // 4.orange
+		sf::Color(255, 255,   0), // 5.yellow
+		sf::Color(0, 255, 255), // 6.cyan
+		sf::Color(128,   0, 128), // 7.purple
+		sf::Color(255, 255, 255), // 8.white
+		sf::Color(139,  69,  19), // 9.brown
+		sf::Color(128, 128, 128), // 10.grey
+		sf::Color(255,  20, 147), // 11.pink
+		sf::Color(0,   0,   0)  // 12.black
+	};
 protected:
 	static void setPlayerName(const std::string& playerName) { json_[playerKey][playerNameKey] = playerName; }
 	static void setPlayerRace(const std::string& race) { json_[playerKey][raceKey] = race; }
@@ -84,40 +117,6 @@ protected:
 	static void setMapIndex(const unsigned mapIndex) {
 		json_[mapIndexKey] = mapIndex;
 	}
-
-	// --- Selectables' content --------------------
-	struct ColoredString {
-		sf::String string;
-		sf::Color color;
-	};
-	inline static const std::array<ColoredString, 3> races_
-	{{{ "Random" , sf::Color::Yellow }, // DO NOT CHANGE POSITION
-	  { "Orcs[" , sf::Color::Red },
-	  { "Humans]" , sf::Color::Blue }}};
-
-	inline static const std::array<std::string, 3> difficulties_
-	{ "Easy", "Medium", "Hard" };
-
-	inline static const std::array<std::string, maxNumberOfNPCs + 1> teams_
-	{ "Team 1",  "Team 2",  "Team 3", //        +1 for the player ^ 
-	  "Team 4",  "Team 5",  "Team 6",
-	  "Team 7",  "Team 8",  "Team 9",
-	  "Team 10", "Team 11", "Team 12", };
-
-	inline static const std::array<sf::Color, maxNumberOfNPCs + 1> colors_
-	{   sf::Color(255,   0,   0), // 1.red    +1 for the player ^
-		sf::Color(0, 255,   0), // 2.green
-		sf::Color(0,   0, 255), // 3.blue
-		sf::Color(255,  69,   0), // 4.orange
-		sf::Color(255, 255,   0), // 5.yellow
-		sf::Color(0, 255, 255), // 6.cyan
-		sf::Color(128,   0, 128), // 7.purple
-		sf::Color(255, 255, 255), // 8.white
-		sf::Color(139,  69,  19), // 9.brown
-		sf::Color(128, 128, 128), // 10.grey
-		sf::Color(255,  20, 147), // 11.pink
-		sf::Color(0,   0,   0)  // 12.black
-	};
 
 private:
 	static constexpr const char* fileName = "game_details.json";

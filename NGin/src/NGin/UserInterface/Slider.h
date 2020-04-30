@@ -5,12 +5,16 @@
 namespace ng {
 	class Slider : public UIElement {
 	public:
-		Slider() : UIElement() {
-			// create a slider in in position {0, 0}
-			Slider slider{ {0, 0} };
-			*this = slider;
+		Slider(UIElement::CONSTRUCTOR construct) : UIElement() {
+			setSelectThickness(-DEFAULT_SELECT_THICKNESS); // selection goes inside container
+			// button has to be centered in order to align properly
+			mark_.setOrigin({ mark_.getGlobalBounds().width / 2, mark_.getGlobalBounds().height / 2 });
+			setPosition({0, 0});
+			adjustSliderBox();
+			adjustMarkPos();
 		}
-		Slider(const sf::Vector2f& position):
+		Slider() : Slider({ 0, 0 }) {} // create a slider in in position {0, 0}
+		Slider(const sf::Vector2f& position) :
 			Slider(position, NG_TEXTURE_SPTR(DEFAULT_TEXTURE_LOC),
 				{ DEFAULT_SHAPE_WIDTH, DEFAULT_SHAPE_HEIGHT },
 				{ DEFAULT_ARROW_WIDTH, DEFAULT_ARROW_HEIGHT },
@@ -21,7 +25,7 @@ namespace ng {
 			const sf::Vector2f& arrowSize,
 			const sf::Vector2f& markSize,
 			const sf::Color& selectColor = sf::Color::White,
-			const sf::Vector2f& scale = { 0, 0 })
+			const sf::Vector2f& scale = { 0, 0 }) : UIElement()
 		{
 			setSelectColor(selectColor);
 			setSelectThickness(-DEFAULT_SELECT_THICKNESS); // selection goes inside container

@@ -3,7 +3,6 @@
 namespace ng {
 	void positionTextInBounds(sf::Vector2f position, sf::Text& text, const sf::FloatRect& bounds)
 	{
-		// skip empty text avoiding errors
 		text.setPosition({ bounds.left + position.x, bounds.top + position.y - (text.getLocalBounds().top) });
 	}
 	void positionTextInShape(sf::Vector2f position, sf::Text& text, const sf::RectangleShape& shape)
@@ -20,6 +19,7 @@ namespace ng {
 	}
 	void centerTextInBounds(sf::Text& text, const sf::FloatRect& bounds)
 	{
+		// skip empty text avoiding errors
 		if (text.getString() == "" || text.getFont() == 0) return;
 
 		const sf::Vector2f position = {

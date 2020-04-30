@@ -99,6 +99,7 @@
     <ClCompile Include="src\Levels\GameLevel.cpp" />
     <ClCompile Include="src\Levels\Game\GameMenu\GameMenu.cpp" />
     <ClCompile Include="src\Levels\Game\GameMenu\GameSettings.cpp" />
+    <ClCompile Include="src\Levels\Game\GameViewport\GameViewport.cpp" />
     <ClCompile Include="src\Levels\Game\Units\Unit.cpp" />
     <ClCompile Include="src\Levels\LobbyLevel.cpp" />
     <ClCompile Include="src\Levels\Lobby\MapSelector.cpp" />
@@ -128,6 +129,7 @@
     <ClInclude Include="src\Levels\GameLevel.h" />
     <ClInclude Include="src\Levels\Game\GameMenu\GameMenu.h" />
     <ClInclude Include="src\Levels\Game\GameMenu\GameSettings.h" />
+    <ClInclude Include="src\Levels\Game\GameViewport\GameViewport.h" />
     <ClInclude Include="src\Levels\Game\Units\Unit.h" />
     <ClInclude Include="src\Levels\Levels.h" />
     <ClInclude Include="src\Levels\LobbyLevel.h" />
