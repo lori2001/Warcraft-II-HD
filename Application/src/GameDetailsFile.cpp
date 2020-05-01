@@ -5,44 +5,55 @@
 
 ng::json GameDetailsFile::json_;
 std::vector<int> GameDetailsFile::actualRacesIndex_;
+bool GameDetailsFile::isLoaded_ = false;
 
 void GameDetailsFile::load()
 {
-	std::ifstream in(fileName);
+	if (!isLoaded_) {
+		std::ifstream in(fileName);
 
-	if (!in) // if does not exist
-		create(); // create a json file containing default settings
-	else
-		in >> json_; // read json file
+		if (!in) // if does not exist
+			create(); // create a json file containing default settings
+		else
+			in >> json_; // read json file
 
-	// intialize random seed for random races
-	srand(static_cast<unsigned>(time(NULL)));
+		// intialize random seed for random races
+		srand(static_cast<unsigned>(time(NULL)));
 
-	actualRacesIndex_.clear();
+		actualRacesIndex_.clear();
 
-	// player race in case of random
-	actualRacesIndex_.push_back(1 + rand() % (races_.size() - 1));
-	//                          ^ any index except the first  ^
-	for (int i = 1; i <= maxNumberOfNPCs; i++) {
+		// player race in case of random
 		actualRacesIndex_.push_back(1 + rand() % (races_.size() - 1));
+		//                          ^ any index except the first  ^
+		for (int i = 1; i <= maxNumberOfNPCs; i++) {
+			actualRacesIndex_.push_back(1 + rand() % (races_.size() - 1));
+		}
+		isLoaded_ = true;
+
 	}
 }
 
 void GameDetailsFile::save()
 {
-	std::ofstream out(fileName);
+	if (isLoaded_)
+	{
+		std::ofstream out(fileName);
 
-	// Filter empty name strings
-	std::string name = json_[playerKey][playerNameKey];
-	bool onlyspaces = true;
-	for (std::string::const_iterator i = name.begin(); i != name.end(); ++i)
-		onlyspaces = (*i == ' ');
-	if (name == "" || onlyspaces)  // if empty or only spaces -> reset to default
-		name = "[Enter Name]";
+		// Filter empty name strings
+		std::string name = json_[playerKey][playerNameKey];
+		bool onlyspaces = true;
+		for (std::string::const_iterator i = name.begin(); i != name.end(); ++i)
+			onlyspaces = (*i == ' ');
+		if (name == "" || onlyspaces)  // if empty or only spaces -> reset to default
+			name = "[Enter Name]";
 
-	json_[playerKey][playerNameKey] = name;
+		json_[playerKey][playerNameKey] = name;
 
-	out << json_.dump(4); // print out in an organised way
+		out << json_.dump(4); // print out in an organised way
+	}
+	else {
+		NG_LOG_WARN(fileName, " save called but not ever loaded! " );
+	}
 }
 
 std::string GameDetailsFile::getActualPlayerRace()

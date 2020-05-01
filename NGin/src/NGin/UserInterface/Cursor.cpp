@@ -49,6 +49,11 @@ namespace ng {
 		}
 	}
 
+	void Cursor::setScale(const sf::Vector2f& scale)
+	{
+		sprite_.setScale(scale);
+	}
+
 	void Cursor::setBuffer(const ng::SoundBufferPtr soundBuffer)
 	{
 		soundBuffer_ = soundBuffer;

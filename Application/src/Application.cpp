@@ -1,6 +1,6 @@
 #include "Application.h"
 
-Levels::LEVEL_TYPES Levels::currentLevel = Levels::LEVEL_TYPES::MENU;
+Levels::LEVEL_TYPES Levels::currentLevel = Levels::LEVEL_TYPES::LOBBY;
 
 Application::Application()
 {
@@ -33,6 +33,7 @@ Application::Application()
 
 	// load textures and make sure they never delete
 	ng::Cursor::setTexture(NG_TEXTURE_SPTR(location::ORC_CURSOR));
+	ng::Cursor::setScale(ng::ftovec(0.8F));
 
 	// subscribe already loaded sounds to their types
 	ng::Audio::subscribeSound(ng::Cursor::getSoundPtr());

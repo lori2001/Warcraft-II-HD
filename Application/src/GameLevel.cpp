@@ -2,6 +2,8 @@
 
 GameLevel::GameLevel()
 {
+	GameDetailsFile::load();
+
 	// --- Faction Styles -----------------------
 	if (GameDetailsFile::getPlayerRace() == GameDetailsFile::races_[2].string) {
 		ng::Cursor::setTexture(NG_TEXTURE_SPTR("images/ui/human_cursor.png"));

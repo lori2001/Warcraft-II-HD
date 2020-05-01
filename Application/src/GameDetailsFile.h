@@ -125,6 +125,7 @@ private:
 	static std::vector<int> actualRacesIndex_;
 
 	static ng::json json_;
+	static bool isLoaded_;
 
 #define KEY static constexpr const char*
 	KEY teamRelativeColorsKey = "teamRelativeColors";

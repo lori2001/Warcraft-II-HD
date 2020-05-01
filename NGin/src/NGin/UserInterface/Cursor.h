@@ -27,6 +27,8 @@ namespace ng {
 		// shows textured version of the mouse (if set)
 		static void showTextured();
 
+		static void setScale(const sf::Vector2f& scale);
+
 		// sets the sound the cursor makes ex. when pressing a button 
 		static void setBuffer(const ng::SoundBufferPtr soundBuffer);
 
