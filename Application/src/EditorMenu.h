@@ -1,9 +1,9 @@
 #pragma once
 #include "NGin.h"
-#include "../../Style.h"
+#include "Style.h"
 
-#include "../../Files/SettingsFile.h"
-#include "../Levels.h"
+#include "SettingsFile.h"
+#include "Levels.h"
 
 class EditorMenu : public ng::Level {
 public:

@@ -1,13 +1,13 @@
 #pragma once
 #include "NGin.h"
-#include "../Style.h"
+#include "Style.h"
 
-#include "../Files/MapFile.h"
-#include "../Files/SettingsFile.h"
+#include "MapFile.h"
+#include "SettingsFile.h"
 #include "Levels.h"
 
-#include "Editor/EditorMenu.h"
-#include "Editor/MapEditor.h"
+#include "EditorMenu.h"
+#include "MapEditor.h"
 
 class EditorLevel : public ng::Level {
 public:

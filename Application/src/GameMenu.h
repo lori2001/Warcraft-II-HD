@@ -1,7 +1,7 @@
 #pragma once
 #include "NGin.h"
-#include "../../../Style.h"
-#include "../../Levels.h"
+#include "Style.h"
+#include "Levels.h"
 
 #include "GameSettings.h"
 

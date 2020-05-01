@@ -53,14 +53,17 @@ void GameLevel::update()
 
 void GameLevel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	// menu elements
 	target.draw(interface_);
 	target.draw(menuButton_);
 
+	// game view elements
+	target.draw(gameViewport);
+
+	// menu elements
 	if (gameMenu_ != nullptr) {
 		target.draw(*gameMenu_);
 	}
-
-	target.draw(gameViewport);
 }
 
 GameLevel::~GameLevel()

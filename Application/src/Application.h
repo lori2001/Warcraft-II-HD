@@ -4,15 +4,15 @@
 #include "NGin.h"
 
 #include "Style.h"
-#include "Files/SettingsFile.h"
+#include "SettingsFile.h"
 
 // Levels
-#include "Levels/Levels.h"
-#include "Levels/MenuLevel.h"
-#include "Levels/LobbyLevel.h"
-#include "Levels/SettingsLevel.h"
-#include "Levels/EditorLevel.h"
-#include "Levels/GameLevel.h"
+#include "Levels.h"
+#include "MenuLevel.h"
+#include "LobbyLevel.h"
+#include "SettingsLevel.h"
+#include "EditorLevel.h"
+#include "GameLevel.h"
 
 // Do not print on release(closed) console
 /*

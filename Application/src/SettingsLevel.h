@@ -2,8 +2,8 @@
 #include "NGin.h"
 #include "Levels.h"
 
-#include "../Style.h"
-#include "../Files/SettingsFile.h"
+#include "Style.h"
+#include "SettingsFile.h"
 
 class SettingsLevel : private SettingsFile, public ng::Level {
 public:

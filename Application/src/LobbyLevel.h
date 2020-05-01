@@ -4,15 +4,15 @@
 
 #include <array>
 
-#include "../Style.h"
+#include "Style.h"
 
-#include "../Files/MapFile.h"
-#include "../Files/SettingsFile.h"
-#include "../Files/GameDetailsFile.h"
+#include "MapFile.h"
+#include "SettingsFile.h"
+#include "GameDetailsFile.h"
 
-#include "Lobby/PlayerLine.h"
-#include "Lobby/NPCLine.h"
-#include "Lobby/MapSelector.h"
+#include "PlayerLine.h"
+#include "NPCLine.h"
+#include "MapSelector.h"
 
 class LobbyLevel : private GameDetailsFile, public ng::Level {
 public:

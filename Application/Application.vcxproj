@@ -88,26 +88,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\Files\GameDetailsFile.cpp" />
-    <ClCompile Include="src\Files\MapFile.cpp" />
-    <ClCompile Include="src\Files\SettingsFile.cpp" />
-    <ClCompile Include="src\Levels\Common\Map.cpp" />
-    <ClCompile Include="src\Levels\EditorLevel.cpp" />
-    <ClCompile Include="src\Levels\Editor\EditorMenu.cpp" />
-    <ClCompile Include="src\Levels\Editor\MapEditor.cpp" />
-    <ClCompile Include="src\Levels\Editor\MapEditor\TilePainter.cpp" />
-    <ClCompile Include="src\Levels\GameLevel.cpp" />
-    <ClCompile Include="src\Levels\Game\GameMenu\GameMenu.cpp" />
-    <ClCompile Include="src\Levels\Game\GameMenu\GameSettings.cpp" />
-    <ClCompile Include="src\Levels\Game\GameViewport\GameViewport.cpp" />
-    <ClCompile Include="src\Levels\Game\Units\Unit.cpp" />
-    <ClCompile Include="src\Levels\LobbyLevel.cpp" />
-    <ClCompile Include="src\Levels\Lobby\MapSelector.cpp" />
-    <ClCompile Include="src\Levels\Lobby\NPCLine.cpp" />
-    <ClCompile Include="src\Levels\Lobby\PlayerLine.cpp" />
-    <ClCompile Include="src\Levels\MenuLevel.cpp" />
-    <ClCompile Include="src\Levels\Music\Music.cpp" />
-    <ClCompile Include="src\Levels\SettingsLevel.cpp" />
+    <ClCompile Include="src\GameDetailsFile.cpp" />
+    <ClCompile Include="src\MapFile.cpp" />
+    <ClCompile Include="src\SettingsFile.cpp" />
+    <ClCompile Include="src\Map.cpp" />
+    <ClCompile Include="src\EditorLevel.cpp" />
+    <ClCompile Include="src\EditorMenu.cpp" />
+    <ClCompile Include="src\MapEditor.cpp" />
+    <ClCompile Include="src\TilePainter.cpp" />
+    <ClCompile Include="src\GameLevel.cpp" />
+    <ClCompile Include="src\GameMenu.cpp" />
+    <ClCompile Include="src\GameSettings.cpp" />
+    <ClCompile Include="src\GameViewport.cpp" />
+    <ClCompile Include="src\Unit.cpp" />
+    <ClCompile Include="src\LobbyLevel.cpp" />
+    <ClCompile Include="src\MapSelector.cpp" />
+    <ClCompile Include="src\NPCLine.cpp" />
+    <ClCompile Include="src\PlayerLine.cpp" />
+    <ClCompile Include="src\MenuLevel.cpp" />
+    <ClCompile Include="src\Music.cpp" />
+    <ClCompile Include="src\SettingsLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NGin\NGin.vcxproj">
@@ -117,28 +117,28 @@
   <ItemGroup>
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\Files\GameDetailsFile.h" />
-    <ClInclude Include="src\Files\MapFile.h" />
-    <ClInclude Include="src\Files\SettingsFile.h" />
-    <ClInclude Include="src\Levels\Common\Map.h" />
-    <ClInclude Include="src\Levels\EditorLevel.h" />
-    <ClInclude Include="src\Levels\Editor\EditorMenu.h" />
-    <ClInclude Include="src\Levels\Editor\MapEditor.h" />
-    <ClInclude Include="src\Levels\Editor\MapEditor\Painter.h" />
-    <ClInclude Include="src\Levels\Editor\MapEditor\TilePainter.h" />
-    <ClInclude Include="src\Levels\GameLevel.h" />
-    <ClInclude Include="src\Levels\Game\GameMenu\GameMenu.h" />
-    <ClInclude Include="src\Levels\Game\GameMenu\GameSettings.h" />
-    <ClInclude Include="src\Levels\Game\GameViewport\GameViewport.h" />
-    <ClInclude Include="src\Levels\Game\Units\Unit.h" />
-    <ClInclude Include="src\Levels\Levels.h" />
-    <ClInclude Include="src\Levels\LobbyLevel.h" />
-    <ClInclude Include="src\Levels\Lobby\MapSelector.h" />
-    <ClInclude Include="src\Levels\Lobby\NPCLine.h" />
-    <ClInclude Include="src\Levels\Lobby\PlayerLine.h" />
-    <ClInclude Include="src\Levels\MenuLevel.h" />
-    <ClInclude Include="src\Levels\Music\Music.h" />
-    <ClInclude Include="src\Levels\SettingsLevel.h" />
+    <ClInclude Include="src\GameDetailsFile.h" />
+    <ClInclude Include="src\MapFile.h" />
+    <ClInclude Include="src\SettingsFile.h" />
+    <ClInclude Include="src\Map.h" />
+    <ClInclude Include="src\EditorLevel.h" />
+    <ClInclude Include="src\EditorMenu.h" />
+    <ClInclude Include="src\MapEditor.h" />
+    <ClInclude Include="src\Painter.h" />
+    <ClInclude Include="src\TilePainter.h" />
+    <ClInclude Include="src\GameLevel.h" />
+    <ClInclude Include="src\GameMenu.h" />
+    <ClInclude Include="src\GameSettings.h" />
+    <ClInclude Include="src\GameViewport.h" />
+    <ClInclude Include="src\Unit.h" />
+    <ClInclude Include="src\Levels.h" />
+    <ClInclude Include="src\LobbyLevel.h" />
+    <ClInclude Include="src\MapSelector.h" />
+    <ClInclude Include="src\NPCLine.h" />
+    <ClInclude Include="src\PlayerLine.h" />
+    <ClInclude Include="src\MenuLevel.h" />
+    <ClInclude Include="src\Music.h" />
+    <ClInclude Include="src\SettingsLevel.h" />
     <ClInclude Include="src\Style.h" />
   </ItemGroup>
   <ItemGroup>

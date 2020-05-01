@@ -1,10 +1,10 @@
 #pragma once
 #include "NGin.h"
 
-#include "../../Style.h"
+#include "Style.h"
 
-#include "../Common/Map.h"
-#include "../../Files/GameDetailsFile.h"
+#include "Map.h"
+#include "GameDetailsFile.h"
 
 class MapSelector : private GameDetailsFile, public sf::Drawable {
 public:

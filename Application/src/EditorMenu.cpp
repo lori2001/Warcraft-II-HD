@@ -1,5 +1,5 @@
 #include "EditorMenu.h"
-#include "../EditorLevel.h"
+#include "EditorLevel.h"
 
 EditorMenu::EditorMenu()
 {

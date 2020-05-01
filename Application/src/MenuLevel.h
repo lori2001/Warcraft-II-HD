@@ -1,11 +1,11 @@
 #pragma once
 #include "NGin.h"
 
-#include "../Style.h"
+#include "Style.h"
 #include "Levels.h"
-#include "../Files/SettingsFile.h"
+#include "SettingsFile.h"
 
-#include "Music/Music.h"
+#include "Music.h"
 
 class MenuLevel : public ng::Level {
 public:

@@ -5,155 +5,184 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Files">
+      <UniqueIdentifier>{e747de81-7400-4a2c-a4b6-139aed8426ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Levels">
+      <UniqueIdentifier>{4a4056fc-d9b3-4242-a4c3-7135818db1f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Levels\Common">
+      <UniqueIdentifier>{273263e0-5af9-42eb-90f6-637d44ea5fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Levels\Editor">
+      <UniqueIdentifier>{22ec69b3-8dbc-42ae-bf78-cb1c97b8b642}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Levels\Game">
+      <UniqueIdentifier>{a07ff90a-95d1-46be-ad03-fc54ea9aa28d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Levels\Lobby">
+      <UniqueIdentifier>{fe32eb7f-c709-4f0d-9ea0-94ea997e8d4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Music">
+      <UniqueIdentifier>{f3a7ff0c-1ac4-4a6e-aa75-791eff193068}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Levels\Editor\MapEditor">
+      <UniqueIdentifier>{211f7194-b102-4c63-ae12-202fe3a8b00a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Levels\Game\GameMenu">
+      <UniqueIdentifier>{4cc668bb-9aa2-42b4-9343-ac0caee20fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Levels\Game\GameViewport">
+      <UniqueIdentifier>{3e9761eb-b4d4-40fe-884a-206bf6618226}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Levels\Game\Units">
+      <UniqueIdentifier>{4806f58f-ce45-4cc7-b2d0-885794c394d3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\MenuLevel.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\EditorLevel.cpp">
+      <Filter>Source Files\Levels</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\LobbyLevel.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\GameLevel.cpp">
+      <Filter>Source Files\Levels</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\GameLevel.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\LobbyLevel.cpp">
+      <Filter>Source Files\Levels</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\Game\GameMenu\GameMenu.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\MenuLevel.cpp">
+      <Filter>Source Files\Levels</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\Game\GameMenu\GameSettings.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\SettingsLevel.cpp">
+      <Filter>Source Files\Levels</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\Music\Music.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\SettingsFile.cpp">
+      <Filter>Source Files\Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\EditorLevel.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\MapFile.cpp">
+      <Filter>Source Files\Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\Lobby\MapSelector.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\GameDetailsFile.cpp">
+      <Filter>Source Files\Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\Lobby\NPCLine.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Music.cpp">
+      <Filter>Source Files\Music</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\Lobby\PlayerLine.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\MapSelector.cpp">
+      <Filter>Source Files\Levels\Lobby</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\Common\Map.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\NPCLine.cpp">
+      <Filter>Source Files\Levels\Lobby</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\Game\Units\Unit.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\PlayerLine.cpp">
+      <Filter>Source Files\Levels\Lobby</Filter>
     </ClCompile>
-    <ClCompile Include="src\Files\MapFile.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Unit.cpp">
+      <Filter>Source Files\Levels\Game\Units</Filter>
     </ClCompile>
-    <ClCompile Include="src\Files\SettingsFile.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\GameViewport.cpp">
+      <Filter>Source Files\Levels\Game\GameViewport</Filter>
     </ClCompile>
-    <ClCompile Include="src\Files\GameDetailsFile.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\GameSettings.cpp">
+      <Filter>Source Files\Levels\Game\GameMenu</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\Editor\MapEditor.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\GameMenu.cpp">
+      <Filter>Source Files\Levels\Game\GameMenu</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\Editor\EditorMenu.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\EditorMenu.cpp">
+      <Filter>Source Files\Levels\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\Editor\MapEditor\TilePainter.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\TilePainter.cpp">
+      <Filter>Source Files\Levels\Editor\MapEditor</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\SettingsLevel.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\MapEditor.cpp">
+      <Filter>Source Files\Levels\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="src\Levels\Game\GameViewport\GameViewport.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Map.cpp">
+      <Filter>Source Files\Levels\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Levels\MenuLevel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Levels\SettingsLevel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Levels\LobbyLevel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Levels\GameLevel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Levels\Game\GameMenu\GameMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Levels\Game\GameMenu\GameSettings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Levels\Music\Music.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Levels\EditorLevel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Levels\Lobby\MapSelector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Levels\Lobby\NPCLine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Levels\Lobby\PlayerLine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Levels\Common\Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Levels\Game\Units\Unit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Levels\Levels.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Style.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Files\MapFile.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Files\SettingsFile.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\EditorLevel.h">
+      <Filter>Source Files\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="src\Files\GameDetailsFile.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\GameLevel.h">
+      <Filter>Source Files\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="src\Levels\Editor\MapEditor.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Levels.h">
+      <Filter>Source Files\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="src\Levels\Editor\EditorMenu.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\LobbyLevel.h">
+      <Filter>Source Files\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="src\Levels\Editor\MapEditor\TilePainter.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\MenuLevel.h">
+      <Filter>Source Files\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="src\Levels\Editor\MapEditor\Painter.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\SettingsLevel.h">
+      <Filter>Source Files\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="src\Levels\Game\GameViewport\GameViewport.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\SettingsFile.h">
+      <Filter>Source Files\Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MapFile.h">
+      <Filter>Source Files\Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameDetailsFile.h">
+      <Filter>Source Files\Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Music.h">
+      <Filter>Source Files\Music</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MapSelector.h">
+      <Filter>Source Files\Levels\Lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="src\NPCLine.h">
+      <Filter>Source Files\Levels\Lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerLine.h">
+      <Filter>Source Files\Levels\Lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Unit.h">
+      <Filter>Source Files\Levels\Game\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameViewport.h">
+      <Filter>Source Files\Levels\Game\GameViewport</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameSettings.h">
+      <Filter>Source Files\Levels\Game\GameMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameMenu.h">
+      <Filter>Source Files\Levels\Game\GameMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Painter.h">
+      <Filter>Source Files\Levels\Editor\MapEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TilePainter.h">
+      <Filter>Source Files\Levels\Editor\MapEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EditorMenu.h">
+      <Filter>Source Files\Levels\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MapEditor.h">
+      <Filter>Source Files\Levels\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Map.h">
+      <Filter>Source Files\Levels\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

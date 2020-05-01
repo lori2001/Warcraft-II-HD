@@ -1,14 +1,14 @@
 #pragma once
 #include "NGin.h"
-#include "../Style.h"
+#include "Style.h"
 
-#include "../Files/GameDetailsFile.h"
+#include "GameDetailsFile.h"
 
 #include "Levels.h"
-#include "Music/Music.h"
+#include "Music.h"
 
-#include "Game/GameMenu/GameMenu.h"
-#include "Game/GameViewport/GameViewport.h"
+#include "GameMenu.h"
+#include "GameViewport.h"
 
 class GameLevel : public ng::Level {
 public:

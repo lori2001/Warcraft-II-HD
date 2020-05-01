@@ -2,8 +2,9 @@
 
 GameViewport::GameViewport()
 {
-	test.setFillColor(sf::Color::Red);
-	test.setSize({ 200, 200 });
+	Map::setup({ 0, 0 }, Map::MAP_TYPE::NORMAL, mapScale_);
+
+	gameView_.setViewport(viewportPercent_);
 }
 
 void GameViewport::handleEvents(const sf::Event& event)
@@ -16,7 +17,10 @@ void GameViewport::update()
 
 void GameViewport::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(test);
+	ng::Main::setWindowView(gameView_);
+	Map::draw(target, states);
+
+	ng::Main::applyDefaultViewToWindow();
 }
 
 GameViewport::~GameViewport()

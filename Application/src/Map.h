@@ -1,6 +1,6 @@
 #pragma once
 #include "NGin.h"
-#include "../../Files/MapFile.h"
+#include "MapFile.h"
 
 class Map : private MapFile, public sf::Drawable {
 public:

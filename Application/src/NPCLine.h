@@ -1,8 +1,8 @@
 #pragma once
 #include "NGin.h"
-#include "../../Style.h"
+#include "Style.h"
 
-#include "../../Files/GameDetailsFile.h"
+#include "GameDetailsFile.h"
 
 class NPCLine : private GameDetailsFile, public sf::Drawable {
 public:

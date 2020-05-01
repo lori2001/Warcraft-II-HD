@@ -2,11 +2,11 @@
 #include "SFML/Graphics.hpp"
 #include "NGin.h"
 
-#include "../../../Files/SettingsFile.h"
-#include "../../../Files/MapFile.h"
+#include "SettingsFile.h"
+#include "MapFile.h"
 
-#include "../../../Style.h"
-#include "../EditorMenu.h"
+#include "Style.h"
+#include "EditorMenu.h"
 
 #include "Painter.h"
 

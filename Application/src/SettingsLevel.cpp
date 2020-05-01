@@ -1,6 +1,4 @@
-
 #include "SettingsLevel.h"
-#include "NGin/Levels/Main.h"
 
 SettingsLevel::SettingsLevel()
 {
