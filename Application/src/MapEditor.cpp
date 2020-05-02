@@ -96,7 +96,6 @@ void MapEditor::update()
 	if (ng::Main::windowHasFocus())
 	{
 		// --- View movement --------------------------------------------------
-		const sf::Vector2f posBefore = editorView_.getCenter();
 		if (sf::Keyboard::isKeyPressed(keyNavigateLeft_)) {
 			editorView_.move({ -editorMoveSpeed_ * editorCurrentZoomFactor_ * ng::Timer::getDeltaTime(), 0 });
 			updateGrid();

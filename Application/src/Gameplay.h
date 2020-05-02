@@ -2,25 +2,29 @@
 #include "NGin.h"
 
 #include "Map.h"
+#include "Minimap.h"
+
 #include "SettingsFile.h"
 #include "Style.h"
 
-class GameViewport : public ng::Level {
+class Gameplay : public ng::Level {
 public:
-	GameViewport();
+	Gameplay();
 
 	void handleEvents(const sf::Event& event);
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-	~GameViewport();
+	sf::View getView() const { return gameView_; }
+
+	~Gameplay();
 private:
 	// ----- Navigation Properties START -------------
-	const float editorMoveSpeed_ = 265.0F;
-	const float editorZoomFactor_ = 1.12F;
-	const float editorMaxZoomFactor_ = 1.8F;
-	const float editorMinZoomFactor_ = 1.0F / 3.0F;
-	float editorCurrentZoomFactor_ = 1.0F; // DO NOT CHANGE!
+	const float viewMoveSpeed_ = 265.0F;
+	const float viewZoomFactor_ = 1.12F;
+	const float viewMaxZoomFactor_ = 1.8F;
+	const float viewMinZoomFactor_ = 1.0F / 3.0F;
+	float viewCurrentZoomFactor_ = 1.0F; // DO NOT CHANGE!
 
 	sf::Keyboard::Key keyNavigateUp_ = sf::Keyboard::W;
 	sf::Keyboard::Key keyNavigateDown_ = sf::Keyboard::S;
@@ -30,11 +34,11 @@ private:
 	// if these functions are true the view will zoom in/out
 	bool zoomInEvent(const sf::Event& event)
 	{
-		return event.type == sf::Event::MouseWheelMoved && event.mouseWheel.delta < 0 && editorCurrentZoomFactor_ < editorMaxZoomFactor_;
+		return event.type == sf::Event::MouseWheelMoved && event.mouseWheel.delta < 0 && viewCurrentZoomFactor_ < viewMaxZoomFactor_;
 	}
 	bool zoomOutEvent(const sf::Event& event)
 	{
-		return event.type == sf::Event::MouseWheelMoved && event.mouseWheel.delta > 0 && editorCurrentZoomFactor_ > editorMinZoomFactor_;
+		return event.type == sf::Event::MouseWheelMoved && event.mouseWheel.delta > 0 && viewCurrentZoomFactor_ > viewMinZoomFactor_;
 	}
 	// ----- Navigation Properties ENDD ----------------
 
@@ -59,7 +63,6 @@ private:
 	void updateViewMargins();
 
 	const sf::Vector2f mapScale_{ 2.0F, 2.0F };
-	
-	sf::RectangleShape test;
-	sf::RectangleShape test2;
+
+	Minimap minimap_;
 };

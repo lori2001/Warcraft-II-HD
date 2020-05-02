@@ -36,9 +36,6 @@
     <Filter Include="Source Files\Levels\Game\GameMenu">
       <UniqueIdentifier>{4cc668bb-9aa2-42b4-9343-ac0caee20fb4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Levels\Game\GameViewport">
-      <UniqueIdentifier>{3e9761eb-b4d4-40fe-884a-206bf6618226}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Levels\Game\Units">
       <UniqueIdentifier>{4806f58f-ce45-4cc7-b2d0-885794c394d3}</UniqueIdentifier>
     </Filter>
@@ -86,9 +83,6 @@
     <ClCompile Include="src\Unit.cpp">
       <Filter>Source Files\Levels\Game\Units</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameViewport.cpp">
-      <Filter>Source Files\Levels\Game\GameViewport</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameSettings.cpp">
       <Filter>Source Files\Levels\Game\GameMenu</Filter>
     </ClCompile>
@@ -106,6 +100,12 @@
     </ClCompile>
     <ClCompile Include="src\Map.cpp">
       <Filter>Source Files\Levels\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Minimap.cpp">
+      <Filter>Source Files\Levels\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gameplay.cpp">
+      <Filter>Source Files\Levels\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,9 +160,6 @@
     <ClInclude Include="src\Unit.h">
       <Filter>Source Files\Levels\Game\Units</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameViewport.h">
-      <Filter>Source Files\Levels\Game\GameViewport</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameSettings.h">
       <Filter>Source Files\Levels\Game\GameMenu</Filter>
     </ClInclude>
@@ -183,6 +180,12 @@
     </ClInclude>
     <ClInclude Include="src\Map.h">
       <Filter>Source Files\Levels\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Minimap.h">
+      <Filter>Source Files\Levels\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gameplay.h">
+      <Filter>Source Files\Levels\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

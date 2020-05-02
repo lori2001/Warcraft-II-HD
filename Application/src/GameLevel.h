@@ -3,12 +3,10 @@
 #include "Style.h"
 
 #include "GameDetailsFile.h"
-
-#include "Levels.h"
 #include "Music.h"
 
 #include "GameMenu.h"
-#include "GameViewport.h"
+#include "Gameplay.h" // actual game elements
 
 class GameLevel : public ng::Level {
 public:
@@ -23,14 +21,14 @@ public:
 private:
 	ng::FontPtr primaryFont_ = NG_FONT_SPTR(location::PRIMARY_FONT);
 	
+	// the texture HUD that separates gameplay viewport, minimap and buttons
 	ng::TexturePtr interfaceTexture_ = NG_TEXTURE_SPTR(location::IN_GAME_INTERFACE);
 	sf::Sprite interface_{*interfaceTexture_};
 
-	bool menuTriggerEvent(const sf::Event& event) {
+	bool menuTriggerEvent(const sf::Event& event) { // menu toggle event
 		return event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape;
 	}
-
-	ng::Button menuButton_
+	ng::Button menuButton_ // menu toggle button
 	{
 		NG_FONT_SPTR(location::PRIMARY_FONT),
 		"Menu",
@@ -43,7 +41,9 @@ private:
 		{ 0.55F, 1.0F } // scale
 	};
 
+	// the game's menu (in dynamic memory, should not be always loaded)
 	GameMenu* gameMenu_ = nullptr;
-	GameViewport gameViewport;
-
+	
+	// the main display of unit control an gameplay
+	Gameplay gameplay_;
 };

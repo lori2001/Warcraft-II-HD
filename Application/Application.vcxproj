@@ -87,6 +87,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Minimap.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\GameDetailsFile.cpp" />
     <ClCompile Include="src\MapFile.cpp" />
@@ -99,7 +100,7 @@
     <ClCompile Include="src\GameLevel.cpp" />
     <ClCompile Include="src\GameMenu.cpp" />
     <ClCompile Include="src\GameSettings.cpp" />
-    <ClCompile Include="src\GameViewport.cpp" />
+    <ClCompile Include="src\Gameplay.cpp" />
     <ClCompile Include="src\Unit.cpp" />
     <ClCompile Include="src\LobbyLevel.cpp" />
     <ClCompile Include="src\MapSelector.cpp" />
@@ -115,6 +116,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Minimap.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\GameDetailsFile.h" />
@@ -129,7 +131,7 @@
     <ClInclude Include="src\GameLevel.h" />
     <ClInclude Include="src\GameMenu.h" />
     <ClInclude Include="src\GameSettings.h" />
-    <ClInclude Include="src\GameViewport.h" />
+    <ClInclude Include="src\Gameplay.h" />
     <ClInclude Include="src\Unit.h" />
     <ClInclude Include="src\Levels.h" />
     <ClInclude Include="src\LobbyLevel.h" />

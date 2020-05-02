@@ -40,17 +40,21 @@ void GameLevel::handleEvents(const sf::Event& event)
 			gameMenu_ = nullptr;
 		}
 	}
-
-	gameViewport.handleEvents(event);
+	else {
+		gameplay_.handleEvents(event);
+	}
 }
 
 void GameLevel::update()
 {
-	if (gameMenu_ != nullptr) {
+	if (gameMenu_ != nullptr)
+	{
 		gameMenu_->update();
 	}
-
-	gameViewport.update();
+	else
+	{
+		gameplay_.update();
+	}
 }
 
 void GameLevel::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -60,7 +64,7 @@ void GameLevel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(menuButton_);
 
 	// game view elements
-	target.draw(gameViewport);
+	target.draw(gameplay_);
 
 	// menu elements
 	if (gameMenu_ != nullptr) {

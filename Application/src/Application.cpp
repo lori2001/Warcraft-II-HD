@@ -1,6 +1,6 @@
 #include "Application.h"
 
-Levels::LEVEL_TYPES Levels::currentLevel = Levels::LEVEL_TYPES::LOBBY;
+Levels::LEVEL_TYPES Levels::currentLevel = Levels::LEVEL_TYPES::MENU;
 
 Application::Application()
 {

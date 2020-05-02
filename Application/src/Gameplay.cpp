@@ -1,25 +1,28 @@
-#include "GameViewport.h"
+#include "Gameplay.h"
 
-GameViewport::GameViewport()
+Gameplay::Gameplay()
 {
 	Map::setup({ 0, 0 }, Map::MAP_TYPE::NORMAL, mapScale_);
 
 	gameView_.setViewport(viewportPercent_);
 	updateViewMargins();
+
+	minimap_.setup();
+	minimap_.adjustScreenMark(gameView_.getSize(), gameView_.getCenter());
 }
 
-void GameViewport::handleEvents(const sf::Event& event)
+void Gameplay::handleEvents(const sf::Event& event)
 {
 	bool zoomIn = zoomInEvent(event);
 	bool zoomOut = zoomOutEvent(event);
 	if (zoomIn || zoomOut) // if zoom is triggered and either
 	{
-		float actualZoomFactor = editorZoomFactor_;
+		float actualZoomFactor = viewZoomFactor_;
 
 		if (zoomOut) // invert in case of zoom out
 			actualZoomFactor = 1 / actualZoomFactor;
 
-		editorCurrentZoomFactor_ *= actualZoomFactor; // keep in mind the current level of zooming
+		viewCurrentZoomFactor_ *= actualZoomFactor; // keep in mind the current level of zooming
 		gameView_.zoom(actualZoomFactor); // actually zoom the view
 
 		updateViewMargins();
@@ -30,52 +33,61 @@ void GameViewport::handleEvents(const sf::Event& event)
 			gameView_.getCenter().y > botRightMapMargin_.y)
 		{
 			actualZoomFactor = 1 / actualZoomFactor;
-			editorCurrentZoomFactor_ *= actualZoomFactor;
+			viewCurrentZoomFactor_ *= actualZoomFactor;
 			gameView_.zoom(actualZoomFactor);
 			updateViewMargins();
 		}
+
+		minimap_.adjustScreenMark(gameView_.getSize(), gameView_.getCenter());
 	}
 }
 
-void GameViewport::update()
+void Gameplay::update()
 {
 	if (ng::Main::windowHasFocus())
 	{
 		// --- View movement --------------------------------------------------
-		const sf::Vector2f posBefore = gameView_.getCenter();
 		if (sf::Keyboard::isKeyPressed(keyNavigateLeft_) && gameView_.getCenter().x > topLeftMapMargin_.x)
 		{
-			gameView_.move({ -editorMoveSpeed_ * editorCurrentZoomFactor_ * ng::Timer::getDeltaTime(), 0 });
+			gameView_.move({ -viewMoveSpeed_ * viewCurrentZoomFactor_ * ng::Timer::getDeltaTime(), 0 });
+			minimap_.adjustScreenMark(gameView_.getSize(), gameView_.getCenter());
 		}
 		if (sf::Keyboard::isKeyPressed(keyNavigateRight_) && gameView_.getCenter().x < botRightMapMargin_.x)
 		{
-			gameView_.move({ editorMoveSpeed_ * editorCurrentZoomFactor_ * ng::Timer::getDeltaTime(), 0 });
+			gameView_.move({ viewMoveSpeed_ * viewCurrentZoomFactor_ * ng::Timer::getDeltaTime(), 0 });
+			minimap_.adjustScreenMark(gameView_.getSize(), gameView_.getCenter());
 		}
 		if (sf::Keyboard::isKeyPressed(keyNavigateUp_) && gameView_.getCenter().y > topLeftMapMargin_.y)
 		{
-			gameView_.move({ 0, -editorMoveSpeed_ * editorCurrentZoomFactor_ * ng::Timer::getDeltaTime() });
+			gameView_.move({ 0, -viewMoveSpeed_ * viewCurrentZoomFactor_ * ng::Timer::getDeltaTime() });
+			minimap_.adjustScreenMark(gameView_.getSize(), gameView_.getCenter());
 		}
 		if (sf::Keyboard::isKeyPressed(keyNavigateDown_) && gameView_.getCenter().y < botRightMapMargin_.y)
 		{
-			gameView_.move({ 0, editorMoveSpeed_ * editorCurrentZoomFactor_ * ng::Timer::getDeltaTime() });
+			gameView_.move({ 0, viewMoveSpeed_ * viewCurrentZoomFactor_ * ng::Timer::getDeltaTime() });
+			minimap_.adjustScreenMark(gameView_.getSize(), gameView_.getCenter());
 		}
 		// --------------------------------------------------------------------
 	}
 }
 
-void GameViewport::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Gameplay::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	ng::Main::setWindowView(gameView_);
+
 	Map::draw(target, states);
 
-	ng::Main::applyDefaultViewToWindow();
+	// resets view to default internally
+	target.draw(minimap_);
+
+	// ng::Main::applyDefaultViewToWindow();
 }
 
-GameViewport::~GameViewport()
+Gameplay::~Gameplay()
 {
 }
 
-void GameViewport::updateViewMargins()
+void Gameplay::updateViewMargins()
 {
 	topLeftMapMargin_ = { gameView_.getSize().x / 2, gameView_.getSize().y / 2 };
 	botRightMapMargin_ = { Map::getScaledSize().x - gameView_.getSize().x / 2 ,
