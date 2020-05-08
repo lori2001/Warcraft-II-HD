@@ -8,6 +8,7 @@
 
 #include "Map.h"
 #include "TilePainter.h"
+#include "Minimap.h"
 
 class MapEditor : public ng::Level {
 public:
@@ -119,4 +120,9 @@ private:
 		{ 1695.0F, 10.0F }, // position
 		{ ng::ftovec(0.8F) } // scale
 	};
+	
+	// --- Minimap ----------
+	Minimap minimap_;
+	const sf::Vector2f minimapPosition_ = { 50.0F, 750.0F };
+	const sf::Vector2f minimapSize_ = { 300.0F, 300.0F };
 };

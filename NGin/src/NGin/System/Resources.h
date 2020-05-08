@@ -5,9 +5,9 @@
 
 namespace ng
 {
-	typedef std::shared_ptr<sf::Texture> TexturePtr;
-	typedef std::shared_ptr<sf::Font> FontPtr;
-	typedef std::shared_ptr<sf::SoundBuffer> SoundBufferPtr;
+	using TexturePtr = std::shared_ptr<sf::Texture>;
+	using FontPtr = std::shared_ptr<sf::Font>;
+	using SoundBufferPtr = std::shared_ptr<sf::SoundBuffer>;
 
 	class Resources
 	{

@@ -116,6 +116,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Barracks.h" />
     <ClInclude Include="src\Minimap.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\Application.h" />

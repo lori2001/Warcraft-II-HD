@@ -43,5 +43,5 @@ private:
 	inline static sf::VertexArray vertexArray_;
 	
 	inline static sf::Vector2f position_;
-	inline static sf::Vector2f insertedTilesNum_; // number of tiles inserted in -1 positions (actually integer)
+	inline static sf::Vector2i insertedTilesNum_; // number of tiles inserted in -1 positions (actually integer)
 };

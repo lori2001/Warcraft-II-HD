@@ -83,7 +83,7 @@ void Map::insertTile(int Xcol, int Yrow, const int tileIndex)
 
 void Map::correctForPositionChanges()
 {
-	sf::Vector2f shiftByTilesNum{ insertedTilesNum_.x, insertedTilesNum_.y };
+	sf::Vector2f shiftByTilesNum{ static_cast<float>(insertedTilesNum_.x), static_cast<float>(insertedTilesNum_.y) };
 	if (currentMapType_ == MAP_TYPE::EDITABLE) {
 		shiftByTilesNum.x+=1;
 		shiftByTilesNum.y+=1;

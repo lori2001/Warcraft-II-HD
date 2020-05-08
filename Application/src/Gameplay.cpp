@@ -7,8 +7,11 @@ Gameplay::Gameplay()
 	gameView_.setViewport(viewportPercent_);
 	updateViewMargins();
 
-	minimap_.setup();
+	// 62.0F, 57.0F, 1527.0F, 735.0F
+	minimap_.setup({ 62.0F, 57.0F }, { 331.0F, 288.0F });
 	minimap_.adjustScreenMark(gameView_.getSize(), gameView_.getCenter());
+
+	test = new Barracks{ { 5, 6 } };
 }
 
 void Gameplay::handleEvents(const sf::Event& event)
@@ -76,11 +79,10 @@ void Gameplay::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	ng::Main::setWindowView(gameView_);
 
 	Map::draw(target, states);
+	target.draw(*test);
 
 	// resets view to default internally
-	target.draw(minimap_);
-
-	// ng::Main::applyDefaultViewToWindow();
+	target.draw(minimap_); // ng::Main::applyDefaultViewToWindow();
 }
 
 Gameplay::~Gameplay()

@@ -7,6 +7,8 @@
 #include "SettingsFile.h"
 #include "Style.h"
 
+#include "Barracks.h"
+
 class Gameplay : public ng::Level {
 public:
 	Gameplay();
@@ -65,4 +67,6 @@ private:
 	const sf::Vector2f mapScale_{ 2.0F, 2.0F };
 
 	Minimap minimap_;
+
+	Barracks* test;
 };

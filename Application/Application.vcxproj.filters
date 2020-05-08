@@ -39,6 +39,9 @@
     <Filter Include="Source Files\Levels\Game\Units">
       <UniqueIdentifier>{4806f58f-ce45-4cc7-b2d0-885794c394d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Levels\Game\Buildings">
+      <UniqueIdentifier>{df1915dd-3606-49e8-ba50-41cc63130c84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -186,6 +189,9 @@
     </ClInclude>
     <ClInclude Include="src\Gameplay.h">
       <Filter>Source Files\Levels\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Barracks.h">
+      <Filter>Source Files\Levels\Game\Buildings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

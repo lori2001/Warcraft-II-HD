@@ -21,6 +21,10 @@ MapEditor::MapEditor(const std::string& filePath)
 	selectionRect_.setTextureRect({ 0 , 0, 
 		static_cast<int>(MapFile::getTileSize().x),
 		static_cast<int>(MapFile::getTileSize().y) });
+
+	// -- setup minimap ---------
+	minimap_.setup(minimapPosition_, minimapSize_);
+	// minimap_.adjustScreenMark(editorView_.getSize(), editorView_.getCenter());
 }
 
 void MapEditor::handleEvents(const sf::Event& event)
@@ -86,6 +90,7 @@ void MapEditor::handleEvents(const sf::Event& event)
 			if (canPlace_ && tilePlaceEvent(event))
 			{
 				placeTile(currentPainter_->getChoosen());
+				minimap_.setup(minimapPosition_, minimapSize_);
 			}
 		}
 	}
@@ -140,6 +145,8 @@ void MapEditor::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	if (currentPainter_ != nullptr)
 		target.draw(*currentPainter_);
+
+	target.draw(minimap_);
 }
 
 MapEditor::~MapEditor()

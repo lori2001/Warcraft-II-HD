@@ -134,6 +134,7 @@ namespace ng
 	void Button::setSize(const sf::Vector2f size)
 	{
 		shape_.setSize(size);
+		setTexturePos(texturePos_);
 	}
 	void Button::setDisabled(const bool isDisabled)
 	{
