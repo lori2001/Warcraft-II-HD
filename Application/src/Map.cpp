@@ -135,6 +135,8 @@ void Map::updateAllTiles()
 
 void Map::setDisplayTile(const int x, const int y, const int tileIndex, const int maxColumns)
 {
+	const float bleed = 0.5F; // bleeding correction in pixels
+
 	// size of one tile in texture file
 	const sf::Vector2f tileSize = MapFile::getTileSize();
 
@@ -142,10 +144,10 @@ void Map::setDisplayTile(const int x, const int y, const int tileIndex, const in
 	sf::Vertex* quad = &(vertexArray_)[(x + y * maxColumns) * 4];
 
 	// define its 4 corners
-	quad[0].position = sf::Vector2f(float(x * tileSize.x), float(y * tileSize.y));
-	quad[1].position = sf::Vector2f(float((x + 1) * tileSize.x), float(y * tileSize.y));
-	quad[2].position = sf::Vector2f(float((x + 1) * tileSize.x), float((y + 1) * tileSize.y));
-	quad[3].position = sf::Vector2f(float(x * tileSize.x), float((y + 1) * tileSize.y));
+	quad[0].position = sf::Vector2f(float(x * tileSize.x) - bleed, float(y * tileSize.y) - bleed);
+	quad[1].position = sf::Vector2f(float((x + 1) * tileSize.x) + bleed, float(y * tileSize.y) - bleed);
+	quad[2].position = sf::Vector2f(float((x + 1) * tileSize.x) + bleed, float((y + 1) * tileSize.y) + bleed);
+	quad[3].position = sf::Vector2f(float(x * tileSize.x) - bleed, float((y + 1) * tileSize.y) + bleed);
 
 	int tu = tileIndex % (mapTexture_->getSize().x / static_cast<int>(tileSize.x));
 	int tv = tileIndex / (mapTexture_->getSize().x / static_cast<int>(tileSize.x));

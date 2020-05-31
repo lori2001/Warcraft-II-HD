@@ -3,7 +3,7 @@ ThemeLocation: images/tiles/winter.png
 TileWidth: 32
 TileHeight: 32
 <tiles>
-0 0 16 16 
+289 292 16 16 
 17 17 17 17 17 28 28 16 16 16 365 365 365 
 20 17 28 28 28 28 28 28 16 365 365 365 365 
 20 17 28 28 28 28 28 16 16 16 17 17 16 

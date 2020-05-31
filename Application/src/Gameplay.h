@@ -24,8 +24,8 @@ private:
 	// ----- Navigation Properties START -------------
 	const float viewMoveSpeed_ = 265.0F;
 	const float viewZoomFactor_ = 1.12F;
-	const float viewMaxZoomFactor_ = 1.8F;
-	const float viewMinZoomFactor_ = 1.0F / 3.0F;
+	const float viewMaxZoomFactor_ = 1.2F; // farthest
+	const float viewMinZoomFactor_ = 1.0F / 2.6F; // closest
 	float viewCurrentZoomFactor_ = 1.0F; // DO NOT CHANGE!
 
 	sf::Keyboard::Key keyNavigateUp_ = sf::Keyboard::W;
