@@ -247,7 +247,6 @@ void SettingsLevel::addResolutionsTo(ng::Dropdown& dropdown)
 	{1280, 800},
 	{800, 600} };
 	
-	// important + FullScreenModes ( 5 + 7(max)) = 12MAX DROPDOWNS
 	std::vector<sf::VideoMode> fullScreenModes_ = sf::VideoMode::getFullscreenModes();
 
 	for (int i = 0; i < int(fullScreenModes_.size()); i++) {
@@ -263,7 +262,7 @@ void SettingsLevel::addResolutionsTo(ng::Dropdown& dropdown)
 			}
 		}
 
-		if (i <= 7 || isImportant) {
+		if (videoModes_.size() < 8 || isImportant) {
 			videoModes_.push_back(fullScreenModes_[i]);
 			dropdown.addDropString(resolutionString);
 		}

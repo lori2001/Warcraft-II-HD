@@ -3,8 +3,8 @@
     "soundVolume": 0.0,
     "videoMode": {
         "bitsPerPixel": 32,
-        "height": 768,
-        "width": 1366
+        "height": 600,
+        "width": 1280
     },
     "windowType": 1
 }

@@ -1,34 +1,44 @@
 #include "Cursor.h"
 #include "../System/Console.h"
 
+#include <memory.h>
+
 namespace ng {
 
 	ng::SoundBufferPtr Cursor::soundBuffer_;
 	ng::TexturePtr Cursor::texture_;
 
-	sf::Sprite Cursor::sprite_;
+	sf::RectangleShape Cursor::shape_;
 	sf::Sound Cursor::sound_;
-	bool Cursor::hasTexture_ = false;
+	bool Cursor::displayShape_ = false;
 
 	void Cursor::draw(sf::RenderWindow& window)
 	{
-		if(hasTexture_)
-			window.draw(sprite_);
+		if(displayShape_)
+			window.draw(shape_);
 	}
 
 	void Cursor::setTexture(const ng::TexturePtr texture)
 	{
 		texture_ = texture;
-		sprite_.setTexture(*texture_);
-		hasTexture_ = true;
+		shape_.setTexture(&*texture_);
+		shape_.setSize(sf::Vector2f{ texture_->getSize() });
+
+		displayShape_ = true;
+	}
+
+	void Cursor::setShape(const sf::RectangleShape& shape)
+	{
+		shape_ = shape;
+		displayShape_ = true;
 	}
 
 	void Cursor::followMouse(sf::RenderWindow& window)
 	{
 		// sets sprite's coordinates to the mouse's position
-		sprite_.setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
+		shape_.setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
 
-		if (hasTexture_) {
+		if (displayShape_) {
 			// disables default Cursor on a given window
 			window.setMouseCursorVisible(false);
 		}
@@ -39,19 +49,19 @@ namespace ng {
 
 	void Cursor::showDefault()
 	{
-		hasTexture_ = false;
+		displayShape_ = false;
 	}
 
 	void Cursor::showTextured()
 	{
-		if (sprite_.getTexture() != nullptr) {
-			hasTexture_ = true;
+		if (shape_.getTexture() != nullptr) {
+			displayShape_ = true;
 		}
 	}
 
 	void Cursor::setScale(const sf::Vector2f& scale)
 	{
-		sprite_.setScale(scale);
+		shape_.setScale(scale);
 	}
 
 	void Cursor::setBuffer(const ng::SoundBufferPtr soundBuffer)

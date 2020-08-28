@@ -72,4 +72,11 @@ private:
 	Minimap minimap_;
 
 	Barracks* test;
+
+	ng::TexturePtr selectCursorTexture_ = NG_TEXTURE_SPTR("images/ui/select_cursor.png");
+	sf::RectangleShape selectCursor_;
+	sf::RectangleShape normalCursor_;
+
+	sf::RectangleShape selectRectangle_;
+	bool shouldSelect_ = false;
 };

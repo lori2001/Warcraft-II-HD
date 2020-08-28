@@ -12,6 +12,17 @@ Gameplay::Gameplay()
 	minimap_.adjustScreenMark(gameView_.getSize(), gameView_.getCenter());
 
 	test = new Barracks{ { 5, 6 } };
+
+	normalCursor_ = ng::Cursor::getShape();
+
+	selectCursor_.setTexture(&*selectCursorTexture_);
+	selectCursor_.setSize(sf::Vector2f{ selectCursorTexture_->getSize() });
+	selectCursor_.setOrigin(ng::divVec(selectCursor_.getSize(), 2.0F));
+	selectCursor_.setFillColor(sf::Color{ color::IN_GAME_SELECT_R, color::IN_GAME_SELECT_G, color::IN_GAME_SELECT_B });
+	selectRectangle_.setSize({1, 1});
+	selectRectangle_.setFillColor(sf::Color::Transparent);
+	selectRectangle_.setOutlineColor(sf::Color{ color::IN_GAME_SELECT_R, color::IN_GAME_SELECT_G, color::IN_GAME_SELECT_B });
+	selectRectangle_.setOutlineThickness(2.5F);
 }
 
 void Gameplay::handleEvents(const sf::Event& event)
@@ -47,21 +58,38 @@ void Gameplay::handleEvents(const sf::Event& event)
 	gameMappedMouse_ = {
 		(ng::Cursor::getPosition().x - viewportPixel_.left) * viewCurrentZoomFactor_ + (gameView_.getCenter().x - topLeftMapMargin_.x),
 		(ng::Cursor::getPosition().y - viewportPixel_.top) * viewCurrentZoomFactor_ + (gameView_.getCenter().y - topLeftMapMargin_.y)};
+	
+	if (!shouldSelect_) {
+		selectRectangle_.setPosition(gameMappedMouse_);
+	}
+	else {
+		selectRectangle_.setSize({
+			gameMappedMouse_.x - selectRectangle_.getPosition().x,
+			gameMappedMouse_.y - selectRectangle_.getPosition().y });
+	}
 
 	if (ng::Cursor::getPosition().x < viewportPixel_.left || ng::Cursor::getPosition().y < viewportPixel_.top) {
 		gameMappedMouse_ = { -10000.0F, -10000.0F };
+	} 
+	else {
+		// in-game entity events
+		test->handleEvents(event, selectRectangle_.getGlobalBounds());
+
+		if (event.type == sf::Event::MouseButtonPressed) {
+			ng::Cursor::setShape(selectCursor_);
+			shouldSelect_ = true;
+		}
 	}
 
-	// in-game entity events
-	test->handleEvents(event, gameMappedMouse_);
-
+	if (event.type == sf::Event::MouseButtonReleased) {
+		ng::Cursor::setShape(normalCursor_);
+		selectRectangle_.setSize({ 1, 1 });
+		shouldSelect_ = false;
+	}
 }
 
 void Gameplay::update()
 {
-
-
-
 	if (ng::Main::windowHasFocus())
 	{
 		// --- View movement --------------------------------------------------
@@ -95,6 +123,10 @@ void Gameplay::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	Map::draw(target, states);
 	target.draw(*test);
+
+	if (shouldSelect_) {
+		target.draw(selectRectangle_);
+	}
 
 	// resets view to default internally
 	target.draw(minimap_); // ng::Main::applyDefaultViewToWindow();

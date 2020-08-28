@@ -20,14 +20,30 @@ public:
 		target.draw(shape_);
 	}
 
-	void handleEvents(const sf::Event& event, const sf::Vector2f& mouse) {
+	void handleEvents(const sf::Event& event, const sf::FloatRect& mouseRect) {
 
-		if (shape_.getGlobalBounds().contains(mouse)) {
-			shape_.setOutlineThickness(selectThickness_);
+		if (state_ != STATES::ACTIVE) {
+			if (shape_.getGlobalBounds().intersects(mouseRect)) {
+				shape_.setOutlineThickness(selectThickness_);
+
+				if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased) {
+					state_ = STATES::ACTIVE;
+				}
+
+			}
+			else {
+				shape_.setOutlineThickness(0);
+			}
+
 		}
 		else {
-			shape_.setOutlineThickness(0);
+			shape_.setOutlineThickness(selectThickness_);
+
+			if (event.type == sf::Event::MouseButtonPressed && !shape_.getGlobalBounds().intersects(mouseRect)) {
+				state_ = STATES::NONE;
+			}
 		}
+		
 	}
 
 private:
@@ -35,6 +51,13 @@ private:
 
 	sf::RectangleShape shape_;
 	const sf::IntRect textureRect_ = { 5, 5, 122, 116 };
+
+	enum class STATES {
+		NONE = 0,
+		CONSTRUCTION,
+		SELECTED,
+		ACTIVE,
+	} state_ = STATES::NONE;
 
 	const ng::TexturePtr texture_ = NG_TEXTURE_SPTR("images/buildings/human_buildings_summer.png");
 };

@@ -13,9 +13,13 @@ namespace ng {
 		// texture of the mouse displayed
 		static void setTexture(const ng::TexturePtr texture);
 
+		static void setShape(const sf::RectangleShape& shape);
+
+		static sf::RectangleShape getShape() { return shape_; }
+
 		// this function returns the position of an element relative to the window
 		// the cursor is set to. (needs void followMouse)
-		static sf::Vector2f getPosition() { return sprite_.getPosition(); }
+		static sf::Vector2f getPosition() { return shape_.getPosition(); }
 
 		// IMPORTANT !!! ALL UI ELEMENTS DEPEND ON THIS FUNCTION!!!
 		// updtates cursor's position relative to window
@@ -39,11 +43,11 @@ namespace ng {
 
 	private:
 		static ng::SoundBufferPtr soundBuffer_;
-		static ng::TexturePtr texture_;
+		static ng::TexturePtr texture_; // NOTE: NEVER get this
 
-		static sf::Sprite sprite_;
+		static sf::RectangleShape shape_;
 		static sf::Sound sound_;
 
-		static bool hasTexture_;
+		static bool displayShape_;
 	};
 }
