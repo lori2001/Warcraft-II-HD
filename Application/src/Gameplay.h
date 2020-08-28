@@ -62,6 +62,9 @@ private:
 		MAIN_VIEW_HEIGHT - viewportPixel_.top - viewportPixel_.height }
 	};
 	sf::Vector2f topLeftMapMargin_, botRightMapMargin_;
+
+	sf::Vector2f gameMappedMouse_ = { 0,0 };
+
 	void updateViewMargins();
 
 	const sf::Vector2f mapScale_{ 2.0F, 2.0F };

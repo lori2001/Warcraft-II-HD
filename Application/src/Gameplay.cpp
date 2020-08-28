@@ -43,10 +43,25 @@ void Gameplay::handleEvents(const sf::Event& event)
 
 		minimap_.adjustScreenMark(gameView_.getSize(), gameView_.getCenter());
 	}
+
+	gameMappedMouse_ = {
+		(ng::Cursor::getPosition().x - viewportPixel_.left) * viewCurrentZoomFactor_ + (gameView_.getCenter().x - topLeftMapMargin_.x),
+		(ng::Cursor::getPosition().y - viewportPixel_.top) * viewCurrentZoomFactor_ + (gameView_.getCenter().y - topLeftMapMargin_.y)};
+
+	if (ng::Cursor::getPosition().x < viewportPixel_.left || ng::Cursor::getPosition().y < viewportPixel_.top) {
+		gameMappedMouse_ = { -10000.0F, -10000.0F };
+	}
+
+	// in-game entity events
+	test->handleEvents(event, gameMappedMouse_);
+
 }
 
 void Gameplay::update()
 {
+
+
+
 	if (ng::Main::windowHasFocus())
 	{
 		// --- View movement --------------------------------------------------
