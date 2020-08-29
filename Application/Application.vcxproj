@@ -87,6 +87,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Barracks.cpp" />
+    <ClCompile Include="src\CommandPanel.cpp" />
     <ClCompile Include="src\Minimap.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\GameDetailsFile.cpp" />
@@ -116,6 +118,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\CommandPanel.h" />
     <ClInclude Include="src\Barracks.h" />
     <ClInclude Include="src\Minimap.h" />
     <ClInclude Include="resource.h" />

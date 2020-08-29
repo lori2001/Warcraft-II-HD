@@ -9,11 +9,13 @@
 
 #include "Barracks.h"
 
-class Gameplay : public ng::Level {
+#include "CommandPanel.h"
+
+class Gameplay : public sf::Drawable {
 public:
 	Gameplay();
 
-	void handleEvents(const sf::Event& event);
+	void handleEvents(const sf::Event& event, CommandPanel& commandPanel);
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

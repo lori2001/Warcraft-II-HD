@@ -13,7 +13,7 @@ Gameplay::Gameplay()
 
 	test = new Barracks{ { 5, 6 } };
 
-	normalCursor_ = ng::Cursor::getShape();
+	normalCursor_ = ng::Cursor::getShape(); //TODO: bug with human cursor
 
 	selectCursor_.setTexture(&*selectCursorTexture_);
 	selectCursor_.setSize(sf::Vector2f{ selectCursorTexture_->getSize() });
@@ -25,7 +25,7 @@ Gameplay::Gameplay()
 	selectRectangle_.setOutlineThickness(2.5F);
 }
 
-void Gameplay::handleEvents(const sf::Event& event)
+void Gameplay::handleEvents(const sf::Event& event, CommandPanel& commandPanel)
 {
 	bool zoomIn = zoomInEvent(event);
 	bool zoomOut = zoomOutEvent(event);

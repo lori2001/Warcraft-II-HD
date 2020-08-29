@@ -17,8 +17,7 @@
 class LobbyLevel : private GameDetailsFile, public ng::Level {
 public:
 	LobbyLevel();
-	~LobbyLevel();
-	
+
 	void handleEvents(const sf::Event& event);
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;

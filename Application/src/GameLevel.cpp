@@ -2,8 +2,6 @@
 
 GameLevel::GameLevel()
 {
-	GameDetailsFile::load();
-
 	// --- Faction Styles -----------------------
 	if (GameDetailsFile::getPlayerRace() == GameDetailsFile::races_[2].string) {
 		ng::Cursor::setTexture(NG_TEXTURE_SPTR("images/ui/human_cursor.png"));
@@ -41,7 +39,8 @@ void GameLevel::handleEvents(const sf::Event& event)
 		}
 	}
 	else {
-		gameplay_.handleEvents(event);
+		commandPanel_.handleEvents(event);
+		gameplay_.handleEvents(event, commandPanel_);
 	}
 }
 
@@ -65,6 +64,9 @@ void GameLevel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	// game view elements
 	target.draw(gameplay_);
+
+	// commands of given element
+	target.draw(commandPanel_);
 
 	// menu elements
 	if (gameMenu_ != nullptr) {

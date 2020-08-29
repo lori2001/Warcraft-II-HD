@@ -73,7 +73,7 @@ void Application::handleEvents()
 			switch (Levels::currentLevel) // assigne new level
 			{
 			case Levels::LEVEL_TYPES::LOBBY:
-				GameDetailsFile::load();
+				GameDetailsFile::create();
 				currentLevel_ = new LobbyLevel;
 				break;
 			case Levels::LEVEL_TYPES::SETTINGS:

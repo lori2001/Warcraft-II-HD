@@ -7,6 +7,7 @@
 
 #include "GameMenu.h"
 #include "Gameplay.h" // actual game elements
+#include "CommandPanel.h"
 
 class GameLevel : public ng::Level {
 public:
@@ -46,4 +47,7 @@ private:
 	
 	// the main display of unit control an gameplay
 	Gameplay gameplay_;
+
+	// the command panel
+	CommandPanel commandPanel_;
 };

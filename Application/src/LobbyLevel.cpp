@@ -27,11 +27,6 @@ LobbyLevel::LobbyLevel()
 	}
 }
 
-LobbyLevel::~LobbyLevel()
-{
-	GameDetailsFile::save();
-}
-
 void LobbyLevel::handleEvents(const sf::Event& event)
 {
 	relativeColorSwitcher_.handleEvents(event, ng::Cursor::getPosition());

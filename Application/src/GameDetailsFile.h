@@ -5,9 +5,10 @@
 class GameDetailsFile {
 public:
 	// this is where random races are seeded
-	static void load();
+	static void load(const char* fileName);
+	static void save(const char* fileName);
 
-	static void save();
+	static void create();
 
 	static std::string getPlayerName()  { return json_[playerKey][playerNameKey].get<std::string>(); }
 	static std::string getPlayerRace()  { return json_[playerKey][raceKey].get<std::string>(); }
@@ -94,33 +95,22 @@ protected:
 		json_[numberOfNPCsKey] = numOfNPCs;
 	}
 
-	// wrong npc index throws exception
-	static void setNPCDifficulty(const unsigned npcIndex, const std::string& difficulty) {
-		if (npcIndex >= maxNumberOfNPCs) throw std::out_of_range("index received is out of range");
-		json_[NPCsKey][std::to_string(npcIndex)][difficultyKey] = difficulty;
-	}
-	static void setNPCRace(const unsigned npcIndex, const std::string& race) {
-		if (npcIndex >= maxNumberOfNPCs) throw std::out_of_range("index received is out of range");
-		json_[NPCsKey][std::to_string(npcIndex)][raceKey] = race;
-	}
-	static void setNPCTeam(const unsigned npcIndex, const std::string& team) {
-		if (npcIndex >= maxNumberOfNPCs) throw std::out_of_range("index received is out of range");
-		json_[NPCsKey][std::to_string(npcIndex)][teamKey] = team;
-	}
-	static void setNPCColor(const unsigned npcIndex, const unsigned color) {
-		if (npcIndex >= maxNumberOfNPCs) throw std::out_of_range("index received is out of range");
-		json_[NPCsKey][std::to_string(npcIndex)][colorKey] = color;
-	}
-	static void setTeamRelativeColors(const bool isRelative) {
-		json_[teamRelativeColorsKey] = isRelative;
-	}
-	static void setMapIndex(const unsigned mapIndex) {
-		json_[mapIndexKey] = mapIndex;
-	}
+	static void setNPCDifficulty(const unsigned npcIndex, const std::string& difficulty);
+	static void setNPCRace(const unsigned npcIndex, const std::string & race);
+	static void setNPCTeam(const unsigned npcIndex, const std::string & team);
+	static void setNPCColor(const unsigned npcIndex, const unsigned color);
+	static void setTeamRelativeColors(const bool isRelative);
+	static void setMapIndex(const unsigned mapIndex);
+
+	// TODO
+	static void setPlayerGold(const int value);
+	static void setPlayerWood(const int value);
+	static void setPlayerOil(const int value);
+	static void setNPCGold(const unsigned npcIndex, int value);
+	static void setNPCWood(const unsigned npcIndex, int value);
+	static void setNPCOil(const unsigned npcIndex, int value);
 
 private:
-	static constexpr const char* fileName = "game_details.json";
-
 	// saves random race choices
 	static std::vector<int> actualRacesIndex_;
 
@@ -138,7 +128,9 @@ private:
 	KEY teamKey = "team";
 	KEY colorKey = "color";
 	KEY mapIndexKey = "mapIndex";
+	KEY resources = "resources";
+	KEY gold = "gold";
+	KEY wood = "wood";
+	KEY oil = "oil";
 #undef KEY
-
-	static void create(); // gets called if loading fails
 };
