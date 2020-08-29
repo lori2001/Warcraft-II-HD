@@ -1,4 +1,5 @@
 #include "Resources.h"
+#include "Console.h"
 
 namespace ng {
 
@@ -72,7 +73,7 @@ namespace ng {
 		for (auto it = textures_.begin(); it != textures_.end(); )
 		{
 			if (it->second.use_count() == 1) {
-				// NG_LOG_NOTE((*it).first, " - Texture Destroyed");
+				NG_LOG_NOTE((*it).first, " - Texture Destroyed");
 				it = textures_.erase(it);
 			}
 			else {

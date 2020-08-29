@@ -21,6 +21,13 @@ public:
 
 	sf::View getView() const { return gameView_; }
 
+	sf::FloatRect getGlobalBounds() const {
+		return {
+			viewportPixel_.left, viewportPixel_.top,
+			MAIN_VIEW_WIDTH - viewportPixel_.left - viewportPixel_.width,
+			MAIN_VIEW_HEIGHT - viewportPixel_.top - viewportPixel_.height };
+	}
+
 	~Gameplay();
 private:
 	// ----- Navigation Properties START -------------
@@ -74,10 +81,6 @@ private:
 	Minimap minimap_;
 
 	Barracks* test;
-
-	ng::TexturePtr selectCursorTexture_ = NG_TEXTURE_SPTR("images/ui/select_cursor.png");
-	sf::RectangleShape selectCursor_;
-	sf::RectangleShape normalCursor_;
 
 	sf::RectangleShape selectRectangle_;
 	bool shouldSelect_ = false;

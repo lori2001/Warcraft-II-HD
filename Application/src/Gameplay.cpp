@@ -13,12 +13,6 @@ Gameplay::Gameplay()
 
 	test = new Barracks{ { 5, 6 } };
 
-	normalCursor_ = ng::Cursor::getShape(); //TODO: bug with human cursor
-
-	selectCursor_.setTexture(&*selectCursorTexture_);
-	selectCursor_.setSize(sf::Vector2f{ selectCursorTexture_->getSize() });
-	selectCursor_.setOrigin(ng::divVec(selectCursor_.getSize(), 2.0F));
-	selectCursor_.setFillColor(sf::Color{ color::IN_GAME_SELECT_R, color::IN_GAME_SELECT_G, color::IN_GAME_SELECT_B });
 	selectRectangle_.setSize({1, 1});
 	selectRectangle_.setFillColor(sf::Color::Transparent);
 	selectRectangle_.setOutlineColor(sf::Color{ color::IN_GAME_SELECT_R, color::IN_GAME_SELECT_G, color::IN_GAME_SELECT_B });
@@ -59,6 +53,15 @@ void Gameplay::handleEvents(const sf::Event& event, CommandPanel& commandPanel)
 		(ng::Cursor::getPosition().x - viewportPixel_.left) * viewCurrentZoomFactor_ + (gameView_.getCenter().x - topLeftMapMargin_.x),
 		(ng::Cursor::getPosition().y - viewportPixel_.top) * viewCurrentZoomFactor_ + (gameView_.getCenter().y - topLeftMapMargin_.y)};
 	
+	if (!ng::Cursor::getPosition().x < viewportPixel_.left && !ng::Cursor::getPosition().y < viewportPixel_.top) {
+		// in-game entity events
+		test->handleEvents(event, selectRectangle_.getGlobalBounds(), commandPanel);
+
+		if (event.type == sf::Event::MouseButtonPressed) {
+			shouldSelect_ = true;
+		}
+	}
+
 	if (!shouldSelect_) {
 		selectRectangle_.setPosition(gameMappedMouse_);
 	}
@@ -68,21 +71,7 @@ void Gameplay::handleEvents(const sf::Event& event, CommandPanel& commandPanel)
 			gameMappedMouse_.y - selectRectangle_.getPosition().y });
 	}
 
-	if (ng::Cursor::getPosition().x < viewportPixel_.left || ng::Cursor::getPosition().y < viewportPixel_.top) {
-		gameMappedMouse_ = { -10000.0F, -10000.0F };
-	} 
-	else {
-		// in-game entity events
-		test->handleEvents(event, selectRectangle_.getGlobalBounds());
-
-		if (event.type == sf::Event::MouseButtonPressed) {
-			ng::Cursor::setShape(selectCursor_);
-			shouldSelect_ = true;
-		}
-	}
-
 	if (event.type == sf::Event::MouseButtonReleased) {
-		ng::Cursor::setShape(normalCursor_);
 		selectRectangle_.setSize({ 1, 1 });
 		shouldSelect_ = false;
 	}

@@ -4,6 +4,8 @@
 #include "Map.h"
 #include "Style.h"
 
+#include "CommandPanel.h"
+
 class Barracks : public sf::Drawable {
 public:
 	Barracks(const sf::Vector2i& tilePosition) {
@@ -20,7 +22,7 @@ public:
 		target.draw(shape_);
 	}
 
-	void handleEvents(const sf::Event& event, const sf::FloatRect& mouseRect) {
+	void handleEvents(const sf::Event& event, const sf::FloatRect& mouseRect, CommandPanel& commandPanel) {
 
 		if (state_ != STATES::ACTIVE) {
 			if (shape_.getGlobalBounds().intersects(mouseRect)) {
@@ -28,6 +30,10 @@ public:
 
 				if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased) {
 					state_ = STATES::ACTIVE;
+
+					// intialize command panel
+					// TODO proper
+					commandPanel.addOption(CommandPanel::OPTION::WORKER);
 				}
 
 			}
@@ -41,6 +47,9 @@ public:
 
 			if (event.type == sf::Event::MouseButtonPressed && !shape_.getGlobalBounds().intersects(mouseRect)) {
 				state_ = STATES::NONE;
+
+				// remove commands from command panel
+				commandPanel.clearAllOptions();
 			}
 		}
 		

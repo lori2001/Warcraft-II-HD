@@ -11,6 +11,12 @@ GameLevel::GameLevel()
 		ng::Cursor::setTexture(NG_TEXTURE_SPTR("images/ui/orc_cursor.png"));
 		Music::playTheme(Music::Theme::OrcTheme);
 	}
+	normalCursor_ = ng::Cursor::getShape();
+
+	selectCursor_.setTexture(&*selectCursorTexture_);
+	selectCursor_.setSize(sf::Vector2f{ selectCursorTexture_->getSize() });
+	selectCursor_.setOrigin(ng::divVec(selectCursor_.getSize(), 2.0F));
+	selectCursor_.setFillColor(sf::Color{ color::IN_GAME_SELECT_R, color::IN_GAME_SELECT_G, color::IN_GAME_SELECT_B });
 	// ------------------------------------------
 }
 
@@ -41,6 +47,14 @@ void GameLevel::handleEvents(const sf::Event& event)
 	else {
 		commandPanel_.handleEvents(event);
 		gameplay_.handleEvents(event, commandPanel_);
+
+		if (gameplay_.getGlobalBounds().contains(ng::Cursor::getPosition()) && event.type == sf::Event::MouseButtonPressed)
+		{
+			ng::Cursor::setShape(selectCursor_);
+		}
+		if (event.type == sf::Event::MouseButtonReleased) {
+			ng::Cursor::setShape(normalCursor_);
+		}
 	}
 }
 

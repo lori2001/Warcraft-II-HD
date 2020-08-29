@@ -110,6 +110,7 @@ namespace location {
 	LOCATION PAINT_SWITCHER = "images/ui/paint_switcher.png";
 	LOCATION IN_GAME_INTERFACE = "images/ui/interface.png";
 	LOCATION IN_GAME_MENU_BG = "images/ui/orc_clay_bg.png";
+	LOCATION ICONS = "images/ui/icons.png";
 
 	// sound locations
 	LOCATION CLICK_SOUND = "audio/click.wav";

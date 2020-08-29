@@ -50,4 +50,8 @@ private:
 
 	// the command panel
 	CommandPanel commandPanel_;
+
+	ng::TexturePtr selectCursorTexture_ = NG_TEXTURE_SPTR("images/ui/select_cursor.png");
+	sf::RectangleShape selectCursor_;
+	sf::RectangleShape normalCursor_;
 };
