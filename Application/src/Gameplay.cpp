@@ -53,11 +53,19 @@ void Gameplay::handleEvents(const sf::Event& event, CommandPanel& commandPanel)
 		(ng::Cursor::getPosition().x - viewportPixel_.left) * viewCurrentZoomFactor_ + (gameView_.getCenter().x - topLeftMapMargin_.x),
 		(ng::Cursor::getPosition().y - viewportPixel_.top) * viewCurrentZoomFactor_ + (gameView_.getCenter().y - topLeftMapMargin_.y)};
 	
-	if (!ng::Cursor::getPosition().x < viewportPixel_.left && !ng::Cursor::getPosition().y < viewportPixel_.top) {
+	bool isCursorInGameView =
+		ng::Cursor::getPosition().x > viewportPixel_.left && 
+		ng::Cursor::getPosition().y > viewportPixel_.top &&
+		ng::Cursor::getPosition().x < MAIN_VIEW_WIDTH - viewportPixel_.width &&
+		ng::Cursor::getPosition().y < MAIN_VIEW_HEIGHT - viewportPixel_.height;
+
+	if (isCursorInGameView)
+	{
 		// in-game entity events
 		test->handleEvents(event, selectRectangle_.getGlobalBounds(), commandPanel);
 
 		if (event.type == sf::Event::MouseButtonPressed) {
+			commandPanel.clearAllOptions();
 			shouldSelect_ = true;
 		}
 	}
@@ -72,6 +80,7 @@ void Gameplay::handleEvents(const sf::Event& event, CommandPanel& commandPanel)
 	}
 
 	if (event.type == sf::Event::MouseButtonReleased) {
+		selectRectangle_.setPosition(gameMappedMouse_);
 		selectRectangle_.setSize({ 1, 1 });
 		shouldSelect_ = false;
 	}

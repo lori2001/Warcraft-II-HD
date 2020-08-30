@@ -14,18 +14,29 @@ void CommandPanel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 }
 
-void CommandPanel::handleEvents(const sf::Event& event)
+void CommandPanel::handleEvents(const sf::Event& event, const sf::Vector2f& mouse)
 {
+	for (auto& it: icons_) {
 
+		if(it.second.getGlobalBounds().contains(mouse)) {
+			it.second.setOutlineThickness(size::IN_GAME_OUTLINE_THICKNESS);
+		}
 
+	}
 }
 
-void CommandPanel::addOption(const OPTION option)
+void CommandPanel::setOptionsFor(GameEntity& gameEntity)
+{
+	addOption(OPTION::WARRIOR, 0);
+	addOption(OPTION::ARCHER, 1);
+}
+
+void CommandPanel::addOption(const OPTION option, const unsigned slot)
 {
 	sf::RectangleShape test;
-	test.setSize({20, 20});
+	test.setSize({50, 50});
 	test.setFillColor(sf::Color::Red);
-	test.setPosition({ area_.left, area_.top});
+	test.setPosition({ area_.left + 100*slot, area_.top});
 
 	icons_.insert({ option , test });
 }

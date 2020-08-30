@@ -116,6 +116,9 @@
     <ClCompile Include="src\Barracks.cpp">
       <Filter>Source Files\Levels\Game\Buildings</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameEntity.cpp">
+      <Filter>Source Files\Levels\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -200,6 +203,9 @@
       <Filter>Source Files\Levels\Game\Buildings</Filter>
     </ClInclude>
     <ClInclude Include="src\CommandPanel.h">
+      <Filter>Source Files\Levels\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEntity.h">
       <Filter>Source Files\Levels\Game</Filter>
     </ClInclude>
   </ItemGroup>

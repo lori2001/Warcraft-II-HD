@@ -45,7 +45,7 @@ void GameLevel::handleEvents(const sf::Event& event)
 		}
 	}
 	else {
-		commandPanel_.handleEvents(event);
+		commandPanel_.handleEvents(event, ng::Cursor::getPosition());
 		gameplay_.handleEvents(event, commandPanel_);
 
 		if (gameplay_.getGlobalBounds().contains(ng::Cursor::getPosition()) && event.type == sf::Event::MouseButtonPressed)

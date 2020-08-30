@@ -4,9 +4,10 @@
 #include "Map.h"
 #include "Style.h"
 
+#include "GameEntity.h"
 #include "CommandPanel.h"
 
-class Barracks : public sf::Drawable {
+class Barracks : public sf::Drawable, public GameEntity {
 public:
 	Barracks(const sf::Vector2i& tilePosition) {
 		NG_LOG_ERROR(MapFile::getTileSize());
@@ -16,6 +17,11 @@ public:
 		shape_.setTextureRect(textureRect_);
 
 		shape_.setOutlineColor({ color::IN_GAME_SELECT_R, color::IN_GAME_SELECT_G, color::IN_GAME_SELECT_B });
+
+
+		// init game entity
+		spawnLocation_ = shape_.getPosition();
+		NG_LOG_ERROR(spawnLocation_);
 	}
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -26,14 +32,14 @@ public:
 
 		if (state_ != STATES::ACTIVE) {
 			if (shape_.getGlobalBounds().intersects(mouseRect)) {
-				shape_.setOutlineThickness(selectThickness_);
+				shape_.setOutlineThickness(size::IN_GAME_OUTLINE_THICKNESS);
 
 				if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased) {
 					state_ = STATES::ACTIVE;
 
 					// intialize command panel
 					// TODO proper
-					commandPanel.addOption(CommandPanel::OPTION::WORKER);
+					commandPanel.setOptionsFor(*this);
 				}
 
 			}
@@ -43,22 +49,16 @@ public:
 
 		}
 		else {
-			shape_.setOutlineThickness(selectThickness_);
+			shape_.setOutlineThickness(size::IN_GAME_OUTLINE_THICKNESS);
 
 			if (event.type == sf::Event::MouseButtonPressed && !shape_.getGlobalBounds().intersects(mouseRect)) {
 				state_ = STATES::NONE;
-
-				// remove commands from command panel
-				commandPanel.clearAllOptions();
 			}
 		}
 		
 	}
 
 private:
-	inline static const float selectThickness_ = 2.5F;
-
-	sf::RectangleShape shape_;
 	const sf::IntRect textureRect_ = { 5, 5, 122, 116 };
 
 	enum class STATES {
